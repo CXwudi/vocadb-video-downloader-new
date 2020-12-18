@@ -1,0 +1,33 @@
+# application setting
+
+downloader:
+  io: # input and output dir, can be relative path
+    input-directory: asd
+    output-directory: dsa
+
+  config:
+    pv-preference:
+      - NicoNicoDouga
+      - Youtube
+      - Bilibili
+
+    # which website use which config
+    enablement:
+
+    nico-pure-youtube-dl:
+      youtube-dl-path: dummy.exe
+      youtube-dl-options:
+        -v:
+        --http-chunk-size: 15M
+
+    youtube:
+      youtube-dl-path: dummy.exe
+        youtube-dl-options:
+          -v:
+
+# spring setting
+
+spring:
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
