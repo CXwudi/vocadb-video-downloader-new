@@ -22,8 +22,8 @@ downloader:
 
     youtube:
       youtube-dl-path: dummy.exe
-        youtube-dl-options:
-          -v:
+      youtube-dl-options:
+        -v:
 
 # spring setting
 
