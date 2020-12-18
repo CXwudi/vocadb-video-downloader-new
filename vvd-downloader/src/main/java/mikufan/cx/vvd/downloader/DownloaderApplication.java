@@ -1,7 +1,6 @@
 package mikufan.cx.vvd.downloader;
 
 import lombok.extern.slf4j.Slf4j;
-import mikufan.cx.vvd.downloader.config.io.ApplicationIO;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
@@ -16,8 +15,5 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 public class DownloaderApplication {
   public static void main(String[] args) {
     var applicationContext = SpringApplication.run(DownloaderApplication.class, args);
-    var applicationIo = applicationContext.getBean(ApplicationIO.class);
-    log.info("applicationIo = {}", applicationIo.getInputDirectory().toAbsolutePath().toString()
-        + ", " + applicationIo.getOutputDirectory().toAbsolutePath().toString());
   }
 }
