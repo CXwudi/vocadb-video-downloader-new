@@ -1,0 +1,240 @@
+{
+  "albums" : [ {
+    "additionalNames" : "",
+    "artistString" : "八王子P feat. 初音ミク, 巡音ルカ, 鏡音リン",
+    "coverPictureMime" : "image/jpeg",
+    "createDate" : "2019-07-09T09:09:06.303",
+    "deleted" : false,
+    "discType" : "Album",
+    "id" : 26926,
+    "name" : "GRAPHIX",
+    "ratingAverage" : 4.9,
+    "ratingCount" : 10,
+    "releaseDate" : {
+      "day" : 28,
+      "formatted" : "8/28/2019",
+      "isEmpty" : false,
+      "month" : 8,
+      "year" : 2019
+    },
+    "status" : "Finished",
+    "version" : 19
+  } ],
+  "artists" : [ {
+    "artist" : {
+      "additionalNames" : "HachioujiP, 8#Prince, HachiojiP, 802P",
+      "artistType" : "Producer",
+      "deleted" : false,
+      "id" : 38,
+      "name" : "八王子P",
+      "pictureMime" : "image/png",
+      "status" : "Approved",
+      "version" : 36
+    },
+    "categories" : "Producer",
+    "effectiveRoles" : "Arranger, Composer",
+    "id" : 646483,
+    "isCustomName" : false,
+    "isSupport" : false,
+    "name" : "八王子P",
+    "roles" : "Arranger, Composer"
+  }, {
+    "artist" : {
+      "additionalNames" : "GigaP",
+      "artistType" : "Producer",
+      "deleted" : false,
+      "id" : 772,
+      "name" : "ギガP",
+      "pictureMime" : "image/jpeg",
+      "status" : "Finished",
+      "version" : 18
+    },
+    "categories" : "Producer",
+    "effectiveRoles" : "Arranger, Composer",
+    "id" : 646484,
+    "isCustomName" : false,
+    "isSupport" : false,
+    "name" : "ギガP",
+    "roles" : "Arranger, Composer"
+  }, {
+    "artist" : {
+      "additionalNames" : "",
+      "artistType" : "Lyricist",
+      "deleted" : false,
+      "id" : 6063,
+      "name" : "q*Left",
+      "pictureMime" : "image/jpeg",
+      "status" : "Finished",
+      "version" : 3
+    },
+    "categories" : "Other",
+    "effectiveRoles" : "Lyricist",
+    "id" : 646485,
+    "isCustomName" : false,
+    "isSupport" : false,
+    "name" : "q*Left",
+    "roles" : "Lyricist"
+  }, {
+    "artist" : {
+      "additionalNames" : "RAM",
+      "artistType" : "Illustrator",
+      "deleted" : false,
+      "id" : 59773,
+      "name" : "LAM",
+      "pictureMime" : "image/jpeg",
+      "status" : "Finished",
+      "version" : 5
+    },
+    "categories" : "Illustrator",
+    "effectiveRoles" : "Illustrator",
+    "id" : 684187,
+    "isCustomName" : false,
+    "isSupport" : false,
+    "name" : "LAM",
+    "roles" : "Default"
+  }, {
+    "categories" : "Animator",
+    "effectiveRoles" : "Animator",
+    "id" : 684188,
+    "isCustomName" : true,
+    "isSupport" : false,
+    "name" : "Ryo Asakura",
+    "roles" : "Animator"
+  }, {
+    "artist" : {
+      "additionalNames" : "Kagamine Rin V4 (English)",
+      "artistType" : "Vocaloid",
+      "deleted" : false,
+      "id" : 43220,
+      "name" : "鏡音リン V4 (English)",
+      "pictureMime" : "image/png",
+      "releaseDate" : "2015-12-24T00:00:00Z",
+      "status" : "Finished",
+      "version" : 14
+    },
+    "categories" : "Vocalist",
+    "effectiveRoles" : "Default",
+    "id" : 684223,
+    "isCustomName" : false,
+    "isSupport" : false,
+    "name" : "鏡音リン V4 (English)",
+    "roles" : "Default"
+  }, {
+    "artist" : {
+      "additionalNames" : "Hatsune Miku V4 (English)",
+      "artistType" : "Vocaloid",
+      "deleted" : false,
+      "id" : 49724,
+      "name" : "初音ミク V4 (English)",
+      "pictureMime" : "image/png",
+      "releaseDate" : "2016-08-31T00:00:00Z",
+      "status" : "Finished",
+      "version" : 20
+    },
+    "categories" : "Vocalist",
+    "effectiveRoles" : "Default",
+    "id" : 684224,
+    "isCustomName" : false,
+    "isSupport" : false,
+    "name" : "初音ミク V4 (English)",
+    "roles" : "Default"
+  }, {
+    "artist" : {
+      "additionalNames" : "Hatsune Miku V4X (Unknown)",
+      "artistType" : "Vocaloid",
+      "deleted" : false,
+      "id" : 41322,
+      "name" : "初音ミク V4X (Unknown)",
+      "pictureMime" : "image/png",
+      "releaseDate" : "2016-08-31T00:00:00Z",
+      "status" : "Finished",
+      "version" : 26
+    },
+    "categories" : "Vocalist",
+    "effectiveRoles" : "Default",
+    "id" : 684225,
+    "isCustomName" : false,
+    "isSupport" : false,
+    "name" : "初音ミク V4X (Unknown)",
+    "roles" : "Default"
+  }, {
+    "artist" : {
+      "additionalNames" : "Kagamine Rin V4X (Unknown)",
+      "artistType" : "Vocaloid",
+      "deleted" : false,
+      "id" : 43192,
+      "name" : "鏡音リン V4X (Unknown)",
+      "pictureMime" : "image/png",
+      "releaseDate" : "2015-12-24T00:00:00Z",
+      "status" : "Finished",
+      "version" : 17
+    },
+    "categories" : "Vocalist",
+    "effectiveRoles" : "Default",
+    "id" : 684226,
+    "isCustomName" : false,
+    "isSupport" : false,
+    "name" : "鏡音リン V4X (Unknown)",
+    "roles" : "Default"
+  } ],
+  "artistString" : "八王子P, ギガP feat. 鏡音リン V4 (English), 初音ミク V4 (English), 初音ミク V4X, 鏡音リン V4X",
+  "createDate" : "2019-07-19T22:56:06.55",
+  "defaultName" : "Gimme×Gimme",
+  "defaultNameLanguage" : "English",
+  "deleted" : false,
+  "favoritedTimes" : 17,
+  "id" : 246033,
+  "lengthSeconds" : 220,
+  "mergedTo" : 0,
+  "name" : "Gimme×Gimme",
+  "originalVersionId" : 0,
+  "publishDate" : "2019-08-28T00:00:00Z",
+  "pvs" : [ {
+    "author" : "八王子P",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 369641,
+    "length" : 221,
+    "name" : "八王子P × Giga「Gimme×Gimme feat. 初音ミク・鏡音リン」",
+    "publishDate" : "2019-10-26T00:00:00",
+    "pvId" : "ERo-sPa1a5g",
+    "service" : "Youtube",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i.ytimg.com/vi/ERo-sPa1a5g/default.jpg",
+    "url" : "https://youtu.be/ERo-sPa1a5g"
+  }, {
+    "author" : "八王子P",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 369642,
+    "length" : 220,
+    "name" : "【初音ミク×鏡音リン】Gimme×Gimme【八王子P×Giga】",
+    "publishDate" : "2019-10-26T00:00:00",
+    "pvId" : "sm35866152",
+    "service" : "NicoNicoDouga",
+    "pvType" : "Original",
+    "thumbUrl" : "http://nicovideo.cdn.nimg.jp/thumbnails/35866152/35866152.16699174",
+    "url" : "http://www.nicovideo.jp/watch/sm35866152"
+  }, {
+    "author" : "八王子P_公式",
+    "createdBy" : 0,
+    "disabled" : false,
+    "extendedMetadata" : {
+      "json" : "{\"Cid\":125771837}"
+    },
+    "id" : 369764,
+    "length" : 222,
+    "name" : "八王子P × Giga「Gimme×Gimme feat. 初音ミク・鏡音リン」",
+    "publishDate" : "2019-10-26T00:00:00",
+    "pvId" : "73527536",
+    "service" : "Bilibili",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i2.hdslb.com/bfs/archive/ac137852aeae98f4057be2b5be87bd9dcf82b8d0.jpg",
+    "url" : "https://www.bilibili.com/video/av73527536"
+  } ],
+  "pvServices" : "NicoNicoDouga, Youtube, Bilibili",
+  "ratingScore" : 95,
+  "songType" : "Original",
+  "status" : "Finished",
+  "version" : 15
+}

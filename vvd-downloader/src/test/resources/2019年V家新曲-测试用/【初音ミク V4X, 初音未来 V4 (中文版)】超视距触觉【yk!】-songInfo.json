@@ -1,0 +1,93 @@
+{
+  "albums" : [ ],
+  "artists" : [ ],
+  "artistString" : "yk! feat. 初音ミク V4X, 初音未来 V4 (中文版)",
+  "createDate" : "2019-03-05T16:43:11.357",
+  "defaultName" : "超视距触觉",
+  "defaultNameLanguage" : "Japanese",
+  "deleted" : false,
+  "favoritedTimes" : 0,
+  "id" : 228535,
+  "lengthSeconds" : 260,
+  "mergedTo" : 0,
+  "name" : "超视距触觉",
+  "originalVersionId" : 0,
+  "publishDate" : "2019-03-05T00:00:00Z",
+  "pvs" : [ {
+    "author" : "ykykyukai",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 325961,
+    "length" : 260,
+    "name" : "【初音ミク】超视距触觉【オリジナル】",
+    "publishDate" : "2019-03-05T00:00:00",
+    "pvId" : "sm34731763",
+    "service" : "NicoNicoDouga",
+    "pvType" : "Original",
+    "thumbUrl" : "https://tn.smilevideo.jp/smile?i=34731763.78630",
+    "url" : "http://www.nicovideo.jp/watch/sm34731763"
+  }, {
+    "author" : "ykykyukai",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 325962,
+    "length" : 259,
+    "name" : "【初音ミクv4c & v4x】超视距触觉",
+    "publishDate" : "2019-02-25T00:00:00",
+    "pvId" : "581037801 axpwyk/v4c-v4x",
+    "service" : "SoundCloud",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i1.sndcdn.com/artworks-000494542884-0ipa0t-large.jpg",
+    "url" : "http://soundcloud.com/axpwyk/v4c-v4x"
+  }, {
+    "author" : "ykykyukai",
+    "createdBy" : 0,
+    "disabled" : false,
+    "extendedMetadata" : {
+      "json" : "{\"Timestamp\":\"20190226020632\"}"
+    },
+    "id" : 325963,
+    "length" : 259,
+    "name" : "【初音ミク】超视距触觉【オリジナル】",
+    "publishDate" : "2019-02-26T00:00:00",
+    "pvId" : "qetctnkp6w96ttbi",
+    "service" : "Piapro",
+    "pvType" : "Original",
+    "thumbUrl" : "",
+    "url" : "http://piapro.jp/content/qetctnkp6w96ttbi"
+  }, {
+    "author" : "ykykyukai",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 325964,
+    "length" : 261,
+    "name" : "【初音ミク】超视距触觉【オリジナル】",
+    "publishDate" : "2019-03-05T00:00:00",
+    "pvId" : "rqW6UBHXmzU",
+    "service" : "Youtube",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i.ytimg.com/vi/rqW6UBHXmzU/default.jpg",
+    "url" : "https://youtu.be/rqW6UBHXmzU"
+  }, {
+    "author" : "ykykyukai",
+    "createdBy" : 0,
+    "disabled" : false,
+    "extendedMetadata" : {
+      "json" : "{\"Cid\":79561723}"
+    },
+    "id" : 326982,
+    "length" : 0,
+    "name" : "【初音未来/中日双语原创曲】超视距触觉【yk!】",
+    "publishDate" : "2019-03-05T00:00:00",
+    "pvId" : "45442568",
+    "service" : "Bilibili",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i0.hdslb.com/bfs/archive/3c6824da3a67f84b38e08032404748fe563243e1.jpg",
+    "url" : "https://www.bilibili.com/video/av45442568"
+  } ],
+  "pvServices" : "NicoNicoDouga, Youtube, SoundCloud, Piapro, Bilibili",
+  "ratingScore" : 0,
+  "songType" : "Original",
+  "status" : "Finished",
+  "version" : 5
+}

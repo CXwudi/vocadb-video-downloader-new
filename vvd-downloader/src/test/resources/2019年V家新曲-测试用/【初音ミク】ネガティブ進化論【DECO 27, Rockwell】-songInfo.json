@@ -1,0 +1,83 @@
+{
+  "albums" : [ {
+    "additionalNames" : "Negative Shinkaron, Theory of Negativity",
+    "artistString" : "DECO*27 feat. 初音ミク",
+    "coverPictureMime" : "image/jpeg",
+    "createDate" : "2020-02-27T06:01:53.663",
+    "deleted" : false,
+    "discType" : "Single",
+    "id" : 28133,
+    "name" : "ネガティブ進化論",
+    "ratingAverage" : 5.0,
+    "ratingCount" : 2,
+    "releaseDate" : {
+      "day" : 11,
+      "formatted" : "1/11/2020",
+      "isEmpty" : false,
+      "month" : 1,
+      "year" : 2020
+    },
+    "status" : "Finished",
+    "version" : 8
+  } ],
+  "artistString" : "DECO*27, Rockwell feat. 初音ミク",
+  "createDate" : "2019-12-20T12:33:09.513",
+  "defaultName" : "ネガティブ進化論",
+  "defaultNameLanguage" : "Japanese",
+  "deleted" : false,
+  "favoritedTimes" : 13,
+  "id" : 265018,
+  "lengthSeconds" : 192,
+  "mergedTo" : 0,
+  "name" : "ネガティブ進化論",
+  "originalVersionId" : 0,
+  "publishDate" : "2019-12-20T00:00:00Z",
+  "pvs" : [ {
+    "author" : "DECO*27",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 378841,
+    "length" : 192,
+    "name" : "DECO*27 - ネガティブ進化論 feat. 初音ミク",
+    "publishDate" : "2019-12-20T00:00:00",
+    "pvId" : "UrqEy_arieg",
+    "service" : "Youtube",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i.ytimg.com/vi/UrqEy_arieg/default.jpg",
+    "url" : "https://youtu.be/UrqEy_arieg"
+  }, {
+    "author" : "DECO*27",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 378858,
+    "length" : 191,
+    "name" : "DECO*27 - ネガティブ進化論 feat. 初音ミク",
+    "publishDate" : "2019-12-20T00:00:00",
+    "pvId" : "sm36093941",
+    "service" : "NicoNicoDouga",
+    "pvType" : "Original",
+    "thumbUrl" : "http://nicovideo.cdn.nimg.jp/thumbnails/36093941/36093941.98544753",
+    "url" : "http://www.nicovideo.jp/watch/sm36093941"
+  }, {
+    "author" : "DECO27_Official",
+    "createdBy" : 0,
+    "disabled" : false,
+    "extendedMetadata" : {
+      "json" : "{\"Cid\":136239833}"
+    },
+    "id" : 378908,
+    "length" : 192,
+    "name" : "DECO*27 - ネガティブ進化論 feat. 初音未来",
+    "publishDate" : "2019-12-20T00:00:00",
+    "pvId" : "79605633",
+    "service" : "Bilibili",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i2.hdslb.com/bfs/archive/2a9c4e27bf4e7f4e3eb4d0cad16b1e55f7583c58.jpg",
+    "url" : "https://www.bilibili.com/video/av79605633"
+  } ],
+  "pvServices" : "NicoNicoDouga, Youtube, Bilibili",
+  "ratingScore" : 71,
+  "songType" : "Original",
+  "status" : "Finished",
+  "version" : 6
+}

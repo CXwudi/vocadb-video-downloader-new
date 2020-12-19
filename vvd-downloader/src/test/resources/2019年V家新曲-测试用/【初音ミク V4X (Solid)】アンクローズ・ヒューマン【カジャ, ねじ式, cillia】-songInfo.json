@@ -1,0 +1,63 @@
+{
+  "albums" : [ ],
+  "artistString" : "カジャ, ねじ式, cillia feat. 初音ミク V4X (Solid)",
+  "createDate" : "2019-10-05T13:55:37.087",
+  "defaultName" : "アンクローズ・ヒューマン",
+  "defaultNameLanguage" : "Japanese",
+  "deleted" : false,
+  "favoritedTimes" : 23,
+  "id" : 256042,
+  "lengthSeconds" : 288,
+  "mergedTo" : 0,
+  "name" : "アンクローズ・ヒューマン",
+  "originalVersionId" : 0,
+  "publishDate" : "2019-10-05T00:00:00Z",
+  "pvs" : [ {
+    "author" : "カジャ",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 366107,
+    "length" : 288,
+    "name" : "アンクローズ・ヒューマン/初音ミク",
+    "publishDate" : "2019-10-05T00:00:00",
+    "pvId" : "sm35755698",
+    "service" : "NicoNicoDouga",
+    "pvType" : "Original",
+    "thumbUrl" : "http://nicovideo.cdn.nimg.jp/thumbnails/35755698/35755698.68814930",
+    "url" : "http://www.nicovideo.jp/watch/sm35755698"
+  }, {
+    "author" : "カジャ",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 366115,
+    "length" : 289,
+    "name" : "アンクローズ・ヒューマン/初音ミク",
+    "publishDate" : "2019-10-05T00:00:00",
+    "pvId" : "OeadMRojh18",
+    "service" : "Youtube",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i.ytimg.com/vi/OeadMRojh18/default.jpg",
+    "url" : "https://youtu.be/OeadMRojh18"
+  }, {
+    "author" : "歌惹カジャ",
+    "createdBy" : 0,
+    "disabled" : false,
+    "extendedMetadata" : {
+      "json" : "{\"Cid\":121559701}"
+    },
+    "id" : 366116,
+    "length" : 289,
+    "name" : "アンクローズ・ヒューマン/初音ミク",
+    "publishDate" : "2019-10-05T00:00:00",
+    "pvId" : "70164836",
+    "service" : "Bilibili",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i1.hdslb.com/bfs/archive/33c082cb9e4fd2a73aabe15e58d4589c9ec97896.jpg",
+    "url" : "https://www.bilibili.com/video/av70164836"
+  } ],
+  "pvServices" : "NicoNicoDouga, Youtube, Bilibili",
+  "ratingScore" : 105,
+  "songType" : "Original",
+  "status" : "Finished",
+  "version" : 17
+}

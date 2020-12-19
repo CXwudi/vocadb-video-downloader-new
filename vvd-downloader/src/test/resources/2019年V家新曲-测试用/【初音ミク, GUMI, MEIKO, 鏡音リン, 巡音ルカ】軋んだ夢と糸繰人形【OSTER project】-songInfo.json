@@ -1,0 +1,212 @@
+{
+  "albums" : [ {
+    "additionalNames" : "OSTER-san no CD VOL.2, OSTER-san's CD VOL.2",
+    "artistString" : "OSTER project feat. various",
+    "coverPictureMime" : "image/jpeg",
+    "createDate" : "2019-12-22T13:22:41.473",
+    "deleted" : false,
+    "discType" : "Album",
+    "id" : 27843,
+    "name" : "OSTERさんのCD VOL.2",
+    "ratingAverage" : 5.0,
+    "ratingCount" : 1,
+    "releaseDate" : {
+      "day" : 31,
+      "formatted" : "12/31/2019",
+      "isEmpty" : false,
+      "month" : 12,
+      "year" : 2019
+    },
+    "releaseEvent" : {
+      "category" : "Unspecified",
+      "date" : "2019-12-28T00:00:00Z",
+      "endDate" : "2019-12-31T00:00:00Z",
+      "id" : 2012,
+      "name" : "Comiket 97",
+      "seriesId" : 3,
+      "seriesNumber" : 97,
+      "seriesSuffix" : "",
+      "status" : "Draft",
+      "urlSlug" : "comiket-97",
+      "version" : 2
+    },
+    "status" : "Draft",
+    "version" : 10
+  } ],
+  "artists" : [ {
+    "artist" : {
+      "additionalNames" : "不破志奈, ふわしな, fuwacina ",
+      "artistType" : "Producer",
+      "deleted" : false,
+      "id" : 58,
+      "name" : "OSTER project",
+      "pictureMime" : "image/jpeg",
+      "status" : "Approved",
+      "version" : 28
+    },
+    "categories" : "Producer",
+    "effectiveRoles" : "Default",
+    "id" : 685368,
+    "isCustomName" : false,
+    "isSupport" : false,
+    "name" : "OSTER project",
+    "roles" : "Default"
+  }, {
+    "artist" : {
+      "additionalNames" : "Hatsune Miku",
+      "artistType" : "Vocaloid",
+      "deleted" : false,
+      "id" : 1,
+      "name" : "初音ミク",
+      "pictureMime" : "image/png",
+      "releaseDate" : "2007-08-31T00:00:00Z",
+      "status" : "Locked",
+      "version" : 23
+    },
+    "categories" : "Vocalist",
+    "effectiveRoles" : "Default",
+    "id" : 685369,
+    "isCustomName" : false,
+    "isSupport" : false,
+    "name" : "初音ミク",
+    "roles" : "Default"
+  }, {
+    "artist" : {
+      "additionalNames" : "グミ, Megpoid, メグッポイド",
+      "artistType" : "Vocaloid",
+      "deleted" : false,
+      "id" : 3,
+      "name" : "GUMI",
+      "pictureMime" : "image/jpeg",
+      "releaseDate" : "2009-06-26T00:00:00Z",
+      "status" : "Approved",
+      "version" : 37
+    },
+    "categories" : "Vocalist",
+    "effectiveRoles" : "Default",
+    "id" : 685370,
+    "isCustomName" : false,
+    "isSupport" : false,
+    "name" : "GUMI",
+    "roles" : "Default"
+  }, {
+    "artist" : {
+      "additionalNames" : "メイコ",
+      "artistType" : "Vocaloid",
+      "deleted" : false,
+      "id" : 176,
+      "name" : "MEIKO",
+      "pictureMime" : "image/png",
+      "releaseDate" : "2004-11-05T00:00:00Z",
+      "status" : "Approved",
+      "version" : 26
+    },
+    "categories" : "Vocalist",
+    "effectiveRoles" : "Default",
+    "id" : 685371,
+    "isCustomName" : false,
+    "isSupport" : false,
+    "name" : "MEIKO",
+    "roles" : "Default"
+  }, {
+    "artist" : {
+      "additionalNames" : "Kagamine Rin",
+      "artistType" : "Vocaloid",
+      "deleted" : false,
+      "id" : 14,
+      "name" : "鏡音リン",
+      "pictureMime" : "image/png",
+      "releaseDate" : "2007-12-27T00:00:00Z",
+      "status" : "Approved",
+      "version" : 25
+    },
+    "categories" : "Vocalist",
+    "effectiveRoles" : "Default",
+    "id" : 685372,
+    "isCustomName" : false,
+    "isSupport" : false,
+    "name" : "鏡音リン",
+    "roles" : "Default"
+  }, {
+    "artist" : {
+      "additionalNames" : "Megurine Luka",
+      "artistType" : "Vocaloid",
+      "deleted" : false,
+      "id" : 2,
+      "name" : "巡音ルカ",
+      "pictureMime" : "image/png",
+      "releaseDate" : "2009-01-30T00:00:00Z",
+      "status" : "Locked",
+      "version" : 17
+    },
+    "categories" : "Vocalist",
+    "effectiveRoles" : "Default",
+    "id" : 685373,
+    "isCustomName" : false,
+    "isSupport" : false,
+    "name" : "巡音ルカ",
+    "roles" : "Default"
+  }, {
+    "artist" : {
+      "additionalNames" : "Usagi",
+      "artistType" : "Illustrator",
+      "deleted" : false,
+      "id" : 9770,
+      "name" : "うさぎ",
+      "pictureMime" : "image/jpeg",
+      "status" : "Finished",
+      "version" : 4
+    },
+    "categories" : "Illustrator",
+    "effectiveRoles" : "Illustrator",
+    "id" : 685374,
+    "isCustomName" : false,
+    "isSupport" : false,
+    "name" : "うさぎ",
+    "roles" : "Default"
+  } ],
+  "artistString" : "OSTER project feat. 初音ミク, GUMI, MEIKO, 鏡音リン, 巡音ルカ",
+  "createDate" : "2019-10-31T00:34:27.277",
+  "defaultName" : "軋んだ夢と糸繰人形",
+  "defaultNameLanguage" : "Japanese",
+  "deleted" : false,
+  "favoritedTimes" : 2,
+  "id" : 259123,
+  "lengthSeconds" : 259,
+  "mergedTo" : 0,
+  "name" : "軋んだ夢と糸繰人形",
+  "originalVersionId" : 0,
+  "publishDate" : "2019-10-31T00:00:00Z",
+  "pvs" : [ {
+    "author" : "ふわふわシナモン",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 370317,
+    "length" : 259,
+    "name" : "【ミクリンルカメイコグミ】軋んだ夢と糸繰人形（マリオネット）【オリジナル曲】",
+    "publishDate" : "2019-10-31T00:00:00",
+    "pvId" : "sm35886773",
+    "service" : "NicoNicoDouga",
+    "pvType" : "Original",
+    "thumbUrl" : "http://nicovideo.cdn.nimg.jp/thumbnails/35886773/35886773.3342311",
+    "url" : "http://www.nicovideo.jp/watch/sm35886773"
+  }, {
+    "author" : "OSTER project",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 370318,
+    "length" : 260,
+    "name" : "【VOCALOID】軋んだ夢と糸繰人形（マリオネット）【ミクリンルカメイコグミ】",
+    "publishDate" : "2019-10-30T00:00:00",
+    "pvId" : "h7Qkd5IOF1w",
+    "service" : "Youtube",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i.ytimg.com/vi/h7Qkd5IOF1w/default.jpg",
+    "url" : "https://youtu.be/h7Qkd5IOF1w"
+  } ],
+  "pvServices" : "NicoNicoDouga, Youtube",
+  "ratingScore" : 8,
+  "songType" : "Original",
+  "status" : "Finished",
+  "version" : 2
+}

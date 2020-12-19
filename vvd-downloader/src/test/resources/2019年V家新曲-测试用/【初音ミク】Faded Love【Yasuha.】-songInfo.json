@@ -1,0 +1,92 @@
+{
+  "albums" : [ ],
+  "artistString" : "Yasuha. feat. 初音ミク",
+  "createDate" : "2019-02-10T15:27:55.687",
+  "defaultName" : "Faded Love",
+  "defaultNameLanguage" : "English",
+  "deleted" : false,
+  "favoritedTimes" : 2,
+  "id" : 225816,
+  "lengthSeconds" : 226,
+  "mergedTo" : 0,
+  "name" : "Faded Love",
+  "originalVersionId" : 0,
+  "publishDate" : "2019-02-10T00:00:00Z",
+  "pvs" : [ {
+    "author" : "Yasuha.",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 322083,
+    "length" : 226,
+    "name" : "【初音ミク】Faded Love【オリジナル曲】",
+    "publishDate" : "2019-02-10T00:00:00",
+    "pvId" : "sm34608192",
+    "service" : "NicoNicoDouga",
+    "pvType" : "Original",
+    "thumbUrl" : "https://tn.smilevideo.jp/smile?i=34608192.2158",
+    "url" : "http://www.nicovideo.jp/watch/sm34608192"
+  }, {
+    "author" : "Yasuha. Official",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 322084,
+    "length" : 227,
+    "name" : "Yasuha. - Faded Love feat. Hatsune Miku　【初音ミク】【オリジナル曲】",
+    "publishDate" : "2019-02-10T00:00:00",
+    "pvId" : "87bILFJqLTM",
+    "service" : "Youtube",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i.ytimg.com/vi/87bILFJqLTM/default.jpg",
+    "url" : "https://youtu.be/87bILFJqLTM"
+  }, {
+    "author" : "Yasuha.",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 322258,
+    "length" : 218,
+    "name" : "Hatsune Miku - Faded Love feat. Yasuha.",
+    "publishDate" : "2019-02-10T00:00:00",
+    "pvId" : "573033714 yasuha_jp/fadedlove",
+    "service" : "SoundCloud",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i1.sndcdn.com/artworks-000486240666-f3m84f-large.jpg",
+    "url" : "http://soundcloud.com/yasuha_jp/fadedlove"
+  }, {
+    "author" : "Yasuha",
+    "createdBy" : 0,
+    "disabled" : false,
+    "extendedMetadata" : {
+      "json" : "{\"Timestamp\":\"20190210203606\"}"
+    },
+    "id" : 322259,
+    "length" : 218,
+    "name" : "初音ミク - Faded Love feat. Yasuha.",
+    "publishDate" : "2019-02-10T00:00:00",
+    "pvId" : "5kz7mu03ngtlcza7",
+    "service" : "Piapro",
+    "pvType" : "Original",
+    "thumbUrl" : "",
+    "url" : "http://piapro.jp/content/5kz7mu03ngtlcza7"
+  }, {
+    "author" : "Yasuha_Official",
+    "createdBy" : 0,
+    "disabled" : false,
+    "extendedMetadata" : {
+      "json" : "{\"Cid\":75640081}"
+    },
+    "id" : 340704,
+    "length" : 227,
+    "name" : "【初音未來原创曲】Yasuha. - 褪色的愛（Faded Love）【初音ミク】",
+    "publishDate" : "2019-02-10T00:00:00",
+    "pvId" : "43152502",
+    "service" : "Bilibili",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i1.hdslb.com/bfs/archive/81432b3886ac5d3e1cb4100db161e47181625568.jpg",
+    "url" : "https://www.bilibili.com/video/av43152502"
+  } ],
+  "pvServices" : "NicoNicoDouga, Youtube, SoundCloud, Piapro, Bilibili",
+  "ratingScore" : 16,
+  "songType" : "Original",
+  "status" : "Finished",
+  "version" : 5
+}

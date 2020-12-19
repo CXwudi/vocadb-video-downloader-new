@@ -1,0 +1,63 @@
+{
+  "albums" : [ ],
+  "artistString" : "ピノキオピー feat. 初音ミク",
+  "createDate" : "2019-10-15T19:43:42.683",
+  "defaultName" : "アルティメットセンパイ",
+  "defaultNameLanguage" : "Japanese",
+  "deleted" : false,
+  "favoritedTimes" : 10,
+  "id" : 257182,
+  "lengthSeconds" : 219,
+  "mergedTo" : 0,
+  "name" : "アルティメットセンパイ",
+  "originalVersionId" : 0,
+  "publishDate" : "2019-10-16T00:00:00Z",
+  "pvs" : [ {
+    "author" : "ピノキオピー PINOCCHIOP OFFICIAL CHANNEL",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 367743,
+    "length" : 219,
+    "name" : "PinocchioP - Ultimate Senpai  / ピノキオピー - アルティメットセンパイ",
+    "publishDate" : "2019-10-15T00:00:00",
+    "pvId" : "MnJq5kSn-GY",
+    "service" : "Youtube",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i.ytimg.com/vi/MnJq5kSn-GY/default.jpg",
+    "url" : "https://youtu.be/MnJq5kSn-GY"
+  }, {
+    "author" : "ピノキオピー",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 367798,
+    "length" : 218,
+    "name" : "アルティメットセンパイ / 初音ミク",
+    "publishDate" : "2019-10-16T00:00:00",
+    "pvId" : "sm35818693",
+    "service" : "NicoNicoDouga",
+    "pvType" : "Original",
+    "thumbUrl" : "http://nicovideo.cdn.nimg.jp/thumbnails/35818693/35818693.61422570",
+    "url" : "http://www.nicovideo.jp/watch/sm35818693"
+  }, {
+    "author" : "ピノキオピー_official",
+    "createdBy" : 0,
+    "disabled" : false,
+    "extendedMetadata" : {
+      "json" : "{\"Cid\":123590368}"
+    },
+    "id" : 367808,
+    "length" : 219,
+    "name" : "【初音ミク】究极前辈【ピノキオピー】",
+    "publishDate" : "2019-10-16T00:00:00",
+    "pvId" : "71329096",
+    "service" : "Bilibili",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i1.hdslb.com/bfs/archive/5d0a7cec11993392631e090468fd01491371c179.jpg",
+    "url" : "https://www.bilibili.com/video/av71329096"
+  } ],
+  "pvServices" : "NicoNicoDouga, Youtube, Bilibili",
+  "ratingScore" : 68,
+  "songType" : "Original",
+  "status" : "Finished",
+  "version" : 7
+}

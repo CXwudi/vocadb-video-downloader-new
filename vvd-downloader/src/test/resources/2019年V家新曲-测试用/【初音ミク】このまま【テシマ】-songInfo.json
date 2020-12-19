@@ -1,0 +1,63 @@
+{
+  "albums" : [ ],
+  "artistString" : "テシマ feat. 初音ミク",
+  "createDate" : "2019-12-01T15:35:22.487",
+  "defaultName" : "このまま",
+  "defaultNameLanguage" : "Japanese",
+  "deleted" : false,
+  "favoritedTimes" : 0,
+  "id" : 262831,
+  "lengthSeconds" : 261,
+  "mergedTo" : 0,
+  "name" : "このまま",
+  "originalVersionId" : 0,
+  "publishDate" : "2019-12-01T00:00:00Z",
+  "pvs" : [ {
+    "author" : "テシマ",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 375456,
+    "length" : 261,
+    "name" : "このまま / テシマ feat.初音ミク",
+    "publishDate" : "2019-12-01T00:00:00",
+    "pvId" : "sm36028587",
+    "service" : "NicoNicoDouga",
+    "pvType" : "Original",
+    "thumbUrl" : "http://nicovideo.cdn.nimg.jp/thumbnails/36028587/36028587.678244",
+    "url" : "http://www.nicovideo.jp/watch/sm36028587"
+  }, {
+    "author" : "テシマ / Teshima",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 375458,
+    "length" : 262,
+    "name" : "このまま / テシマ feat.初音ミク",
+    "publishDate" : "2019-12-01T00:00:00",
+    "pvId" : "vQGsnUUeDqQ",
+    "service" : "Youtube",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i.ytimg.com/vi/vQGsnUUeDqQ/default.jpg",
+    "url" : "https://youtu.be/vQGsnUUeDqQ"
+  }, {
+    "author" : "_Teshima",
+    "createdBy" : 0,
+    "disabled" : false,
+    "extendedMetadata" : {
+      "json" : "{\"Cid\":132930590}"
+    },
+    "id" : 375647,
+    "length" : 262,
+    "name" : "このまま / Teshima feat.初音未来",
+    "publishDate" : "2019-12-01T00:00:00",
+    "pvId" : "77704523",
+    "service" : "Bilibili",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i2.hdslb.com/bfs/archive/c93057a0fd8f4b668cb2cb829d06d500f74a3586.jpg",
+    "url" : "https://www.bilibili.com/video/av77704523"
+  } ],
+  "pvServices" : "NicoNicoDouga, Youtube, Bilibili",
+  "ratingScore" : 0,
+  "songType" : "Original",
+  "status" : "Finished",
+  "version" : 3
+}

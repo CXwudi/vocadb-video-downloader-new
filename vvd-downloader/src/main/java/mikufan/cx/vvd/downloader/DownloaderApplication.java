@@ -1,6 +1,7 @@
 package mikufan.cx.vvd.downloader;
 
 import lombok.extern.slf4j.Slf4j;
+import mikufan.cx.vvd.downloader.service.MainRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
@@ -15,5 +16,6 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 public class DownloaderApplication {
   public static void main(String[] args) {
     var applicationContext = SpringApplication.run(DownloaderApplication.class, args);
+    applicationContext.getBean(MainRunner.class).run();
   }
 }

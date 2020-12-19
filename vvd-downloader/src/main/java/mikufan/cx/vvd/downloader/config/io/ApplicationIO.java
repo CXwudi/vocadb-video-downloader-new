@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
+import mikufan.cx.vvd.common.validation.annotation.IsDirectory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.validation.annotation.Validated;
@@ -22,7 +23,10 @@ import java.nio.file.Path;
 @AllArgsConstructor @Getter @ToString
 public class ApplicationIO {
 
-  @NotNull
+  /**
+   * can put an custom annotation for checking input dir
+   */
+  @NotNull @IsDirectory
   Path inputDirectory;
 
   @NotNull

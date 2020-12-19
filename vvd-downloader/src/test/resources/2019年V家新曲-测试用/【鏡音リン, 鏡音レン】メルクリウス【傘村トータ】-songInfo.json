@@ -1,0 +1,63 @@
+{
+  "albums" : [ ],
+  "artistString" : "傘村トータ feat. 鏡音リン, 鏡音レン",
+  "createDate" : "2019-07-18T19:50:06.917",
+  "defaultName" : "メルクリウス",
+  "defaultNameLanguage" : "Japanese",
+  "deleted" : false,
+  "favoritedTimes" : 1,
+  "id" : 245890,
+  "lengthSeconds" : 255,
+  "mergedTo" : 0,
+  "name" : "メルクリウス",
+  "originalVersionId" : 230655,
+  "publishDate" : "2019-07-18T00:00:00Z",
+  "pvs" : [ {
+    "author" : "傘村トータ",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 351877,
+    "length" : 255,
+    "name" : "メルクリウス　/  feat. 鏡音リン & 鏡音レン",
+    "publishDate" : "2019-07-18T00:00:00",
+    "pvId" : "sm35417933",
+    "service" : "NicoNicoDouga",
+    "pvType" : "Original",
+    "thumbUrl" : "http://nicovideo.cdn.nimg.jp/thumbnails/35417933/35417933.95679378",
+    "url" : "http://www.nicovideo.jp/watch/sm35417933"
+  }, {
+    "author" : "傘村トータ",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 351878,
+    "length" : 256,
+    "name" : "メルクリウス　/  feat. 鏡音リン & 鏡音レン",
+    "publishDate" : "2019-07-18T00:00:00",
+    "pvId" : "HACdIyzrSHk",
+    "service" : "Youtube",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i.ytimg.com/vi/HACdIyzrSHk/default.jpg",
+    "url" : "https://youtu.be/HACdIyzrSHk"
+  }, {
+    "author" : "傘村トータ",
+    "createdBy" : 0,
+    "disabled" : false,
+    "extendedMetadata" : {
+      "json" : "{\"Cid\":104044073}"
+    },
+    "id" : 352004,
+    "length" : 256,
+    "name" : "【鏡音リン & 鏡音レン】メルクリウス【傘村トータ】",
+    "publishDate" : "2019-07-18T00:00:00",
+    "pvId" : "59727648",
+    "service" : "Bilibili",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i1.hdslb.com/bfs/archive/d518f1fee920007e805e8e8fb92e102e23c338f3.jpg",
+    "url" : "https://www.bilibili.com/video/av59727648"
+  } ],
+  "pvServices" : "NicoNicoDouga, Youtube, Bilibili",
+  "ratingScore" : 9,
+  "songType" : "Cover",
+  "status" : "Finished",
+  "version" : 4
+}

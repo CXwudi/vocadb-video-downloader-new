@@ -2,8 +2,8 @@
 
 downloader:
   io: # input and output dir, can be relative path
-    input-directory: asd
-    output-directory: dsa
+    input-directory:
+    output-directory:
 
   config:
     pv-preference:
@@ -15,13 +15,16 @@ downloader:
     enablement:
 
     nico-pure-youtube-dl:
-      youtube-dl-path: dummy.exe
+      youtube-dl-path:
       youtube-dl-options:
         -v:
         --http-chunk-size: 15M
 
     youtube:
-      youtube-dl-path: dummy.exe
+      youtube-dl-path:
+      # to get high quality youtube video,
+      # we need to download have ffmpeg for youtube-dl to use it
+      ffmpeg-path:
       youtube-dl-options:
         -v:
 
@@ -31,3 +34,7 @@ spring:
   jackson:
     deserialization:
       fail-on-unknown-properties: true
+
+logging:
+  level:
+    mikufan: debug

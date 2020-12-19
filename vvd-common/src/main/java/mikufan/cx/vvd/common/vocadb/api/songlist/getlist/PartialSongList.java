@@ -15,6 +15,6 @@ import mikufan.cx.vvd.common.vocadb.api.common.PartialFindResult;
 @Getter @ToString
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @SuperBuilder(toBuilder = true) @Jacksonized
-public final class PartialSongList extends PartialFindResult<SongInList> {
+public final class PartialSongList extends PartialFindResult<SongInListForApi> {
 
 }

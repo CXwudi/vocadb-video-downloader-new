@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
+import mikufan.cx.vvd.common.validation.annotation.IsFile;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.validation.annotation.Validated;
@@ -24,7 +25,7 @@ import java.util.Map;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class NicoNicoPureYoutubeDlConfig {
 
-  @NotNull
+  @NotNull @IsFile
   Path youtubeDlPath;
 
   Map<String, String> youtubeDlOptions;

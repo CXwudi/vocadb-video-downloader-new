@@ -1,0 +1,83 @@
+{
+  "albums" : [ {
+    "additionalNames" : "Vocalo de Oboeru Chuugaku Suugaku, Remember Middle School Mathematics with VOCALOID",
+    "artistString" : "Various artists",
+    "coverPictureMime" : "image/jpeg",
+    "createDate" : "2017-02-11T02:10:47",
+    "deleted" : false,
+    "discType" : "Album",
+    "id" : 22394,
+    "name" : "ボカロで覚える中学数学",
+    "ratingAverage" : 4.0,
+    "ratingCount" : 3,
+    "releaseDate" : {
+      "day" : 21,
+      "formatted" : "2/21/2017",
+      "isEmpty" : false,
+      "month" : 2,
+      "year" : 2017
+    },
+    "status" : "Finished",
+    "version" : 11
+  } ],
+  "artistString" : "れるりり feat. 初音ミク, GUMI",
+  "createDate" : "2017-02-11T02:52:40",
+  "defaultName" : "解の公式おぼえMATH!",
+  "defaultNameLanguage" : "Japanese",
+  "deleted" : false,
+  "favoritedTimes" : 2,
+  "id" : 148980,
+  "lengthSeconds" : 259,
+  "mergedTo" : 0,
+  "name" : "解の公式おぼえMATH!",
+  "originalVersionId" : 0,
+  "publishDate" : "2017-02-21T00:00:00Z",
+  "pvs" : [ {
+    "author" : "れるりり公式チャンネル/rerulili Official Channel",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 348574,
+    "length" : 265,
+    "name" : "Let`s remember Quadratic formula  - rerulili feat.Miku&Gumi　 - 解の公式おぼえMATH! れるりり feat.初音ミク&GUMI",
+    "publishDate" : "2019-06-27T00:00:00",
+    "pvId" : "uthDb550lDs",
+    "service" : "Youtube",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i.ytimg.com/vi/uthDb550lDs/default.jpg",
+    "url" : "https://youtu.be/uthDb550lDs"
+  }, {
+    "author" : "れるりり",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 348580,
+    "length" : 264,
+    "name" : "【初音ミク＆GUMI】解の公式おぼえMATH！【オリジナル】",
+    "publishDate" : "2019-06-27T00:00:00",
+    "pvId" : "sm35284372",
+    "service" : "NicoNicoDouga",
+    "pvType" : "Original",
+    "thumbUrl" : "http://nicovideo.cdn.nimg.jp/thumbnails/35284372/35284372.27902587",
+    "url" : "http://www.nicovideo.jp/watch/sm35284372"
+  }, {
+    "author" : "手速超慢的弟弟",
+    "createdBy" : 0,
+    "disabled" : false,
+    "extendedMetadata" : {
+      "json" : "{\"Cid\":99571261}"
+    },
+    "id" : 349529,
+    "length" : 265,
+    "name" : "【初音ミク＆GUMI】解の公式おぼえMATH！【オリジナル】",
+    "publishDate" : "2019-06-27T00:00:00",
+    "pvId" : "57010079",
+    "service" : "Bilibili",
+    "pvType" : "Reprint",
+    "thumbUrl" : "https://i0.hdslb.com/bfs/archive/86d4c0bb287b5e13a16d5fd2d5a1d8e690cf7699.jpg",
+    "url" : "https://www.bilibili.com/video/av57010079"
+  } ],
+  "pvServices" : "NicoNicoDouga, Youtube, Bilibili",
+  "ratingScore" : 10,
+  "songType" : "Original",
+  "status" : "Finished",
+  "version" : 8
+}

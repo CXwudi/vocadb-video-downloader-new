@@ -1,0 +1,83 @@
+{
+  "albums" : [ {
+    "additionalNames" : "Snow Shadow",
+    "artistString" : "てぃあら feat. 初音ミク",
+    "coverPictureMime" : "image/jpeg",
+    "createDate" : "2020-01-16T02:53:37.05",
+    "deleted" : false,
+    "discType" : "Single",
+    "id" : 27944,
+    "name" : "雪影",
+    "ratingAverage" : 0.0,
+    "ratingCount" : 0,
+    "releaseDate" : {
+      "day" : 15,
+      "formatted" : "1/15/2020",
+      "isEmpty" : false,
+      "month" : 1,
+      "year" : 2020
+    },
+    "status" : "Finished",
+    "version" : 3
+  } ],
+  "artistString" : "てぃあら, Jun feat. 初音ミク",
+  "createDate" : "2019-12-24T13:02:57.88",
+  "defaultName" : "雪影",
+  "defaultNameLanguage" : "Japanese",
+  "deleted" : false,
+  "favoritedTimes" : 4,
+  "id" : 265716,
+  "lengthSeconds" : 225,
+  "mergedTo" : 0,
+  "name" : "雪影",
+  "originalVersionId" : 0,
+  "publishDate" : "2019-12-24T00:00:00Z",
+  "pvs" : [ {
+    "author" : "StudioTiara",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 379970,
+    "length" : 225,
+    "name" : "【初音ミク】雪影【オリジナルMV】",
+    "publishDate" : "2019-12-24T00:00:00",
+    "pvId" : "4DCJ2Sp4BpU",
+    "service" : "Youtube",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i.ytimg.com/vi/4DCJ2Sp4BpU/default.jpg",
+    "url" : "https://youtu.be/4DCJ2Sp4BpU"
+  }, {
+    "author" : "てぃあら",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 379973,
+    "length" : 224,
+    "name" : "【初音ミク】雪影【オリジナルMV】",
+    "publishDate" : "2019-12-24T00:00:00",
+    "pvId" : "sm36123597",
+    "service" : "NicoNicoDouga",
+    "pvType" : "Original",
+    "thumbUrl" : "http://nicovideo.cdn.nimg.jp/thumbnails/36123597/36123597.85628999",
+    "url" : "http://www.nicovideo.jp/watch/sm36123597"
+  }, {
+    "author" : "てぃあら",
+    "createdBy" : 0,
+    "disabled" : false,
+    "extendedMetadata" : {
+      "json" : "{\"Cid\":137467237}"
+    },
+    "id" : 380097,
+    "length" : 225,
+    "name" : "【第一篇文章】雪影【初音未来】",
+    "publishDate" : "2019-12-24T00:00:00",
+    "pvId" : "80332783",
+    "service" : "Bilibili",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i2.hdslb.com/bfs/archive/6688fd04df18fa3d46ed4a7d07b5fb8812e72ecd.jpg",
+    "url" : "https://www.bilibili.com/video/av80332783"
+  } ],
+  "pvServices" : "NicoNicoDouga, Youtube, Bilibili",
+  "ratingScore" : 24,
+  "songType" : "Original",
+  "status" : "Finished",
+  "version" : 6
+}

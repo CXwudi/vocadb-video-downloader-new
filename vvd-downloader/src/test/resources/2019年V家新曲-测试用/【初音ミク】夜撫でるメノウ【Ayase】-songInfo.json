@@ -1,0 +1,63 @@
+{
+  "albums" : [ ],
+  "artistString" : "Ayase feat. 初音ミク",
+  "createDate" : "2019-02-10T15:31:51.233",
+  "defaultName" : "夜撫でるメノウ",
+  "defaultNameLanguage" : "Japanese",
+  "deleted" : false,
+  "favoritedTimes" : 3,
+  "id" : 225817,
+  "lengthSeconds" : 279,
+  "mergedTo" : 0,
+  "name" : "夜撫でるメノウ",
+  "originalVersionId" : 0,
+  "publishDate" : "2019-02-10T00:00:00Z",
+  "pvs" : [ {
+    "author" : "Ayase",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 322085,
+    "length" : 279,
+    "name" : "夜撫でるメノウ feat. 初音ミク",
+    "publishDate" : "2019-02-10T00:00:00",
+    "pvId" : "sm34608999",
+    "service" : "NicoNicoDouga",
+    "pvType" : "Original",
+    "thumbUrl" : "https://tn.smilevideo.jp/smile?i=34608999.13856",
+    "url" : "http://www.nicovideo.jp/watch/sm34608999"
+  }, {
+    "author" : "Ayase _",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 322280,
+    "length" : 280,
+    "name" : "夜撫でるメノウ feat. 初音ミク",
+    "publishDate" : "2019-02-11T00:00:00",
+    "pvId" : "2sHKKjeKfVM",
+    "service" : "Youtube",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i.ytimg.com/vi/2sHKKjeKfVM/default.jpg",
+    "url" : "https://youtu.be/2sHKKjeKfVM"
+  }, {
+    "author" : "Ayase_0404",
+    "createdBy" : 0,
+    "disabled" : false,
+    "extendedMetadata" : {
+      "json" : "{\"Cid\":75772468}"
+    },
+    "id" : 388688,
+    "length" : 280,
+    "name" : "【初音ミク】夜撫でるメノウ / Ayase",
+    "publishDate" : "2019-02-11T00:00:00",
+    "pvId" : "43220012",
+    "service" : "Bilibili",
+    "pvType" : "Original",
+    "thumbUrl" : "https://i1.hdslb.com/bfs/archive/5f1aa89ec4b143ebbc60d0e7552133cb5128b445.jpg",
+    "url" : "https://www.bilibili.com/video/av43220012"
+  } ],
+  "pvServices" : "NicoNicoDouga, Youtube, Bilibili",
+  "ratingScore" : 19,
+  "songType" : "Original",
+  "status" : "Finished",
+  "version" : 7
+}
