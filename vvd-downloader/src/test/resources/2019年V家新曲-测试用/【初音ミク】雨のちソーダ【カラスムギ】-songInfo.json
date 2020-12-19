@@ -8,8 +8,8 @@
     "discType" : "Single",
     "id" : 26999,
     "name" : "雨のちソーダ",
-    "ratingAverage" : 0.0,
-    "ratingCount" : 0,
+    "ratingAverage" : 5.0,
+    "ratingCount" : 1,
     "releaseDate" : {
       "day" : 26,
       "formatted" : "7/26/2019",
@@ -23,11 +23,11 @@
       "id" : 2745,
       "name" : "初音ミク「マジカルミライ 2019」楽曲コンテスト特集",
       "seriesId" : 165,
-      "seriesNumber" : 3,
+      "seriesNumber" : 2019,
       "seriesSuffix" : "",
       "status" : "Finished",
       "urlSlug" : "hatsune-miku-magical-mirai-201",
-      "version" : 3
+      "version" : 4
     },
     "status" : "Finished",
     "version" : 3
@@ -88,7 +88,7 @@
     "url" : "http://www.nicovideo.jp/watch/sm35447200"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube, Piapro",
-  "ratingScore" : 8,
+  "ratingScore" : 10,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 6

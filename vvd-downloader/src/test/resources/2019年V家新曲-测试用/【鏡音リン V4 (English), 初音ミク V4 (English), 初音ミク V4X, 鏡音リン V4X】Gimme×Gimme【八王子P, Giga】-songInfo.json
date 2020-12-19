@@ -8,8 +8,8 @@
     "discType" : "Album",
     "id" : 26926,
     "name" : "GRAPHIX",
-    "ratingAverage" : 4.9,
-    "ratingCount" : 10,
+    "ratingAverage" : 4.78,
+    "ratingCount" : 14,
     "releaseDate" : {
       "day" : 28,
       "formatted" : "8/28/2019",
@@ -40,21 +40,21 @@
     "roles" : "Arranger, Composer"
   }, {
     "artist" : {
-      "additionalNames" : "GigaP",
+      "additionalNames" : "ギガ",
       "artistType" : "Producer",
       "deleted" : false,
       "id" : 772,
-      "name" : "ギガP",
+      "name" : "Giga",
       "pictureMime" : "image/jpeg",
       "status" : "Finished",
-      "version" : 18
+      "version" : 20
     },
     "categories" : "Producer",
     "effectiveRoles" : "Arranger, Composer",
     "id" : 646484,
     "isCustomName" : false,
     "isSupport" : false,
-    "name" : "ギガP",
+    "name" : "Giga",
     "roles" : "Arranger, Composer"
   }, {
     "artist" : {
@@ -147,8 +147,8 @@
       "name" : "初音ミク V4X (Unknown)",
       "pictureMime" : "image/png",
       "releaseDate" : "2016-08-31T00:00:00Z",
-      "status" : "Finished",
-      "version" : 26
+      "status" : "Approved",
+      "version" : 27
     },
     "categories" : "Vocalist",
     "effectiveRoles" : "Default",
@@ -177,12 +177,12 @@
     "name" : "鏡音リン V4X (Unknown)",
     "roles" : "Default"
   } ],
-  "artistString" : "八王子P, ギガP feat. 鏡音リン V4 (English), 初音ミク V4 (English), 初音ミク V4X, 鏡音リン V4X",
+  "artistString" : "八王子P, Giga feat. 鏡音リン V4 (English), 初音ミク V4 (English), 初音ミク V4X, 鏡音リン V4X",
   "createDate" : "2019-07-19T22:56:06.55",
   "defaultName" : "Gimme×Gimme",
   "defaultNameLanguage" : "English",
   "deleted" : false,
-  "favoritedTimes" : 17,
+  "favoritedTimes" : 22,
   "id" : 246033,
   "lengthSeconds" : 220,
   "mergedTo" : 0,
@@ -233,7 +233,7 @@
     "url" : "https://www.bilibili.com/video/av73527536"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube, Bilibili",
-  "ratingScore" : 95,
+  "ratingScore" : 124,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 15

@@ -9,7 +9,7 @@
     "id" : 27845,
     "name" : "ドンツーミュージック4",
     "ratingAverage" : 5.0,
-    "ratingCount" : 2,
+    "ratingCount" : 3,
     "releaseDate" : {
       "day" : 31,
       "formatted" : "12/31/2019",
@@ -38,7 +38,7 @@
   "defaultName" : "ヒウマノイドズヒウマニズム",
   "defaultNameLanguage" : "Japanese",
   "deleted" : false,
-  "favoritedTimes" : 5,
+  "favoritedTimes" : 6,
   "id" : 265405,
   "lengthSeconds" : 208,
   "mergedTo" : 0,
@@ -73,7 +73,7 @@
     "url" : "https://youtu.be/kEl7HTuXTV8"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube",
-  "ratingScore" : 19,
+  "ratingScore" : 26,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 3

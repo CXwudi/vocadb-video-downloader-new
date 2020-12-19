@@ -2,7 +2,7 @@
   "albums" : [ {
     "additionalNames" : "Teioh Education",
     "artistString" : "Omoi feat. 初音ミク",
-    "coverPictureMime" : "image/jpeg",
+    "coverPictureMime" : "image/png",
     "createDate" : "2019-06-16T00:07:38.163",
     "deleted" : false,
     "discType" : "Single",
@@ -18,7 +18,7 @@
       "year" : 2019
     },
     "status" : "Finished",
-    "version" : 5
+    "version" : 6
   }, {
     "additionalNames" : "Night Confession",
     "artistString" : "Omoi feat. 初音ミク, 鏡音リン",
@@ -28,8 +28,8 @@
     "discType" : "Album",
     "id" : 27092,
     "name" : "ナイトコンフェッション",
-    "ratingAverage" : 5.0,
-    "ratingCount" : 4,
+    "ratingAverage" : 4.66,
+    "ratingCount" : 6,
     "releaseDate" : {
       "day" : 10,
       "formatted" : "8/10/2019",
@@ -51,8 +51,8 @@
       "venueName" : "インテックス大阪",
       "version" : 4
     },
-    "status" : "Finished",
-    "version" : 10
+    "status" : "Approved",
+    "version" : 13
   } ],
   "artistString" : "Omoi feat. 初音ミク",
   "createDate" : "2019-06-13T13:25:42.083",

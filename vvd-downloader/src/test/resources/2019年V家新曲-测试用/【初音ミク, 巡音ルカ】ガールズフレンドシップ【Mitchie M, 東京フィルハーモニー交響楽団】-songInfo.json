@@ -9,7 +9,7 @@
     "id" : 26491,
     "name" : "初音ミクシンフォニー~Miku Symphony 2018-2019~ オーケストラ ライブ CD",
     "ratingAverage" : 5.0,
-    "ratingCount" : 4,
+    "ratingCount" : 8,
     "releaseDate" : {
       "day" : 24,
       "formatted" : "4/24/2019",
@@ -30,7 +30,7 @@
   "lengthSeconds" : 227,
   "mergedTo" : 0,
   "name" : "ガールズフレンドシップ",
-  "originalVersionId" : 0,
+  "originalVersionId" : 251477,
   "publishDate" : "2019-04-23T00:00:00Z",
   "pvs" : [ {
     "author" : "Tokyo Philharmonic Orchestra - Topic",
@@ -48,7 +48,7 @@
   } ],
   "pvServices" : "Youtube",
   "ratingScore" : 14,
-  "songType" : "Original",
+  "songType" : "Remix",
   "status" : "Finished",
-  "version" : 12
+  "version" : 13
 }

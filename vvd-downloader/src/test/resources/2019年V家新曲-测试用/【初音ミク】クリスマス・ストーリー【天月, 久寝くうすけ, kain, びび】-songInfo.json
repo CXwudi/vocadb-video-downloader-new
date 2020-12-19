@@ -63,7 +63,7 @@
       "name" : "kain",
       "pictureMime" : "image/jpeg",
       "status" : "Finished",
-      "version" : 4
+      "version" : 5
     },
     "categories" : "Producer",
     "effectiveRoles" : "Arranger",
@@ -175,5 +175,5 @@
   "ratingScore" : 10,
   "songType" : "Original",
   "status" : "Finished",
-  "version" : 5
+  "version" : 6
 }

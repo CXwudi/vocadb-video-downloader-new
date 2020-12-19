@@ -8,7 +8,7 @@
     "discType" : "Album",
     "id" : 28091,
     "name" : "ROSE",
-    "ratingAverage" : 1.0,
+    "ratingAverage" : 5.0,
     "ratingCount" : 1,
     "releaseDate" : {
       "day" : 22,
@@ -25,7 +25,7 @@
   "defaultName" : "春嵐",
   "defaultNameLanguage" : "Japanese",
   "deleted" : false,
-  "favoritedTimes" : 4,
+  "favoritedTimes" : 6,
   "id" : 263327,
   "lengthSeconds" : 154,
   "mergedTo" : 0,
@@ -60,7 +60,7 @@
     "url" : "https://youtu.be/pUH9vCsvq08"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube",
-  "ratingScore" : 22,
+  "ratingScore" : 28,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 5

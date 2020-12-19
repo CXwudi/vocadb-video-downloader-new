@@ -8,8 +8,8 @@
     "discType" : "Album",
     "id" : 27672,
     "name" : "Parallel Planet",
-    "ratingAverage" : 4.5,
-    "ratingCount" : 2,
+    "ratingAverage" : 4.66,
+    "ratingCount" : 3,
     "releaseDate" : {
       "day" : 17,
       "formatted" : "11/17/2019",
@@ -38,7 +38,7 @@
   "defaultName" : "チョコレートミルク",
   "defaultNameLanguage" : "Japanese",
   "deleted" : false,
-  "favoritedTimes" : 8,
+  "favoritedTimes" : 9,
   "id" : 254981,
   "lengthSeconds" : 143,
   "mergedTo" : 0,
@@ -86,7 +86,7 @@
     "url" : "https://youtu.be/9Muc48f3mO8"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube",
-  "ratingScore" : 52,
+  "ratingScore" : 53,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 5

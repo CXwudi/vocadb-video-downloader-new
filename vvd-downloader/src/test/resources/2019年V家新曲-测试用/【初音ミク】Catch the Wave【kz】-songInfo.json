@@ -9,7 +9,7 @@
     "id" : 27607,
     "name" : "初音ミク Project DIVA MEGA39’s 10th アニバーサリーコレクション",
     "ratingAverage" : 5.0,
-    "ratingCount" : 2,
+    "ratingCount" : 3,
     "releaseDate" : {
       "day" : 13,
       "formatted" : "2/13/2020",
@@ -45,7 +45,7 @@
   "defaultName" : "Catch the Wave",
   "defaultNameLanguage" : "English",
   "deleted" : false,
-  "favoritedTimes" : 14,
+  "favoritedTimes" : 16,
   "id" : 251481,
   "lengthSeconds" : 206,
   "mergedTo" : 0,
@@ -119,7 +119,7 @@
     "url" : "http://www.nicovideo.jp/watch/1567038727"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube",
-  "ratingScore" : 104,
+  "ratingScore" : 118,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 7

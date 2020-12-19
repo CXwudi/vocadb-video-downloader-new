@@ -8,8 +8,8 @@
     "discType" : "Album",
     "id" : 27614,
     "name" : "しう",
-    "ratingAverage" : 5.0,
-    "ratingCount" : 11,
+    "ratingAverage" : 4.93,
+    "ratingCount" : 15,
     "releaseDate" : {
       "day" : 17,
       "formatted" : "11/17/2019",
@@ -38,7 +38,7 @@
   "defaultName" : "しう",
   "defaultNameLanguage" : "Japanese",
   "deleted" : false,
-  "favoritedTimes" : 10,
+  "favoritedTimes" : 13,
   "id" : 260455,
   "lengthSeconds" : 278,
   "mergedTo" : 0,
@@ -115,8 +115,8 @@
     "url" : "https://www.bilibili.com/video/av75100423"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube, Bilibili",
-  "ratingScore" : 56,
+  "ratingScore" : 67,
   "songType" : "Original",
   "status" : "Finished",
-  "version" : 10
+  "version" : 12
 }

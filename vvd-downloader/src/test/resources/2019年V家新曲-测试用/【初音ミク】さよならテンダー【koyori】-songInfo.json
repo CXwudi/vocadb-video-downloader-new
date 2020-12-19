@@ -9,7 +9,7 @@
     "id" : 27822,
     "name" : "flannel",
     "ratingAverage" : 5.0,
-    "ratingCount" : 1,
+    "ratingCount" : 2,
     "releaseDate" : {
       "day" : 31,
       "formatted" : "12/31/2019",
@@ -38,7 +38,7 @@
   "defaultName" : "さよならテンダー",
   "defaultNameLanguage" : "Japanese",
   "deleted" : false,
-  "favoritedTimes" : 8,
+  "favoritedTimes" : 10,
   "id" : 227212,
   "lengthSeconds" : 262,
   "mergedTo" : 0,
@@ -73,7 +73,7 @@
     "url" : "https://youtu.be/CcILr3E7T_8"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube",
-  "ratingScore" : 44,
+  "ratingScore" : 50,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 5

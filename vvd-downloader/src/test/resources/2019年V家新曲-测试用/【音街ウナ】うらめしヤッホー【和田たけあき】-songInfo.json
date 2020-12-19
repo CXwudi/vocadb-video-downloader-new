@@ -9,7 +9,7 @@
     "id" : 27014,
     "name" : "デッドマン・タイムズ",
     "ratingAverage" : 5.0,
-    "ratingCount" : 3,
+    "ratingCount" : 5,
     "releaseDate" : {
       "day" : 10,
       "formatted" : "8/10/2019",
@@ -75,7 +75,7 @@
     "url" : "http://www.nicovideo.jp/watch/sm35489203"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube",
-  "ratingScore" : 40,
+  "ratingScore" : 44,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 5

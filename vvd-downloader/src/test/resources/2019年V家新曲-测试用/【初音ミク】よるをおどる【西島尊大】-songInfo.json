@@ -37,7 +37,7 @@
   "defaultName" : "よるをおどる",
   "defaultNameLanguage" : "Japanese",
   "deleted" : false,
-  "favoritedTimes" : 2,
+  "favoritedTimes" : 3,
   "id" : 211186,
   "lengthSeconds" : 298,
   "mergedTo" : 0,
@@ -72,7 +72,7 @@
     "url" : "https://youtu.be/cj3itYWAw9A"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube",
-  "ratingScore" : 10,
+  "ratingScore" : 15,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 5

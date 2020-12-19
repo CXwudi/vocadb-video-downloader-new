@@ -5,7 +5,7 @@
   "defaultName" : "アンクローズ・ヒューマン",
   "defaultNameLanguage" : "Japanese",
   "deleted" : false,
-  "favoritedTimes" : 23,
+  "favoritedTimes" : 25,
   "id" : 256042,
   "lengthSeconds" : 288,
   "mergedTo" : 0,
@@ -56,8 +56,8 @@
     "url" : "https://www.bilibili.com/video/av70164836"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube, Bilibili",
-  "ratingScore" : 105,
+  "ratingScore" : 119,
   "songType" : "Original",
   "status" : "Finished",
-  "version" : 17
+  "version" : 18
 }

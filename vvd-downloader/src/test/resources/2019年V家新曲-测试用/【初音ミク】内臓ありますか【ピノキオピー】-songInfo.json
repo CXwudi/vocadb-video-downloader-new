@@ -8,8 +8,8 @@
     "discType" : "Album",
     "id" : 26130,
     "name" : "零号",
-    "ratingAverage" : 4.94,
-    "ratingCount" : 17,
+    "ratingAverage" : 4.95,
+    "ratingCount" : 21,
     "releaseDate" : {
       "day" : 27,
       "formatted" : "2/27/2019",
@@ -17,15 +17,34 @@
       "month" : 2,
       "year" : 2019
     },
-    "status" : "Finished",
-    "version" : 19
+    "status" : "Approved",
+    "version" : 20
+  }, {
+    "additionalNames" : "PINOCCHIOP BEST ALBUM 2009-2020 Kotobuki",
+    "artistString" : "ピノキオピー feat. 初音ミク",
+    "createDate" : "2020-11-24T06:30:40.583",
+    "deleted" : false,
+    "discType" : "Compilation",
+    "id" : 29256,
+    "name" : "PINOCCHIOP BEST ALBUM 2009-2020 寿",
+    "ratingAverage" : 0.0,
+    "ratingCount" : 0,
+    "releaseDate" : {
+      "day" : 17,
+      "formatted" : "2/17/2021",
+      "isEmpty" : false,
+      "month" : 2,
+      "year" : 2021
+    },
+    "status" : "Draft",
+    "version" : 3
   } ],
   "artistString" : "ピノキオピー feat. 初音ミク",
   "createDate" : "2018-12-25T00:38:40.12",
   "defaultName" : "内臓ありますか",
   "defaultNameLanguage" : "Japanese",
   "deleted" : false,
-  "favoritedTimes" : 17,
+  "favoritedTimes" : 18,
   "id" : 219729,
   "lengthSeconds" : 206,
   "mergedTo" : 0,
@@ -76,7 +95,7 @@
     "url" : "https://www.bilibili.com/video/av41344405"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube, Bilibili",
-  "ratingScore" : 91,
+  "ratingScore" : 100,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 6

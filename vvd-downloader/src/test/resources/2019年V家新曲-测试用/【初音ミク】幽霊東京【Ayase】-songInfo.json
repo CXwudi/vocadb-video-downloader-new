@@ -9,7 +9,7 @@
     "id" : 27749,
     "name" : "幽霊東京",
     "ratingAverage" : 5.0,
-    "ratingCount" : 2,
+    "ratingCount" : 3,
     "releaseDate" : {
       "day" : 17,
       "formatted" : "11/17/2019",
@@ -38,7 +38,7 @@
   "defaultName" : "幽霊東京",
   "defaultNameLanguage" : "Japanese",
   "deleted" : false,
-  "favoritedTimes" : 5,
+  "favoritedTimes" : 6,
   "id" : 262740,
   "lengthSeconds" : 204,
   "mergedTo" : 0,
@@ -73,7 +73,7 @@
     "url" : "https://youtu.be/lWl5viCqGSc"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube",
-  "ratingScore" : 35,
+  "ratingScore" : 38,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 4

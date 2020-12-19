@@ -1,6 +1,6 @@
 {
   "albums" : [ {
-    "additionalNames" : "Virtual Popstar",
+    "additionalNames" : "Virtual Pop Star",
     "artistString" : "Mitchie M feat. various",
     "coverPictureMime" : "image/jpeg",
     "createDate" : "2019-08-29T12:22:32.677",
@@ -8,8 +8,8 @@
     "discType" : "Album",
     "id" : 27162,
     "name" : "バーチャル・ポップスター",
-    "ratingAverage" : 4.93,
-    "ratingCount" : 16,
+    "ratingAverage" : 4.95,
+    "ratingCount" : 20,
     "releaseDate" : {
       "day" : 6,
       "formatted" : "11/6/2019",
@@ -17,15 +17,15 @@
       "month" : 11,
       "year" : 2019
     },
-    "status" : "Finished",
-    "version" : 26
+    "status" : "Approved",
+    "version" : 31
   } ],
   "artistString" : "Mitchie M feat. 初音ミク, 鏡音リン",
   "createDate" : "2019-08-27T12:58:23.187",
   "defaultName" : "リングの熾天使",
   "defaultNameLanguage" : "Japanese",
   "deleted" : false,
-  "favoritedTimes" : 17,
+  "favoritedTimes" : 20,
   "id" : 251400,
   "lengthSeconds" : 229,
   "mergedTo" : 0,
@@ -102,7 +102,7 @@
     "url" : "https://youtu.be/6dBGgU_0ytw"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube, SoundCloud, Bilibili",
-  "ratingScore" : 97,
+  "ratingScore" : 114,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 15

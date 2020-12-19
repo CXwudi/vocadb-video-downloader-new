@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @Slf4j
 @SpringBootTest(properties = {
-    "downloader.io.input-directory=src/test/resources/2019年V家新曲-测试用",
+    "downloader.io.input-directory=2019年V家新曲-测试用",
     "downloader.io.output-directory=dsa",
     "downloader.config.nico-pure-youtube-dl.youtube-dl-path=dummy.exe",
     "downloader.config.youtube.youtube-dl-path=dummy.exe",

@@ -9,7 +9,7 @@
     "id" : 26302,
     "name" : "EXIT TUNES PRESENTS Vocalostream feat.初音ミク",
     "ratingAverage" : 4.9,
-    "ratingCount" : 10,
+    "ratingCount" : 11,
     "releaseDate" : {
       "day" : 20,
       "formatted" : "3/20/2019",
@@ -29,7 +29,7 @@
     "id" : 27049,
     "name" : "If the world3",
     "ratingAverage" : 5.0,
-    "ratingCount" : 1,
+    "ratingCount" : 2,
     "releaseDate" : {
       "day" : 12,
       "formatted" : "8/12/2019",
@@ -339,7 +339,7 @@
   "defaultName" : "Alice in N.Y.",
   "defaultNameLanguage" : "English",
   "deleted" : false,
-  "favoritedTimes" : 11,
+  "favoritedTimes" : 12,
   "id" : 224386,
   "lengthSeconds" : 233,
   "mergedTo" : 0,
@@ -403,7 +403,7 @@
     "url" : "https://www.bilibili.com/video/av48868473"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube, Bilibili",
-  "ratingScore" : 57,
+  "ratingScore" : 66,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 10

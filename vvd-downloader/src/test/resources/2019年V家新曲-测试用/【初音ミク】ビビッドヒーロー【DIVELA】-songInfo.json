@@ -9,7 +9,7 @@
     "id" : 26934,
     "name" : "ミライコレクション",
     "ratingAverage" : 5.0,
-    "ratingCount" : 3,
+    "ratingCount" : 5,
     "releaseDate" : {
       "day" : 10,
       "formatted" : "8/10/2019",
@@ -39,7 +39,7 @@
   "defaultName" : "ビビッドヒーロー",
   "defaultNameLanguage" : "Japanese",
   "deleted" : false,
-  "favoritedTimes" : 5,
+  "favoritedTimes" : 6,
   "id" : 226649,
   "lengthSeconds" : 194,
   "mergedTo" : 0,
@@ -74,7 +74,7 @@
     "url" : "http://www.nicovideo.jp/watch/sm34630231"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube",
-  "ratingScore" : 35,
+  "ratingScore" : 38,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 6

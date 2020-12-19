@@ -9,7 +9,7 @@
     "id" : 28133,
     "name" : "ネガティブ進化論",
     "ratingAverage" : 5.0,
-    "ratingCount" : 2,
+    "ratingCount" : 4,
     "releaseDate" : {
       "day" : 11,
       "formatted" : "1/11/2020",
@@ -18,14 +18,34 @@
       "year" : 2020
     },
     "status" : "Finished",
-    "version" : 8
+    "version" : 9
+  }, {
+    "additionalNames" : "UNDEAD ALICE",
+    "artistString" : "DECO*27 feat. 初音ミク",
+    "coverPictureMime" : "image/jpeg",
+    "createDate" : "2020-09-04T15:17:37.707",
+    "deleted" : false,
+    "discType" : "Album",
+    "id" : 28721,
+    "name" : "アンデッドアリス",
+    "ratingAverage" : 4.83,
+    "ratingCount" : 6,
+    "releaseDate" : {
+      "day" : 16,
+      "formatted" : "12/16/2020",
+      "isEmpty" : false,
+      "month" : 12,
+      "year" : 2020
+    },
+    "status" : "Approved",
+    "version" : 18
   } ],
   "artistString" : "DECO*27, Rockwell feat. 初音ミク",
   "createDate" : "2019-12-20T12:33:09.513",
   "defaultName" : "ネガティブ進化論",
   "defaultNameLanguage" : "Japanese",
   "deleted" : false,
-  "favoritedTimes" : 13,
+  "favoritedTimes" : 16,
   "id" : 265018,
   "lengthSeconds" : 192,
   "mergedTo" : 0,
@@ -76,7 +96,7 @@
     "url" : "https://www.bilibili.com/video/av79605633"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube, Bilibili",
-  "ratingScore" : 71,
+  "ratingScore" : 88,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 6

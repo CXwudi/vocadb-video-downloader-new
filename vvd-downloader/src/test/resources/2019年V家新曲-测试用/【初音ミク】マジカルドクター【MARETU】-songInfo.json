@@ -8,8 +8,8 @@
     "discType" : "Album",
     "id" : 27614,
     "name" : "しう",
-    "ratingAverage" : 5.0,
-    "ratingCount" : 11,
+    "ratingAverage" : 4.93,
+    "ratingCount" : 15,
     "releaseDate" : {
       "day" : 17,
       "formatted" : "11/17/2019",
@@ -86,7 +86,7 @@
     "url" : "https://youtu.be/Gb9a58K-4tg"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube",
-  "ratingScore" : 37,
+  "ratingScore" : 47,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 10

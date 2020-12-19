@@ -8,8 +8,8 @@
     "discType" : "EP",
     "id" : 26809,
     "name" : "パラドックス",
-    "ratingAverage" : 0.0,
-    "ratingCount" : 0,
+    "ratingAverage" : 5.0,
+    "ratingCount" : 1,
     "releaseDate" : {
       "day" : 28,
       "formatted" : "4/28/2019",
@@ -74,7 +74,7 @@
     "url" : "https://youtu.be/pWLhidOSYOs"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube",
-  "ratingScore" : 11,
+  "ratingScore" : 9,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 8

@@ -1,6 +1,6 @@
 {
   "albums" : [ {
-    "additionalNames" : "Shuuchishin ni Korosareru",
+    "additionalNames" : "Shuuchishin ni Korosareru, Be killed by shame",
     "artistString" : "れるりり feat. various",
     "coverPictureMime" : "image/jpeg",
     "createDate" : "2020-07-04T06:33:59.477",
@@ -8,8 +8,8 @@
     "discType" : "Album",
     "id" : 28531,
     "name" : "羞恥心に殺される",
-    "ratingAverage" : 0.0,
-    "ratingCount" : 0,
+    "ratingAverage" : 5.0,
+    "ratingCount" : 1,
     "releaseDate" : {
       "day" : 26,
       "formatted" : "8/26/2020",
@@ -17,8 +17,8 @@
       "month" : 8,
       "year" : 2020
     },
-    "status" : "Draft",
-    "version" : 3
+    "status" : "Approved",
+    "version" : 9
   } ],
   "artists" : [ ],
   "artistString" : "れるりり feat. Fukase",

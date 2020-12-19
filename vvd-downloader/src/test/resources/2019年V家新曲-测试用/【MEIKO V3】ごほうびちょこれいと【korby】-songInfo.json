@@ -1,5 +1,37 @@
 {
-  "albums" : [ ],
+  "albums" : [ {
+    "additionalNames" : "MEIKO's World Wonder Journey",
+    "artistString" : "korby, 畑中洋光 feat. various",
+    "coverPictureMime" : "image/jpeg",
+    "createDate" : "2020-11-05T09:11:10.31",
+    "deleted" : false,
+    "discType" : "Album",
+    "id" : 29114,
+    "name" : "MEIKO世界奇行",
+    "ratingAverage" : 0.0,
+    "ratingCount" : 0,
+    "releaseDate" : {
+      "day" : 5,
+      "formatted" : "11/5/2020",
+      "isEmpty" : false,
+      "month" : 11,
+      "year" : 2020
+    },
+    "releaseEvent" : {
+      "category" : "Unspecified",
+      "date" : "2020-11-05T00:00:00Z",
+      "id" : 2031,
+      "name" : "MEIKO誕生祭 2020",
+      "seriesId" : 7,
+      "seriesNumber" : 2020,
+      "seriesSuffix" : "",
+      "status" : "Finished",
+      "urlSlug" : "meikos-birthday-2020",
+      "version" : 6
+    },
+    "status" : "Finished",
+    "version" : 2
+  } ],
   "artists" : [ ],
   "artistString" : "korby feat. MEIKO V3",
   "createDate" : "2019-02-04T15:21:43.563",
@@ -55,10 +87,23 @@
     "pvType" : "Original",
     "thumbUrl" : "",
     "url" : "http://piapro.jp/content/z6nc9pq9xxjhxa8d"
+  }, {
+    "author" : "MusicalRaichu",
+    "createdBy" : 0,
+    "disabled" : false,
+    "id" : 438997,
+    "length" : 268,
+    "name" : "【MEIKO】ごほうびちょこれいと - Chocolate Treat【subs】",
+    "publishDate" : "2020-11-19T00:00:00",
+    "pvId" : "C-xjh9giLII",
+    "service" : "Youtube",
+    "pvType" : "Other",
+    "thumbUrl" : "https://i.ytimg.com/vi/C-xjh9giLII/default.jpg",
+    "url" : "https://youtu.be/C-xjh9giLII"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube, Piapro",
-  "ratingScore" : 2,
+  "ratingScore" : 6,
   "songType" : "Original",
   "status" : "Finished",
-  "version" : 8
+  "version" : 11
 }

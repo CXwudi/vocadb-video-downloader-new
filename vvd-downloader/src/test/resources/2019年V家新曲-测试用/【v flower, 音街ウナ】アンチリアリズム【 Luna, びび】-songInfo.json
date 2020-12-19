@@ -9,7 +9,7 @@
     "id" : 26517,
     "name" : "ラズライトの夢",
     "ratingAverage" : 5.0,
-    "ratingCount" : 3,
+    "ratingCount" : 4,
     "releaseDate" : {
       "day" : 27,
       "formatted" : "4/27/2019",
@@ -60,7 +60,7 @@
   "defaultName" : "アンチリアリズム",
   "defaultNameLanguage" : "Japanese",
   "deleted" : false,
-  "favoritedTimes" : 5,
+  "favoritedTimes" : 7,
   "id" : 228275,
   "lengthSeconds" : 306,
   "mergedTo" : 0,
@@ -95,7 +95,7 @@
     "url" : "https://youtu.be/shsn8OmC-TM"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube",
-  "ratingScore" : 39,
+  "ratingScore" : 45,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 4

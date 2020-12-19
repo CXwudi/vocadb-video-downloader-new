@@ -18,9 +18,9 @@
       "year" : 2019
     },
     "status" : "Finished",
-    "version" : 6
+    "version" : 8
   }, {
-    "additionalNames" : "Shuuchishin ni Korosareru",
+    "additionalNames" : "Shuuchishin ni Korosareru, Be killed by shame",
     "artistString" : "れるりり feat. various",
     "coverPictureMime" : "image/jpeg",
     "createDate" : "2020-07-04T06:33:59.477",
@@ -28,8 +28,8 @@
     "discType" : "Album",
     "id" : 28531,
     "name" : "羞恥心に殺される",
-    "ratingAverage" : 0.0,
-    "ratingCount" : 0,
+    "ratingAverage" : 5.0,
+    "ratingCount" : 1,
     "releaseDate" : {
       "day" : 26,
       "formatted" : "8/26/2020",
@@ -37,15 +37,15 @@
       "month" : 8,
       "year" : 2020
     },
-    "status" : "Draft",
-    "version" : 3
+    "status" : "Approved",
+    "version" : 9
   } ],
   "artistString" : "れるりり feat. 鳴花ヒメ, 鳴花ミコト",
   "createDate" : "2019-05-29T12:38:45.31",
   "defaultName" : "スペシャルガール",
   "defaultNameLanguage" : "Japanese",
   "deleted" : false,
-  "favoritedTimes" : 3,
+  "favoritedTimes" : 4,
   "id" : 239347,
   "lengthSeconds" : 223,
   "mergedTo" : 0,
@@ -80,7 +80,7 @@
     "url" : "http://www.nicovideo.jp/watch/sm35189984"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube",
-  "ratingScore" : 29,
+  "ratingScore" : 34,
   "songType" : "Remix",
   "status" : "Finished",
   "version" : 7

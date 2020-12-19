@@ -1,5 +1,37 @@
 {
-  "albums" : [ ],
+  "albums" : [ {
+    "additionalNames" : "",
+    "artistString" : "あさぬこ feat. 初音ミク, 音街ウナ (Unknown)",
+    "coverPictureMime" : "image/jpeg",
+    "createDate" : "2020-10-07T05:58:19.743",
+    "deleted" : false,
+    "discType" : "Album",
+    "id" : 28881,
+    "name" : "透明人間の部屋",
+    "ratingAverage" : 0.0,
+    "ratingCount" : 0,
+    "releaseDate" : {
+      "day" : 25,
+      "formatted" : "10/25/2020",
+      "isEmpty" : false,
+      "month" : 10,
+      "year" : 2020
+    },
+    "releaseEvent" : {
+      "category" : "Unspecified",
+      "date" : "2020-10-25T00:00:00Z",
+      "id" : 2896,
+      "name" : "M3 2020 Fall",
+      "seriesId" : 11,
+      "seriesNumber" : 2020,
+      "seriesSuffix" : "",
+      "status" : "Draft",
+      "urlSlug" : "m3-2020-fall",
+      "version" : 1
+    },
+    "status" : "Finished",
+    "version" : 6
+  } ],
   "artistString" : "あさぬこ feat. 初音ミク",
   "createDate" : "2019-05-14T00:04:07.097",
   "defaultName" : "スタッカート・ピチカート",

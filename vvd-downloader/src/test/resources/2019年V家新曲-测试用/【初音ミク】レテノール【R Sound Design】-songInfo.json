@@ -32,7 +32,7 @@
       "version" : 2
     },
     "status" : "Draft",
-    "version" : 8
+    "version" : 9
   }, {
     "additionalNames" : "",
     "artistString" : "R Sound Design feat. 初音ミク, v flower, 逆音セシル",
@@ -43,7 +43,7 @@
     "id" : 27035,
     "name" : "Delights",
     "ratingAverage" : 5.0,
-    "ratingCount" : 1,
+    "ratingCount" : 2,
     "releaseDate" : {
       "day" : 12,
       "formatted" : "8/12/2019",
@@ -65,14 +65,14 @@
       "version" : 1
     },
     "status" : "Finished",
-    "version" : 11
+    "version" : 12
   } ],
   "artistString" : "R Sound Design feat. 初音ミク",
   "createDate" : "2019-03-09T12:55:33.73",
   "defaultName" : "レテノール",
   "defaultNameLanguage" : "Japanese",
   "deleted" : false,
-  "favoritedTimes" : 0,
+  "favoritedTimes" : 1,
   "id" : 228789,
   "lengthSeconds" : 223,
   "mergedTo" : 0,
@@ -120,7 +120,7 @@
     "url" : "https://youtu.be/u8AbZRJACzM"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube",
-  "ratingScore" : 6,
+  "ratingScore" : 9,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 5

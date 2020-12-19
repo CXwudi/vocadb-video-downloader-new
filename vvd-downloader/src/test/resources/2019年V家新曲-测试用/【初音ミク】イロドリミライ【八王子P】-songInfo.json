@@ -8,8 +8,8 @@
     "discType" : "Album",
     "id" : 26926,
     "name" : "GRAPHIX",
-    "ratingAverage" : 4.9,
-    "ratingCount" : 10,
+    "ratingAverage" : 4.78,
+    "ratingCount" : 14,
     "releaseDate" : {
       "day" : 28,
       "formatted" : "8/28/2019",
@@ -60,7 +60,7 @@
     "url" : "http://www.nicovideo.jp/watch/sm35600638"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube",
-  "ratingScore" : 41,
+  "ratingScore" : 43,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 7

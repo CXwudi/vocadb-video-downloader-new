@@ -8,8 +8,8 @@
     "discType" : "Compilation",
     "id" : 28514,
     "name" : "SPACE DIVE!! feat. GUMI",
-    "ratingAverage" : 0.0,
-    "ratingCount" : 0,
+    "ratingAverage" : 5.0,
+    "ratingCount" : 3,
     "releaseDate" : {
       "day" : 15,
       "formatted" : "7/15/2020",
@@ -18,7 +18,7 @@
       "year" : 2020
     },
     "status" : "Finished",
-    "version" : 10
+    "version" : 11
   } ],
   "artistString" : "ナナホシ管弦楽団 feat. GUMI",
   "createDate" : "2019-01-07T13:26:11.73",

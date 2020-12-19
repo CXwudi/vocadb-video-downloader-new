@@ -1,11 +1,44 @@
 {
-  "albums" : [ ],
+  "albums" : [ {
+    "additionalNames" : "",
+    "artistString" : "ねじ式 feat. various",
+    "coverPictureMime" : "image/jpeg",
+    "createDate" : "2020-11-03T14:38:16.3",
+    "deleted" : false,
+    "discType" : "Album",
+    "id" : 29106,
+    "name" : "Dive in Virus",
+    "ratingAverage" : 0.0,
+    "ratingCount" : 0,
+    "releaseDate" : {
+      "day" : 15,
+      "formatted" : "11/15/2020",
+      "isEmpty" : false,
+      "month" : 11,
+      "year" : 2020
+    },
+    "releaseEvent" : {
+      "category" : "Unspecified",
+      "date" : "2020-11-15T00:00:00Z",
+      "id" : 2950,
+      "name" : "The Voc@loid M@ster 45",
+      "seriesId" : 1,
+      "seriesNumber" : 45,
+      "seriesSuffix" : "",
+      "status" : "Finished",
+      "urlSlug" : "the-vocloid-mster-45",
+      "venueName" : "東京都：池袋:サンシャインシティ  文化会館2F 展示ホールD",
+      "version" : 5
+    },
+    "status" : "Approved",
+    "version" : 6
+  } ],
   "artistString" : "ねじ式 feat. 紲星あかり",
   "createDate" : "2019-10-15T17:18:25.037",
   "defaultName" : "9andA",
   "defaultNameLanguage" : "English",
   "deleted" : false,
-  "favoritedTimes" : 1,
+  "favoritedTimes" : 2,
   "id" : 257179,
   "lengthSeconds" : 242,
   "mergedTo" : 0,
@@ -40,7 +73,7 @@
     "url" : "https://youtu.be/6lPqpp3kOpU"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube",
-  "ratingScore" : 17,
+  "ratingScore" : 18,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 4

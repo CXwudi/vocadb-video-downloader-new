@@ -18,7 +18,7 @@
       "year" : 2019
     },
     "status" : "Finished",
-    "version" : 3
+    "version" : 4
   } ],
   "artistString" : "40mP feat. 初音ミク",
   "createDate" : "2019-04-19T13:04:04.63",
@@ -60,7 +60,7 @@
     "url" : "https://youtu.be/oR-a1NS_bH8"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube",
-  "ratingScore" : 48,
+  "ratingScore" : 50,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 3

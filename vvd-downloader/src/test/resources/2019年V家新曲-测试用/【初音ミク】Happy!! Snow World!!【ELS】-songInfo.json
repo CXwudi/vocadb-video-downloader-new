@@ -8,8 +8,8 @@
     "discType" : "Compilation",
     "id" : 26004,
     "name" : "KARENT presents Snow White Record feat. 初音ミク",
-    "ratingAverage" : 4.7,
-    "ratingCount" : 10,
+    "ratingAverage" : 4.75,
+    "ratingCount" : 12,
     "releaseDate" : {
       "day" : 23,
       "formatted" : "1/23/2019",
@@ -80,7 +80,7 @@
     "url" : "http://www.nicovideo.jp/watch/sm34591293"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube",
-  "ratingScore" : 14,
+  "ratingScore" : 16,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 5

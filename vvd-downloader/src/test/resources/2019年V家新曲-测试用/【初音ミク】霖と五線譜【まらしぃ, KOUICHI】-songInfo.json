@@ -1,15 +1,15 @@
 {
   "albums" : [ {
     "additionalNames" : "Shinonome",
-    "artistString" : "Various artists",
+    "artistString" : "まらしぃ feat. 初音ミク",
     "coverPictureMime" : "image/jpeg",
     "createDate" : "2020-07-18T00:50:59.74",
     "deleted" : false,
     "discType" : "Album",
     "id" : 28557,
     "name" : "シノノメ",
-    "ratingAverage" : 0.0,
-    "ratingCount" : 0,
+    "ratingAverage" : 5.0,
+    "ratingCount" : 1,
     "releaseDate" : {
       "day" : 30,
       "formatted" : "9/30/2020",
@@ -17,15 +17,15 @@
       "month" : 9,
       "year" : 2020
     },
-    "status" : "Draft",
-    "version" : 8
+    "status" : "Finished",
+    "version" : 12
   } ],
   "artistString" : "まらしぃ, KOUICHI feat. 初音ミク",
   "createDate" : "2019-10-09T15:32:03.273",
   "defaultName" : "霖と五線譜",
   "defaultNameLanguage" : "Japanese",
   "deleted" : false,
-  "favoritedTimes" : 2,
+  "favoritedTimes" : 3,
   "id" : 256447,
   "lengthSeconds" : 234,
   "mergedTo" : 0,
@@ -60,7 +60,7 @@
     "url" : "https://youtu.be/yNfb_bdoAkQ"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube",
-  "ratingScore" : 20,
+  "ratingScore" : 23,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 7

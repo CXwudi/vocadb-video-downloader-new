@@ -18,14 +18,14 @@
       "year" : 2019
     },
     "status" : "Finished",
-    "version" : 6
+    "version" : 8
   } ],
   "artistString" : "かいりきベア feat. 鳴花ミコト",
   "createDate" : "2019-03-30T14:35:04.417",
   "defaultName" : "アンヘル",
   "defaultNameLanguage" : "Japanese",
   "deleted" : false,
-  "favoritedTimes" : 32,
+  "favoritedTimes" : 36,
   "id" : 231284,
   "lengthSeconds" : 217,
   "mergedTo" : 0,
@@ -60,8 +60,8 @@
     "url" : "https://youtu.be/CdwNF0VIC9I"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube",
-  "ratingScore" : 138,
+  "ratingScore" : 162,
   "songType" : "Remix",
   "status" : "Finished",
-  "version" : 7
+  "version" : 8
 }

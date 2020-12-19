@@ -8,8 +8,8 @@
     "discType" : "Album",
     "id" : 27159,
     "name" : "blue",
-    "ratingAverage" : 0.0,
-    "ratingCount" : 0,
+    "ratingAverage" : 5.0,
+    "ratingCount" : 1,
     "releaseDate" : {
       "day" : 12,
       "formatted" : "8/12/2019",

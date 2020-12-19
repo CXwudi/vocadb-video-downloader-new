@@ -8,8 +8,8 @@
     "discType" : "Album",
     "id" : 27038,
     "name" : "P+",
-    "ratingAverage" : 4.85,
-    "ratingCount" : 7,
+    "ratingAverage" : 4.8,
+    "ratingCount" : 10,
     "releaseDate" : {
       "day" : 12,
       "formatted" : "8/12/2019",
@@ -30,8 +30,8 @@
       "urlSlug" : "comiket-96",
       "version" : 1
     },
-    "status" : "Finished",
-    "version" : 11
+    "status" : "Approved",
+    "version" : 12
   } ],
   "artistString" : "ピノキオピー feat. 初音ミク",
   "createDate" : "2019-07-31T16:49:32.143",
@@ -89,7 +89,7 @@
     "url" : "https://www.bilibili.com/video/av61878127"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube, Bilibili",
-  "ratingScore" : 23,
+  "ratingScore" : 25,
   "songType" : "Remix",
   "status" : "Finished",
   "version" : 10

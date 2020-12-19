@@ -8,8 +8,8 @@
     "discType" : "Compilation",
     "id" : 26004,
     "name" : "KARENT presents Snow White Record feat. 初音ミク",
-    "ratingAverage" : 4.7,
-    "ratingCount" : 10,
+    "ratingAverage" : 4.75,
+    "ratingCount" : 12,
     "releaseDate" : {
       "day" : 23,
       "formatted" : "1/23/2019",
@@ -45,7 +45,7 @@
   "defaultName" : "雪が弾けたその場所で",
   "defaultNameLanguage" : "Japanese",
   "deleted" : false,
-  "favoritedTimes" : 2,
+  "favoritedTimes" : 4,
   "id" : 221365,
   "lengthSeconds" : 228,
   "mergedTo" : 0,
@@ -93,7 +93,7 @@
     "url" : "http://soundcloud.com/wataru_sena/3deaqpshu1pd"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube, SoundCloud",
-  "ratingScore" : 10,
+  "ratingScore" : 18,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 9

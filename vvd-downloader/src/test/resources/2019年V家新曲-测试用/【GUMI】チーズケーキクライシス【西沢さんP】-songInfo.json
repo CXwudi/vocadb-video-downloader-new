@@ -8,8 +8,8 @@
     "discType" : "Compilation",
     "id" : 26670,
     "name" : "EXIT TUNES PRESENTS GUMissimo from Megpoid ― 10th ANNIVERSARY BEST ―",
-    "ratingAverage" : 4.71,
-    "ratingCount" : 7,
+    "ratingAverage" : 4.75,
+    "ratingCount" : 8,
     "releaseDate" : {
       "day" : 19,
       "formatted" : "6/19/2019",
@@ -41,7 +41,7 @@
     "id" : 27192,
     "name" : "キッチン五ツ星",
     "ratingAverage" : 5.0,
-    "ratingCount" : 1,
+    "ratingCount" : 3,
     "releaseDate" : {
       "day" : 12,
       "formatted" : "8/12/2019",
@@ -121,7 +121,7 @@
     "url" : "https://www.bilibili.com/video/av77239629"
   } ],
   "pvServices" : "NicoNicoDouga, Youtube, Bilibili",
-  "ratingScore" : 17,
+  "ratingScore" : 19,
   "songType" : "Original",
   "status" : "Finished",
   "version" : 10
