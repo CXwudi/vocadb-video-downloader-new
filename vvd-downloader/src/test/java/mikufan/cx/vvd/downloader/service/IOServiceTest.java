@@ -17,13 +17,13 @@ import org.springframework.boot.test.context.SpringBootTest;
     "downloader.config.youtube.youtube-dl-path=dummy.exe",
     "downloader.config.youtube.ffmpeg-path=dummy.exe",
 })
-class IOManagerTest {
+class IOServiceTest {
 
   @Autowired
-  private IOManager ioManager;
+  private IOService ioService;
 
   @Test
   void testRead(){
-    var allSongsToBeDownloaded = ioManager.getAllSongsToBeDownloadedInOrder();
+    var allSongsToBeDownloaded = ioService.getAllSongsToBeDownloadedInOrder();
   }
 }

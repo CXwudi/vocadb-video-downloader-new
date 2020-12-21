@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-public class IOManager {
+public class IOServiceImpl implements IOService {
 
   ApplicationIO applicationIO;
 
@@ -36,6 +36,7 @@ public class IOManager {
    * scan input file, read json, and sort them in last modify increasing order
    * @return list of songs to be download in order
    */
+  @Override
   public List<SongForApi> getAllSongsToBeDownloadedInOrder(){
     var inputDirectory = applicationIO.getInputDirectory();
     var inputFilesArray = inputDirectory.toFile().listFiles((dir, name) -> name.contains(FileNamePostFix.SONG_INFO));

@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class FileNamePostFix {
+public final class FileNamePostFix {
   private static final String SEPARATOR = "-";
   public static final String SONG_INFO = SEPARATOR + "songInfo";
   public static final String SONG_INFO_ERR = SONG_INFO + SEPARATOR + "err";

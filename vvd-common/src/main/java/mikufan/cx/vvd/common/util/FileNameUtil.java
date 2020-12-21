@@ -8,7 +8,11 @@ import mikufan.cx.vvd.common.vocadb.model.SongForApi;
  */
 public interface FileNameUtil {
 
-  static String buildFileNameForSong(SongForApi song){
+  static String buildInfoJsonFileName(SongForApi song){
+    return buildBasicFileNameForSong(song) + FileNamePostFix.SONG_INFO + ".json";
+  }
+
+  static String buildBasicFileNameForSong(SongForApi song){
     var artists = song.getArtistString().split("feat\\.");
     var vocals = artists[1].trim();
     var producers = artists[0].trim();
