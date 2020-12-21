@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @date 2020-12-18
  */
 @Slf4j
-class NicoNicoPureYoutubeDlConfigTest extends TestEnvHolder {
+class NicoPureYoutubeDlConfigTest extends TestEnvHolder {
 
-  @Autowired private NicoNicoPureYoutubeDlConfig config;
+  @Autowired private NicoPureYoutubeDlConfig config;
 
   @Test
   void testPrint(){

@@ -23,14 +23,14 @@ import java.util.Map;
 @Getter
 @ToString
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-public class NicoNicoPureYoutubeDlConfig {
+public class NicoPureYoutubeDlConfig {
 
   @NotNull @IsFile
   Path youtubeDlPath;
 
   Map<String, String> youtubeDlOptions;
 
-  public NicoNicoPureYoutubeDlConfig(Path youtubeDlPath, Map<String, String> youtubeDlOptions) {
+  public NicoPureYoutubeDlConfig(Path youtubeDlPath, Map<String, String> youtubeDlOptions) {
     this.youtubeDlPath = youtubeDlPath;
     // in spring boot, key start with dash is removed, add them back
     this.youtubeDlOptions = ConfigHelper.fixConfigWithDash(youtubeDlOptions);

@@ -14,24 +14,30 @@ import java.nio.file.Path;
 import java.util.Map;
 
 /**
- * @author CX无敌
- * @date 2020-12-20
+ * @author Charles Chen 101035684
+ * @date 2020-12-18
  */
-@ConfigurationProperties(prefix = "downloader.config.bilibili")
+@ConfigurationProperties(prefix = "downloader.config.nico-unsafe-idm-youtube-dl")
 @ConstructorBinding
 @Validated
 @Getter
 @ToString
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-public class BilibiliYoutubeDlConfig {
+public class NicoUnsafeIdmYoutubeDlConfig {
 
   @NotNull @IsFile
   Path youtubeDlPath;
 
+  @NotNull @IsFile
+  Path idmPath;
+
   Map<String, String> youtubeDlOptions;
 
-  public BilibiliYoutubeDlConfig(@NotNull Path youtubeDlPath, Map<String, String> youtubeDlOptions) {
+  public NicoUnsafeIdmYoutubeDlConfig(Path youtubeDlPath, Path idmPath, Map<String, String> youtubeDlOptions) {
     this.youtubeDlPath = youtubeDlPath;
+    this.idmPath = idmPath;
+    // in spring boot, key start with dash is removed, add them back
     this.youtubeDlOptions = ConfigHelper.fixConfigWithDash(youtubeDlOptions);
+
   }
 }

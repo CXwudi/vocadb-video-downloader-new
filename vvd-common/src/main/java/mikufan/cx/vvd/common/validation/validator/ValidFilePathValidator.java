@@ -6,6 +6,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 
 /**
  * @author CX无敌
@@ -29,6 +30,11 @@ public class ValidFilePathValidator implements ConstraintValidator<IsFile, Path>
   @Override
   public boolean isValid(Path path, ConstraintValidatorContext context) {
     context.disableDefaultConstraintViolation();
+    if (Objects.isNull(path)){
+      context.buildConstraintViolationWithTemplate("The path can not be null")
+          .addConstraintViolation();
+      return false;
+    }
     var fullPath = path.toAbsolutePath().toString();
     if (!Files.exists(path)){
       context.buildConstraintViolationWithTemplate(
