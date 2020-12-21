@@ -3,9 +3,12 @@ package mikufan.cx.vvd.downloader.service;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import mikufan.cx.vvd.common.exception.RuntimeVocaloidException;
 import mikufan.cx.vvd.common.vocadb.model.PV;
+import mikufan.cx.vvd.downloader.util.PvTypeComparator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,9 +32,11 @@ public class PvDeciderImpl implements PvDecider {
     var serviceToPvs = pvs.stream().collect(Collectors.groupingBy(PV::getService));
     for (var preferredService: preference){
       var pvList = serviceToPvs.get(preferredService);
-
+      if (!CollectionUtils.isEmpty(pvList)){
+        pvList.sort(PvTypeComparator.INSTANCE);
+        return pvList.get(0);
+      }
     }
-
-    return null;
+    throw new RuntimeVocaloidException("Should have at least one PV downloadable, otherwise, pv-task-producer has a bug");
   }
 }

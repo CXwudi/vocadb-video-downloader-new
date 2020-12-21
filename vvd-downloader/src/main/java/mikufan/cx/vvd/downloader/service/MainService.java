@@ -34,7 +34,7 @@ public class MainService implements Runnable{
     // need an annotation to validate that this song is downloadable
     var pvs = toBeDownload.getPvs();
     //0. choose the preference pv
-
+    var chosenPv = pvDecider.choosePreferredPv(pvs);
     //1. choose the downloader
 
     //2. download song and thumbnial
