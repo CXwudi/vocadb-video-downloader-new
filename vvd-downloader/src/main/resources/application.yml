@@ -14,10 +14,11 @@ downloader:
 
     # which website use which config
     enablement:
-      # value can be any string, as long as downloader decider part is line up
-      NicoNicoDouga: nico-pure-youtube-dl
-      Youtube: youtube
-      Bilibili: bilibili
+      map:
+        # value can be any string, as long as downloader decider part is line up
+        NicoNicoDouga: nico-pure-youtube-dl
+        Youtube: youtube
+        Bilibili: bilibili
 
     nico-pure-youtube-dl:
       youtube-dl-path:

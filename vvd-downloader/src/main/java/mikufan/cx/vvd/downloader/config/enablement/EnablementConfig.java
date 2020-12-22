@@ -25,9 +25,9 @@ import java.util.Optional;
 @ToString
 public class EnablementConfig {
 
-  Map<String, String> enablement;
+  Map<String, String> map;
 
   public Optional<String> getEnablementForService(String pvService){
-    return Optional.ofNullable(enablement.get(pvService));
+    return Optional.ofNullable(map.get(pvService));
   }
 }
