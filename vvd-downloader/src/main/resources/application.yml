@@ -6,10 +6,15 @@ downloader:
     output-directory:
 
   config:
-    pv-preference: NicoNicoDouga, Youtube, Bilibili
+
+    # must need this duplicate level to enable property validation
+    pv-preference:
+      # values here are comma separated, name must be same as the pv service string in VocaDB pv json
+      preference: NicoNicoDouga, Youtube, Bilibili
 
     # which website use which config
     enablement:
+      # value can be any string, as long as downloader decider part is line up
       NicoNicoDouga: nico-pure-youtube-dl
       Youtube: youtube
       Bilibili: bilibili

@@ -10,11 +10,11 @@ import java.util.SplittableRandom;
 public class RuntimeVocaloidException extends RuntimeException {
 
   public RuntimeVocaloidException(String message) {
-    super(message);
+    super(MessagePostFixMaker.constructMessage(message));
   }
 
   public RuntimeVocaloidException(String message, Throwable cause) {
-    super(message, cause);
+    super(MessagePostFixMaker.constructMessage(message), cause);
   }
 
   private static class MessagePostFixMaker {

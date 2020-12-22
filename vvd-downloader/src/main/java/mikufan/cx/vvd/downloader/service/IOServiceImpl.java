@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.exception.ThrowableFunction;
 import mikufan.cx.vvd.common.util.FileNamePostFix;
 import mikufan.cx.vvd.common.vocadb.model.SongForApi;
-import mikufan.cx.vvd.downloader.config.io.ApplicationIO;
+import mikufan.cx.vvd.downloader.config.io.IOConfig;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class IOServiceImpl implements IOService {
 
-  ApplicationIO applicationIO;
+  IOConfig IOConfig;
 
   ObjectMapper objectMapper;
 
@@ -38,7 +38,7 @@ public class IOServiceImpl implements IOService {
    */
   @Override
   public List<SongForApi> getAllSongsToBeDownloadedInOrder(){
-    var inputDirectory = applicationIO.getInputDirectory();
+    var inputDirectory = IOConfig.getInputDirectory();
     var inputFilesArray = inputDirectory.toFile().listFiles((dir, name) -> name.contains(FileNamePostFix.SONG_INFO));
     if (inputFilesArray == null || inputFilesArray.length == 0){
       log.info("No songs found to be downloaded");

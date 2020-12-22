@@ -21,7 +21,7 @@ import java.nio.file.Path;
 @ConstructorBinding @Validated
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @AllArgsConstructor @Getter @ToString
-public class ApplicationIO {
+public class IOConfig {
 
   /**
    * can put an custom annotation for checking input dir

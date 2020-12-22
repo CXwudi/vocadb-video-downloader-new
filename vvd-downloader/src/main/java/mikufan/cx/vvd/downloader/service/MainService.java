@@ -6,12 +6,13 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.vocadb.model.SongForApi;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * @author CX无敌
  * @date 2020-12-19
  */
-@Service @Slf4j
+@Service @Slf4j @Validated
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class MainService implements Runnable{
