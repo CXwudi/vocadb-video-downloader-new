@@ -21,6 +21,12 @@ public class ValidateSupportPvServicesValidator implements ConstraintValidator<I
       context.buildConstraintViolationWithTemplate("The list can not be null or empty")
           .addConstraintViolation();
       return false;
+    } else if (value.size() != PvService.ALL_SUPPORTED_SERVICES.size()){
+      context.buildConstraintViolationWithTemplate(
+          String.format("The list must contains all %s of %s",
+              PvService.ALL_SUPPORTED_SERVICES.size(), PvService.ALL_SUPPORTED_SERVICES))
+          .addConstraintViolation();
+      return false;
     } else {
       for (var service : value){
         if (!PvService.ALL_SUPPORTED_SERVICES.contains(service)){
