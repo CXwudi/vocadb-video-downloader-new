@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.constraints.Min;
 
 /**
+ * setting about downloading behavior
  * @author CX无敌
  * @date 2020-12-25
  */

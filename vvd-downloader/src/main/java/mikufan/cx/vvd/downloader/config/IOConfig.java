@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import java.nio.file.Path;
 
 /**
+ * input and output folder
  * @author Charles Chen 101035684
  * @date 2020-12-17
  */

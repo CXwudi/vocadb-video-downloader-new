@@ -13,6 +13,7 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
+ * Only use it on a {@code List<String> pvServiceList} for example
  * @author CX无敌
  * @date 2020-12-21
  */

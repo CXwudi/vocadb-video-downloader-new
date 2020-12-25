@@ -23,30 +23,35 @@ config:
   mechanism:
     max-allowed-retry-count: 3
 
-  nico-pure-youtube-dl:
-    youtube-dl-path:
-    youtube-dl-options:
-      -v:
-      --http-chunk-size: 15M
+  downloader:
+    nico-pure-youtube-dl:
+      youtube-dl-path:
+      youtube-dl-options:
+        -v:
+        --write-thumbnail:
+        --http-chunk-size: 15M
 
-  nico-unsafe-idm-youtube-dl:
-    youtube-dl-path:
-    idm-path:
-    youtube-dl-options:
-      -v:
+    nico-unsafe-idm-youtube-dl:
+      youtube-dl-path:
+      idm-path:
+      youtube-dl-options:
+        -v:
+        --write-thumbnail:
 
-  youtube:
-    youtube-dl-path:
-    # to get high quality youtube video,
-    # we need to download have ffmpeg for youtube-dl to use it
-    ffmpeg-path:
-    youtube-dl-options:
-      -v:
+    youtube:
+      youtube-dl-path:
+      # to get high quality youtube video,
+      # we need to download have ffmpeg for youtube-dl to use it
+      ffmpeg-path:
+      youtube-dl-options:
+        -v:
+        --write-thumbnail:
 
-  bilibili:
-    youtube-dl-path:
-    youtube-dl-options:
-      -v:
+    bilibili:
+      youtube-dl-path:
+      youtube-dl-options:
+        -v:
+        --write-thumbnail:
 
 # spring setting
 

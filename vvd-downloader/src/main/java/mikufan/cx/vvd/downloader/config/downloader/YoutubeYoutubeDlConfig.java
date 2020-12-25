@@ -17,7 +17,7 @@ import java.util.Map;
  * @author CX无敌
  * @date 2020-12-20
  */
-@ConfigurationProperties(prefix = "config.youtube")
+@ConfigurationProperties(prefix = "config.downloader.youtube")
 @ConstructorBinding
 @Validated
 @Getter

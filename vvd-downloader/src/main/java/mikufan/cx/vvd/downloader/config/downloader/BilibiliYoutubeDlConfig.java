@@ -17,7 +17,7 @@ import java.util.Map;
  * @author CX无敌
  * @date 2020-12-20
  */
-@ConfigurationProperties(prefix = "config.bilibili")
+@ConfigurationProperties(prefix = "config.downloader.bilibili")
 @ConstructorBinding
 @Validated
 @Getter

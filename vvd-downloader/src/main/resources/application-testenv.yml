@@ -7,23 +7,24 @@ io: # input and output dir, can be relative path from the terminal current direc
 
 config:
 
-  nico-pure-youtube-dl:
-    youtube-dl-path: dummy.exe
-    youtube-dl-options:
-      --username: dummy username
+  downloader:
+    nico-pure-youtube-dl:
+      youtube-dl-path: dummy.exe
+      youtube-dl-options:
+        --username: dummy username
 
 
-  nico-unsafe-idm-youtube-dl:
-    youtube-dl-path: dummy.exe
-    idm-path: dummy.exe
+    nico-unsafe-idm-youtube-dl:
+      youtube-dl-path: dummy.exe
+      idm-path: dummy.exe
 
-  youtube:
-    youtube-dl-path: dummy.exe
-    # to get high quality youtube video,
-    # we need to download have ffmpeg for youtube-dl to use it
-    ffmpeg-path: dummy.exe
+    youtube:
+      youtube-dl-path: dummy.exe
+      # to get high quality youtube video,
+      # we need to download have ffmpeg for youtube-dl to use it
+      ffmpeg-path: dummy.exe
 
-  bilibili:
-    youtube-dl-path: dummy.exe
+    bilibili:
+      youtube-dl-path: dummy.exe
 
 # spring setting
