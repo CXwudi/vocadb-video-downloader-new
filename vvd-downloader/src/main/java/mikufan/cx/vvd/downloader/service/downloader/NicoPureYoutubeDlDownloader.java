@@ -6,6 +6,8 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.Path;
+
 /**
  * @author CX无敌
  * @date 2020-12-21
@@ -20,5 +22,10 @@ public class NicoPureYoutubeDlDownloader implements PvDownloader {
   @Override
   public String getName() {
     return "Niconico Video Downloader by youtube-dl only";
+  }
+
+  @Override
+  public DownloadStatus download(String url, Path dir, String fileName) throws InterruptedException {
+    return null;
   }
 }

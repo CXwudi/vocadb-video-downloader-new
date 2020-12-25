@@ -40,7 +40,7 @@ public class MainService implements Runnable{
     var chosenPv = pvDecider.choosePreferredPv(pvs);
     //1. choose the downloader
     var suitableDownloader = downloaderDecider.getSuitableDownloader(chosenPv.getService());
-    //2. download song and thumbnial
+    //2. download song and thumbnail
 
     //3. move input json to output dir
 

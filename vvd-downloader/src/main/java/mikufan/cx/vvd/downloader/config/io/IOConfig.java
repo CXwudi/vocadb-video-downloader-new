@@ -17,7 +17,7 @@ import java.nio.file.Path;
  * @author Charles Chen 101035684
  * @date 2020-12-17
  */
-@ConfigurationProperties(prefix = "downloader.io")
+@ConfigurationProperties(prefix = "io")
 @ConstructorBinding @Validated
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @AllArgsConstructor @Getter @ToString

@@ -17,7 +17,7 @@ import java.util.Map;
  * @author Charles Chen 101035684
  * @date 2020-12-18
  */
-@ConfigurationProperties(prefix = "downloader.config.nico-pure-youtube-dl")
+@ConfigurationProperties(prefix = "config.nico-pure-youtube-dl")
 @ConstructorBinding
 @Validated
 @Getter

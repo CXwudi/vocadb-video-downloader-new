@@ -16,7 +16,7 @@ import java.util.Optional;
  * @author CX无敌
  * @date 2020-12-21
  */
-@ConfigurationProperties(prefix = "downloader.config.enablement")
+@ConfigurationProperties(prefix = "config.enablement")
 @ConstructorBinding
 @Validated
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)

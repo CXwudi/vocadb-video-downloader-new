@@ -17,7 +17,7 @@ import java.util.List;
  * @author CX无敌
  * @date 2020-12-21
  */
-@ConfigurationProperties(prefix = "downloader.config.pv-preference")
+@ConfigurationProperties(prefix = "config.pv-preference")
 @ConstructorBinding
 @Validated
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)

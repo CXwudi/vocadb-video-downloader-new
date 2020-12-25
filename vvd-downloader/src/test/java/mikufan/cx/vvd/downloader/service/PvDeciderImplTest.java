@@ -17,7 +17,7 @@ import java.nio.file.Path;
  */
 @Slf4j
 @SpringBootTest(properties = {
-    "downloader.config.pv-preference.preference=Youtube, NicoNicoDouga, Bilibili"
+    "config.pv-preference.preference=Youtube, NicoNicoDouga, Bilibili"
 })
 class PvDeciderImplTest extends TestEnvHolder {
 
