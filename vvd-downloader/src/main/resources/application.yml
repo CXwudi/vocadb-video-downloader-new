@@ -20,6 +20,9 @@ config:
       Youtube: youtube
       Bilibili: bilibili
 
+  mechanism:
+    max-allowed-retry-count: 3
+
   nico-pure-youtube-dl:
     youtube-dl-path:
     youtube-dl-options:

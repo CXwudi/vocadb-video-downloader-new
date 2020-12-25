@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.nio.file.Path;
 
 /**
+ * Change the spring boot test properties to make sure order is working,
+ * and constrain checking is working as well
  * @author CX无敌
  * @date 2020-12-21
  */

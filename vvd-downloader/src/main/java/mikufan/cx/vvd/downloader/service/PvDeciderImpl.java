@@ -6,7 +6,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException;
 import mikufan.cx.vvd.common.vocadb.model.PV;
-import mikufan.cx.vvd.downloader.config.preference.PvPreferenceConfig;
+import mikufan.cx.vvd.downloader.config.PvPreferenceConfig;
 import mikufan.cx.vvd.downloader.util.PvTypeComparator;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -33,7 +33,10 @@ public class PvDeciderImpl implements PvDecider {
       var pvList = serviceToPvs.get(preferredService);
       if (!CollectionUtils.isEmpty(pvList)){
         pvList.sort(PvTypeComparator.INSTANCE);
-        return pvList.get(0);
+        var chosenPv = pvList.get(0);
+        log.info("The pv chosen is: pv-name={}, pv-id={}, pv-service={}",
+            chosenPv.getName(), chosenPv.getPvId(), chosenPv.getService());
+        return chosenPv;
       }
     }
     throw new RuntimeVocaloidException("Should have at least one PV downloadable, " +

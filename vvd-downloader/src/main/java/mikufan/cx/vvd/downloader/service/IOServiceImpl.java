@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.exception.ThrowableFunction;
 import mikufan.cx.vvd.common.util.FileNamePostFix;
 import mikufan.cx.vvd.common.vocadb.model.SongForApi;
-import mikufan.cx.vvd.downloader.config.io.IOConfig;
+import mikufan.cx.vvd.downloader.config.IOConfig;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 

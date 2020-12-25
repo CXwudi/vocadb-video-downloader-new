@@ -1,4 +1,4 @@
-package mikufan.cx.vvd.downloader.config.io;
+package mikufan.cx.vvd.downloader.config;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

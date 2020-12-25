@@ -4,8 +4,9 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import mikufan.cx.vvd.common.vocadb.model.SongForApi;
-import mikufan.cx.vvd.downloader.config.io.IOConfig;
+import mikufan.cx.vvd.common.vocadb.model.PV;
+import mikufan.cx.vvd.downloader.config.IOConfig;
+import mikufan.cx.vvd.downloader.config.MechanismConfig;
 import mikufan.cx.vvd.downloader.service.downloader.DownloadStatus;
 import mikufan.cx.vvd.downloader.service.downloader.PvDownloader;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,11 @@ public class DownloadServiceImpl implements DownloadService {
 
   IOConfig ioConfig;
 
-  @Override
-  public DownloadStatus handleDownload(PvDownloader realDownloader, SongForApi song) {
+  MechanismConfig mechanismConfig;
 
+  @Override
+  public DownloadStatus handleDownload(PvDownloader realDownloader, PV pv) {
+    log.info("Downloading {} using {}", pv.getUrl(), realDownloader.getName());
     return null;
   }
 }

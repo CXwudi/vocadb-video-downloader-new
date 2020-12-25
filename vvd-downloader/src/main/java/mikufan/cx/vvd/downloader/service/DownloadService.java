@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.downloader.service;
 
-import mikufan.cx.vvd.common.vocadb.model.SongForApi;
+import mikufan.cx.vvd.common.vocadb.model.PV;
 import mikufan.cx.vvd.downloader.service.downloader.DownloadStatus;
 import mikufan.cx.vvd.downloader.service.downloader.PvDownloader;
 
@@ -10,5 +10,5 @@ import mikufan.cx.vvd.downloader.service.downloader.PvDownloader;
  */
 public interface DownloadService {
 
-  DownloadStatus handleDownload(PvDownloader realDownloader, SongForApi song);
+  DownloadStatus handleDownload(PvDownloader realDownloader, PV pv);
 }

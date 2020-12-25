@@ -3,7 +3,7 @@ package mikufan.cx.vvd.downloader.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException;
-import mikufan.cx.vvd.downloader.config.enablement.EnablementConfig;
+import mikufan.cx.vvd.downloader.config.EnablementConfig;
 import mikufan.cx.vvd.downloader.service.downloader.*;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
