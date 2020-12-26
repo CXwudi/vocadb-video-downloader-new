@@ -43,7 +43,7 @@ public class MainService implements Runnable{
     //1. choose the downloader
     var suitableDownloader = downloaderDecider.getSuitableDownloader(chosenPv.getService());
     //2. download song and thumbnail
-    var downloadStatus = downloadService.handleDownload(suitableDownloader, chosenPv);
+    var downloadStatus = downloadService.handleDownload(suitableDownloader, chosenPv, toBeDownload);
     //3. move input json to output dir
 
   }

@@ -11,7 +11,7 @@ config:
     nico-pure-youtube-dl:
       youtube-dl-path: dummy.exe
       youtube-dl-options:
-        --username: dummy username
+        --http-chunk-size: 15M
 
 
     nico-unsafe-idm-youtube-dl:

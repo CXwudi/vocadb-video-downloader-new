@@ -21,6 +21,7 @@ config:
       Bilibili: bilibili
 
   mechanism:
+    # this count number doesn't include initial attempt
     max-allowed-retry-count: 3
 
   downloader:
@@ -29,7 +30,6 @@ config:
       youtube-dl-options:
         -v:
         --write-thumbnail:
-        --http-chunk-size: 15M
 
     nico-unsafe-idm-youtube-dl:
       youtube-dl-path:
