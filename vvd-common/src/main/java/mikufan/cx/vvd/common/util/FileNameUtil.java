@@ -8,6 +8,10 @@ import mikufan.cx.vvd.common.vocadb.model.SongForApi;
  */
 public interface FileNameUtil {
 
+  static String buildErrorInfoJsonFileName(SongForApi song){
+    return buildBasicFileNameForSong(song) + FileNamePostFix.SONG_INFO_ERR + ".json";
+  }
+
   static String buildInfoJsonFileName(SongForApi song){
     return buildBasicFileNameForSong(song) + FileNamePostFix.SONG_INFO + ".json";
   }

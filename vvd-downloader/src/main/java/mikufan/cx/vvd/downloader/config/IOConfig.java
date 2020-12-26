@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import mikufan.cx.vvd.common.validation.annotation.IsDirectory;
+import mikufan.cx.vvd.common.validation.annotation.PathsNotSame;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.validation.annotation.Validated;
@@ -22,6 +23,7 @@ import java.nio.file.Path;
 @ConstructorBinding @Validated
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @AllArgsConstructor @Getter @ToString
+@PathsNotSame(fields = {"inputDirectory", "outputDirectory", "errorDirectory"})
 public class IOConfig {
 
   /**
@@ -32,4 +34,7 @@ public class IOConfig {
 
   @NotNull
   Path outputDirectory;
+
+  @NotNull
+  Path errorDirectory;
 }

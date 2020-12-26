@@ -1,9 +1,10 @@
 # application setting
 
 
-io: # input and output dir, can be relative path from the terminal current directory
+io: # input, output, and error output dir, can be relative path from the terminal current directory
   input-directory:
   output-directory:
+  error-directory:
 
 config:
 

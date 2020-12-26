@@ -4,6 +4,7 @@ io: # input and output dir, can be relative path from the terminal current direc
   # in test case, resources folder src/test/resources/ is also our base directory
   input-directory: 2019年V家新曲-测试用
   output-directory: dsa
+  error-directory: asd
 
 config:
 

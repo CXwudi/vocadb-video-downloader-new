@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.exception.ThrowableFunction;
+import mikufan.cx.vvd.common.label.FailedSong;
 import mikufan.cx.vvd.common.util.FileNamePostFix;
 import mikufan.cx.vvd.common.util.FileNameUtil;
 import mikufan.cx.vvd.common.vocadb.model.SongForApi;
@@ -67,6 +68,7 @@ public class IOServiceImpl implements IOService {
   }
 
 
+  @Override
   public void recordDownloadedSong(DownloadStatus downloadStatus, SongForApi song){
 
     if (downloadStatus.isSucceed()){
@@ -74,11 +76,28 @@ public class IOServiceImpl implements IOService {
     } else {
       moveToErrorDir(downloadStatus, song);
     }
-
-
   }
 
   private void moveToErrorDir(DownloadStatus downloadStatus, SongForApi song) {
+
+    var failedSong = FailedSong.builder()
+        .failedObj(song)
+        .reason(downloadStatus.getDescription())
+        .build();
+
+    var jsonFileName = FileNameUtil.buildInfoJsonFileName(song);
+    var errorJsonFileName = FileNameUtil.buildErrorInfoJsonFileName(song);
+
+    try {
+      Files.move(
+          IOConfig.getInputDirectory().resolve(jsonFileName),
+          IOConfig.getOutputDirectory().resolve(errorJsonFileName),
+          StandardCopyOption.REPLACE_EXISTING);
+      log.info("Download {} unsuccessful, please check the error json file {} at error directory",
+          FileNameUtil.buildBasicFileNameForSong(song), errorJsonFileName);
+    } catch (IOException e) {
+      log.error("Fail to move the error json file {} from input dir to output dir", errorJsonFileName, e);
+    }
 
   }
 
@@ -91,10 +110,10 @@ public class IOServiceImpl implements IOService {
           IOConfig.getInputDirectory().resolve(jsonFileName),
           IOConfig.getOutputDirectory().resolve(jsonFileName),
           StandardCopyOption.REPLACE_EXISTING);
+      log.info("Download {} completed", FileNameUtil.buildBasicFileNameForSong(song));
     } catch (IOException e) {
       log.error("Fail to move the json file {} from input dir to output dir", jsonFileName, e);
     }
 
-    log.info("Download ");
   }
 }
