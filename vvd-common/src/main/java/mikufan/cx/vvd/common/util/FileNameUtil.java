@@ -26,7 +26,7 @@ public interface FileNameUtil {
 
   static String removeIllegalChars(String fileName){
     return fileName
-        .replace("/", "_")
+        .replace("/", "-")
         .replace("\\", "-")
 
         .replace("? ", " ")
