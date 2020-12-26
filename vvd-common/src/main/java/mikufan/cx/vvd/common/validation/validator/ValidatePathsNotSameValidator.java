@@ -37,11 +37,7 @@ public class ValidatePathsNotSameValidator implements ConstraintValidator<PathsN
 
     for (var field : fields){
       var path = getPath(object, field, context);
-      if (path == null){
-        return false;
-      } else {
-        paths.add(path);
-      }
+      paths.add(path);
     }
 
     for (int i = 0; i < fields.length; i++) {
@@ -50,8 +46,13 @@ public class ValidatePathsNotSameValidator implements ConstraintValidator<PathsN
       for (int j = i + 1; j < fields.length; j++) {
         var path2 = paths.get(j);
         var field2 = fields[j];
-
-        if (path1.equals(path2)){
+        if (path1 == null && path2 == null){
+          context.buildConstraintViolationWithTemplate(String.format("fields \"%s\" and \"%s\" can not be same path as null path", field1, field2))
+              .addPropertyNode(field1)
+              .addPropertyNode(field2)
+              .addConstraintViolation();
+          return false;
+        } else if (path1 != null && path1.equals(path2)){
           context.buildConstraintViolationWithTemplate(String.format("fields \"%s\" and \"%s\" can not be same path of %s", field1, field2, path1))
               .addPropertyNode(field1)
               .addPropertyNode(field2)
@@ -82,6 +83,12 @@ public class ValidatePathsNotSameValidator implements ConstraintValidator<PathsN
           .addConstraintViolation();
       return null;
     }
-    return path.normalize().toAbsolutePath();
+
+    if (path == null){
+      // if the path itself is null
+      return null;
+    } else {
+      return path.normalize().toAbsolutePath();
+    }
   }
 }

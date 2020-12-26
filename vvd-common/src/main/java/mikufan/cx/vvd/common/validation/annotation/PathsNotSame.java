@@ -12,6 +12,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
+ * A class-level annotation for checking declared {@link java.nio.file.Path} fields are not same
  * @author CX无敌
  * @date 2020-12-26
  */
