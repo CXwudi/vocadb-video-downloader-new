@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import mikufan.cx.vvd.common.util.FileNameUtil;
 import mikufan.cx.vvd.common.vocadb.model.SongForApi;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -37,6 +38,7 @@ public class MainService implements Runnable{
 
   private void handleDownload(SongForApi toBeDownload) {
     // need an annotation to validate that this song is downloadable
+    log.info("Handling download for {}", FileNameUtil.buildBasicFileNameForSong(toBeDownload));
     var pvs = toBeDownload.getPvs();
     //0. choose the preference pv
     var chosenPv = pvDecider.choosePreferredPv(pvs);

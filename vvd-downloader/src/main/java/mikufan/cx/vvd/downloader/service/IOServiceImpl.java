@@ -7,12 +7,17 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.exception.ThrowableFunction;
 import mikufan.cx.vvd.common.util.FileNamePostFix;
+import mikufan.cx.vvd.common.util.FileNameUtil;
 import mikufan.cx.vvd.common.vocadb.model.SongForApi;
 import mikufan.cx.vvd.downloader.config.IOConfig;
+import mikufan.cx.vvd.downloader.service.downloader.DownloadStatus;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -59,5 +64,37 @@ public class IOServiceImpl implements IOService {
         .map(Pair::getLeft)
         .map(toObjectMapping.toFunction())
         .collect(Collectors.toUnmodifiableList());
+  }
+
+
+  public void recordDownloadedSong(DownloadStatus downloadStatus, SongForApi song){
+
+    if (downloadStatus.isSucceed()){
+      moveToOutputDir(downloadStatus, song);
+    } else {
+      moveToErrorDir(downloadStatus, song);
+    }
+
+
+  }
+
+  private void moveToErrorDir(DownloadStatus downloadStatus, SongForApi song) {
+
+  }
+
+  private void moveToOutputDir(DownloadStatus downloadStatus, SongForApi song) {
+
+    var jsonFileName = FileNameUtil.buildInfoJsonFileName(song);
+
+    try {
+      Files.move(
+          IOConfig.getInputDirectory().resolve(jsonFileName),
+          IOConfig.getOutputDirectory().resolve(jsonFileName),
+          StandardCopyOption.REPLACE_EXISTING);
+    } catch (IOException e) {
+      log.error("Fail to move the json file {} from input dir to output dir", jsonFileName, e);
+    }
+
+    log.info("Download ");
   }
 }

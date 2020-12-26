@@ -35,7 +35,7 @@ public class DownloadServiceImpl implements DownloadService {
   @Override @SneakyThrows(InterruptedException.class)
   public DownloadStatus handleDownload(PvDownloader realDownloader, PV pv, SongForApi song) {
     var fileName = FileNameUtil.buildPvFileName(song, getExtension(realDownloader));
-    log.info("Downloading {} to {} using {}", pv.getUrl(), fileName, realDownloader.getName());
+    log.info("Start downloading to {} using {}", fileName, realDownloader.getName());
 
     var maxAllowedRetryCount = mechanismConfig.getMaxAllowedRetryCount();
     DownloadStatus currentStatus = null;
