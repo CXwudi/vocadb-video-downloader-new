@@ -12,6 +12,10 @@ public interface FileNameUtil {
     return buildBasicFileNameForSong(song) + FileNamePostFix.SONG_INFO + ".json";
   }
 
+  static String buildPvFileName(SongForApi song, String extension){
+    return buildBasicFileNameForSong(song) + FileNamePostFix.VIDEO + "." + extension;
+  }
+
   static String buildBasicFileNameForSong(SongForApi song){
     var artists = song.getArtistString().split("feat\\.");
     var vocals = artists[1].trim();
@@ -22,7 +26,7 @@ public interface FileNameUtil {
 
   static String removeIllegalChars(String fileName){
     return fileName
-        .replace("/", "-")
+        .replace("/", "_")
         .replace("\\", "-")
 
         .replace("? ", " ")
