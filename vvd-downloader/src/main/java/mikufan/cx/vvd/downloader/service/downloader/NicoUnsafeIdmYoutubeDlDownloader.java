@@ -1,20 +1,29 @@
 package mikufan.cx.vvd.downloader.service.downloader;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sapher.youtubedl.YoutubeDL;
 import com.sapher.youtubedl.YoutubeDLException;
 import com.sapher.youtubedl.YoutubeDLRequest;
+import com.sapher.youtubedl.mapper.VideoInfo;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.ProcessUtil;
+import mikufan.cx.vvd.common.exception.RuntimeVocaloidException;
 import mikufan.cx.vvd.downloader.config.downloader.NicoUnsafeIdmYoutubeDlConfig;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -30,6 +39,8 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
 
   NicoUnsafeIdmYoutubeDlConfig config;
 
+  ObjectMapper objectMapper;
+
   @Override
   public String getName() {
     return "Niconico Video Downloader by IDM and youtube-dl (unsafe)";
@@ -38,22 +49,14 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
   @Override
   public DownloadStatus download(String url, Path dir, String fileName) throws InterruptedException {
     try {
-      //1. download thumbnail using youtube-dl
-      var downloadThumbnailStatus = downloadThumbnail(url, dir, fileName);
-      if (!downloadThumbnailStatus.isSucceed()){
-        return downloadThumbnailStatus;
+      //1. get video info
+      var videoInfoHolder = new MutableObject<VideoInfo>(null);
+      var retrieveStatus = getVideoInfo(url, videoInfoHolder);
+      if (!retrieveStatus.isSucceed()){
+        return retrieveStatus;
       }
-      //2. get the real url
-      var realUrlHolder = new MutableObject<String>(null);
-      var getUrlStatus = getUrl(url, realUrlHolder);
-      if (!getUrlStatus.isSucceed()){
-        return getUrlStatus;
-      }
-      //3. thing to be done before calling IDM
-      deleteIfExist(dir, fileName);
-      terminateExistingIdmProcess();
-      //4. call IDM to download PV
-      return downloadPv(realUrlHolder.getValue(), dir, fileName);
+      //2. using video info to guide the download of thumbnail and pv, using 2 thread
+      return downloadByVideoInfo(videoInfoHolder.getValue(), dir, fileName);
     } catch (YoutubeDLException e) {
       if (e.getCause() instanceof InterruptedException){
         throw (InterruptedException) e.getCause();
@@ -61,62 +64,96 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
         log.error("YoutubeDLException in download method", e);
         return DownloadStatus.failure(e.getMessage());
       }
-    } catch (IOException e) {
-      log.error("IOException in download method", e);
-      return DownloadStatus.failure(e.getMessage());
+    } catch (ExecutionException e) {
+      log.error("ExecutionException in download method", e);
+      return DownloadStatus.failure(e.getCause().getMessage());
     }
   }
 
-  private DownloadStatus downloadThumbnail(String url, Path dir, String fileName) throws YoutubeDLException {
-    log.debug("First, download the thumbnail");
-    var youtubeDlRequest = new YoutubeDLRequest(
-        url,
-        dir.toAbsolutePath().toString(),
-        config.getYoutubeDlPath().toAbsolutePath().toString());
-
-    var baseFileName = fileName.substring(0, fileName.lastIndexOf('.'));
-    youtubeDlRequest
+  private DownloadStatus getVideoInfo(String url, MutableObject<VideoInfo> videoInfoHolder) throws YoutubeDLException {
+    // Build request
+    log.info("First, retrieving pv info for {}", url);
+    var request = new YoutubeDLRequest(url, null, config.getYoutubeDlPath().toAbsolutePath().toString());
+    request
         .setOptions(config.getYoutubeDlOptions())
-        .setOption("-o", baseFileName)
-        .setOption("--skip-download")
-        .setOption("--write-thumbnail");
+        .setOption("--dump-json")
+        .setOption("--no-playlist");
 
-    var youtubeDlResponse = YoutubeDL.execute(youtubeDlRequest);
+    var response = YoutubeDL.execute(request, null, log::debug);
 
-    if (youtubeDlResponse.isSuccess() && Files.exists(dir.resolve(baseFileName + ".jpg"))){
-      return DownloadStatus.success();
+    // Parse result
+    VideoInfo videoInfo;
+
+    try {
+      videoInfo = objectMapper.readValue(response.getOut(), VideoInfo.class);
+    } catch (IOException e) {
+      throw new YoutubeDLException("Unable to parse video information: " + e.getMessage(), e);
+    }
+
+    if (!response.isSuccess()){
+      return DownloadStatus.failure(String.format("Fail to get video info for %s", url));
+    } else if (videoInfo.formats.isEmpty()){
+      return DownloadStatus.failure(String.format("Can not find any downloadable url for %s", url));
+    } else if (StringUtils.isBlank(videoInfo.thumbnail)){
+      return DownloadStatus.failure(String.format("Can not find thumbnail url for %s", url));
     } else {
-      return DownloadStatus.failure(
-          String.format("Can not find the downloaded thumbnail or download fails, see error message below%n%s",
-              youtubeDlResponse.getErr()));
+      log.info("Url get✔: {}", getRealUrlFromVideoInfo(videoInfo));
+      log.info("Thumbnail get✔: {}", videoInfo.thumbnail);
+      videoInfoHolder.setValue(videoInfo);
+      return DownloadStatus.success();
     }
   }
 
   /**
-   * execute youtube-dl to retrive the real url
-   * @param url the base url of a PV
-   * @param realUrlHolder a mutable holder for getting the real url
-   * @return successful download status if youtube-dl return code is 0
+   * Under so many formats of downloadable urls, get the one indicated by videoInfo.format
    */
-  private DownloadStatus getUrl(String url, MutableObject<String> realUrlHolder) throws YoutubeDLException {
-    log.debug("Then, get the video url");
-    var youtubeDlRequest = new YoutubeDLRequest(url, null, config.getYoutubeDlPath().toAbsolutePath().toString());
-    youtubeDlRequest
-        .setOptions(config.getYoutubeDlOptions())
-        .setOption("--get-url", null);
+  private String getRealUrlFromVideoInfo(VideoInfo videoInfo){
+    return videoInfo.formats.stream()
+        .filter(f -> f.format.equals(videoInfo.format))
+        .findFirst().orElseThrow(
+            () -> new RuntimeVocaloidException(
+                String.format("The indicated video format for %s doesn't match the all available formats", videoInfo.format))
+        ).url;
+  }
 
-    var youtubeDlResponse = YoutubeDL.execute(youtubeDlRequest);
-    if (youtubeDlResponse.isSuccess()){
-      var realUrl = youtubeDlResponse.getOut();
-      log.debug("Url get✔: {}", realUrl);
-      realUrlHolder.setValue(realUrl);
+  private DownloadStatus downloadByVideoInfo(VideoInfo videoInfo, Path dir, String fileName) throws ExecutionException, InterruptedException {
+    var pvUrl = getRealUrlFromVideoInfo(videoInfo);
+    var thumbnailUrl = videoInfo.thumbnail;
+    var executorService =
+        new ThreadPoolExecutor(2, 2,
+            1000, TimeUnit.SECONDS,
+            new ArrayBlockingQueue<>(2),
+            r -> new Thread(r, "nico-unsafe-idm-youtube-dl"));
+
+    //2.1. download thumbnail
+    var thumbnailFileName = fileName.substring(0, fileName.lastIndexOf('.')) + ".jpg";
+    var thumbnailDownloadFuture = executorService.submit(
+        () -> downloadThumbnail(thumbnailUrl, dir, thumbnailFileName)
+    );
+    //2.2. download pv
+    var pvDownloadFuture = executorService.submit(
+        () -> {
+          deleteIfExist(dir, fileName);
+          terminateExistingIdmProcess();
+          return downloadPv(pvUrl, dir, fileName);
+    });
+    return DownloadStatus.merge(thumbnailDownloadFuture.get(), pvDownloadFuture.get());
+  }
+
+
+  private DownloadStatus downloadThumbnail(String url, Path dir, String fileName) throws IOException {
+    log.debug("Then, download the thumbnail");
+    var fullOutputPath = dir.resolve(fileName);
+
+    FileUtils.copyURLToFile(new URL(url), fullOutputPath.toFile(), 30000, 3000000);
+
+    if (Files.exists(fullOutputPath)){
       return DownloadStatus.success();
     } else {
-      var str = String.format("Fail to extract download url for pv %s", url);
-      log.error(str);
-      return DownloadStatus.failure(str);
+      return DownloadStatus.failure(
+          String.format("Can not find the downloaded thumbnail or download fails, see error message below%n%s",
+              "some str"));
     }
-
   }
 
 
@@ -134,6 +171,13 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
     ProcessUtil.runShortProcess(taskKillPb.start(), log::info, log::debug);
   }
 
+  /**
+   * download the pv using
+   * @param url the real url for downloading the pv
+   * @param dir output dir
+   * @param fileName file name
+   * @return success download status if it is done within 2 minute limit time (due to niconico heartbeat issue)
+   */
   private DownloadStatus downloadPv(String url, Path dir, String fileName) throws InterruptedException, IOException {
     var idmPb = new ProcessBuilder(
         config.getIdmPath().toAbsolutePath().toString(),

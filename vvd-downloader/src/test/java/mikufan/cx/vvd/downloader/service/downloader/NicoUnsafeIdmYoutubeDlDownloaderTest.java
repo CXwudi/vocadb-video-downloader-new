@@ -28,9 +28,9 @@ class NicoUnsafeIdmYoutubeDlDownloaderTest extends TestEnvHolder {
   @Test
   void testDownload() throws InterruptedException {
     var downloadStatus = downloader.download(
-        "https://www.nicovideo.jp/watch/sm37879497",
+        "https://www.nicovideo.jp/watch/sm37987111",
         Path.of("D:/11134/Videos/Vocaloid Coding POC"),
-        "【初音ミクNT】 ふたつカゲボウシ【Notzan ACT】.mp4");
+        "ニジイロストーリーズ（VOCALOID ver.）.mp4");
     assertTrue(downloadStatus.isSucceed());
   }
 }
