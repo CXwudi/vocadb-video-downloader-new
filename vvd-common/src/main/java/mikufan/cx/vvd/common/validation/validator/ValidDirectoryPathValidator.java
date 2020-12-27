@@ -14,6 +14,8 @@ import java.util.Objects;
  */
 public class ValidDirectoryPathValidator implements ConstraintValidator<IsDirectory, Path> {
 
+  private boolean optionalCheck;
+
   private boolean checkReadable;
 
   private boolean checkWritable;
@@ -22,6 +24,7 @@ public class ValidDirectoryPathValidator implements ConstraintValidator<IsDirect
 
   @Override
   public void initialize(IsDirectory constraintAnnotation) {
+    optionalCheck = constraintAnnotation.optionalCheck();
     checkReadable = constraintAnnotation.checkReadable();
     checkWritable = constraintAnnotation.checkWritable();
     checkExecutable = constraintAnnotation.checkExecutable();
@@ -37,10 +40,14 @@ public class ValidDirectoryPathValidator implements ConstraintValidator<IsDirect
     }
     var fullPath = path.toAbsolutePath().toString();
     if (!Files.exists(path)){
-      context.buildConstraintViolationWithTemplate(
-          String.format("The path '%s' doesn't exist", fullPath))
-          .addConstraintViolation();
-      return false;
+      if (optionalCheck){
+        return true;
+      } else {
+        context.buildConstraintViolationWithTemplate(
+            String.format("The path '%s' doesn't exist", fullPath))
+            .addConstraintViolation();
+        return false;
+      }
     } else if (!Files.isDirectory(path)){
       context.buildConstraintViolationWithTemplate(
           String.format("The path '%s' is not a directory", fullPath))

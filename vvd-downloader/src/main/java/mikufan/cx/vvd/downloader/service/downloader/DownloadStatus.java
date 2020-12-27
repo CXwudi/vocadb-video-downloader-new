@@ -4,6 +4,10 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 /**
  * @author CX无敌
  * @date 2020-12-25
@@ -21,4 +25,18 @@ public class DownloadStatus {
 
   boolean succeed;
   String description;
+
+  public static DownloadStatus merge(DownloadStatus... statuses){
+    var errors = Arrays.stream(statuses)
+        .map(DownloadStatus::getDescription)
+        .filter(Objects::nonNull)
+        .collect(Collectors.toUnmodifiableList());
+    if (errors.isEmpty()){
+      return DownloadStatus.success();
+    } else {
+      return DownloadStatus.failure(
+          errors.stream().collect(
+              Collectors.joining(", ", "All failure messages = [", "]")));
+    }
+  }
 }

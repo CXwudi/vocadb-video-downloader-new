@@ -27,6 +27,11 @@ public @interface IsFile {
 
   Class<? extends Payload>[] payload() default {};
 
+  /**
+   * {@code true} means if the file path is declared but the file doesn't exist, then skip the check
+   */
+  boolean optionalCheck() default false;
+
   boolean checkReadable() default true;
 
   boolean checkWritable() default false;

@@ -11,7 +11,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.validation.annotation.Validated;
 
+import javax.annotation.PostConstruct;
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
@@ -32,9 +35,20 @@ public class IOConfig {
   @NotNull @IsDirectory
   Path inputDirectory;
 
-  @NotNull
+  @NotNull @IsDirectory(optionalCheck = true)
   Path outputDirectory;
 
-  @NotNull
+  @NotNull @IsDirectory(optionalCheck = true)
   Path errorDirectory;
+
+  @PostConstruct
+  private void createOutputDirectories() throws IOException {
+    if (Files.notExists(outputDirectory)){
+      Files.createDirectories(outputDirectory.toAbsolutePath());
+    }
+
+    if (Files.notExists(errorDirectory)){
+      Files.createDirectories(errorDirectory.toAbsolutePath());
+    }
+  }
 }

@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * @author CX无敌
@@ -55,9 +54,7 @@ public class DownloadServiceImpl implements DownloadService {
       }
     }
 
-    return DownloadStatus.failure(statusList.stream()
-        .map(DownloadStatus::getDescription)
-        .collect(Collectors.joining(", ", "All failure messages = [", "]")));
+    return DownloadStatus.merge(statusList.toArray(DownloadStatus[]::new));
   }
 
   private String getExtension(PvDownloader realDownloader) {

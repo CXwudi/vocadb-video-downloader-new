@@ -27,6 +27,11 @@ public @interface IsDirectory {
 
   Class<? extends Payload>[] payload() default {};
 
+  /**
+   * {@code true} means if the directory is declared but doesn't exist, then skip the check
+   */
+  boolean optionalCheck() default false;
+
   boolean checkReadable() default true;
 
   boolean checkWritable() default false;

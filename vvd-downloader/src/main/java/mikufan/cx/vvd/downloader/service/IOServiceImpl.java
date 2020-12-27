@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class IOServiceImpl implements IOService {
 
-  IOConfig IOConfig;
+  IOConfig ioConfig;
 
   ObjectMapper objectMapper;
 
@@ -44,7 +44,7 @@ public class IOServiceImpl implements IOService {
    */
   @Override
   public List<SongForApi> getAllSongsToBeDownloadedInOrder(){
-    var inputDirectory = IOConfig.getInputDirectory();
+    var inputDirectory = ioConfig.getInputDirectory();
     var inputFilesArray = inputDirectory.toFile().listFiles((dir, name) -> name.contains(FileNamePostFix.SONG_INFO));
     if (inputFilesArray == null || inputFilesArray.length == 0){
       log.info("No songs found to be downloaded");
@@ -74,29 +74,26 @@ public class IOServiceImpl implements IOService {
     if (downloadStatus.isSucceed()){
       moveToOutputDir(downloadStatus, song);
     } else {
-      moveToErrorDir(downloadStatus, song);
+      writeToErrorDir(downloadStatus, song);
     }
   }
 
-  private void moveToErrorDir(DownloadStatus downloadStatus, SongForApi song) {
+  private void writeToErrorDir(DownloadStatus downloadStatus, SongForApi song) {
 
     var failedSong = FailedSong.builder()
         .failedObj(song)
         .reason(downloadStatus.getDescription())
         .build();
 
-    var jsonFileName = FileNameUtil.buildInfoJsonFileName(song);
     var errorJsonFileName = FileNameUtil.buildErrorInfoJsonFileName(song);
+    var errorJsonFile = ioConfig.getErrorDirectory().resolve(errorJsonFileName);
 
     try {
-      Files.move(
-          IOConfig.getInputDirectory().resolve(jsonFileName),
-          IOConfig.getOutputDirectory().resolve(errorJsonFileName),
-          StandardCopyOption.REPLACE_EXISTING);
-      log.info("Download {} unsuccessful, please check the error json file {} at error directory",
+      objectMapper.writeValue(errorJsonFile.toFile(), failedSong);
+      log.info("Download unsuccessful: {}, please check the error json file {} at error directory",
           FileNameUtil.buildBasicFileNameForSong(song), errorJsonFileName);
     } catch (IOException e) {
-      log.error("Fail to move the error json file {} from input dir to output dir", errorJsonFileName, e);
+      log.error("Fail to write the error json file {} to error dir", errorJsonFileName, e);
     }
 
   }
@@ -107,10 +104,10 @@ public class IOServiceImpl implements IOService {
 
     try {
       Files.move(
-          IOConfig.getInputDirectory().resolve(jsonFileName),
-          IOConfig.getOutputDirectory().resolve(jsonFileName),
+          ioConfig.getInputDirectory().resolve(jsonFileName),
+          ioConfig.getOutputDirectory().resolve(jsonFileName),
           StandardCopyOption.REPLACE_EXISTING);
-      log.info("Download {} completed", FileNameUtil.buildBasicFileNameForSong(song));
+      log.info("Download completed: {}", FileNameUtil.buildBasicFileNameForSong(song));
     } catch (IOException e) {
       log.error("Fail to move the json file {} from input dir to output dir", jsonFileName, e);
     }
