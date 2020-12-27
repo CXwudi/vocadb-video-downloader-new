@@ -53,7 +53,7 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
       deleteIfExist(dir, fileName);
       terminateExistingIdmProcess();
       //4. call IDM to download PV
-      return realDownload(realUrlHolder.getValue(), dir, fileName);
+      return downloadPv(realUrlHolder.getValue(), dir, fileName);
     } catch (YoutubeDLException e) {
       if (e.getCause() instanceof InterruptedException){
         throw (InterruptedException) e.getCause();
@@ -134,7 +134,7 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
     ProcessUtil.runShortProcess(taskKillPb.start(), log::info, log::debug);
   }
 
-  private DownloadStatus realDownload(String url, Path dir, String fileName) throws InterruptedException, IOException {
+  private DownloadStatus downloadPv(String url, Path dir, String fileName) throws InterruptedException, IOException {
     var idmPb = new ProcessBuilder(
         config.getIdmPath().toAbsolutePath().toString(),
         "/d", url,
