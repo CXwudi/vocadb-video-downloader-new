@@ -9,6 +9,7 @@ io: # input, output, and error output dir, can be relative path from the termina
 config:
 
   # must need this duplicate level to enable property validation
+  # TODO: consider use spring Java configuration to remove duplicate level
   pv-preference:
     # values here are comma separated, name must be same as the pv service string in VocaDB pv json
     preference: NicoNicoDouga, Youtube, Bilibili
@@ -35,25 +36,24 @@ config:
       youtube-dl-options:
         -v:
 
-    # a way faster but will fail if downloadPvAndThumbnail time exceed 2 minutes due to heartbeat problem
-    # this use youtube-dl to retrieve the downloadPvAndThumbnail url and use IDM to trigger the downloadPvAndThumbnail
-    # only available for windows, and required IDM is properly installed (cracked IDM may cause undefined behavior)
+    # a way faster but will fail if download time exceed 2 minutes due to heartbeat problem
+    # this use youtube-dl to retrieve the download url and use IDM to trigger the download
+    # only available for window os, and required IDM properly installed (cracked IDM may cause undefined behavior)
     nico-unsafe-idm-youtube-dl:
       youtube-dl-path:
       idm-path:
       youtube-dl-options:
         -v:
 
-    # downloadPvAndThumbnail youtube video using youtube-dl
+    # download youtube video using youtube-dl
     youtube:
       youtube-dl-path:
-      # to get high quality youtube video,
-      # we need to downloadPvAndThumbnail have ffmpeg for youtube-dl to use it
+      # to get high quality youtube video, we need to download with ffmpeg
       ffmpeg-path:
       youtube-dl-options:
         -v:
 
-    # downloadPvAndThumbnail bilibili video using youtube-dl
+    # download bilibili video using youtube-dl
     bilibili:
       youtube-dl-path:
       youtube-dl-options:
