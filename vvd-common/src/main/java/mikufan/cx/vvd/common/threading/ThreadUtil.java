@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.common.threading;
 
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public interface ThreadUtil {
 
   /**
-   * create a {@link ThreadPoolExecutor} for generated max number of threads, and run all threads concurrently
+   * create a {@link ThreadPoolExecutor} for running max number of all threads concurrently
    * @param maxThreadCount thread count
    * @param threadBaseName thread base name
    * @return {@link ThreadPoolExecutor}
@@ -19,13 +19,13 @@ public interface ThreadUtil {
   static ThreadPoolExecutor getFixedThreadPoolExecutor(int maxThreadCount, String threadBaseName){
     return new ThreadPoolExecutor(maxThreadCount, maxThreadCount,
         1000, TimeUnit.SECONDS,
-        new ArrayBlockingQueue<>(maxThreadCount),
+        new LinkedBlockingQueue<>(0),
         ThreadFactoryVocaloid.withBaseName(threadBaseName));
   }
 
   /**
-   * create a {@link ThreadPoolExecutor} for generated max number of thread,
-   * run at most {@code poolSize} threads concurrently
+   * create a {@link ThreadPoolExecutor} for holding max number of threads,
+   * but at most {@code poolSize} threads run concurrently
    *
    * @param poolSize at most how many threads run concurrently
    * @param maxThreadCount max thread count
@@ -35,7 +35,7 @@ public interface ThreadUtil {
   static ThreadPoolExecutor getFixedThreadPoolExecutor(int poolSize, int maxThreadCount, String threadBaseName){
     return new ThreadPoolExecutor(poolSize, poolSize,
         1000, TimeUnit.SECONDS,
-        new ArrayBlockingQueue<>(maxThreadCount - poolSize),
+        new LinkedBlockingQueue<>(maxThreadCount - poolSize),
         ThreadFactoryVocaloid.withBaseName(threadBaseName));
   }
 }
