@@ -26,10 +26,11 @@ class NicoPureYoutubeDlDownloaderTest extends TestEnvHolder {
 
   @Test
   void testDownload() throws InterruptedException {
-    var downloadStatus = downloader.download(
+    var downloadStatus = downloader.downloadPvAndThumbnail(
         "https://www.nicovideo.jp/watch/sm37879497",
         Path.of("D:/11134/Videos/Vocaloid Coding POC"),
-        "【初音ミクNT】 ふたつカゲボウシ【Notzan ACT】.mp4");
+        "【初音ミクNT】 ふたつカゲボウシ【Notzan ACT】-video.mp4",
+        "【初音ミクNT】 ふたつカゲボウシ【Notzan ACT】-pic.jpg");
     assertTrue(downloadStatus.isSucceed());
   }
 }

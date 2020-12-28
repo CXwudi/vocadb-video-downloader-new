@@ -20,6 +20,10 @@ public interface FileNameUtil {
     return buildBasicFileNameForSong(song) + FileNamePostFix.VIDEO + "." + extension;
   }
 
+  static String buildThumbnailFileName(SongForApi song, String extension){
+    return buildBasicFileNameForSong(song) + FileNamePostFix.THUMBNAIL + "." + extension;
+  }
+
   static String buildBasicFileNameForSong(SongForApi song){
     var artists = song.getArtistString().split("feat\\.");
     var vocals = artists[1].trim();

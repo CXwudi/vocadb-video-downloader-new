@@ -17,5 +17,6 @@ public class DownloaderApplication {
   public static void main(String[] args) {
     var applicationContext = SpringApplication.run(DownloaderApplication.class, args);
     applicationContext.getBean(MainService.class).run();
+    System.exit(SpringApplication.exit(applicationContext));
   }
 }

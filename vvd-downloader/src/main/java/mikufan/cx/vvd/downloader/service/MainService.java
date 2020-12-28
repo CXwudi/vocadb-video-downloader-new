@@ -33,18 +33,18 @@ public class MainService implements Runnable{
   public void run() {
     var allSongsToBeDownloadedInOrder = ioService.getAllSongsToBeDownloadedInOrder();
     allSongsToBeDownloadedInOrder.forEach(this::handleDownload);
-
+    log.info("All done, thanks for using vocadb-video-downloader - vvd-downloader submodule");
   }
 
   private void handleDownload(SongForApi toBeDownload) {
     // need an annotation to validate that this song is downloadable
-    log.info("Handling download for {}", FileNameUtil.buildBasicFileNameForSong(toBeDownload));
+    log.info("Handling downloadPvAndThumbnail for {}", FileNameUtil.buildBasicFileNameForSong(toBeDownload));
     var pvs = toBeDownload.getPvs();
     //0. choose the preference pv
     var chosenPv = pvDecider.choosePreferredPv(pvs);
     //1. choose the downloader
     var suitableDownloader = downloaderDecider.getSuitableDownloader(chosenPv.getService());
-    //2. download song and thumbnail
+    //2. downloadPvAndThumbnail song and thumbnail
     var downloadStatus = downloadService.handleDownload(suitableDownloader, chosenPv, toBeDownload);
     //3. move input json to output dir
     ioService.recordDownloadedSong(downloadStatus, toBeDownload);

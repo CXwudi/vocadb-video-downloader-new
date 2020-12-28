@@ -28,10 +28,11 @@ class YoutubeYoutubeDlDownloaderTest extends TestEnvHolder {
 
   @Test
   void testDownload() throws InterruptedException {
-    var downloadStatus = downloader.download(
+    var downloadStatus = downloader.downloadPvAndThumbnail(
         "https://www.youtube.com/watch?v=TD0Os2aH2rU",
         Path.of("D:/11134/Videos/Vocaloid Coding POC"),
-        FileNameUtil.removeIllegalChars("To be continued... / 初音ミク - 青屋夏生.mkv"));
+        FileNameUtil.removeIllegalChars("To be continued... / 初音ミク - 青屋夏生 - video.mkv"),
+        FileNameUtil.removeIllegalChars("To be continued... / 初音ミク - 青屋夏生 - pic.webp"));
     assertTrue(downloadStatus.isSucceed());
   }
 }

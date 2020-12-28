@@ -5,7 +5,7 @@ import mikufan.cx.vvd.common.vocadb.model.PV;
 import java.util.List;
 
 /**
- * Choose the preferred PV to be download, base on configuration
+ * Choose the preferred PV to be downloadPvAndThumbnail, base on configuration
  * @author CX无敌
  * @date 2020-12-20
  */

@@ -33,7 +33,7 @@ public class YoutubeYoutubeDlDownloader implements PvDownloader {
   }
 
   @Override
-  public DownloadStatus download(String url, Path dir, String fileName) throws InterruptedException {
+  public DownloadStatus downloadPvAndThumbnail(String url, Path dir, String pvFileName, String thumbnailFileName) throws InterruptedException {
     var youtubeDlRequest = new YoutubeDLRequest(
         url,
         dir.toAbsolutePath().toString(),
@@ -41,7 +41,10 @@ public class YoutubeYoutubeDlDownloader implements PvDownloader {
     youtubeDlRequest
         .setOptions(config.getYoutubeDlOptions())
         .setOption("--ffmpeg-location", config.getFfmpegPath().toAbsolutePath().toString())
-        .setOption("-o", fileName);
+        // use the file name without extension,
+        // so that youtube-dl or ffmpeg won't add his own extension after our extension
+        .setOption("-o", pvFileName.substring(0, pvFileName.lastIndexOf('.')))
+        .setOption("--write-thumbnail");
 
     YoutubeDLResponse youtubeDlResponse;
     try {
@@ -50,27 +53,32 @@ public class YoutubeYoutubeDlDownloader implements PvDownloader {
       if (e.getCause() instanceof InterruptedException){
         throw (InterruptedException) e.getCause();
       } else {
-        log.error("YoutubeDLException in download method", e);
+        log.error("YoutubeDLException in downloadPvAndThumbnail method", e);
         return DownloadStatus.failure(e.getMessage());
       }
     }
 
+    // we can't control how thumbnail filename looks like, but change it after the downloadPvAndThumbnail
+    var expectedThumbnailFileName = pvFileName.replace(
+        // replace video extension to thumbnail extension to get the expected thumbnail file name
+        pvFileName.substring(pvFileName.lastIndexOf('.')),
+        thumbnailFileName.substring(thumbnailFileName.lastIndexOf('.'))
+    );
 
-    // youtube-dl with ffmpeg will add .mkv extension by ffmpeg, even though same extension already exists
-    if (Files.exists(dir.resolve(fileName + ".mkv"))){
-      try {
-        Files.move(dir.resolve(fileName + ".mkv"), dir.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
-      } catch (IOException e) {
-        log.error("Fail to rename a downloaded file", e);
-        return DownloadStatus.failure(e.getMessage());
-      }
+    try {
+      log.debug("Renaming thumbnail file from {} to {}", expectedThumbnailFileName, thumbnailFileName);
+      Files.move(dir.resolve(expectedThumbnailFileName), dir.resolve(thumbnailFileName), StandardCopyOption.REPLACE_EXISTING);
+    } catch (IOException e) {
+      return DownloadStatus.failure(String.format("Fail to rename thumbnail file to %s", thumbnailFileName));
     }
 
-    if (youtubeDlResponse.isSuccess() && Files.exists(dir.resolve(fileName))){
+    if (youtubeDlResponse.isSuccess() &&
+        Files.exists(dir.resolve(pvFileName)) &&
+        Files.exists(dir.resolve(thumbnailFileName))){
       return DownloadStatus.success();
     } else {
       return DownloadStatus.failure(
-          String.format("Can not find the downloaded file or download fails, see error message below%n%s",
+          String.format("Can not find the downloaded file or downloadPvAndThumbnail fails, see error message below%n%s",
               youtubeDlResponse.getErr()));
     }
   }

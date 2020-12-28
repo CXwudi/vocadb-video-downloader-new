@@ -47,7 +47,7 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
   }
 
   @Override
-  public DownloadStatus download(String url, Path dir, String fileName) throws InterruptedException {
+  public DownloadStatus downloadPvAndThumbnail(String url, Path dir, String pvFileName, String thumbnailFileName) throws InterruptedException {
     try {
       //1. get video info
       var videoInfoHolder = new MutableObject<VideoInfo>(null);
@@ -55,17 +55,17 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
       if (!retrieveStatus.isSucceed()){
         return retrieveStatus;
       }
-      //2. using video info to guide the download of thumbnail and pv, using 2 thread
-      return downloadByVideoInfo(videoInfoHolder.getValue(), dir, fileName);
+      //2. using video info to guide the downloadPvAndThumbnail of thumbnail and pv, using 2 thread
+      return downloadByVideoInfo(videoInfoHolder.getValue(), dir, pvFileName, thumbnailFileName);
     } catch (YoutubeDLException e) {
       if (e.getCause() instanceof InterruptedException){
         throw (InterruptedException) e.getCause();
       } else {
-        log.error("YoutubeDLException in download method", e);
+        log.error("YoutubeDLException in downloadPvAndThumbnail method", e);
         return DownloadStatus.failure(e.getMessage());
       }
     } catch (ExecutionException e) {
-      log.error("ExecutionException in download method", e);
+      log.error("ExecutionException in downloadPvAndThumbnail method", e);
       return DownloadStatus.failure(e.getCause().getMessage());
     }
   }
@@ -116,7 +116,7 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
         ).url;
   }
 
-  private DownloadStatus downloadByVideoInfo(VideoInfo videoInfo, Path dir, String fileName) throws ExecutionException, InterruptedException {
+  private DownloadStatus downloadByVideoInfo(VideoInfo videoInfo, Path dir, String fileName, String thumbnailFileName) throws ExecutionException, InterruptedException {
     var pvUrl = getRealUrlFromVideoInfo(videoInfo);
     var thumbnailUrl = videoInfo.thumbnail;
     var executorService =
@@ -125,12 +125,11 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
             new ArrayBlockingQueue<>(2),
             r -> new Thread(r, "nico-unsafe-idm-youtube-dl"));
 
-    //2.1. download thumbnail
-    var thumbnailFileName = fileName.substring(0, fileName.lastIndexOf('.')) + ".jpg";
+    //2.1. downloadPvAndThumbnail thumbnail
     var thumbnailDownloadFuture = executorService.submit(
         () -> downloadThumbnail(thumbnailUrl, dir, thumbnailFileName)
     );
-    //2.2. download pv
+    //2.2. downloadPvAndThumbnail pv
     var pvDownloadFuture = executorService.submit(
         () -> {
           deleteIfExist(dir, fileName);
@@ -151,7 +150,7 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
       return DownloadStatus.success();
     } else {
       return DownloadStatus.failure(
-          String.format("Can not find the downloaded thumbnail or download fails, see error message below%n%s",
+          String.format("Can not find the downloaded thumbnail or downloadPvAndThumbnail fails, see error message below%n%s",
               "some str"));
     }
   }
@@ -172,11 +171,11 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
   }
 
   /**
-   * download the pv using
+   * downloadPvAndThumbnail the pv using
    * @param url the real url for downloading the pv
    * @param dir output dir
    * @param fileName file name
-   * @return success download status if it is done within 2 minute limit time (due to niconico heartbeat issue)
+   * @return success downloadPvAndThumbnail status if it is done within 2 minute limit time (due to niconico heartbeat issue)
    */
   private DownloadStatus downloadPv(String url, Path dir, String fileName) throws InterruptedException, IOException {
     var idmPb = new ProcessBuilder(
@@ -184,12 +183,12 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
         "/d", url,
         "/p", dir.toAbsolutePath().toString(),
         "/f", fileName,
-        //no question and quite after download
+        //no question and quite after downloadPvAndThumbnail
         "/n", "/q");
     log.debug("Then, start downloading using IDM with commands {}", idmPb.command());
     var isFinished = ProcessUtil.runProcess(idmPb.start(), 2, TimeUnit.MINUTES, log::info, log::debug);
     if (!isFinished){
-      var str = String.format("Failed to download %s using IDM in 2 minutes", fileName);
+      var str = String.format("Failed to downloadPvAndThumbnail %s using IDM in 2 minutes", fileName);
       log.error(str);
       return DownloadStatus.failure(str);
     } else if (Files.notExists(dir.resolve(fileName))){

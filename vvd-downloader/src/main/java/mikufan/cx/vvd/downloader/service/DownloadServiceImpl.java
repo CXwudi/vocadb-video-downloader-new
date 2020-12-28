@@ -33,8 +33,9 @@ public class DownloadServiceImpl implements DownloadService {
 
   @Override @SneakyThrows(InterruptedException.class)
   public DownloadStatus handleDownload(PvDownloader realDownloader, PV pv, SongForApi song) {
-    var fileName = FileNameUtil.buildPvFileName(song, getExtension(realDownloader));
-    log.info("Start downloading to {} using {}", fileName, realDownloader.getName());
+    var pvFileName = FileNameUtil.buildPvFileName(song, getPvExtension(realDownloader));
+    var thumbnailFileName = FileNameUtil.buildThumbnailFileName(song, getThumbnailExtension(realDownloader));
+    log.info("Start downloading pv to {}, thumbnail to {} using {}", pvFileName, thumbnailFileName, realDownloader.getName());
 
     var maxAllowedRetryCount = mechanismConfig.getMaxAllowedRetryCount();
     DownloadStatus currentStatus = null;
@@ -43,10 +44,11 @@ public class DownloadServiceImpl implements DownloadService {
 
     for (int i = 0; i < maxAllowedRetryCount + 1 && notSuccess(currentStatus); i++){
       log.debug("Starting downloading attempt #{}", i);
-      currentStatus = realDownloader.download(pv.getUrl(), ioConfig.getOutputDirectory(), fileName);
+      currentStatus = realDownloader.downloadPvAndThumbnail(pv.getUrl(), ioConfig.getOutputDirectory(), pvFileName, thumbnailFileName);
 
       if (currentStatus.isSucceed()){
-        log.info("Downloading success, file is {}", ioConfig.getOutputDirectory().resolve(fileName));
+        log.info("Downloading success, pv file is {}, thumbnail file is {}",
+            ioConfig.getOutputDirectory().resolve(pvFileName), ioConfig.getOutputDirectory().resolve(thumbnailFileName));
         return currentStatus;
       } else {
         statusList.add(currentStatus);
@@ -57,7 +59,7 @@ public class DownloadServiceImpl implements DownloadService {
     return DownloadStatus.merge(statusList.toArray(DownloadStatus[]::new));
   }
 
-  private String getExtension(PvDownloader realDownloader) {
+  private String getPvExtension(PvDownloader realDownloader) {
     if (realDownloader instanceof NicoPureYoutubeDlDownloader){
       return ".mp4";
     } else if (realDownloader instanceof NicoUnsafeIdmYoutubeDlDownloader){
@@ -65,7 +67,22 @@ public class DownloadServiceImpl implements DownloadService {
     } else if (realDownloader instanceof YoutubeYoutubeDlDownloader){
       return ".mkv";
     } else if (realDownloader instanceof BilibiliYoutubeDlDownloader){
-      return ".mp4";
+      return ".flv";
+    } else {
+      throw new RuntimeVocaloidException(
+          String.format("Un-supported pv downloader, %s", realDownloader.getName()));
+    }
+  }
+
+  private String getThumbnailExtension(PvDownloader realDownloader) {
+    if (realDownloader instanceof NicoPureYoutubeDlDownloader){
+      return ".jpg";
+    } else if (realDownloader instanceof NicoUnsafeIdmYoutubeDlDownloader){
+      return ".jpg";
+    } else if (realDownloader instanceof YoutubeYoutubeDlDownloader){
+      return ".webp";
+    } else if (realDownloader instanceof BilibiliYoutubeDlDownloader){
+      return ".jpg";
     } else {
       throw new RuntimeVocaloidException(
           String.format("Un-supported pv downloader, %s", realDownloader.getName()));

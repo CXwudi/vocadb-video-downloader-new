@@ -27,10 +27,11 @@ class NicoUnsafeIdmYoutubeDlDownloaderTest extends TestEnvHolder {
 
   @Test
   void testDownload() throws InterruptedException {
-    var downloadStatus = downloader.download(
+    var downloadStatus = downloader.downloadPvAndThumbnail(
         "https://www.nicovideo.jp/watch/sm37987111",
         Path.of("D:/11134/Videos/Vocaloid Coding POC"),
-        "ニジイロストーリーズ（VOCALOID ver.）.mp4");
+        "ニジイロストーリーズ（VOCALOID ver.）-video.mp4",
+        "ニジイロストーリーズ（VOCALOID ver.）-pic.jpg");
     assertTrue(downloadStatus.isSucceed());
   }
 }

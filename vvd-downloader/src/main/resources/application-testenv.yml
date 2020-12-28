@@ -22,7 +22,7 @@ config:
     youtube:
       youtube-dl-path: dummy.exe
       # to get high quality youtube video,
-      # we need to download have ffmpeg for youtube-dl to use it
+      # we need to download with ffmpeg
       ffmpeg-path: dummy.exe
 
     bilibili:
