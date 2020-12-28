@@ -11,6 +11,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.ProcessUtil;
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException;
+import mikufan.cx.vvd.common.threading.ThreadUtil;
 import mikufan.cx.vvd.downloader.config.downloader.NicoUnsafeIdmYoutubeDlConfig;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -21,9 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -55,7 +54,7 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
       if (!retrieveStatus.isSucceed()){
         return retrieveStatus;
       }
-      //2. using video info to guide the downloadPvAndThumbnail of thumbnail and pv, using 2 thread
+      //2. using video info to guide the downloading of thumbnail and pv, using 2 thread
       return downloadByVideoInfo(videoInfoHolder.getValue(), dir, pvFileName, thumbnailFileName);
     } catch (YoutubeDLException e) {
       if (e.getCause() instanceof InterruptedException){
@@ -97,7 +96,7 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
     } else if (StringUtils.isBlank(videoInfo.thumbnail)){
       return DownloadStatus.failure(String.format("Can not find thumbnail url for %s", url));
     } else {
-      log.info("Url get✔: {}", getRealUrlFromVideoInfo(videoInfo));
+      log.info("Url get✔: {}", getIndicatedUrlFromVideoInfo(videoInfo));
       log.info("Thumbnail get✔: {}", videoInfo.thumbnail);
       videoInfoHolder.setValue(videoInfo);
       return DownloadStatus.success();
@@ -107,7 +106,7 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
   /**
    * Under so many formats of downloadable urls, get the one indicated by videoInfo.format
    */
-  private String getRealUrlFromVideoInfo(VideoInfo videoInfo){
+  private String getIndicatedUrlFromVideoInfo(VideoInfo videoInfo){
     return videoInfo.formats.stream()
         .filter(f -> f.format.equals(videoInfo.format))
         .findFirst().orElseThrow(
@@ -117,19 +116,15 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
   }
 
   private DownloadStatus downloadByVideoInfo(VideoInfo videoInfo, Path dir, String fileName, String thumbnailFileName) throws ExecutionException, InterruptedException {
-    var pvUrl = getRealUrlFromVideoInfo(videoInfo);
+    var pvUrl = getIndicatedUrlFromVideoInfo(videoInfo);
     var thumbnailUrl = videoInfo.thumbnail;
-    var executorService =
-        new ThreadPoolExecutor(2, 2,
-            1000, TimeUnit.SECONDS,
-            new ArrayBlockingQueue<>(2),
-            r -> new Thread(r, "nico-unsafe-idm-youtube-dl"));
+    var executorService = ThreadUtil.getFixedThreadPoolExecutor(2, "nico-unsafe-idm-youtube-dl");
 
-    //2.1. downloadPvAndThumbnail thumbnail
+    //2.1. download thumbnail
     var thumbnailDownloadFuture = executorService.submit(
         () -> downloadThumbnail(thumbnailUrl, dir, thumbnailFileName)
     );
-    //2.2. downloadPvAndThumbnail pv
+    //2.2. download pv
     var pvDownloadFuture = executorService.submit(
         () -> {
           deleteIfExist(dir, fileName);
