@@ -18,6 +18,8 @@ public class MainService implements Runnable {
 
   IOService ioService;
 
+  ExtractorDecider extractorDecider;
+
   @Override
   public void run() {
     var allSongsToBeExtracted = ioService.getAllSongsToBeExtracted();
@@ -27,7 +29,7 @@ public class MainService implements Runnable {
 
   private void handleExtraction(VSongResource toBeExtracted) {
     //1. choose extractor
-
+    var chosenExtractor = extractorDecider.chooseExtractor(toBeExtracted.getVideo());
     //2. handle extracting
 
     //3. choose tag adder

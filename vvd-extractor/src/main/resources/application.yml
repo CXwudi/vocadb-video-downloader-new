@@ -8,9 +8,9 @@ io: # input, output, and error output dir, can be relative path from the termina
 
 config:
   environment:
-    # array of string representing how to launch external programs
-    python-launch-script:
-    ffmpeg-launch-script:
+    # strings representing how to launch external programs
+    python-launch-cmd:
+    ffmpeg-launch-cmd:
 
 
 
