@@ -26,7 +26,7 @@ import javax.validation.constraints.Min;
 public class MechanismConfig {
 
   /**
-   * how many time can we retry if downloadPvAndThumbnail fail
+   * how many time can we retry if download fail
    */
   @Min(0)
   int maxAllowedRetryCount;

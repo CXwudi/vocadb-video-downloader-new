@@ -76,7 +76,7 @@ public class BilibiliYoutubeDlDownloader implements PvDownloader {
       return DownloadStatus.success();
     } else {
       return DownloadStatus.failure(
-          String.format("Can not find the downloaded files or downloadPvAndThumbnail fails, see error message below%n%s",
+          String.format("Can not find the downloaded files or download fails, see error message below%n%s",
               youtubeDlResponse.getErr()));
     }
   }

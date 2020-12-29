@@ -56,7 +56,7 @@ public class NicoPureYoutubeDlDownloader implements PvDownloader {
       }
     }
 
-    // we can't control how thumbnail filename looks like, but change it after the downloadPvAndThumbnail
+    // we can't control how thumbnail filename looks like, but change it after the download
     var expectedThumbnailFileName = pvFileName.replace(
         // replace video extension to thumbnail extension to get the expected thumbnail file name
         pvFileName.substring(pvFileName.lastIndexOf('.')),
@@ -76,7 +76,7 @@ public class NicoPureYoutubeDlDownloader implements PvDownloader {
       return DownloadStatus.success();
     } else {
       return DownloadStatus.failure(
-          String.format("Can not find the downloaded files or downloadPvAndThumbnail fails, see error message below%n%s",
+          String.format("Can not find the downloaded files or download fails, see error message below%n%s",
               youtubeDlResponse.getErr()));
     }
   }

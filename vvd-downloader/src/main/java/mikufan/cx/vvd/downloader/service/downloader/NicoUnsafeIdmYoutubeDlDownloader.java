@@ -145,7 +145,7 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
       return DownloadStatus.success();
     } else {
       return DownloadStatus.failure(
-          String.format("Can not find the downloaded thumbnail or downloadPvAndThumbnail fails, see error message below%n%s",
+          String.format("Can not find the downloaded thumbnail or download fails, see error message below%n%s",
               "some str"));
     }
   }
@@ -166,11 +166,11 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
   }
 
   /**
-   * downloadPvAndThumbnail the pv using
+   * download the pv using
    * @param url the real url for downloading the pv
    * @param dir output dir
    * @param fileName file name
-   * @return success downloadPvAndThumbnail status if it is done within 2 minute limit time (due to niconico heartbeat issue)
+   * @return success download status if it is done within 2 minute limit time (due to niconico heartbeat issue)
    */
   private DownloadStatus downloadPv(String url, Path dir, String fileName) throws InterruptedException, IOException {
     var idmPb = new ProcessBuilder(
@@ -178,12 +178,12 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
         "/d", url,
         "/p", dir.toAbsolutePath().toString(),
         "/f", fileName,
-        //no question and quite after downloadPvAndThumbnail
+        //no question and quit after download
         "/n", "/q");
     log.debug("Then, start downloading using IDM with commands {}", idmPb.command());
     var isFinished = ProcessUtil.runProcess(idmPb.start(), 2, TimeUnit.MINUTES, log::info, log::debug);
     if (!isFinished){
-      var str = String.format("Failed to downloadPvAndThumbnail %s using IDM in 2 minutes", fileName);
+      var str = String.format("Failed to download %s using IDM in 2 minutes", fileName);
       log.error(str);
       return DownloadStatus.failure(str);
     } else if (Files.notExists(dir.resolve(fileName))){
