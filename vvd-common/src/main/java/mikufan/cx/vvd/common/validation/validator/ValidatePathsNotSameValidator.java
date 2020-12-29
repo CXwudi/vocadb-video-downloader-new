@@ -5,6 +5,7 @@ import mikufan.cx.vvd.common.validation.annotation.PathsNotSame;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
@@ -71,7 +72,16 @@ public class ValidatePathsNotSameValidator implements ConstraintValidator<PathsN
     try {
       var field = object.getClass().getDeclaredField(fieldName);
       field.setAccessible(true);
-      path = (Path) field.get(object);
+      var rawObjectPath = field.get(object);
+      if (rawObjectPath instanceof Path){
+        path = (Path) rawObjectPath;
+      } else if (rawObjectPath instanceof File){
+        path = ((File) rawObjectPath).toPath();
+      } else {
+        context.buildConstraintViolationWithTemplate(String.format("The field is not a path: %s", fieldName))
+            .addPropertyNode(fieldName)
+            .addConstraintViolation();
+      }
     } catch (IllegalAccessException e) {
       context.buildConstraintViolationWithTemplate(String.format("Can not access field: %s, %s", fieldName, e.getMessage()))
           .addPropertyNode(fieldName)
