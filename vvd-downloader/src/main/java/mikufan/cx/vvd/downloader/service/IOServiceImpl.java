@@ -40,7 +40,7 @@ public class IOServiceImpl implements IOService {
 
   /**
    * scan input file, read json, and sort them in last modify increasing order
-   * @return list of songs to be downloadPvAndThumbnail in order
+   * @return list of songs to be download in order
    */
   @Override
   public List<SongForApi> getAllSongsToBeDownloadedInOrder(){

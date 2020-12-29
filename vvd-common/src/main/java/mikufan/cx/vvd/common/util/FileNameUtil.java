@@ -24,6 +24,10 @@ public interface FileNameUtil {
     return buildBasicFileNameForSong(song) + FileNamePostFix.THUMBNAIL + extensionWithDot;
   }
 
+  static String buildAudioFileName(SongForApi song, String extensionWithDot){
+    return buildBasicFileNameForSong(song) + FileNamePostFix.AUDIO + extensionWithDot;
+  }
+
   static String buildBasicFileNameForSong(SongForApi song){
     var artists = song.getArtistString().split("feat\\.");
     var vocals = artists[1].trim();

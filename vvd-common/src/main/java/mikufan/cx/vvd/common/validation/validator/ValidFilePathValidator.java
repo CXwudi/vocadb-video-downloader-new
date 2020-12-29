@@ -34,9 +34,13 @@ public class ValidFilePathValidator implements ConstraintValidator<IsFile, Path>
   public boolean isValid(Path path, ConstraintValidatorContext context) {
     context.disableDefaultConstraintViolation();
     if (Objects.isNull(path)){
-      context.buildConstraintViolationWithTemplate("The path can not be null")
-          .addConstraintViolation();
-      return false;
+      if (optionalCheck){
+        return true;
+      } else {
+        context.buildConstraintViolationWithTemplate("The path can not be null")
+            .addConstraintViolation();
+        return false;
+      }
     }
     var fullPath = path.toAbsolutePath().toString();
     if (!Files.exists(path)){
