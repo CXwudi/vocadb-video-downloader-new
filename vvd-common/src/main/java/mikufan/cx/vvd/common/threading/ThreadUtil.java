@@ -19,7 +19,7 @@ public interface ThreadUtil {
   static ThreadPoolExecutor getFixedThreadPoolExecutor(int maxThreadCount, String threadBaseName){
     return new ThreadPoolExecutor(maxThreadCount, maxThreadCount,
         1000, TimeUnit.SECONDS,
-        new LinkedBlockingQueue<>(0),
+        new LinkedBlockingQueue<>(1),
         ThreadFactoryVocaloid.withBaseName(threadBaseName));
   }
 
@@ -35,7 +35,7 @@ public interface ThreadUtil {
   static ThreadPoolExecutor getFixedThreadPoolExecutor(int poolSize, int maxThreadCount, String threadBaseName){
     return new ThreadPoolExecutor(poolSize, poolSize,
         1000, TimeUnit.SECONDS,
-        new LinkedBlockingQueue<>(maxThreadCount - poolSize),
+        new LinkedBlockingQueue<>(Integer.max(1, maxThreadCount - poolSize)),
         ThreadFactoryVocaloid.withBaseName(threadBaseName));
   }
 }

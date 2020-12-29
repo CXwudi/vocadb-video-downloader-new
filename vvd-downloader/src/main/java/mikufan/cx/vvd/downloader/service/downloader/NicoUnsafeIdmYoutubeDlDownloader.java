@@ -96,8 +96,8 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
     } else if (StringUtils.isBlank(videoInfo.thumbnail)){
       return DownloadStatus.failure(String.format("Can not find thumbnail url for %s", url));
     } else {
-      log.info("Url get✔: {}", getIndicatedUrlFromVideoInfo(videoInfo));
-      log.info("Thumbnail get✔: {}", videoInfo.thumbnail);
+      log.info("Video info get✔: format={}, pv-url={}, thumbnail-url={}",
+          videoInfo.format, getIndicatedUrlFromVideoInfo(videoInfo), videoInfo.thumbnail);
       videoInfoHolder.setValue(videoInfo);
       return DownloadStatus.success();
     }

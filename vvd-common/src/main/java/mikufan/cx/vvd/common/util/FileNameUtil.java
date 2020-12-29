@@ -16,12 +16,12 @@ public interface FileNameUtil {
     return buildBasicFileNameForSong(song) + FileNamePostFix.SONG_INFO + ".json";
   }
 
-  static String buildPvFileName(SongForApi song, String extension){
-    return buildBasicFileNameForSong(song) + FileNamePostFix.VIDEO + "." + extension;
+  static String buildPvFileName(SongForApi song, String extensionWithDot){
+    return buildBasicFileNameForSong(song) + FileNamePostFix.VIDEO + extensionWithDot;
   }
 
-  static String buildThumbnailFileName(SongForApi song, String extension){
-    return buildBasicFileNameForSong(song) + FileNamePostFix.THUMBNAIL + "." + extension;
+  static String buildThumbnailFileName(SongForApi song, String extensionWithDot){
+    return buildBasicFileNameForSong(song) + FileNamePostFix.THUMBNAIL + extensionWithDot;
   }
 
   static String buildBasicFileNameForSong(SongForApi song){

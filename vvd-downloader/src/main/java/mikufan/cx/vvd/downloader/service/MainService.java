@@ -38,7 +38,7 @@ public class MainService implements Runnable{
 
   private void handleDownload(SongForApi toBeDownload) {
     // need an annotation to validate that this song is downloadable
-    log.info("Handling downloadPvAndThumbnail for {}", FileNameUtil.buildBasicFileNameForSong(toBeDownload));
+    log.info("Handling download pv and thumbnail for {}", FileNameUtil.buildBasicFileNameForSong(toBeDownload));
     var pvs = toBeDownload.getPvs();
     //0. choose the preference pv
     var chosenPv = pvDecider.choosePreferredPv(pvs);

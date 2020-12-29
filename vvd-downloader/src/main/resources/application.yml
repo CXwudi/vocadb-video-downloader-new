@@ -65,6 +65,9 @@ spring:
   jackson:
     deserialization:
       fail-on-unknown-properties: true
+    serialization:
+      indent-output: true
+
 
 logging:
   level:
