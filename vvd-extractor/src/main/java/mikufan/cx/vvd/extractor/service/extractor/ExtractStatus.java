@@ -26,6 +26,10 @@ public class ExtractStatus {
   boolean succeed;
   String description;
 
+  public boolean isFailure(){
+    return !succeed;
+  }
+
   public static ExtractStatus merge(ExtractStatus... statuses){
     var errors = Arrays.stream(statuses)
         .map(ExtractStatus::getDescription)

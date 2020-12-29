@@ -43,7 +43,7 @@ public class IOServiceImpl implements IOService {
    * @return list of songs to be extracted in order
    */
   @Override
-  public List<@Valid VSongResource> getAllSongsToBeExtracted() {
+  public List<Pair<SongForApi, @Valid VSongResource>> getAllSongsToBeExtracted() {
     //1. read and sort all input jsons in last modify increasing order
     var inputDirectory = ioConfig.getInputDirectory();
 
@@ -70,13 +70,13 @@ public class IOServiceImpl implements IOService {
 
     return orderedInputJsonPairs.stream()
         .map(Pair::getLeft)
-        .map(jsonFile -> toSongResource(jsonFile, Set.of(inputAllFilesArray)))
+        .map(jsonFile -> toSongAndResourcePair(jsonFile, Set.of(inputAllFilesArray)))
         .collect(Collectors.toUnmodifiableList());
   }
 
 
   @SneakyThrows({IOException.class})
-  private VSongResource toSongResource(File file, Set<File> allFiles) {
+  private Pair<SongForApi, VSongResource> toSongAndResourcePair(File file, Set<File> allFiles) {
     var song = objectMapper.readValue(file, SongForApi.class);
     var basePvFileName = FileNameUtil.buildPvFileName(song, NO_EXTENSION);
     var baseAudioFileName = FileNameUtil.buildAudioFileName(song, NO_EXTENSION);
@@ -93,7 +93,7 @@ public class IOServiceImpl implements IOService {
         .build();
     log.debug("Find all recourses for {}, resources={}",
         FileNameUtil.buildBasicFileNameForSong(song), songResource);
-    return songResource;
+    return Pair.of(song, songResource);
   }
 
   private Optional<Path> findFile(Set<File> allFiles, String partialName){

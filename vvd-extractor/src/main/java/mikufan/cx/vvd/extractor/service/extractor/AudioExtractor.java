@@ -32,11 +32,11 @@ public interface AudioExtractor {
    * When {@link InterruptedException} is thrown, the JVM should stop ASAP. <br/>
    * A mixin interface should not override this method. <br/>
    * 
-   * @param pv
-   * @param directory
-   * @param fileName
-   * @return
-   * @throws InterruptedException
+   * @param pv the input pv file
+   * @param directory the output directory
+   * @param fileName the name of the output file in output directory
+   * @return extraction status
+   * @throws InterruptedException if ctrl+c happened
    */
   ExtractStatus extractAudio(Path pv, Path directory, String fileName) throws InterruptedException;
 }

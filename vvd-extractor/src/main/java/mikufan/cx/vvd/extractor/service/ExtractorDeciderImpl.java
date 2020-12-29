@@ -5,9 +5,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException;
-import mikufan.cx.vvd.extractor.service.extractor.AudioExtractor;
 import mikufan.cx.vvd.extractor.service.extractor.M4aAudioExtractor;
 import mikufan.cx.vvd.extractor.service.extractor.OpusAudioExtractor;
+import mikufan.cx.vvd.extractor.util.ExtractorInfo;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -27,13 +27,19 @@ public class ExtractorDeciderImpl implements ExtractorDecider, BeanFactoryAware 
   BeanFactory beanFactory;
 
   @Override
-  public AudioExtractor chooseExtractor(Path videoFile) {
+  public ExtractorInfo getProperExtractorAndInfo(Path videoFile) {
     var fileName = videoFile.getFileName().toString();
     var extension = fileName.substring(fileName.lastIndexOf('.'));
     switch (extension){
       case ".mp4":
-      case ".flv": return beanFactory.getBean(M4aAudioExtractor.class);
-      case ".mkv": return beanFactory.getBean(OpusAudioExtractor.class);
+      case ".flv": return ExtractorInfo.builder()
+          .audioExtractor(beanFactory.getBean(M4aAudioExtractor.class))
+          .audioExtension(".m4a")
+          .build();
+      case ".mkv": return ExtractorInfo.builder()
+          .audioExtractor(beanFactory.getBean(OpusAudioExtractor.class))
+          .audioExtension(".opus")
+          .build();
       default: throw new RuntimeVocaloidException(String.format("can not get the audio extractor for file type %s", extension));
     }
   }

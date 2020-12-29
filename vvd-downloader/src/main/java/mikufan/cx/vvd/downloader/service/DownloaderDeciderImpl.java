@@ -26,6 +26,12 @@ public class DownloaderDeciderImpl implements DownloaderDecider, BeanFactoryAwar
 
   private final EnablementConfig enablementConfig;
 
+  /**
+   * TODO: in future, change it to return a POJO containing all info + downloader that need to smoothly download
+   * without guessing the extension again in download service
+   * @param pvService
+   * @return
+   */
   @Override
   public PvDownloader getSuitableDownloader(String pvService) {
     var enablementForService = enablementConfig.getEnablementForService(pvService).orElseThrow(

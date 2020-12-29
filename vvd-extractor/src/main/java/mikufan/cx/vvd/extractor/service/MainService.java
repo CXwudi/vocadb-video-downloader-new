@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.label.VSongResource;
+import mikufan.cx.vvd.common.vocadb.model.SongForApi;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,13 +24,13 @@ public class MainService implements Runnable {
   @Override
   public void run() {
     var allSongsToBeExtracted = ioService.getAllSongsToBeExtracted();
-    allSongsToBeExtracted.forEach(this::handleExtraction);
+    allSongsToBeExtracted.forEach(pair -> handleExtraction(pair.getLeft(), pair.getRight()));
     log.info("All done, thanks for using vocadb-video-downloader - vvd-extractor submodule");
   }
 
-  private void handleExtraction(VSongResource toBeExtracted) {
+  private void handleExtraction(SongForApi song, VSongResource resource) {
     //1. choose extractor
-    var chosenExtractor = extractorDecider.chooseExtractor(toBeExtracted.getVideo());
+    var chosenExtractor = extractorDecider.getProperExtractorAndInfo(resource.getVideo());
     //2. handle extracting
 
     //3. choose tag adder
