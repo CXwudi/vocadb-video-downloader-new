@@ -4,8 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<packaging>pom</packaging>
 	<modules>
-		<module>vvd-downloader</module>
 		<module>vvd-common</module>
+		<module>vvd-downloader</module>
+		<module>vvd-extractor</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>

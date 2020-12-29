@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.jackson.Jacksonized;
+import mikufan.cx.vvd.common.validation.annotation.IsFile;
 
+import javax.validation.constraints.NotNull;
 import java.nio.file.Path;
 
 /**
@@ -18,9 +20,9 @@ import java.nio.file.Path;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PROTECTED)
 public class VSongResource {
 
-  Path video;
-  Path audio;
-  Path thumbnail;
-  Path infoFile;
+  @NotNull @IsFile Path video;
+  @IsFile(optionalCheck = true) Path audio;
+  @NotNull @IsFile Path thumbnail;
+  @NotNull @IsFile Path infoFile;
 
 }

@@ -1,0 +1,9 @@
+package mikufan.cx.vvd.extractor.service;
+
+/**
+ * @author CX无敌
+ * @date 2020-12-28
+ */
+public interface IOService {
+
+}
