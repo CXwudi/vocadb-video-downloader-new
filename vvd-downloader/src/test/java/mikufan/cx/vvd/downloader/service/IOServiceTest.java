@@ -1,7 +1,7 @@
 package mikufan.cx.vvd.downloader.service;
 
 import lombok.extern.slf4j.Slf4j;
-import mikufan.cx.vvd.downloader.service.downloader.DownloadStatus;
+import mikufan.cx.vvd.downloader.label.DownloadStatus;
 import mikufan.cx.vvd.downloader.util.TestEnvHolder;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

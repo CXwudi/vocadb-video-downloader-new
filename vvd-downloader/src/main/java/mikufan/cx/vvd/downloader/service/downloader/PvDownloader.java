@@ -1,5 +1,7 @@
 package mikufan.cx.vvd.downloader.service.downloader;
 
+import mikufan.cx.vvd.downloader.label.DownloadStatus;
+
 import java.nio.file.Path;
 
 /**

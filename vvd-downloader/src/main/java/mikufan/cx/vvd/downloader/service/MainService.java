@@ -43,10 +43,14 @@ public class MainService implements Runnable{
     //0. choose the preference pv
     var chosenPv = pvDecider.choosePreferredPv(pvs);
     //1. choose the downloader
+    //TODO: in future, change it to return a POJO containing all info + downloader that need to smoothly download
     var suitableDownloader = downloaderDecider.getSuitableDownloader(chosenPv.getService());
     //2. download song and thumbnail
     var downloadStatus = downloadService.handleDownload(suitableDownloader, chosenPv, toBeDownload);
     //3. move input json to output dir
+    //TODO: change it to write vsong resource json, the new one
+    // the reason is that, we should not write code once again about extension guessing, and
+    // and extractor chosen is determined by pv service and file extension format from the downloader
     ioService.recordDownloadedSong(downloadStatus, toBeDownload);
   }
 }

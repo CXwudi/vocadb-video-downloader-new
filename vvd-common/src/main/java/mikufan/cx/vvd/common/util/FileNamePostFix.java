@@ -11,5 +11,5 @@ public final class FileNamePostFix {
   public static final String VIDEO = SEPARATOR + "pv";
   public static final String AUDIO = SEPARATOR + "audio";
   public static final String THUMBNAIL = SEPARATOR + "thumbnail";
-  public static final String RESOURCES_LABEL = SEPARATOR + "resources";
+  public static final String RESOURCES = SEPARATOR + "resource";
 }

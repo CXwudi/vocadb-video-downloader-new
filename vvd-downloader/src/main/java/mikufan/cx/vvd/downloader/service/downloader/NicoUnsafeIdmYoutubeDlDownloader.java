@@ -13,6 +13,7 @@ import mikufan.cx.vvd.common.ProcessUtil;
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException;
 import mikufan.cx.vvd.common.threading.ThreadUtil;
 import mikufan.cx.vvd.downloader.config.downloader.NicoUnsafeIdmYoutubeDlConfig;
+import mikufan.cx.vvd.downloader.label.DownloadStatus;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.mutable.MutableObject;

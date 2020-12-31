@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.util.FileNameUtil;
 import mikufan.cx.vvd.common.vocadb.model.SongForApi;
 import mikufan.cx.vvd.extractor.config.IOConfig;
-import mikufan.cx.vvd.extractor.service.extractor.ExtractStatus;
+import mikufan.cx.vvd.extractor.label.ExtractStatus;
 import mikufan.cx.vvd.extractor.util.ExtractorInfo;
 import org.springframework.stereotype.Service;
 

@@ -1,5 +1,7 @@
 package mikufan.cx.vvd.extractor.service.extractor;
 
+import mikufan.cx.vvd.extractor.label.ExtractStatus;
+
 import java.nio.file.Path;
 
 /**

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.downloader.config.downloader.BilibiliYoutubeDlConfig;
+import mikufan.cx.vvd.downloader.label.DownloadStatus;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;

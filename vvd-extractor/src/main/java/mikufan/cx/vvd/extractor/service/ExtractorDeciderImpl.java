@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException;
-import mikufan.cx.vvd.extractor.service.extractor.M4aAudioExtractor;
-import mikufan.cx.vvd.extractor.service.extractor.OpusAudioExtractor;
+import mikufan.cx.vvd.extractor.service.extractor.NiconicoM4aAudioExtractor;
+import mikufan.cx.vvd.extractor.service.extractor.YoutubeOpusAudioExtractor;
 import mikufan.cx.vvd.extractor.util.ExtractorInfo;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
@@ -33,12 +33,13 @@ public class ExtractorDeciderImpl implements ExtractorDecider, BeanFactoryAware 
     switch (extension){
       case ".mp4":
       case ".flv": return ExtractorInfo.builder()
-          .audioExtractor(beanFactory.getBean(M4aAudioExtractor.class))
+          .audioExtractor(beanFactory.getBean(NiconicoM4aAudioExtractor.class))
           .audioExtension(".m4a")
           .build();
       case ".mkv": return ExtractorInfo.builder()
-          .audioExtractor(beanFactory.getBean(OpusAudioExtractor.class))
-          .audioExtension(".opus")
+          .audioExtractor(beanFactory.getBean(YoutubeOpusAudioExtractor.class))
+          // just encapsulate opus in ogg so that wangyiyun can support it
+          .audioExtension(".ogg")
           .build();
       default: throw new RuntimeVocaloidException(String.format("can not get the audio extractor for file type %s", extension));
     }

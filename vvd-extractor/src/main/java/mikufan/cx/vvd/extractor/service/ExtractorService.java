@@ -1,7 +1,7 @@
 package mikufan.cx.vvd.extractor.service;
 
 import mikufan.cx.vvd.common.vocadb.model.SongForApi;
-import mikufan.cx.vvd.extractor.service.extractor.ExtractStatus;
+import mikufan.cx.vvd.extractor.label.ExtractStatus;
 import mikufan.cx.vvd.extractor.util.ExtractorInfo;
 
 import java.nio.file.Path;

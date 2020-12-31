@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.ProcessUtil;
 import mikufan.cx.vvd.extractor.config.EnvironmentConfig;
+import mikufan.cx.vvd.extractor.label.ExtractStatus;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -13,13 +14,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
+ * This infact can handle any .mp4, .flv, .ts video file, as long as their audio are AAC
  * @author CX无敌
  * @date 2020-12-29
  */
 @Service @Slf4j
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-public class M4aAudioExtractor implements AudioExtractor {
+public class NiconicoM4aAudioExtractor implements AudioExtractor {
 
   EnvironmentConfig environmentConfig;
 

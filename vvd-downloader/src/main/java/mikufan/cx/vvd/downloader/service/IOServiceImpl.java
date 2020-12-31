@@ -11,7 +11,7 @@ import mikufan.cx.vvd.common.util.FileNamePostFix;
 import mikufan.cx.vvd.common.util.FileNameUtil;
 import mikufan.cx.vvd.common.vocadb.model.SongForApi;
 import mikufan.cx.vvd.downloader.config.IOConfig;
-import mikufan.cx.vvd.downloader.service.downloader.DownloadStatus;
+import mikufan.cx.vvd.downloader.label.DownloadStatus;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 

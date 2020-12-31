@@ -25,4 +25,9 @@ public class VSongResource {
   @NotNull @IsFile Path thumbnail;
   @NotNull @IsFile Path infoFile;
 
+  //TODO: additional info
+  //String pvService
+  //String pvId
+  //String pvUrl
+
 }

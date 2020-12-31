@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.ProcessUtil;
 import mikufan.cx.vvd.extractor.config.EnvironmentConfig;
+import mikufan.cx.vvd.extractor.label.ExtractStatus;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -19,7 +20,7 @@ import java.nio.file.Path;
 @Service @Slf4j
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-public class OpusAudioExtractor implements AudioExtractor {
+public class YoutubeOpusAudioExtractor implements AudioExtractor {
 
   EnvironmentConfig environmentConfig;
 
