@@ -25,6 +25,8 @@ public class MainService implements Runnable {
 
   TaggerDecider taggerDecider;
 
+  TaggerService taggerService;
+
   @Override
   public void run() {
     // what is returned is what is used for tracking input files to be extracted
@@ -35,6 +37,7 @@ public class MainService implements Runnable {
 
   private void handleExtraction(VSongResource toBeExtractedSongResource) {
     //0. build extract context
+    log.info("Handling extracting and tagging for {}", toBeExtractedSongResource.getPvFileName());
     var contextBuilder = ExtractContext.builder().songResource(toBeExtractedSongResource);
     //1. choose extractor
     var extractorAndAudioExtHolder = extractorDecider.getProperExtractorAndAudioExt(contextBuilder.build());
@@ -48,8 +51,9 @@ public class MainService implements Runnable {
     }
     //3. choose tag adder
     var taggerHolder = taggerDecider.chooseTagger(contextBuilder.build());
+    contextBuilder.audioTagger(taggerHolder.getAudioTagger());
     //4. handle tag adding
-
+    taggerService.handleTagging(contextBuilder.build());
     //5. move/copy input json to output/err dir (let make json file as the status recorder in everywhere)
 
   }

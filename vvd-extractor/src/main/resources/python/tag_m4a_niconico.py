@@ -29,7 +29,7 @@ def add_tag(input_file, thumbnail_file, resource_dict, info_dict):
 
   if info_dict["albums"]:
     album_strs = map(lambda album: album["name"], info_dict["albums"])
-    tags["----:com.apple.iTunes:obtainable from"] = "This song is obtainable from [{}]".format(", ".join(album_strs)).encode()
+    tags["----:com.apple.iTunes:obtainable from"] = "This song is in albums [{}]".format(", ".join(album_strs)).encode()
   
   file.save()
 

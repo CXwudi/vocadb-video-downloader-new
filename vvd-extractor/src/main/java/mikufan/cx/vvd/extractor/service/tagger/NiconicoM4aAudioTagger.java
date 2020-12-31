@@ -44,6 +44,7 @@ public class NiconicoM4aAudioTagger implements AudioTagger {
         "-if", infoFile.toAbsolutePath().toString()
     );
     try {
+      log.debug("Executing extraction by commands: {}", processBuilder.command());
       ProcessUtil.runShortProcess(processBuilder.start(), log::info, log::debug);
       return ExtractStatus.success();
     } catch (IOException e) {
