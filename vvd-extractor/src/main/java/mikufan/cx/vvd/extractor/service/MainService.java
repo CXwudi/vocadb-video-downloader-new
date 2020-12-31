@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.label.VSongResource;
-import mikufan.cx.vvd.common.vocadb.model.SongForApi;
+import mikufan.cx.vvd.extractor.label.ExtractContext;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,23 +25,32 @@ public class MainService implements Runnable {
 
   @Override
   public void run() {
-    //TODO: change it to return a local vsong resource (called VSongInfo) where song info json file is replaced with actual song info
+    // what is returned is what is used for tracking input files to be extracted
     var allSongsToBeExtracted = ioService.getAllSongsToBeExtracted();
-    allSongsToBeExtracted.forEach(pair -> handleExtraction(pair.getLeft(), pair.getRight()));
+    allSongsToBeExtracted.forEach(this::handleExtraction);
     log.info("All done, thanks for using vocadb-video-downloader - vvd-extractor submodule");
   }
 
-  private void handleExtraction(SongForApi song, VSongResource resource) {
+  private void handleExtraction(VSongResource toBeExtractedSongResource) {
+    //0. build extract context
+    var extractContextBuilder = ExtractContext.builder()
+        .songResource(toBeExtractedSongResource);
     //1. choose extractor
-    var extractorInfo = extractorDecider.getProperExtractorAndInfo(resource.getVideo());
+    var extractorAndAudioExtHolder = extractorDecider.getProperExtractorAndAudioExt(extractContextBuilder.build());
+    extractContextBuilder
+        .audioExtension(extractorAndAudioExtHolder.getAudioExtension())
+        .audioExtractor(extractorAndAudioExtHolder.getAudioExtractor());
     //2. handle extracting
-    var extractStatus = extractorService.handleExtract(extractorInfo, resource.getVideo(), song);
-    //TODO quick: handle extraction fail - stop and record now
+    var extractStatus = extractorService.handleExtract(extractContextBuilder.build());
+    if (extractStatus.isFailure()){
+      //TODO quick: handle extraction fail - stop and record now
+    }
     //3. choose tag adder
 
     //4. handle tag adding
 
     //5. move/copy input json to output/err dir (let make json file as the status recorder in everywhere)
+
   }
 
 

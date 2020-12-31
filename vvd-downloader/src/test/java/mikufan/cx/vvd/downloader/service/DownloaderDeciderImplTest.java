@@ -18,7 +18,7 @@ class DownloaderDeciderImplTest extends TestEnvHolder {
 
   @Test
   void testGet(){
-    var suitableDownloader = downloaderDecider.getSuitableDownloader(PvServiceStr.NICONICO);
+    var suitableDownloader = downloaderDecider.getSuitableDownloaderAndInfo(PvServiceStr.NICONICO);
     log.info("suitableDownloader = {}", suitableDownloader.getClass().getSimpleName());
   }
 }

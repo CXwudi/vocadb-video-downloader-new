@@ -27,6 +27,7 @@ config:
     max-allowed-retry-count: 3
 
   downloader:
+    # TODO: consider use strings to support any cmd boot command
 
     # downloading niconico video using youtube-dl only
     # discourage to use the official youtube-dl due to heartbeat problem

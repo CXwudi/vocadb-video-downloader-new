@@ -2,6 +2,7 @@ package mikufan.cx.vvd.downloader.service;
 
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.downloader.label.DownloadStatus;
+import mikufan.cx.vvd.downloader.label.DownloaderInfo;
 import mikufan.cx.vvd.downloader.util.TestEnvHolder;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -28,10 +29,14 @@ class IOServiceTest extends TestEnvHolder {
     var samples1 = allSongsToBeDownloaded.subList(0, 20);
     var samples2 = allSongsToBeDownloaded.subList(20, 30);
     samples1.forEach(sample -> {
-      ioService.recordDownloadedSong(DownloadStatus.success(), sample);
+      ioService.recordDownloadedSong(DownloadStatus.success(), DownloaderInfo.builder()
+          .pvFileExtension(".pv-extension")
+          .thumbnailFileExtension(".thumbnail-extension")
+          .build(), sample, sample.getPvs().get(0));
     });
     samples2.forEach(sample -> {
-      ioService.recordDownloadedSong(DownloadStatus.failure("Sample error"), sample);
+      ioService.recordDownloadedSong(DownloadStatus.failure("Sample error"),
+          DownloaderInfo.builder().build(), sample, sample.getPvs().get(0));
     });
   }
 }

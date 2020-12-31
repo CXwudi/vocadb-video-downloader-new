@@ -31,6 +31,7 @@ public class MainService implements Runnable{
    */
   @Override
   public void run() {
+    // what is returned is what is used for tracking input files to be downloaded
     var allSongsToBeDownloadedInOrder = ioService.getAllSongsToBeDownloadedInOrder();
     allSongsToBeDownloadedInOrder.forEach(this::handleDownload);
     log.info("All done, thanks for using vocadb-video-downloader - vvd-downloader submodule");
@@ -39,18 +40,22 @@ public class MainService implements Runnable{
   private void handleDownload(SongForApi toBeDownload) {
     // need an annotation to validate that this song is downloadable
     log.info("Handling download pv and thumbnail for {}", FileNameUtil.buildBasicFileNameForSong(toBeDownload));
-    var pvs = toBeDownload.getPvs();
     //0. choose the preference pv
-    var chosenPv = pvDecider.choosePreferredPv(pvs);
+    //TODO: create a new POJO called DownloadInfo,
+    // and refactor all following methods to only take a single DownloadInfo parameter,
+    // create a DownloadInfoBuilder instance here to store all return values from methods
+    var chosenPv = pvDecider.choosePreferredPv(toBeDownload.getPvs());
     //1. choose the downloader
-    //TODO: in future, change it to return a POJO containing all info + downloader that need to smoothly download
-    var suitableDownloader = downloaderDecider.getSuitableDownloader(chosenPv.getService());
+    var downloaderInfo = downloaderDecider.getSuitableDownloaderAndInfo(chosenPv.getService());
     //2. download song and thumbnail
-    var downloadStatus = downloadService.handleDownload(suitableDownloader, chosenPv, toBeDownload);
+    var downloadStatus = downloadService.handleDownload(downloaderInfo, chosenPv, toBeDownload);
     //3. move input json to output dir
-    //TODO: change it to write vsong resource json, the new one
-    // the reason is that, we should not write code once again about extension guessing, and
-    // and extractor chosen is determined by pv service and file extension format from the downloader
-    ioService.recordDownloadedSong(downloadStatus, toBeDownload);
+
+    /* write vsong resource json, and vvd-extractor use vsong resource json as input file progress trackers
+     the reason is that, we should not write code once again about extension guessing,
+     and extractor chosen is determined by pv service and file extension format from the downloader
+     and audio tagger need the chosen pv info to write custom tags
+    */
+    ioService.recordDownloadedSong(downloadStatus, downloaderInfo, toBeDownload, chosenPv);
   }
 }

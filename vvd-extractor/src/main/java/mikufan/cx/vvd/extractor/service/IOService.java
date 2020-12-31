@@ -1,8 +1,6 @@
 package mikufan.cx.vvd.extractor.service;
 
 import mikufan.cx.vvd.common.label.VSongResource;
-import mikufan.cx.vvd.common.vocadb.model.SongForApi;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
 
@@ -12,5 +10,5 @@ import java.util.List;
  */
 public interface IOService {
 
-  List<Pair<SongForApi, VSongResource>> getAllSongsToBeExtracted();
+  List<VSongResource> getAllSongsToBeExtracted();
 }

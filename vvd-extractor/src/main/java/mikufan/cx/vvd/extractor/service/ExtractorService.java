@@ -1,10 +1,7 @@
 package mikufan.cx.vvd.extractor.service;
 
-import mikufan.cx.vvd.common.vocadb.model.SongForApi;
+import mikufan.cx.vvd.extractor.label.ExtractContext;
 import mikufan.cx.vvd.extractor.label.ExtractStatus;
-import mikufan.cx.vvd.extractor.util.ExtractorInfo;
-
-import java.nio.file.Path;
 
 /**
  * @author CX无敌
@@ -12,5 +9,5 @@ import java.nio.file.Path;
  */
 public interface ExtractorService {
 
-  ExtractStatus handleExtract(ExtractorInfo extractorInfo, Path videoFile, SongForApi song);
+  ExtractStatus handleExtract(ExtractContext extractContext);
 }

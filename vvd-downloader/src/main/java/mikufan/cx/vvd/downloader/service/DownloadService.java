@@ -3,7 +3,7 @@ package mikufan.cx.vvd.downloader.service;
 import mikufan.cx.vvd.common.vocadb.model.PV;
 import mikufan.cx.vvd.common.vocadb.model.SongForApi;
 import mikufan.cx.vvd.downloader.label.DownloadStatus;
-import mikufan.cx.vvd.downloader.service.downloader.PvDownloader;
+import mikufan.cx.vvd.downloader.label.DownloaderInfo;
 
 /**
  * @author CX无敌
@@ -11,5 +11,5 @@ import mikufan.cx.vvd.downloader.service.downloader.PvDownloader;
  */
 public interface DownloadService {
 
-  DownloadStatus handleDownload(PvDownloader realDownloader, PV pv, SongForApi fileName);
+  DownloadStatus handleDownload(DownloaderInfo downloaderInfo, PV pv, SongForApi fileName);
 }

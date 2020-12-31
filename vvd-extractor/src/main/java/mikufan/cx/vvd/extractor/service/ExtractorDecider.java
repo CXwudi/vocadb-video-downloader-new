@@ -1,8 +1,6 @@
 package mikufan.cx.vvd.extractor.service;
 
-import mikufan.cx.vvd.extractor.util.ExtractorInfo;
-
-import java.nio.file.Path;
+import mikufan.cx.vvd.extractor.label.ExtractContext;
 
 /**
  * @author CX无敌
@@ -10,5 +8,5 @@ import java.nio.file.Path;
  */
 public interface ExtractorDecider {
 
-  ExtractorInfo getProperExtractorAndInfo(Path videoFile);
+  ExtractContext getProperExtractorAndAudioExt(ExtractContext extractContext);
 }

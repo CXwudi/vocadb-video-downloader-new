@@ -7,6 +7,9 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
 /**
+ * To support non-blocking debugging purposes. <br/>
+ * App can use this class to collect or write all failure into one place, <br/>
+ * so that when long running app is finished, we can get a clear look of all failure we have <br/>
  * @author CX无敌
  * @date 2020-12-19
  */

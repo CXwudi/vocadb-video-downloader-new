@@ -6,28 +6,26 @@ import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.jackson.Jacksonized;
-import mikufan.cx.vvd.common.validation.annotation.IsFile;
 
-import javax.validation.constraints.NotNull;
-import java.nio.file.Path;
+import javax.validation.constraints.NotBlank;
 
 /**
+ * This class is used for recording all files and other info related to the downloaded VSong,
+ * assuming all files are in same folder
  * @author CX无敌
- * @date 2020-12-19
+ * @date 2020-12-31
  */
 @Getter @ToString
 @Builder(toBuilder = true) @Jacksonized
 @FieldDefaults(makeFinal = true, level = AccessLevel.PROTECTED)
 public class VSongResource {
 
-  @NotNull @IsFile Path video;
-  @IsFile(optionalCheck = true) Path audio;
-  @NotNull @IsFile Path thumbnail;
-  @NotNull @IsFile Path infoFile;
+  @NotBlank String pvFileName;
+  String audioFileName;
+  @NotBlank String thumbnailFileName;
+  @NotBlank String infoFileName;
 
-  //TODO: additional info
-  //String pvService
-  //String pvId
-  //String pvUrl
-
+  @NotBlank String pvService;
+  @NotBlank String pvId;
+  @NotBlank String pvUrl;
 }

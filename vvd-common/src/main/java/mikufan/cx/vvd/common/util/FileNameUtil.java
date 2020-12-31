@@ -16,6 +16,10 @@ public interface FileNameUtil {
     return buildBasicFileNameForSong(song) + FileNamePostFix.SONG_INFO + ".json";
   }
 
+  static String buildResourceJsonFileName(SongForApi song){
+    return buildBasicFileNameForSong(song) + FileNamePostFix.RESOURCES + ".json";
+  }
+
   static String buildPvFileName(SongForApi song, String extensionWithDot){
     return buildBasicFileNameForSong(song) + FileNamePostFix.VIDEO + extensionWithDot;
   }

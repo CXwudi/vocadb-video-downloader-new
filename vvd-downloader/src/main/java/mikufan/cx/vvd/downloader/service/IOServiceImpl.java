@@ -7,14 +7,19 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.exception.ThrowableFunction;
 import mikufan.cx.vvd.common.label.FailedSong;
+import mikufan.cx.vvd.common.label.VSongResource;
 import mikufan.cx.vvd.common.util.FileNamePostFix;
 import mikufan.cx.vvd.common.util.FileNameUtil;
+import mikufan.cx.vvd.common.vocadb.model.PV;
 import mikufan.cx.vvd.common.vocadb.model.SongForApi;
 import mikufan.cx.vvd.downloader.config.IOConfig;
 import mikufan.cx.vvd.downloader.label.DownloadStatus;
+import mikufan.cx.vvd.downloader.label.DownloaderInfo;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -28,8 +33,7 @@ import java.util.stream.Collectors;
  * @author CX无敌
  * @date 2020-12-19
  */
-@Service
-@Slf4j
+@Service @Slf4j @Validated
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class IOServiceImpl implements IOService {
@@ -69,10 +73,16 @@ public class IOServiceImpl implements IOService {
 
 
   @Override
-  public void recordDownloadedSong(DownloadStatus downloadStatus, SongForApi song){
+  public void recordDownloadedSong(
+      DownloadStatus downloadStatus,
+      DownloaderInfo downloaderInfo,
+      SongForApi song,
+      PV chosenPv){
 
     if (downloadStatus.isSucceed()){
-      moveToOutputDir(downloadStatus, song);
+      moveInfoToOutputDir(downloadStatus, song);
+      writeResourceToOutputDir(downloaderInfo, song, chosenPv);
+      log.info("Download completed: {}", FileNameUtil.buildBasicFileNameForSong(song));
     } else {
       writeToErrorDir(downloadStatus, song);
     }
@@ -98,7 +108,7 @@ public class IOServiceImpl implements IOService {
 
   }
 
-  private void moveToOutputDir(DownloadStatus downloadStatus, SongForApi song) {
+  private void moveInfoToOutputDir(DownloadStatus downloadStatus, SongForApi song) {
 
     var jsonFileName = FileNameUtil.buildInfoJsonFileName(song);
 
@@ -107,10 +117,35 @@ public class IOServiceImpl implements IOService {
           ioConfig.getInputDirectory().resolve(jsonFileName),
           ioConfig.getOutputDirectory().resolve(jsonFileName),
           StandardCopyOption.REPLACE_EXISTING);
-      log.info("Download completed: {}", FileNameUtil.buildBasicFileNameForSong(song));
+      log.debug("Moving info json {} from input directory to output directory", jsonFileName);
     } catch (IOException e) {
       log.error("Fail to move the json file {} from input dir to output dir", jsonFileName, e);
     }
 
+  }
+
+  private void writeResourceToOutputDir(DownloaderInfo downloaderInfo, SongForApi song, PV chosenPv) {
+    var songResource = VSongResource.builder()
+        .pvService(chosenPv.getService())
+        .pvId(chosenPv.getPvId())
+        .pvUrl(chosenPv.getUrl())
+        .pvFileName(FileNameUtil.buildPvFileName(song, downloaderInfo.getPvFileExtension()))
+        .infoFileName(FileNameUtil.buildInfoJsonFileName(song))
+        .thumbnailFileName(FileNameUtil.buildThumbnailFileName(song, downloaderInfo.getThumbnailFileExtension()))
+        .build();
+
+    var resourceJsonFileName = FileNameUtil.buildResourceJsonFileName(song);
+    writeResourceToOutputDir(songResource, resourceJsonFileName);
+  }
+
+  private void writeResourceToOutputDir(@Valid VSongResource songResource, String resourceJsonFileName){
+    try {
+      log.debug("Writing Vsong recourse json file {} to output directory", resourceJsonFileName);
+      objectMapper.writeValue(
+          ioConfig.getOutputDirectory().resolve(resourceJsonFileName).toFile(),
+          songResource);
+    } catch (IOException e) {
+      log.error("Fail to write the resource json file {} to output directory", resourceJsonFileName);
+    }
   }
 }
