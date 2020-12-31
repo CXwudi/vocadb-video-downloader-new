@@ -7,15 +7,17 @@ import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.jackson.Jacksonized;
 import mikufan.cx.vvd.common.label.VSongResource;
+import mikufan.cx.vvd.common.label.ValidationPhase;
 import mikufan.cx.vvd.common.vocadb.model.SongForApi;
 import mikufan.cx.vvd.extractor.service.extractor.AudioExtractor;
+import mikufan.cx.vvd.extractor.service.tagger.AudioTagger;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
- *
+ * hold any return valued and parameters needed for {@link mikufan.cx.vvd.extractor.service.MainService}
  * @author CX无敌
  * @date 2020-12-19
  */
@@ -29,7 +31,9 @@ public class ExtractContext {
 
   @NotNull(groups = ValidationPhase.Two.class) AudioExtractor audioExtractor;
   @NotBlank(groups = ValidationPhase.Two.class) String audioExtension;
+  // no need to put audio file name as song info + ext is enough
 
+  @NotNull(groups = ValidationPhase.Three.class) AudioTagger audioTagger;
 
   ExtractStatus currentExtractStatus;
 

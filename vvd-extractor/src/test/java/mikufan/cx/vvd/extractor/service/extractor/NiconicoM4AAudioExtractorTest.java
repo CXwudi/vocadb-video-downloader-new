@@ -28,9 +28,9 @@ class NiconicoM4AAudioExtractorTest extends TestEnvHolder {
   void testExtract() throws InterruptedException {
     var extractStatus = extractor.extractAudio(
         Path.of("D:\\11134\\Videos\\Vocaloid Coding POC\\Project VD test\\2019年V家新曲 sample PVs 2"
-            , "【初音ミク, 鏡音リン, 鏡音レン】トロピカルナイトVol.2【emon】-pv.mp4"),
-        ioConfig.getOutputDirectory(),
-        "初音ミク, 鏡音リン, 鏡音レン】トロピカルナイトVol.2【emon】-audio.m4a"
+            , "【初音ミク, 鏡音リン】リングの熾天使【Mitchie M】-pv.mp4"),
+        Path.of("D:\\11134\\Videos\\Vocaloid Coding POC\\Project VD test\\2019年V家新曲 sample audios 2"),
+            "【初音ミク, 鏡音リン】リングの熾天使【Mitchie M】-audio.m4a"
     );
     assertTrue(extractStatus.isSucceed());
   }

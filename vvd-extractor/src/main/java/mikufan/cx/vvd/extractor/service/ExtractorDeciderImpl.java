@@ -5,16 +5,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException;
+import mikufan.cx.vvd.common.label.ValidationPhase;
 import mikufan.cx.vvd.extractor.label.ExtractContext;
-import mikufan.cx.vvd.extractor.label.ValidationPhase;
 import mikufan.cx.vvd.extractor.service.extractor.NiconicoM4aAudioExtractor;
 import mikufan.cx.vvd.extractor.service.extractor.YoutubeOpusAudioExtractor;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.groups.Default;
 
 /**
  * @author CX无敌
@@ -29,7 +27,7 @@ public class ExtractorDeciderImpl implements ExtractorDecider, BeanFactoryAware 
 
   @Override
   public ExtractContext getProperExtractorAndAudioExt(
-      @Validated({ValidationPhase.One.class, Default.class}) ExtractContext extractContext) {
+      @Validated(ValidationPhase.One.class) ExtractContext extractContext) {
     var fileName = extractContext.getSongResource().getPvFileName();
     var extension = fileName.substring(fileName.lastIndexOf('.'));
     switch (extension){

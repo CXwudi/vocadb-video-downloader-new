@@ -41,7 +41,7 @@ public class MainService implements Runnable{
     // need an annotation to validate that this song is downloadable
     log.info("Handling download pv and thumbnail for {}", FileNameUtil.buildBasicFileNameForSong(toBeDownload));
     //0. choose the preference pv
-    //TODO: create a new POJO called DownloadInfo,
+    //TODO: create a new POJO called DownloadContext,
     // and refactor all following methods to only take a single DownloadInfo parameter,
     // create a DownloadInfoBuilder instance here to store all return values from methods
     var chosenPv = pvDecider.choosePreferredPv(toBeDownload.getPvs());

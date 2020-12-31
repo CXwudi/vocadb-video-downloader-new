@@ -100,7 +100,7 @@ public class IOServiceImpl implements IOService {
 
     try {
       objectMapper.writeValue(errorJsonFile.toFile(), failedSong);
-      log.info("Download unsuccessful: {}, please check the error json file {} at error directory",
+      log.warn("Download unsuccessful: {}, please check the error json file {} at error directory",
           FileNameUtil.buildBasicFileNameForSong(song), errorJsonFileName);
     } catch (IOException e) {
       log.error("Fail to write the error json file {} to error dir", errorJsonFileName, e);

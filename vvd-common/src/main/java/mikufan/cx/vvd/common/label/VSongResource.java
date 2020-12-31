@@ -25,6 +25,9 @@ public class VSongResource {
   @NotBlank String thumbnailFileName;
   @NotBlank String infoFileName;
 
+  // we need to record this because the audio format is depended on file formats downloaded from pv service
+  // careful that youtube can download either .mp4 or .mkv depended on if ffmpeg exists
+  // for .mkv, the audio format is undetectable without using mediainfo exe
   @NotBlank String pvService;
   @NotBlank String pvId;
   @NotBlank String pvUrl;

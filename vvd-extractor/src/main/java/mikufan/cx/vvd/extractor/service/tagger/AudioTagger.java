@@ -17,6 +17,16 @@ public interface AudioTagger {
    */
   String getName();
 
-  //FIXME: we need the new song resource pojo
-  ExtractStatus handleTagging(Path audioFile, Path infoFile, Path thumbnailFile) throws InterruptedException;
+  /**
+   * do the tagging, this should only modify the audio file, no other file creation or deletion
+   * @param audioFile input audio file
+   * @param thumbnailFile thumbnail file
+   * @param resourceFile resourceFile
+   * @param infoFile infoFile
+   * @return status
+   * @throws InterruptedException if ctrl+c happened
+   */
+  ExtractStatus handleTagging(
+      Path audioFile, Path thumbnailFile,
+      Path resourceFile, Path infoFile) throws InterruptedException;
 }

@@ -9,6 +9,7 @@ io: # input, output, and error output dir, can be relative path from the termina
 config:
   environment:
     # strings representing how to launch external programs
+    # make sure run 'pip install mutagen' first
     python-launch-cmd:
     ffmpeg-launch-cmd:
 

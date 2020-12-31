@@ -6,6 +6,9 @@ import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * To support non-blocking debugging purposes. <br/>
  * App can use this class to collect or write all failure into one place, <br/>
@@ -22,7 +25,7 @@ public abstract class FailedObject<T> {
    * rename to object when the new list provider is done,
    * right now this name is for competitive reason
    */
-  T failedObj;
-  String reason;
+  @NotNull T failedObj;
+  @NotBlank String reason;
 
 }
