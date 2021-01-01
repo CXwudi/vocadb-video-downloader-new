@@ -29,7 +29,7 @@ class YoutubeOpusAudioExtractorTest extends TestEnvHolder {
     var extractStatus = extractor.extractAudio(
         Path.of("D:\\11134\\Videos\\Vocaloid Coding POC\\Project VD test\\2019年V家新曲 sample PVs 2"
             , "【初音ミク】glare【kz】-pv.mkv"),
-        ioConfig.getOutputDirectory(),
+        Path.of("D:\\11134\\Videos\\Vocaloid Coding POC\\Project VD test\\2019年V家新曲 sample audios 2"),
         "【初音ミク】glare【kz】-audio.ogg"
     );
     assertTrue(extractStatus.isSucceed());

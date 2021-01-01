@@ -7,7 +7,6 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.ProcessUtil;
 import mikufan.cx.vvd.extractor.config.EnvironmentConfig;
-import mikufan.cx.vvd.extractor.config.IOConfig;
 import mikufan.cx.vvd.extractor.label.ExtractStatus;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +25,6 @@ public class NiconicoM4aAudioTagger implements AudioTagger {
 
   EnvironmentConfig environmentConfig;
 
-  IOConfig ioConfig;
-
   @Override
   public String getName() {
     return "M4a Audio Tagger by python mutagen";
@@ -45,8 +42,12 @@ public class NiconicoM4aAudioTagger implements AudioTagger {
     );
     try {
       log.debug("Executing extraction by commands: {}", processBuilder.command());
-      ProcessUtil.runShortProcess(processBuilder.start(), log::info, log::debug);
-      return ExtractStatus.success();
+      var returnCode = ProcessUtil.runShortProcess(processBuilder.start(), log::info, log::debug);
+      if (returnCode == 0){
+        return ExtractStatus.success();
+      } else {
+        return ExtractStatus.failure(String.format("Failed to add tag to %s due to python script bug, please check log", audioFile));
+      }
     } catch (IOException e) {
       var msg = String.format("Failed to add tag to %s", audioFile);
       log.error(msg, e);

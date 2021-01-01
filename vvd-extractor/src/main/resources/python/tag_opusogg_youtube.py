@@ -32,17 +32,17 @@ def add_tag(input_file, thumbnail_file, resource_dict, info_dict):
   file["genre"] = "VOCALOID or others"
   write_thumbnail(file, thumbnail_file)
 
-  file["pv url"] = resource_dict["pvUrl"].encode()
-  file["downloaded by"] = "youtube-dl (tsukumijima's niconico fix version https://github.com/tsukumijima/youtube-dl)".encode()
-  file["extracted by"] = "FFmpeg".encode()
-  file["tags edited by"] = "Python mutagen library".encode()
-  file["tags provided by"] = "VocaDB (https://vocadb.net/S/{})".format(info_dict["id"]).encode()
-  file["made by"] = "CXwudi's vocadb-video-downloader-new (https://github.com/CXwudi/vocadb-video-downloader-new)".encode()
+  file["pv url"] = resource_dict["pvUrl"]
+  file["downloaded by"] = "youtube-dl (tsukumijima's niconico fix version https://github.com/tsukumijima/youtube-dl)"
+  file["extracted by"] = "FFmpeg"
+  file["tags edited by"] = "Python mutagen library"
+  file["tags provided by"] = "VocaDB (https://vocadb.net/S/{})".format(info_dict["id"])
+  file["made by"] = "CXwudi's vocadb-video-downloader-new (https://github.com/CXwudi/vocadb-video-downloader-new)"
 
 
   if info_dict["albums"]:
     album_strs = map(lambda album: album["name"], info_dict["albums"])
-    file["obtainable from"] = "This song is in albums [{}]".format(", ".join(album_strs)).encode()
+    file["obtainable from"] = "This song is in albums [{}]".format(", ".join(album_strs))
   
   file.save()
 

@@ -14,10 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @date 2020-12-31
  */
 @Disabled
-class NiconicoM4aAudioTaggerTest extends TestEnvHolder {
+class YoutubeOpusAudioTaggerTest extends TestEnvHolder {
 
   @Autowired
-  private NiconicoM4aAudioTagger tagger;
+  private YoutubeOpusAudioTagger tagger;
 
   @Test
   void testTagging() throws InterruptedException {
@@ -25,10 +25,10 @@ class NiconicoM4aAudioTaggerTest extends TestEnvHolder {
     var outputDir = Path.of("D:\\11134\\Videos\\Vocaloid Coding POC\\Project VD test\\2019年V家新曲 sample audios 2");
 
     var extractStatus = tagger.handleTagging(
-        outputDir.resolve("【初音ミク, 鏡音リン】リングの熾天使【Mitchie M】-audio.m4a"),
-        inputDir.resolve("【初音ミク, 鏡音リン】リングの熾天使【Mitchie M】-thumbnail.jpg"),
-        inputDir.resolve("【初音ミク, 鏡音リン】リングの熾天使【Mitchie M】-resource.json"),
-        inputDir.resolve("【初音ミク, 鏡音リン】リングの熾天使【Mitchie M】-songInfo.json")
+        outputDir.resolve("【初音ミク】glare【kz】-audio.ogg"),
+        inputDir.resolve("【初音ミク】glare【kz】-thumbnail.webp"),
+        inputDir.resolve("【初音ミク】glare【kz】-resource.json"),
+        inputDir.resolve("【初音ミク】glare【kz】-songInfo.json")
     );
     assertTrue(extractStatus.isSucceed());
   }
