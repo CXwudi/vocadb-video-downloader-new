@@ -50,8 +50,10 @@ def main():
     resource_dict = json.load(f)
   with open(args.info, "rb") as f:
     info_dict = json.load(f)
-  
-  print("received args are" + str(args))
+
+  # commented out due to a japanese wired encoding problem
+  # e.g. 霊々音頭でまた来世 is 霊々音頭て　゙また来世　in niconico website title
+  # print("received args are " + str(vars(args))) 
 
   add_tag(args.input, args.thumbnail, resource_dict, info_dict)
 

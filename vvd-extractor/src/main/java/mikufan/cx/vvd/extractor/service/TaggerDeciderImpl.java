@@ -31,7 +31,7 @@ public class TaggerDeciderImpl implements TaggerDecider, BeanFactoryAware {
     var audioFileExtension = context.getAudioExtension();
     var pvService = context.getSongResource().getPvService();
     var returnContextBuilder = ExtractContext.builder();
-    if (".mkv".equals(audioFileExtension) && "Youtube".equals(pvService)){
+    if (".ogg".equals(audioFileExtension) && "Youtube".equals(pvService)){
       returnContextBuilder.audioTagger(beanFactory.getBean(YoutubeOpusAudioTagger.class));
     } else if (".m4a".equals(audioFileExtension)){
       returnContextBuilder.audioTagger(beanFactory.getBean(NiconicoM4aAudioTagger.class));

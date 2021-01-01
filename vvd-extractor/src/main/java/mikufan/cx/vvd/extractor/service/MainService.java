@@ -6,7 +6,6 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException;
 import mikufan.cx.vvd.common.label.VSongResource;
-import mikufan.cx.vvd.extractor.label.ExtractContext;
 import org.springframework.stereotype.Service;
 
 /**
@@ -38,8 +37,8 @@ public class MainService implements Runnable {
 
   private void handleExtraction(VSongResource toBeExtractedSongResource) {
     //0. build extract context
-    log.info("Handling extracting and tagging for {}", toBeExtractedSongResource.getPvFileName());
-    var contextBuilder = ExtractContext.builder().songResource(toBeExtractedSongResource);
+    log.info("Start handling extraction and tagging for {}", toBeExtractedSongResource.getPvFileName());
+    var contextBuilder = ioService.toExtractContextBuilder(toBeExtractedSongResource);
     //1. choose extractor
     var extractorAndAudioExtHolder = extractorDecider.getProperExtractorAndAudioExt(contextBuilder.build());
     contextBuilder
@@ -55,9 +54,14 @@ public class MainService implements Runnable {
     var taggerHolder = taggerDecider.chooseTagger(contextBuilder.build());
     contextBuilder.audioTagger(taggerHolder.getAudioTagger());
     //4. handle tag adding
-    taggerService.handleTagging(contextBuilder.build());
+    var extractStatus2 = taggerService.handleTagging(contextBuilder.build());
+    if (extractStatus2.isFailure()){
+      //TODO quick: handle extraction fail - stop and record now
+      throw new RuntimeVocaloidException(String.format("failure in tagging vsong: %s", extractStatus2.getDescription()));
+    }
     //5. move/copy input json to output/err dir (let make json file as the status recorder in everywhere)
     //TODO
+    log.info("Finished extraction and tagging for {}", toBeExtractedSongResource.getPvFileName());
   }
 
 

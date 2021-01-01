@@ -3,6 +3,7 @@ package mikufan.cx.vvd.downloader.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.exception.ThrowableFunction;
@@ -27,6 +28,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.SplittableRandom;
 import java.util.stream.Collectors;
 
 /**
@@ -41,6 +43,8 @@ public class IOServiceImpl implements IOService {
   IOConfig ioConfig;
 
   ObjectMapper objectMapper;
+
+  SplittableRandom random = new SplittableRandom();;
 
   /**
    * scan input file, read json, and sort them in last modify increasing order
@@ -72,7 +76,7 @@ public class IOServiceImpl implements IOService {
   }
 
 
-  @Override
+  @Override @SneakyThrows(InterruptedException.class)
   public void recordDownloadedSong(
       DownloadStatus downloadStatus,
       DownloaderInfo downloaderInfo,
@@ -83,6 +87,7 @@ public class IOServiceImpl implements IOService {
       moveInfoToOutputDir(downloadStatus, song);
       writeResourceToOutputDir(downloaderInfo, song, chosenPv);
       log.info("Download completed: {}", FileNameUtil.buildBasicFileNameForSong(song));
+      Thread.sleep(1500L + random.nextLong(3000));
     } else {
       writeToErrorDir(downloadStatus, song);
     }

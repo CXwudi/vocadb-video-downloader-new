@@ -8,7 +8,9 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.label.VSongResource;
 import mikufan.cx.vvd.common.util.FileNamePostFix;
+import mikufan.cx.vvd.common.vocadb.model.SongForApi;
 import mikufan.cx.vvd.extractor.config.IOConfig;
+import mikufan.cx.vvd.extractor.label.ExtractContext;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -66,9 +68,26 @@ public class IOServiceImpl implements IOService {
         .collect(Collectors.toUnmodifiableList());
   }
 
+  @Override
+  public ExtractContext.ExtractContextBuilder toExtractContextBuilder(VSongResource songResource) {
+    return ExtractContext.builder()
+        .songResource(songResource)
+        .songInfo(toSongInfo(
+            ioConfig.getInputDirectory().resolve(
+                songResource.getInfoFileName()
+            ).toFile()
+        ));
+  }
+
 
   @SneakyThrows({IOException.class})
   private VSongResource toVsongResource(File file) {
     return objectMapper.readValue(file, VSongResource.class);
   }
+
+  @SneakyThrows({IOException.class})
+  private SongForApi toSongInfo(File file) {
+    return objectMapper.readValue(file, SongForApi.class);
+  }
+
 }

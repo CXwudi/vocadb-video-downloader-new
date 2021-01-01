@@ -11,19 +11,3 @@ config:
     # array of string representing how to launch external programs
     python-launch-cmd: python
     ffmpeg-launch-cmd: D:\11134\Videos\Vocaloid Coding POC\ffmpeg.exe
-
-
-
-# spring setting
-
-spring:
-  jackson:
-    deserialization:
-      fail-on-unknown-properties: true
-    serialization:
-      indent-output: true
-
-
-logging:
-  level:
-    mikufan: debug

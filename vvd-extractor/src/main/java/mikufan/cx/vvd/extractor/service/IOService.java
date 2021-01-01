@@ -1,6 +1,7 @@
 package mikufan.cx.vvd.extractor.service;
 
 import mikufan.cx.vvd.common.label.VSongResource;
+import mikufan.cx.vvd.extractor.label.ExtractContext;
 
 import java.util.List;
 
@@ -11,4 +12,5 @@ import java.util.List;
 public interface IOService {
 
   List<VSongResource> getAllSongsToBeExtracted();
+  ExtractContext.ExtractContextBuilder toExtractContextBuilder(VSongResource context);
 }

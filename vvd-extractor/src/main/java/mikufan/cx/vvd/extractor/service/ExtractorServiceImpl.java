@@ -20,7 +20,7 @@ import org.springframework.validation.annotation.Validated;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ExtractorServiceImpl implements ExtractorService {
 
   IOConfig ioConfig;

@@ -18,7 +18,7 @@ import org.springframework.validation.annotation.Validated;
  */
 @Service @Slf4j @Validated
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TaggerServiceImpl implements TaggerService {
 
   IOConfig ioConfig;
