@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import mikufan.cx.vvd.common.exception.RuntimeVocaloidException;
 import mikufan.cx.vvd.common.label.VSongResource;
 import mikufan.cx.vvd.extractor.label.ExtractContext;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,7 @@ public class MainService implements Runnable {
     var extractStatus = extractorService.handleExtract(contextBuilder.build());
     if (extractStatus.isFailure()){
       //TODO quick: handle extraction fail - stop and record now
+      throw new RuntimeVocaloidException(String.format("failure in extracting vsong: %s", extractStatus.getDescription()));
     }
     //3. choose tag adder
     var taggerHolder = taggerDecider.chooseTagger(contextBuilder.build());
