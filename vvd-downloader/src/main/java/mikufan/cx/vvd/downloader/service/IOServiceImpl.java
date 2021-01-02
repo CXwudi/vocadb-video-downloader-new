@@ -60,7 +60,6 @@ public class IOServiceImpl implements IOService {
     }
     log.debug("Find {} jsons from {}", inputFilesArray.length, inputDirectory.toAbsolutePath());
     var inputFilesList = Arrays.asList(inputFilesArray);
-    log.debug("They are \n{}", inputFilesList.toString());
     var orderedInputPairs = inputFilesList.stream()
         .map(file -> Pair.of(file, file.lastModified()))
         .sorted(Comparator.comparingLong(Pair::getRight))
