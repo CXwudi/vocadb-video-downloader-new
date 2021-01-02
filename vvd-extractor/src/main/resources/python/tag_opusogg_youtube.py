@@ -42,7 +42,7 @@ def add_tag(input_file, thumbnail_file, resource_dict, info_dict):
 
   if info_dict["albums"]:
     album_strs = map(lambda album: album["name"], info_dict["albums"])
-    file["obtainable from"] = "This song is in albums [{}]".format(", ".join(album_strs))
+    file["included by"] = "albums [{}]".format(", ".join(album_strs))
   
   file.save()
 
