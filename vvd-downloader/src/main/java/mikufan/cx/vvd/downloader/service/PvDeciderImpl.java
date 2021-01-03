@@ -28,7 +28,9 @@ public class PvDeciderImpl implements PvDecider {
 
   @Override
   public PV choosePreferredPv(List<PV> pvs) {
-    var serviceToPvs = pvs.stream().collect(Collectors.groupingBy(PV::getService));
+    var serviceToPvs = pvs.stream()
+        .filter(pv -> !pv.isDisabled())
+        .collect(Collectors.groupingBy(PV::getService));
     for (var preferredService: pvPreferenceConfig.getPreference()){
       var pvList = serviceToPvs.get(preferredService);
       if (!CollectionUtils.isEmpty(pvList)){

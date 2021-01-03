@@ -55,9 +55,9 @@ public final class ProcessUtil {
     executorService.execute(toStreamProcessingRunnable(errorStream, stderrHandler));
 
     var isFinished = process.waitFor(timeout, unit);
-    executorService.shutdown();
-    var isTerminated = executorService.awaitTermination(timeout, unit);
-    if (!isTerminated || !isFinished){
+    process.destroyForcibly();
+    executorService.shutdownNow();
+    if (!isFinished){
       log.warn("The process timeout for {} {}", timeout, unit);
     }
     return isFinished;
