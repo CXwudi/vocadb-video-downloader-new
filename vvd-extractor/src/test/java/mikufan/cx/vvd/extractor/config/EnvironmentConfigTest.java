@@ -1,7 +1,7 @@
 package mikufan.cx.vvd.extractor.config;
 
 import lombok.extern.slf4j.Slf4j;
-import mikufan.cx.vvd.common.ProcessUtil;
+import mikufan.cx.vvd.common.threading.ProcessUtil;
 import mikufan.cx.vvd.extractor.util.TestEnvHolder;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

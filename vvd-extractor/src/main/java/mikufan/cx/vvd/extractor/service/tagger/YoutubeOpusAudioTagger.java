@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import mikufan.cx.vvd.common.ProcessUtil;
+import mikufan.cx.vvd.common.threading.ProcessUtil;
 import mikufan.cx.vvd.extractor.config.EnvironmentConfig;
 import mikufan.cx.vvd.extractor.label.ExtractStatus;
 import org.springframework.stereotype.Service;

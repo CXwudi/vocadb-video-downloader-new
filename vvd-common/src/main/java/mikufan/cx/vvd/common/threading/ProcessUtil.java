@@ -1,10 +1,9 @@
-package mikufan.cx.vvd.common;
+package mikufan.cx.vvd.common.threading;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.exception.ThrowableConsumer;
-import mikufan.cx.vvd.common.threading.ThreadUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
