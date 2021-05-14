@@ -1,9 +1,9 @@
 # application setting
 
 io: # vocadb favourite list id in int, output, and error output dir, can be relative path from the terminal current directory
-  input-list-id:
-  output-directory:
-  error-directory:
+  input-list-id: 0
+  output-directory: 20xx年V家新曲
+  error-directory: 20xx年V家新曲/errors
 
 # spring setting
 
