@@ -66,6 +66,13 @@
           </compilerPlugins>
           <!-- annotation processing just let lombok work in kotlin -->
         </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-allopen</artifactId>
+            <version>${kotlin.version}</version>
+          </dependency>
+        </dependencies>
         <executions>
           <execution>
             <id>kotlin-compile</id>
