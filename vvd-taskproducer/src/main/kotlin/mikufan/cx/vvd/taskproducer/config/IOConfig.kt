@@ -16,7 +16,7 @@ import java.nio.file.Path
 @ConstructorBinding @Validated
 @PathsNotSame(fields = ["outputDirectory", "errorDirectory"])
 data class IOConfig(
-  val inputListId: Integer,
+  val inputListId: Int,
   @IsDirectory(optionalCheck = true) val outputDirectory: Path,
   @IsDirectory(optionalCheck = true) val errorDirectory: Path){
 
