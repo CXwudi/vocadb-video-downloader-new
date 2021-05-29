@@ -5,9 +5,9 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>vvd-common</module>
-		<module>vvd-downloader</module>
+    <module>vvd-taskproducer</module>
+    <module>vvd-downloader</module>
 		<module>vvd-extractor</module>
-		<module>vvd-taskproducer</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -17,7 +17,7 @@
 	</parent>
 	<groupId>mikufan.cx</groupId>
 	<artifactId>vocadb-video-downloader</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>VocaDB Video Downloader New</name>
 	<description>New VocaDB Video Downloader powered by Spring Boot</description>
 
@@ -47,6 +47,17 @@
 				<artifactId>youtubedl-java</artifactId>
 				<version>1.2.RC6</version>
 			</dependency>
+      <dependency>
+        <groupId>com.github.CXwudi</groupId>
+        <artifactId>vocadb-openapi-client-java</artifactId>
+        <version>1.0.1</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.jeasy</groupId>
+        <artifactId>easy-batch-core</artifactId>
+        <version>7.0.2</version>
+      </dependency>
 
 		</dependencies>
 	</dependencyManagement>
@@ -110,5 +121,87 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.jetbrains.kotlin</groupId>
+          <artifactId>kotlin-maven-plugin</artifactId>
+          <configuration>
+            <args>
+              <arg>-Xjsr305=strict</arg>
+            </args>
+            <compilerPlugins>
+              <plugin>spring</plugin>
+            </compilerPlugins>
+            <!-- annotation processing just let lombok work in kotlin -->
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>org.jetbrains.kotlin</groupId>
+              <artifactId>kotlin-maven-allopen</artifactId>
+              <version>${kotlin.version}</version>
+            </dependency>
+          </dependencies>
+          <executions>
+            <execution>
+              <id>compile</id>
+              <phase>compile</phase>
+              <goals> <goal>compile</goal> </goals>
+              <configuration>
+                <sourceDirs>
+                  <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
+                  <sourceDir>${project.basedir}/src/main/java</sourceDir>
+                </sourceDirs>
+              </configuration>
+            </execution>
+            <execution>
+              <id>test-compile</id>
+              <phase>test-compile</phase>
+              <goals> <goal>test-compile</goal> </goals>
+              <configuration>
+                <sourceDirs>
+                  <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+                  <sourceDir>${project.basedir}/src/test/java</sourceDir>
+                </sourceDirs>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <executions>
+            <!-- Replacing default-compile as it is treated specially by maven -->
+            <execution>
+              <id>default-compile</id>
+              <phase>none</phase>
+            </execution>
+            <!-- Replacing default-testCompile as it is treated specially by maven -->
+            <execution>
+              <id>default-testCompile</id>
+              <phase>none</phase>
+            </execution>
+            <execution>
+              <id>java-compile</id>
+              <phase>compile</phase>
+              <goals>
+                <goal>compile</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>java-test-compile</id>
+              <phase>test-compile</phase>
+              <goals>
+                <goal>testCompile</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 
 </project>
