@@ -5,6 +5,9 @@ io: # vocadb favourite list id in int, output, and error output dir, can be rela
   output-directory: 20xx年V家新曲
   error-directory: 20xx年V家新曲/errors
 
+config:
+  base-url: https://vocadb.net
+  user-agent: vocadb-video-downloader-new test agent (created by CXwudi)
 # spring setting
 
 spring:

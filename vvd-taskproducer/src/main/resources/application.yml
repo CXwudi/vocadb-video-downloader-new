@@ -5,6 +5,9 @@ io: # vocadb favourite list id in int, output, and error output dir, can be rela
   output-directory:
   error-directory:
 
+config:
+  base-url: https://vocadb.net
+  user-agent:
 # spring setting
 
 spring:
