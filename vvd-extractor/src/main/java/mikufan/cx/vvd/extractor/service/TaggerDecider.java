@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.extractor.service;
 
-import mikufan.cx.vvd.extractor.label.ExtractContext;
+import mikufan.cx.vvd.extractor.model.ExtractContext;
 
 /**
  * @author CX无敌

@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.extractor.service.tagger;
 
-import mikufan.cx.vvd.extractor.label.ExtractStatus;
+import mikufan.cx.vvd.extractor.model.ExtractStatus;
 
 import java.nio.file.Path;
 

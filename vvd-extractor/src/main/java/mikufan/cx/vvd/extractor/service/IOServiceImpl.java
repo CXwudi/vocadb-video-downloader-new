@@ -10,7 +10,7 @@ import mikufan.cx.vvd.common.label.VSongResource;
 import mikufan.cx.vvd.common.util.FileNamePostFix;
 import mikufan.cx.vvd.common.vocadb.model.SongForApi;
 import mikufan.cx.vvd.extractor.config.IOConfig;
-import mikufan.cx.vvd.extractor.label.ExtractContext;
+import mikufan.cx.vvd.extractor.model.ExtractContext;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;

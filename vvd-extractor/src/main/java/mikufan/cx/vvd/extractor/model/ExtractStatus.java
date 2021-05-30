@@ -1,4 +1,4 @@
-package mikufan.cx.vvd.extractor.label;
+package mikufan.cx.vvd.extractor.model;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

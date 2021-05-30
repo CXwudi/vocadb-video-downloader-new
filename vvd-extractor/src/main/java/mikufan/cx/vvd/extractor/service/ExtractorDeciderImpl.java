@@ -6,7 +6,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException;
 import mikufan.cx.vvd.common.label.ValidationPhase;
-import mikufan.cx.vvd.extractor.label.ExtractContext;
+import mikufan.cx.vvd.extractor.model.ExtractContext;
 import mikufan.cx.vvd.extractor.service.extractor.NiconicoM4aAudioExtractor;
 import mikufan.cx.vvd.extractor.service.extractor.YoutubeOpusAudioExtractor;
 import org.springframework.beans.factory.BeanFactory;
