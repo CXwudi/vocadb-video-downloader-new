@@ -1,4 +1,4 @@
-package mikufan.cx.vvd.common.util;
+package mikufan.cx.vvd.common.naming;
 
 import mikufan.cx.vvd.common.vocadb.model.SongForApi;
 

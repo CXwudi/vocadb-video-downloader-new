@@ -7,7 +7,7 @@ import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import mikufan.cx.vvd.common.label.VSongResource;
-import mikufan.cx.vvd.common.util.FileNamePostFix;
+import mikufan.cx.vvd.common.naming.FileNamePostFix;
 import mikufan.cx.vvd.common.vocadb.model.SongForApi;
 import mikufan.cx.vvd.extractor.config.IOConfig;
 import mikufan.cx.vvd.extractor.model.ExtractContext;

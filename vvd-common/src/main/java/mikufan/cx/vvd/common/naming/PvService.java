@@ -1,4 +1,4 @@
-package mikufan.cx.vvd.common.util;
+package mikufan.cx.vvd.common.naming;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

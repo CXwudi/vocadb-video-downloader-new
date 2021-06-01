@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.downloader.service.downloader;
 
-import mikufan.cx.vvd.common.util.FileNameUtil;
+import mikufan.cx.vvd.common.naming.FileNameUtil;
 import mikufan.cx.vvd.downloader.util.TestEnvHolder;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

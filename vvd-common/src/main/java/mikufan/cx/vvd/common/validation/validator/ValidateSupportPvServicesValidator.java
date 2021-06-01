@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.common.validation.validator;
 
-import mikufan.cx.vvd.common.util.PvService;
+import mikufan.cx.vvd.common.naming.PvService;
 import mikufan.cx.vvd.common.validation.annotation.IsSupportedPvServices;
 import org.springframework.util.CollectionUtils;
 

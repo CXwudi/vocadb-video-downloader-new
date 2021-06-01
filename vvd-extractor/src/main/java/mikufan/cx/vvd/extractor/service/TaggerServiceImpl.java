@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import mikufan.cx.vvd.common.util.FileNameUtil;
+import mikufan.cx.vvd.common.naming.FileNameUtil;
 import mikufan.cx.vvd.extractor.config.IOConfig;
 import mikufan.cx.vvd.extractor.model.ExtractContext;
 import mikufan.cx.vvd.extractor.model.ExtractStatus;
