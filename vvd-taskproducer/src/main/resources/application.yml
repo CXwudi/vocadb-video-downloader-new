@@ -8,6 +8,8 @@ io: # vocadb favourite list id in int, output, and error output dir, can be rela
 config:
   base-url: https://vocadb.net
   user-agent:
+  #max number of songs you can fetch from one api request of the vocadb favourite list
+  api-page-size: 50
 # spring setting
 
 spring:

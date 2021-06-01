@@ -7,13 +7,16 @@ import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.client.BufferingClientHttpRequestFactory
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.client.RestTemplate
+import javax.validation.constraints.NotBlank
 
 /**
  * @date 2021-05-29
  * @author CX无敌
  */
 @Configuration
+@Validated
 class ApiConfig {
 
   @Bean
@@ -22,8 +25,8 @@ class ApiConfig {
   @Bean
   fun apiClient(
     restTemplate: RestTemplate,
-    @Value("\${config.base-url}") baseUrl: String,
-    @Value("\${config.user-agent}") userAgent: String): ApiClient =
+    @NotBlank @Value("\${config.base-url}") baseUrl: String,
+    @NotBlank @Value("\${config.user-agent}") userAgent: String): ApiClient =
     ApiClient(restTemplate)
       .setBasePath(baseUrl)
       .setUserAgent(userAgent)
