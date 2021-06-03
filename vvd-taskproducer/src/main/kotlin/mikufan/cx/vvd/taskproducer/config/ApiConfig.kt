@@ -1,5 +1,6 @@
 package mikufan.cx.vvd.taskproducer.config
 
+import mikufan.cx.vocadbapiclient.api.SongApi
 import mikufan.cx.vocadbapiclient.api.SongListApi
 import mikufan.cx.vocadbapiclient.client.ApiClient
 import org.springframework.beans.factory.annotation.Value
@@ -20,7 +21,10 @@ import javax.validation.constraints.NotBlank
 class ApiConfig {
 
   @Bean
-  fun songListApi(apiClient: ApiClient): SongListApi = SongListApi(apiClient)
+  fun songListApi(apiClient: ApiClient) = SongListApi(apiClient)
+
+  @Bean
+  fun songApi(apiClient: ApiClient) = SongApi(apiClient)
 
   @Bean
   fun apiClient(

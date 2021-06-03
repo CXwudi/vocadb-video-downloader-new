@@ -1,4 +1,4 @@
-package mikufan.cx.vvd.taskproducer.service
+package mikufan.cx.vvd.taskproducer.component
 
 import mikufan.cx.vvd.taskproducer.model.VSongTask
 import mu.KotlinLogging

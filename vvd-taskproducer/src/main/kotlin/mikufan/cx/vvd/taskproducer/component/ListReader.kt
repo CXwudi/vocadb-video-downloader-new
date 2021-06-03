@@ -1,4 +1,4 @@
-package mikufan.cx.vvd.taskproducer.service
+package mikufan.cx.vvd.taskproducer.component
 
 import mikufan.cx.vocadbapiclient.api.SongListApi
 import mikufan.cx.vocadbapiclient.model.SongOptionalFields
@@ -12,7 +12,7 @@ import org.jeasy.batch.core.record.GenericRecord
 import org.jeasy.batch.core.record.Header
 import org.jeasy.batch.core.record.Record
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.util.*
 import javax.validation.constraints.Min
@@ -23,16 +23,16 @@ import mikufan.cx.vocadbapiclient.model.SongForApiContract as VSong
  * @date 2021-05-29
  * @author CX无敌
  */
-@Service
+@Component
 class ListReader(
-  val songListApi: SongListApi,
+  private val songListApi: SongListApi,
   ioConfig: IOConfig,
   @Min(0) @Value("\${config.api-page-size}") val pageSize: Int
 ) : RecordReader<VSongTask> {
 
-  val listId = ioConfig.inputListId
+  private val listId = ioConfig.inputListId
 
-  val itr: Iterator<VSong> by lazy {
+  private val itr: Iterator<VSong> by lazy {
     object : Iterator<VSong>{
       var hasMore = true
       var startIdx = 0
@@ -47,7 +47,7 @@ class ListReader(
       }
 
       override fun next(): VSong {
-        if (queue.isEmpty()) {
+        if (queue.isEmpty()) { //lazy read the list when need
           log.debug { "start fetching $pageSize songs from index $startIdx" }
           val partialFindResult = readSongList(listId, startIdx, pageSize, SongOptionalFields(
             SongOptionalFields.Constant.ALBUMS,
@@ -82,13 +82,14 @@ class ListReader(
 
     }
   }
-  var currentRecordNumber: Long = 0
+
+  private var currentRecordNumber: Long = 0
 
   override fun readRecord(): Record<VSongTask>? {
     val header = Header(++currentRecordNumber, "In-Memory Iterator", LocalDateTime.now())
     return if (itr.hasNext()) {
       GenericRecord(header, VSongTask(
-        VSongLabel.builder().build(),
+        VSongLabel.builder().build(), //empty for now, add label filename once artist str is fixed
         Parameters(itr.next(), currentRecordNumber)
       ))
     } else {

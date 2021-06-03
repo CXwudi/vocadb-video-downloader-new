@@ -1,0 +1,173 @@
+{
+  "artists": [
+    {
+      "artist": {
+        "additionalNames": "Yunosuke",
+        "artistType": "Producer",
+        "deleted": false,
+        "id": 23981,
+        "name": "雄之助",
+        "pictureMime": "image/png",
+        "status": "Approved",
+        "version": 27
+      },
+      "categories": "Producer",
+      "effectiveRoles": "Default",
+      "id": 809141,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "雄之助",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "Hatsune Miku",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 1,
+        "name": "初音ミク",
+        "pictureMime": "image/png",
+        "releaseDate": "2007-08-31T00:00:00Z",
+        "status": "Locked",
+        "version": 23
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "id": 809144,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "初音ミク",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "グミ, Megpoid, メグッポイド",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 3,
+        "name": "GUMI",
+        "pictureMime": "image/jpeg",
+        "releaseDate": "2009-06-26T00:00:00Z",
+        "status": "Approved",
+        "version": 37
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "id": 809145,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "GUMI",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "Kagamine Rin",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 14,
+        "name": "鏡音リン",
+        "pictureMime": "image/png",
+        "releaseDate": "2007-12-27T00:00:00Z",
+        "status": "Approved",
+        "version": 25
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "id": 809146,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "鏡音リン",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "Gyuuniku, gyuniku",
+        "artistType": "Lyricist",
+        "deleted": false,
+        "id": 21177,
+        "name": "牛肉",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 6
+      },
+      "categories": "Other",
+      "effectiveRoles": "Lyricist",
+      "id": 814231,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "牛肉",
+      "roles": "Lyricist"
+    },
+    {
+      "artist": {
+        "additionalNames": "",
+        "artistType": "Animator",
+        "deleted": false,
+        "id": 72608,
+        "name": "bondbond",
+        "pictureMime": "image/png",
+        "status": "Finished",
+        "version": 2
+      },
+      "categories": "Animator",
+      "effectiveRoles": "Animator",
+      "id": 814232,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "bondbond",
+      "roles": "Animator"
+    },
+    {
+      "artist": {
+        "additionalNames": "Sowichi",
+        "artistType": "Illustrator",
+        "deleted": false,
+        "id": 57486,
+        "name": "そゐち",
+        "pictureMime": "image/png",
+        "status": "Finished",
+        "version": 3
+      },
+      "categories": "Illustrator",
+      "effectiveRoles": "Illustrator",
+      "id": 814233,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "そゐち",
+      "roles": "Illustrator"
+    },
+    {
+      "artist": {
+        "additionalNames": "Osamu,  OsAmU sksf",
+        "artistType": "Producer",
+        "deleted": false,
+        "id": 13271,
+        "name": "攻",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 12
+      },
+      "categories": "Producer",
+      "effectiveRoles": "VoiceManipulator",
+      "id": 814234,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "攻",
+      "roles": "VoiceManipulator"
+    }
+  ],
+  "artistString": "雄之助, 攻 feat. various",
+  "createDate": "2020-10-23T14:15:48.737",
+  "defaultName": "PaⅢ.REVOLUTION",
+  "defaultNameLanguage": "English",
+  "favoritedTimes": 6,
+  "id": 299406,
+  "lengthSeconds": 257,
+  "name": "PaⅢ.REVOLUTION",
+  "publishDate": "2020-11-01T00:00:00Z",
+  "pvServices": "NicoNicoDouga, Youtube, SoundCloud, Bandcamp",
+  "ratingScore": 46,
+  "songType": "Original",
+  "status": "Finished",
+  "version": 10
+}
