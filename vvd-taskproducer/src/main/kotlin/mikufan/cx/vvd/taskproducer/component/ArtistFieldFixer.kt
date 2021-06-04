@@ -4,7 +4,6 @@ import mikufan.cx.vocadbapiclient.api.SongApi
 import mikufan.cx.vocadbapiclient.model.ArtistCategories
 import mikufan.cx.vocadbapiclient.model.ArtistForSongContract
 import mikufan.cx.vocadbapiclient.model.SongOptionalFields
-import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.commonkt.exception.orThrowVocaloidExp
 import mikufan.cx.vvd.taskproducer.model.VSongTask
 import mu.KotlinLogging
@@ -62,12 +61,14 @@ class ArtistFieldFixer(
 
   fun formProperArtistField(artists: List<ArtistForSongContract>): String {
     val vocalist = artists
-      .filter { it.categories?.enums?.contains(ArtistCategories.Constant.VOCALIST)?:false }
-      .map { it.name?: throw RuntimeVocaloidException("artist's name is null") }
+      .filter { it.categories.orThrowVocaloidExp("$it has null categorise").enums
+        .contains(ArtistCategories.Constant.VOCALIST) }
+      .map { it.name.orThrowVocaloidExp("artist's name is null") }
       .toList()
     val producers = artists
-      .filter { StringUtils.containsAny(it.categories?.toString()?:"", "Producer", "Circle") }
-      .map { it.name?: throw RuntimeVocaloidException("producer's name is null") }
+      .filter { StringUtils.containsAny(it.categories.orThrowVocaloidExp("$it has null categorise").toString(),
+        "Producer", "Circle") }
+      .map { it.name.orThrowVocaloidExp("producer's name is null") }
       .toList()
     // joinToString default use ", " as separator
     return "${producers.joinToString()} feat. ${vocalist.joinToString()}"
