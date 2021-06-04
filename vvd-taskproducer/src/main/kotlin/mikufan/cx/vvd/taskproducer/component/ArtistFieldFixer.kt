@@ -5,6 +5,7 @@ import mikufan.cx.vocadbapiclient.model.ArtistCategories
 import mikufan.cx.vocadbapiclient.model.ArtistForSongContract
 import mikufan.cx.vocadbapiclient.model.SongOptionalFields
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
+import mikufan.cx.vvd.commonkt.exception.orThrowVocaloidExp
 import mikufan.cx.vvd.taskproducer.model.VSongTask
 import mu.KotlinLogging
 import org.apache.commons.lang3.StringUtils
@@ -31,16 +32,15 @@ class ArtistFieldFixer(
   }
 
   override fun processRecord(record: Record<VSongTask>): Record<VSongTask> {
-    val song = record.payload.parameters.songForApiContract
-      ?: throw RuntimeVocaloidException("parameters contain null for VSong")
-    var artistStr = song.artistString
-      ?: throw RuntimeVocaloidException("${song.name} doesn't have a artist string")
+    val song = record.payload.parameters.songForApiContract.orThrowVocaloidExp("VSong is null")
+    var artistStr = song.artistString.orThrowVocaloidExp("${song.name} has a null artist string")
     val artists = mutableListOf<ArtistForSongContract>()
     //fix various
     if (artistStr.contains(VARIOUS, true)) {
       val songWithArtists = songApi.apiSongsIdGet(
         song.id, SongOptionalFields(SongOptionalFields.Constant.ARTISTS), null)
-      artists.addAll(songWithArtists.artists!!) // api calls with artist field
+      artists.addAll(songWithArtists.artists
+        .orThrowVocaloidExp("newly called ${songWithArtists.name} has a null artists list"))
       val newArtistStr = formProperArtistField(artists)
       log.debug { "replacing artist str '${song.artistString}' with '$newArtistStr'" }
       artistStr = newArtistStr

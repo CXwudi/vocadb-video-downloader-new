@@ -28,6 +28,7 @@ internal class ArtistFieldFixerTest(
   @BeforeEach
   fun setupRecord(){
     val jsonByteArr = javaClass.classLoader
+        // get the test json that contains "various"
       .getResourceAsStream("test/PaⅢ.REVOLUTION  雄之助 vocadb api response.json")
       .reader().readText()
     val song: SongForApiContract = objectMapper.readValue(jsonByteArr, SongForApiContract::class.java)

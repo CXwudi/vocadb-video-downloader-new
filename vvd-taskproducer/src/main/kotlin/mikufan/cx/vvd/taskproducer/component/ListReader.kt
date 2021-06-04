@@ -3,6 +3,7 @@ package mikufan.cx.vvd.taskproducer.component
 import mikufan.cx.vocadbapiclient.api.SongListApi
 import mikufan.cx.vocadbapiclient.model.SongOptionalFields
 import mikufan.cx.vvd.common.label.VSongLabel
+import mikufan.cx.vvd.commonkt.exception.orThrowVocaloidExp
 import mikufan.cx.vvd.taskproducer.config.IOConfig
 import mikufan.cx.vvd.taskproducer.model.Parameters
 import mikufan.cx.vvd.taskproducer.model.VSongTask
@@ -13,6 +14,7 @@ import org.jeasy.batch.core.record.Header
 import org.jeasy.batch.core.record.Record
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
+import org.springframework.validation.annotation.Validated
 import java.time.LocalDateTime
 import java.util.*
 import javax.validation.constraints.Min
@@ -23,7 +25,7 @@ import mikufan.cx.vocadbapiclient.model.SongForApiContract as VSong
  * @date 2021-05-29
  * @author CX无敌
  */
-@Component
+@Component @Validated
 class ListReader(
   private val songListApi: SongListApi,
   ioConfig: IOConfig,
@@ -53,15 +55,17 @@ class ListReader(
             SongOptionalFields.Constant.ALBUMS,
             SongOptionalFields.Constant.PVS
           ))
-          val partialList =  partialFindResult.items?: listOf()
+          val partialList =  partialFindResult.items.orThrowVocaloidExp("a list with no list?? $partialFindResult")
           log.debug { "read ${partialList.size} new songs" }
           var lastCount = 0
           // if api call returns empty result, then return null
           partialList.forEach {
-            queue.add(it.song)
-            lastCount = max(it.order!!, lastCount) // order should always have number in it
+            queue.add(it.song.orThrowVocaloidExp("A node with no SongForApiContrast instance?? $it"))
+            lastCount = max(it.order.orThrowVocaloidExp("order is null"), lastCount) // order should always have
+          // number in it
           }
-          val totalCount = partialFindResult.totalCount!! //this should not be null as we set getTotalCount = true
+          val totalCount = partialFindResult.totalCount.orThrowVocaloidExp("this should not be null as we set " +
+              "getTotalCount = true, $partialFindResult")
           if (lastCount != totalCount) {
             log.debug{"lastCount = $lastCount, totalCount = $totalCount, more songs need to be fetched"}
             hasMore = true
@@ -88,9 +92,11 @@ class ListReader(
   override fun readRecord(): Record<VSongTask>? {
     val header = Header(++currentRecordNumber, "In-Memory Iterator", LocalDateTime.now())
     return if (itr.hasNext()) {
+      val song = itr.next()
+      log.info { "start processing ${song.defaultName}" }
       GenericRecord(header, VSongTask(
         VSongLabel.builder().build(), //empty for now, add label filename once artist str is fixed
-        Parameters(itr.next(), currentRecordNumber)
+        Parameters(song, currentRecordNumber)
       ))
     } else {
       null

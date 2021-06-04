@@ -8,7 +8,8 @@
     <module>vvd-taskproducer</module>
     <module>vvd-downloader</module>
 		<module>vvd-extractor</module>
-	</modules>
+    <module>vvd-common-kt</module>
+  </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -41,6 +42,11 @@
 				<artifactId>vvd-common</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+      <dependency>
+        <groupId>mikufan.cx</groupId>
+        <artifactId>vvd-common-kt</artifactId>
+        <version>${project.version}</version>
+      </dependency>
 
 			<dependency>
 				<groupId>com.github.CXwudi</groupId>
