@@ -18,15 +18,14 @@ import java.nio.file.Path
 data class IOConfig(
   val inputListId: Int,
   @IsDirectory(optionalCheck = true) val outputDirectory: Path,
-  @IsDirectory(optionalCheck = true) val errorDirectory: Path){
+  @IsDirectory(optionalCheck = true) val errorDirectory: Path) {
 
   init {
-    if (Files.notExists(outputDirectory)){
+    if (Files.notExists(outputDirectory)) {
       Files.createDirectories(outputDirectory)
     }
-    if (Files.notExists(errorDirectory)){
+    if (Files.notExists(errorDirectory)) {
       Files.createDirectories(errorDirectory)
     }
   }
-
 }

@@ -8,13 +8,10 @@ import org.springframework.stereotype.Service
  * @author CX无敌
  */
 @Service
-class MainService(
-
-) : Runnable {
+class MainService() : Runnable {
   override fun run() {
     TODO("Not yet implemented")
   }
-
 }
 
 private val log = KotlinLogging.logger {}

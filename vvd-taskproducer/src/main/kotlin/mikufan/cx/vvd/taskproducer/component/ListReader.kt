@@ -35,13 +35,13 @@ class ListReader(
   private val listId = ioConfig.inputListId
 
   private val itr: Iterator<VSong> by lazy {
-    object : Iterator<VSong>{
+    object : Iterator<VSong> {
       var hasMore = true
       var startIdx = 0
       val queue: Queue<VSong> = LinkedList()
 
       override fun hasNext(): Boolean {
-        return if(hasMore){
+        return if (hasMore) {
           true
         } else {
           queue.isNotEmpty()
@@ -49,13 +49,13 @@ class ListReader(
       }
 
       override fun next(): VSong {
-        if (queue.isEmpty()) { //lazy read the list when need
+        if (queue.isEmpty()) { // lazy read the list when need
           log.debug { "start fetching $pageSize songs from index $startIdx" }
           val partialFindResult = readSongList(listId, startIdx, pageSize, SongOptionalFields(
             SongOptionalFields.Constant.ALBUMS,
             SongOptionalFields.Constant.PVS
           ))
-          val partialList =  partialFindResult.items.orThrowVocaloidExp("a list with no list?? $partialFindResult")
+          val partialList = partialFindResult.items.orThrowVocaloidExp("a list with no list?? $partialFindResult")
           log.debug { "read ${partialList.size} new songs" }
           var lastCount = 0
           // if api call returns empty result, then return null
@@ -67,11 +67,11 @@ class ListReader(
           val totalCount = partialFindResult.totalCount.orThrowVocaloidExp("this should not be null as we set " +
               "getTotalCount = true, $partialFindResult")
           if (lastCount != totalCount) {
-            log.debug{"lastCount = $lastCount, totalCount = $totalCount, more songs need to be fetched"}
+            log.debug { "lastCount = $lastCount, totalCount = $totalCount, more songs need to be fetched" }
             hasMore = true
             startIdx = lastCount
           } else {
-            log.debug{"lastCount = $lastCount, totalCount = $totalCount, all songs fetched"}
+            log.debug { "lastCount = $lastCount, totalCount = $totalCount, all songs fetched" }
             hasMore = false
           }
         }
@@ -83,7 +83,6 @@ class ListReader(
           listId, null, null, null, null, null, null, null,
           start, maximum, true, null, null, optionalFields, null
         )
-
     }
   }
 
@@ -95,14 +94,13 @@ class ListReader(
       val song = itr.next()
       log.info { "start processing ${song.defaultName}" }
       GenericRecord(header, VSongTask(
-        VSongLabel.builder().build(), //empty for now, add label filename once artist str is fixed
+        VSongLabel.builder().build(), // empty for now, add label filename once artist str is fixed
         Parameters(song, currentRecordNumber)
       ))
     } else {
       null
     }
   }
-
 }
 
 private val log = KotlinLogging.logger {}

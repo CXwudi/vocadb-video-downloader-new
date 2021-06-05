@@ -1,4 +1,4 @@
-package mikufan.cx.vvd.taskproducer;
+package mikufan.cx.vvd.taskproducer
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan

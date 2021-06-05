@@ -21,7 +21,7 @@ import java.util.*
 @Component
 class ArtistFieldFixer(
   private val songApi: SongApi
-): RecordProcessor<VSongTask, VSongTask> {
+) : RecordProcessor<VSongTask, VSongTask> {
 
   companion object {
     @JvmStatic
@@ -34,7 +34,7 @@ class ArtistFieldFixer(
     val song = record.payload.parameters.songForApiContract.orThrowVocaloidExp("VSong is null")
     var artistStr = song.artistString.orThrowVocaloidExp("${song.name} has a null artist string")
     val artists = mutableListOf<ArtistForSongContract>()
-    //fix various
+    // fix various
     if (artistStr.contains(VARIOUS, true)) {
       val songWithArtists = songApi.apiSongsIdGet(
         song.id, SongOptionalFields(SongOptionalFields.Constant.ARTISTS), null)
@@ -51,7 +51,7 @@ class ArtistFieldFixer(
     }
 
     // replacing back some artist related fields
-    if (artists.isNotEmpty()){
+    if (artists.isNotEmpty()) {
       song.artists = artists
     }
     song.artistString = artistStr
