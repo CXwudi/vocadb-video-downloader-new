@@ -29,7 +29,7 @@ import mikufan.cx.vocadbapiclient.model.SongForApiContract as VSong
 class ListReader(
   private val songListApi: SongListApi,
   ioConfig: IOConfig,
-  @Min(0) @Value("\${config.api-page-size}") val pageSize: Int
+  @Min(0) @Value("\${config.api-page-size}") private val pageSize: Int
 ) : RecordReader<VSongTask> {
 
   private val listId = ioConfig.inputListId

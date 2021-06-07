@@ -23,9 +23,9 @@ import kotlin.io.path.absolute
 @Component
 class VSongJsonWriter(
   ioConfig: IOConfig,
-  val objectMapper: ObjectMapper
+  private val objectMapper: ObjectMapper
 ) : RecordWriter<VSongTask> {
-  val outputDirectory = ioConfig.outputDirectory
+  private val outputDirectory = ioConfig.outputDirectory
 
   override fun writeRecords(batch: Batch<VSongTask>) {
     runBlocking(Dispatchers.IO) {

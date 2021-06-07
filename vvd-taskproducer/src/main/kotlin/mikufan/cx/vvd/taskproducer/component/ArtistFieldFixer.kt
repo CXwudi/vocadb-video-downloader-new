@@ -59,7 +59,7 @@ class ArtistFieldFixer(
     return record
   }
 
-  fun formProperArtistField(artists: List<ArtistForSongContract>): String {
+  internal fun formProperArtistField(artists: List<ArtistForSongContract>): String {
     val vocalist = artists
       .filter { it.categories.orThrowVocaloidExp("$it has null categorise").enums
         .contains(ArtistCategories.Constant.VOCALIST) }
@@ -74,7 +74,7 @@ class ArtistFieldFixer(
     return "${producers.joinToString()} feat. ${vocalist.joinToString()}"
   }
 
-  fun removeUnknown(artistStr: String): String {
+  internal fun removeUnknown(artistStr: String): String {
     return artistStr
       .replace(UNKNOWN.lowercase(Locale.getDefault()), "")
       .replace(UNKNOWN.uppercase(Locale.getDefault()), "")
