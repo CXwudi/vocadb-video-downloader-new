@@ -1,0 +1,47 @@
+package mikufan.cx.vvd.taskproducer.component
+
+import com.fasterxml.jackson.databind.ObjectMapper
+import kotlinx.coroutines.runBlocking
+import mikufan.cx.vocadbapiclient.model.SongForApiContract
+import mikufan.cx.vvd.common.label.VSongLabel
+import mikufan.cx.vvd.taskproducer.model.Parameters
+import mikufan.cx.vvd.taskproducer.model.VSongTask
+import org.jeasy.batch.core.record.GenericRecord
+import org.jeasy.batch.core.record.Header
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import java.time.LocalDateTime
+
+/**
+ * @author CX无敌
+ * @date 2021-06-04
+ */
+@SpringBootTest
+internal class VSongJsonWriterTest(
+  @Autowired val vSongJsonWriter: VSongJsonWriter,
+  @Autowired val objectMapper: ObjectMapper
+){
+
+  lateinit var dummyRecord: GenericRecord<VSongTask>
+
+  @BeforeEach
+  fun setupRecord(){
+    val jsonString = javaClass.classLoader
+      // get the test json that contains "various"
+      .getResourceAsStream("test/PaⅢ.REVOLUTION  雄之助 vocadb api response.json")
+      .reader().use { it.readText() }
+    val song: SongForApiContract = objectMapper.readValue(jsonString, SongForApiContract::class.java)
+    dummyRecord = GenericRecord(
+      Header(1, "Test Record", LocalDateTime.now()), VSongTask(
+      VSongLabel.builder().build(),
+      Parameters(song, 1))
+    )
+  }
+
+  @Test
+  fun `should able to write label and song info on proper location`() = runBlocking {
+    vSongJsonWriter.writeVSongJson(dummyRecord.payload)
+  }
+}
