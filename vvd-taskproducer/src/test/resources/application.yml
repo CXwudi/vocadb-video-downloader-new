@@ -21,7 +21,7 @@ spring:
       fail-on-unknown-properties: true
     serialization:
       indent-output: true
-    default-property-inclusion: non_null
+    # default-property-inclusion: non_null
 
 
 logging:

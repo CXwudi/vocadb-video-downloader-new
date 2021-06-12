@@ -88,8 +88,8 @@ class ListReader(
   private var currentRecordNumber: Long = 0
 
   override fun readRecord(): Record<VSongTask>? {
-    val header = Header(++currentRecordNumber, "In-Memory Iterator", LocalDateTime.now())
     return if (itr.hasNext()) {
+      val header = Header(++currentRecordNumber, "In-Memory Iterator", LocalDateTime.now())
       val song = itr.next()
       log.info { "start processing ${song.defaultName}" }
       GenericRecord(header, VSongTask(
