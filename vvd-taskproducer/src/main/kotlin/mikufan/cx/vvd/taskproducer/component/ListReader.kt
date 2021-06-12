@@ -55,12 +55,12 @@ class ListReader(
             SongOptionalFields.Constant.ALBUMS,
             SongOptionalFields.Constant.PVS
           ))
-          val partialList = partialFindResult.items.orThrowVocaloidExp("a list with no list?? $partialFindResult")
+          val partialList = partialFindResult.items!!
           log.debug { "read ${partialList.size} new songs" }
           var lastCount = 0
           // if api call returns empty result, then return null
           partialList.forEach {
-            queue.add(it.song.orThrowVocaloidExp("A node with no SongForApiContrast instance?? $it"))
+            queue.add(it.song!!)
             lastCount = max(it.order.orThrowVocaloidExp("order is null"), lastCount) // order should always have
           // number in it
           }

@@ -32,7 +32,7 @@ class ArtistFieldFixer(
 
   override fun processRecord(record: Record<VSongTask>): Record<VSongTask> {
     val song = record.payload.parameters.songForApiContract.orThrowVocaloidExp("VSong is null")
-    var artistStr = song.artistString.orThrowVocaloidExp("${song.name} has a null artist string")
+    var artistStr = song.artistString!!
     val artists = mutableListOf<ArtistForSongContract>()
     // fix various
     if (artistStr.contains(VARIOUS, true)) {
@@ -61,14 +61,13 @@ class ArtistFieldFixer(
 
   internal fun formProperArtistField(artists: List<ArtistForSongContract>): String {
     val vocalist = artists
-      .filter { it.categories.orThrowVocaloidExp("$it has null categorise").enums
+      .filter { it.categories!!.enums
         .contains(ArtistCategories.Constant.VOCALIST) }
-      .map { it.name.orThrowVocaloidExp("artist's name is null") }
+      .map { it.name!! }
       .toList()
     val producers = artists
-      .filter { StringUtils.containsAny(it.categories.orThrowVocaloidExp("$it has null categorise").toString(),
-        "Producer", "Circle") }
-      .map { it.name.orThrowVocaloidExp("producer's name is null") }
+      .filter { StringUtils.containsAny(it.categories!!.toString(), "Producer", "Circle") }
+      .map { it.name!! }
       .toList()
     // joinToString default use ", " as separator
     return "${producers.joinToString()} feat. ${vocalist.joinToString()}"

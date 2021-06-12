@@ -13,5 +13,5 @@ import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
  * either returns itself or throw [RuntimeVocaloidException] if null
  */
 inline fun <reified T> T?.orThrowVocaloidExp(msg: String, exp: Throwable? = null): T {
-  return this?: throw exp?.let { RuntimeVocaloidException(msg,it) }?: RuntimeVocaloidException(msg)
+  return this ?: throw exp?.let { RuntimeVocaloidException(msg, it) } ?: RuntimeVocaloidException(msg)
 }
