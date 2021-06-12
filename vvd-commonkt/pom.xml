@@ -9,7 +9,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>vvd-common-kt</artifactId>
+  <artifactId>vvd-commonkt</artifactId>
 
   <description>This module is just to add some common kotlin code on top of vvd-common</description>
 

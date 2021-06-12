@@ -5,6 +5,7 @@ import mikufan.cx.vocadbapiclient.model.SongOptionalFields
 import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.commonkt.exception.orThrowVocaloidExp
 import mikufan.cx.vvd.taskproducer.config.IOConfig
+import mikufan.cx.vvd.taskproducer.config.SystemConfig
 import mikufan.cx.vvd.taskproducer.model.Parameters
 import mikufan.cx.vvd.taskproducer.model.VSongTask
 import mu.KotlinLogging
@@ -12,12 +13,10 @@ import org.jeasy.batch.core.reader.RecordReader
 import org.jeasy.batch.core.record.GenericRecord
 import org.jeasy.batch.core.record.Header
 import org.jeasy.batch.core.record.Record
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import org.springframework.validation.annotation.Validated
 import java.time.LocalDateTime
 import java.util.*
-import javax.validation.constraints.Min
 import kotlin.math.max
 import mikufan.cx.vocadbapiclient.model.SongForApiContract as VSong
 
@@ -29,10 +28,10 @@ import mikufan.cx.vocadbapiclient.model.SongForApiContract as VSong
 class ListReader(
   private val songListApi: SongListApi,
   ioConfig: IOConfig,
-  @Min(0) @Value("\${config.api-page-size}") private val pageSize: Int
+  systemConfig: SystemConfig
 ) : RecordReader<VSongTask> {
-
   private val listId = ioConfig.inputListId
+  private val pageSize = systemConfig.apiPageSize
 
   private val itr: Iterator<VSong> by lazy {
     object : Iterator<VSong> {

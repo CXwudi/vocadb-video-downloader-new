@@ -14,7 +14,7 @@
   <dependencies>
     <dependency>
       <groupId>mikufan.cx</groupId>
-      <artifactId>vvd-common-kt</artifactId>
+      <artifactId>vvd-commonkt</artifactId>
     </dependency>
 
     <dependency>
