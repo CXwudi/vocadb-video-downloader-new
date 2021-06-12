@@ -94,7 +94,7 @@ class ListReader(
       val song = itr.next()
       log.info { "start processing ${song.defaultName}" }
       GenericRecord(header, VSongTask(
-        VSongLabel.builder().build(), // empty for now, add label filename once artist str is fixed
+        VSongLabel.builder().order(currentRecordNumber).build(), // will add label filename once everything is done
         Parameters(song, currentRecordNumber)
       ))
     } else {
