@@ -7,9 +7,13 @@ io: # vocadb favourite list id in int, output, and error output dir, can be rela
 
 config:
   base-url: https://vocadb.net
+  # the user agent to be used for calling VocaDB APIs
   user-agent:
   #max number of songs you can fetch from one api request of the vocadb favourite list
   api-page-size: 50
+  # buffer size of songs to be stored in memory before writing to output directory
+  # if set to 1, it will write outputs of a song immediately after the song's processing is done
+  batch-size: 10
 
 # spring setting
 spring:
@@ -18,7 +22,7 @@ spring:
       fail-on-unknown-properties: true
     serialization:
       indent-output: true
-      non-null: true  # doesn't work so far
+    default-property-inclusion: non_null
 
 
 logging:

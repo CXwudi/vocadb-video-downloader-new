@@ -1,5 +1,6 @@
 package mikufan.cx.vvd.taskproducer
 
+import mikufan.cx.vvd.taskproducer.service.MainService
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.runApplication
@@ -14,5 +15,5 @@ import org.springframework.boot.runApplication
 class TaskProducerApplication
 
 fun main(args: Array<String>) {
-  runApplication<TaskProducerApplication>(*args)
+  runApplication<TaskProducerApplication>(*args).use { it.getBean(MainService::class.java).run() }
 }

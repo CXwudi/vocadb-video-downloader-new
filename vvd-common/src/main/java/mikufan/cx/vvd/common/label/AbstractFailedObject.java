@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 @Getter @ToString
 @SuperBuilder(toBuilder = true)
 @FieldDefaults(makeFinal = true, level = AccessLevel.PROTECTED)
-public abstract class FailedObject<T> {
+public abstract class AbstractFailedObject<T> {
 
   /**
    * rename to object when the new list provider is done,

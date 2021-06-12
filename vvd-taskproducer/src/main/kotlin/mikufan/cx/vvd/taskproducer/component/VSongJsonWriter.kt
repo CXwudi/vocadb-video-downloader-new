@@ -4,12 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import mikufan.cx.vocadbapiclient.model.SongForApiContract
-import mikufan.cx.vvd.common.naming.FileNamePostFix
-import mikufan.cx.vvd.common.naming.FileNameUtil
 import mikufan.cx.vvd.commonkt.exception.orThrowVocaloidExp
 import mikufan.cx.vvd.taskproducer.config.IOConfig
 import mikufan.cx.vvd.taskproducer.model.VSongTask
+import mikufan.cx.vvd.taskproducer.util.toLabelFileName
 import mu.KotlinLogging
 import org.jeasy.batch.core.record.Batch
 import org.jeasy.batch.core.writer.RecordWriter
@@ -23,49 +21,44 @@ import kotlin.io.path.absolute
 @Component
 class VSongJsonWriter(
   ioConfig: IOConfig,
-  private val objectMapper: ObjectMapper
+  private val objectMapper: ObjectMapper,
+  private val recordErrorWriter: RecordErrorWriter
 ) : RecordWriter<VSongTask> {
   private val outputDirectory = ioConfig.outputDirectory
 
-  override fun writeRecords(batch: Batch<VSongTask>) {
-    runBlocking(Dispatchers.IO) {
-      batch
-        .map { it.payload }
-        .forEach {
-          launch {
-            writeVSongJson(it)
-          }
+  /**
+   * When we reach here, label should contains all info needed before writing.
+   *
+   * so here we only need to concerned about writing
+   */
+  override fun writeRecords(batch: Batch<VSongTask>) = runBlocking(Dispatchers.IO) {
+    batch.forEach {
+      launch {
+        try {
+          writeVSongJson(it.payload)
+        } catch (e: Exception) {
+          recordErrorWriter.writeError(it, e)
         }
+      }
     }
   }
 
   internal suspend fun writeVSongJson(vSongTask: VSongTask) {
     val song = vSongTask.parameters.songForApiContract.orThrowVocaloidExp("vsong is null")
-    val fileBaseName = song.toProperFileName()
+    val label = vSongTask.label
 
     // write info json
-    val infoFileName = fileBaseName + FileNamePostFix.SONG_INFO + ".json"
-    val infoFile = outputDirectory.resolve(infoFileName)
+    val infoFile = outputDirectory.resolve(label.infoFileName)
     objectMapper.writeValue(infoFile.toFile(), song)
 
     // write label json
-    val labelFileName = fileBaseName + FileNamePostFix.LABEL + ".json"
-    val label = vSongTask.label
-    label.infoFileName = infoFileName
-    val labelFile = outputDirectory.resolve(labelFileName)
+    val labelFile = outputDirectory.resolve(song.toLabelFileName())
     objectMapper.writeValue(labelFile.toFile(), label)
 
-    log.info { "done processing, " +
-        "wrote info json file to ${infoFile.absolute()} and label json file to ${labelFile.absolute()}" }
-  }
-
-  private fun SongForApiContract.toProperFileName(): String {
-    val artists: List<String> = artistString.orThrowVocaloidExp("artist string is null")
-      .split("feat.")
-    val vocals = artists[1].trim()
-    val producers = artists[0].trim()
-    val songName: String = defaultName.orThrowVocaloidExp("song name is null")
-    return FileNameUtil.removeIllegalChars(String.format("【%s】%s【%s】", vocals, songName, producers))
+    log.info {
+      "done processing ${song.defaultName}, " +
+          "wrote info json file to ${infoFile.absolute()} and label json file to ${labelFile.absolute()}"
+    }
   }
 }
 

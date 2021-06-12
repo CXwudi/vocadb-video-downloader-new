@@ -1,39 +1,35 @@
 package mikufan.cx.vvd.taskproducer.component
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import kotlinx.coroutines.runBlocking
 import mikufan.cx.vocadbapiclient.model.SongForApiContract
+import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.common.label.VSongLabel
-import mikufan.cx.vvd.taskproducer.config.IOConfig
 import mikufan.cx.vvd.taskproducer.model.Parameters
 import mikufan.cx.vvd.taskproducer.model.VSongTask
-import mikufan.cx.vvd.taskproducer.util.toInfoFileName
+import mu.KotlinLogging
 import org.jeasy.batch.core.record.GenericRecord
 import org.jeasy.batch.core.record.Header
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import java.time.LocalDateTime
-import kotlin.io.path.isRegularFile
 
 /**
+ * @date 2021-06-12
  * @author CX无敌
- * @date 2021-06-04
  */
 @SpringBootTest
-internal class VSongJsonWriterTest(
-  @Autowired val vSongJsonWriter: VSongJsonWriter,
-  @Autowired val objectMapper: ObjectMapper,
-  @Autowired ioConfig: IOConfig
-){
-  val outputDirectory = ioConfig.outputDirectory
+internal class BeforeWriteValidatorTest(
+  @Autowired val beforeWriteValidator: BeforeWriteValidator,
+  @Autowired val objectMapper: ObjectMapper
+) {
 
   lateinit var dummyRecord: GenericRecord<VSongTask>
 
   @BeforeEach
-  fun setupRecord(){
+  fun setupRecord() {
     val jsonString = javaClass.classLoader
       // get the test json that contains "various"
       .getResourceAsStream("test/PaⅢ.REVOLUTION  雄之助 vocadb api response.json")
@@ -41,18 +37,22 @@ internal class VSongJsonWriterTest(
     val song: SongForApiContract = objectMapper.readValue(jsonString, SongForApiContract::class.java)
     dummyRecord = GenericRecord(
       Header(1, "Test Record", LocalDateTime.now()), VSongTask(
-      VSongLabel.builder()
-        .order(1)
-        .infoFileName(song.toInfoFileName())
-        .build(),
-      Parameters(song, 1))
+        VSongLabel.builder()
+//          .order(-1)
+//          .infoFileName(song.toInfoFileName())
+          .build(),
+        Parameters(song, 1)
+      )
     )
   }
-
   @Test
-  fun `should able to write label and song info on proper location`() = runBlocking {
-    vSongJsonWriter.writeVSongJson(dummyRecord.payload)
-    assertTrue(outputDirectory.resolve("【various】PaⅢ.REVOLUTION【雄之助, 攻】-label.json").isRegularFile())
-    assertTrue(outputDirectory.resolve("【various】PaⅢ.REVOLUTION【雄之助, 攻】-songInfo.json").isRegularFile())
+  fun `should fail`() {
+    assertThrows(RuntimeVocaloidException::class.java) {
+      beforeWriteValidator.processRecord(dummyRecord)
+    }.also {
+      log.error(it) { "Exception: " }
+    }
   }
 }
+
+private val log = KotlinLogging.logger {}

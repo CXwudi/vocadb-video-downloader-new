@@ -15,6 +15,6 @@ import mikufan.cx.vvd.common.vocadb.model.SongForApi;
 @Getter @ToString
 @SuperBuilder(toBuilder = true) @Jacksonized
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-public class FailedSong extends FailedObject<SongForApi>{
+public class FailedSong extends AbstractFailedObject<SongForApi> {
 
 }
