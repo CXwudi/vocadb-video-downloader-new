@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.jackson.Jacksonized;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -20,6 +21,7 @@ import javax.validation.constraints.NotBlank;
 public class VSongLabel {
 
   @NotBlank(groups = ValidationPhase.One.class) String infoFileName;
+  @Min(value = 1, groups = ValidationPhase.One.class) long order;
 
   @NotBlank(groups = ValidationPhase.Two.class) String pvFileName;
   String audioFileName;
