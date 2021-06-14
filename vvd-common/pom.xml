@@ -12,9 +12,14 @@
   <artifactId>vvd-common</artifactId>
 
   <dependencies>
-    <dependency>
+    <dependency> <!-- commonkt needs -->
       <groupId>com.github.CXwudi</groupId>
       <artifactId>vocadb-openapi-client-java</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jeasy</groupId>
+      <artifactId>easy-batch-core</artifactId>
     </dependency>
 
     <dependency>

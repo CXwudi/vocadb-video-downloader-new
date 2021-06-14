@@ -34,7 +34,7 @@ internal class ArtistFieldFixerTest(
     val song: SongForApiContract = objectMapper.readValue(jsonByteArr, SongForApiContract::class.java)
     dummyRecord = GenericRecord(Header(1, "Test Record", LocalDateTime.now()), VSongTask(
       VSongLabel.builder().build(),
-      Parameters(song, 1)
+      Parameters(song)
     ))
   }
 

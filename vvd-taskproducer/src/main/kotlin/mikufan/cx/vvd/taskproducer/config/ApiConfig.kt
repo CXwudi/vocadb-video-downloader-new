@@ -38,3 +38,4 @@ class ApiConfig {
       BufferingClientHttpRequestFactory(restTemplateBuilder.buildRequestFactory())
     }.build()
 }
+

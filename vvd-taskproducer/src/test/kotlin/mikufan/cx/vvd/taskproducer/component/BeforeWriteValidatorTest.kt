@@ -41,7 +41,7 @@ internal class BeforeWriteValidatorTest(
 //          .order(-1)
 //          .infoFileName(song.toInfoFileName())
           .build(),
-        Parameters(song, 1)
+        Parameters(song)
       )
     )
   }

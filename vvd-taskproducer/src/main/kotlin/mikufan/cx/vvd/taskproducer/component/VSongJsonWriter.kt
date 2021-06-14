@@ -1,16 +1,13 @@
 package mikufan.cx.vvd.taskproducer.component
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import mikufan.cx.vvd.commonkt.batch.AbstractParallelWriter
+import mikufan.cx.vvd.commonkt.batch.RecordErrorWriter
 import mikufan.cx.vvd.commonkt.exception.orThrowVocaloidExp
 import mikufan.cx.vvd.taskproducer.config.IOConfig
 import mikufan.cx.vvd.taskproducer.model.VSongTask
 import mikufan.cx.vvd.taskproducer.util.toLabelFileName
 import mu.KotlinLogging
-import org.jeasy.batch.core.record.Batch
-import org.jeasy.batch.core.writer.RecordWriter
 import org.springframework.stereotype.Component
 import kotlin.io.path.absolute
 
@@ -22,28 +19,11 @@ import kotlin.io.path.absolute
 class VSongJsonWriter(
   ioConfig: IOConfig,
   private val objectMapper: ObjectMapper,
-  private val recordErrorWriter: RecordErrorWriter
-) : RecordWriter<VSongTask> {
+  recordErrorWriter: RecordErrorWriter
+) : AbstractParallelWriter<VSongTask>(recordErrorWriter) {
   private val outputDirectory = ioConfig.outputDirectory
 
-  /**
-   * When we reach here, label should contains all info needed before writing.
-   *
-   * so here we only need to concerned about writing
-   */
-  override fun writeRecords(batch: Batch<VSongTask>) = runBlocking(Dispatchers.IO) {
-    batch.forEach {
-      launch {
-        try {
-          writeVSongJson(it.payload)
-        } catch (e: Exception) {
-          recordErrorWriter.writeError(it, e)
-        }
-      }
-    }
-  }
-
-  internal suspend fun writeVSongJson(vSongTask: VSongTask) {
+  override suspend fun write(vSongTask: VSongTask) {
     val song = vSongTask.parameters.songForApiContract.orThrowVocaloidExp("vsong is null")
     val label = vSongTask.label
 

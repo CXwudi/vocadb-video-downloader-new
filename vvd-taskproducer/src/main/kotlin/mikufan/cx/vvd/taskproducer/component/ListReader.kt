@@ -94,7 +94,7 @@ class ListReader(
       log.info { "start processing ${song.defaultName}" }
       GenericRecord(header, VSongTask(
         VSongLabel.builder().order(currentRecordNumber).build(), // will add label filename once everything is done
-        Parameters(song, currentRecordNumber)
+        Parameters(song)
       ))
     } else {
       null

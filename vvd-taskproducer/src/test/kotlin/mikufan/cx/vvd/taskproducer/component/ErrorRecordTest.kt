@@ -1,15 +1,16 @@
 package mikufan.cx.vvd.taskproducer.component
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import kotlinx.coroutines.runBlocking
 import mikufan.cx.vocadbapiclient.model.SongForApiContract
+import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.common.label.VSongLabel
+import mikufan.cx.vvd.commonkt.batch.PipelineExceptionHandler
 import mikufan.cx.vvd.taskproducer.config.IOConfig
 import mikufan.cx.vvd.taskproducer.model.Parameters
 import mikufan.cx.vvd.taskproducer.model.VSongTask
-import mikufan.cx.vvd.taskproducer.util.toInfoFileName
 import org.jeasy.batch.core.record.GenericRecord
 import org.jeasy.batch.core.record.Header
+import org.jeasy.batch.core.record.StringRecord
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -17,23 +18,24 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import java.time.LocalDateTime
 import kotlin.io.path.isRegularFile
+import kotlin.io.path.listDirectoryEntries
+import kotlin.io.path.name
 
 /**
+ * @date 2021-06-14
  * @author CX无敌
- * @date 2021-06-04
  */
 @SpringBootTest
-internal class VSongJsonWriterTest(
-  @Autowired val vSongJsonWriter: VSongJsonWriter,
+class ErrorRecordTest(
+  @Autowired val pipelineExceptionHandler: PipelineExceptionHandler,
   @Autowired val objectMapper: ObjectMapper,
   @Autowired ioConfig: IOConfig
-){
-  val outputDirectory = ioConfig.outputDirectory
-
+) {
+  val errorDirectory = ioConfig.errorDirectory
   lateinit var dummyRecord: GenericRecord<VSongTask>
 
   @BeforeEach
-  fun setupRecord(){
+  fun setupRecord() {
     val jsonString = javaClass.classLoader
       // get the test json that contains "various"
       .getResourceAsStream("test/PaⅢ.REVOLUTION  雄之助 vocadb api response.json")
@@ -41,18 +43,25 @@ internal class VSongJsonWriterTest(
     val song: SongForApiContract = objectMapper.readValue(jsonString, SongForApiContract::class.java)
     dummyRecord = GenericRecord(
       Header(1, "Test Record", LocalDateTime.now()), VSongTask(
-      VSongLabel.builder()
-        .order(1)
-        .infoFileName(song.toInfoFileName())
-        .build(),
-      Parameters(song))
+        VSongLabel.builder().build(),
+        Parameters(song)
+      )
     )
   }
 
   @Test
-  fun `should able to write label and song info on proper location`() = runBlocking {
-    vSongJsonWriter.write(dummyRecord.payload)
-    assertTrue(outputDirectory.resolve("【various】PaⅢ.REVOLUTION【雄之助, 攻】-label.json").isRegularFile())
-    assertTrue(outputDirectory.resolve("【various】PaⅢ.REVOLUTION【雄之助, 攻】-songInfo.json").isRegularFile())
+  fun `should write error vsong task with exception correctly`() {
+    pipelineExceptionHandler.onRecordProcessingException(dummyRecord, RuntimeVocaloidException("some error fufufu"))
+    assertTrue(errorDirectory.resolve("【various】PaⅢ.REVOLUTION【雄之助, 攻】-error.json").isRegularFile())
+  }
+
+  @Test
+  fun `should write other error task with exception correctly`() {
+    pipelineExceptionHandler.onRecordProcessingException(
+      StringRecord(Header(1, "Some Other String Record", LocalDateTime.now()), "my dummy string"),
+      RuntimeVocaloidException("some other errors fufufu")
+    )
+    val list = errorDirectory.listDirectoryEntries("failure record*")
+    assertTrue(list.any { it.name.contains("failure record") })
   }
 }

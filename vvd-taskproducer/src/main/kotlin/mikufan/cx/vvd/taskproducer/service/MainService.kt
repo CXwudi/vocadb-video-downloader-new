@@ -1,5 +1,6 @@
 package mikufan.cx.vvd.taskproducer.service
 
+import mikufan.cx.vvd.commonkt.batch.PipelineExceptionHandler
 import mikufan.cx.vvd.taskproducer.component.*
 import mikufan.cx.vvd.taskproducer.config.SystemConfig
 import mikufan.cx.vvd.taskproducer.model.VSongTask
@@ -7,7 +8,6 @@ import mu.KotlinLogging
 import org.jeasy.batch.core.job.JobBuilder
 import org.jeasy.batch.core.job.JobExecutor
 import org.springframework.stereotype.Service
-import javax.validation.Valid
 
 /**
  * @date 2021-05-29
@@ -17,19 +17,20 @@ import javax.validation.Valid
 class MainService(
   private val listReader: ListReader,
   private val artistFieldFixer: ArtistFieldFixer,
-  private val vSongFileNameGenerator: VSongFileNameGenerator,
+  private val labelInfoRecorder: LabelInfoRecorder,
   private val beforeWriteValidator: BeforeWriteValidator,
   private val vSongJsonWriter: VSongJsonWriter,
   private val pipelineExceptionHandler: PipelineExceptionHandler,
-  @Valid private val systemConfig: SystemConfig
+  private val systemConfig: SystemConfig
 ) : Runnable {
 
   override fun run() {
     val job = JobBuilder<VSongTask, VSongTask>()
+      .named("read VocaDB list task")
       .batchSize(systemConfig.batchSize)
       .reader(listReader)
       .processor(artistFieldFixer)
-      .processor(vSongFileNameGenerator)
+      .processor(labelInfoRecorder)
       .validator(beforeWriteValidator)
       .writer(vSongJsonWriter)
       .pipelineListener(pipelineExceptionHandler)

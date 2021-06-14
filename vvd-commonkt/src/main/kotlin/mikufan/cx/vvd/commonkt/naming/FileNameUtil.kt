@@ -39,6 +39,7 @@ fun removeIllegalChars(fileName: String): String {
   return fileName
     .replace("/", "-")
     .replace("\\", "-")
+    .replace('"', '\'')
     .replace("? ", " ")
     .replace("* ", " ")
     .replace(": ", " ")
