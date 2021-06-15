@@ -5,4 +5,6 @@ This is a reimplementation of [this repo](https://github.com/CXwudi/vocadb-video
 
 Everything is done and working. 
 
-But `vvd-downloader` and `vvd-extractor` need big refactoring. If you really want to use this program, contact me through email or Discord at CXwudi#3565
+But `vvd-downloader` and `vvd-extractor` are under a reimplementation. 
+
+If you really want to use this program, contact me through email or Discord at CXwudi#3565
