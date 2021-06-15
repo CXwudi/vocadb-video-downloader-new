@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<packaging>pom</packaging>
-	<modules>
-		<module>vvd-common</module>
-    <module>vvd-taskproducer</module>
-    <module>vvd-downloader</module>
-		<module>vvd-extractor</module>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>pom</packaging>
+  <modules>
+    <module>vvd-common</module>
     <module>vvd-commonkt</module>
+    <module>vvd-taskproducer</module>
+    <module>vvd-downloader-old</module>
+    <module>vvd-extractor</module>
   </modules>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.1</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-	<groupId>mikufan.cx</groupId>
-	<artifactId>vocadb-video-downloader</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
-	<name>VocaDB Video Downloader New</name>
-	<description>New VocaDB Video Downloader powered by Spring Boot</description>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.5.1</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+  <groupId>mikufan.cx</groupId>
+  <artifactId>vocadb-video-downloader</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>VocaDB Video Downloader New</name>
+  <description>New VocaDB Video Downloader powered by Spring Boot</description>
 
-	<properties>
-		<java.version>11</java.version>
+  <properties>
+    <java.version>11</java.version>
     <kotlin.version>1.5.10</kotlin.version>
-	</properties>
+  </properties>
 
-	<repositories>
-		<!-- for helping me releasing maven package from github -->
-		<repository>
-			<id>jitpack.io</id>
-			<url>https://jitpack.io</url>
-		</repository>
-	</repositories>
+  <repositories>
+    <!-- for helping me releasing maven package from github -->
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>mikufan.cx</groupId>
-				<artifactId>vvd-common</artifactId>
-				<version>${project.version}</version>
-			</dependency>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>mikufan.cx</groupId>
+        <artifactId>vvd-common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
       <dependency>
         <groupId>mikufan.cx</groupId>
         <artifactId>vvd-commonkt</artifactId>
         <version>${project.version}</version>
       </dependency>
 
-			<dependency>
-				<groupId>com.github.CXwudi</groupId>
-				<artifactId>youtubedl-java</artifactId>
-				<version>1.2.RC6</version>
-			</dependency>
+      <dependency>
+        <groupId>com.github.CXwudi</groupId>
+        <artifactId>youtubedl-java</artifactId>
+        <version>1.2.RC6</version>
+      </dependency>
       <dependency>
         <groupId>com.github.CXwudi</groupId>
         <artifactId>vocadb-openapi-client-java</artifactId>
@@ -70,68 +70,68 @@
         <version>7.0.2</version>
       </dependency>
 
-		</dependencies>
-	</dependencyManagement>
+    </dependencies>
+  </dependencyManagement>
 
-	<dependencies>
-
-
-		<!-- Bean and other Spring related things can be shared across modules -->
-		<!-- but make sure put @ComponentScan that points to the package of common module
-				 to the @Configuration in application modules -->
-		<!-- we recommend not to share the spring-boot-starter-* deps on mother modules,
-		     this can help us modifying one module deps without breaking others -->
+  <dependencies>
 
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
+    <!-- Bean and other Spring related things can be shared across modules -->
+    <!-- but make sure put @ComponentScan that points to the package of common module
+         to the @Configuration in application modules -->
+    <!-- we recommend not to share the spring-boot-starter-* deps on mother modules,
+         this can help us modifying one module deps without breaking others -->
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-logging</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-log4j2</artifactId>
-		</dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <scope>runtime</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-log4j2</artifactId>
+    </dependency>
     <dependency>
       <groupId>com.lmax</groupId>
       <artifactId>disruptor</artifactId>
       <version>3.4.4</version>
     </dependency>
 
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-		</dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+    </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
   <build>
     <pluginManagement>
@@ -159,7 +159,9 @@
             <execution>
               <id>compile</id>
               <phase>compile</phase>
-              <goals> <goal>compile</goal> </goals>
+              <goals>
+                <goal>compile</goal>
+              </goals>
               <configuration>
                 <sourceDirs>
                   <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
@@ -170,7 +172,9 @@
             <execution>
               <id>test-compile</id>
               <phase>test-compile</phase>
-              <goals> <goal>test-compile</goal> </goals>
+              <goals>
+                <goal>test-compile</goal>
+              </goals>
               <configuration>
                 <sourceDirs>
                   <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
