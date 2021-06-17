@@ -24,7 +24,7 @@ abstract class AbstractParallelWriter<P>(
         try {
           write(it.payload)
         } catch (e: Exception) {
-          recordErrorHandler?.writeError(it, e) ?: throw e
+          recordErrorHandler?.handleError(it, e) ?: throw e
         }
       }
     }

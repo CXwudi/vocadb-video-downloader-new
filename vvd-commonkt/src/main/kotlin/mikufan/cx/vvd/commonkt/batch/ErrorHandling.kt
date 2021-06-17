@@ -19,7 +19,7 @@ class PipelineExceptionHandler(
 ) : PipelineListener {
   override fun <P : Any?> onRecordProcessingException(record: Record<P>, throwable: Throwable) = when (throwable) {
     is Error, is InterruptedException -> throw throwable // rethrow error or interrupted exception
-    else -> recordErrorHandler.writeError(record, throwable as Exception)
+    else -> recordErrorHandler.handleError(record, throwable as Exception)
   }
 }
 
@@ -30,7 +30,7 @@ class PipelineExceptionHandler(
  */
 @FunctionalInterface
 interface RecordErrorHandler {
-  fun writeError(record: Record<*>, e: Exception)
+  fun handleError(record: Record<*>, e: Exception)
 }
 
 
@@ -42,11 +42,11 @@ interface RecordErrorHandler {
 class RecordErrorWriter(
   private val errorDirectory: Path,
   private val objectMapper: ObjectMapper,
-  private val errorRecordNaming: (Record<*>) -> String = { "" }
+  private val errorFileNaming: (Record<*>) -> String = { "" }
 ) : RecordErrorHandler {
 
-  override fun writeError(record: Record<*>, e: Exception) {
-    val failureFileName = errorRecordNaming(record).ifBlank {
+  override fun handleError(record: Record<*>, e: Exception) {
+    val failureFileName = errorFileNaming(record).ifBlank {
       "failure record ${removeIllegalChars(record.header.toString())}.json"
     }
     val failureFile = errorDirectory.resolve(failureFileName)
