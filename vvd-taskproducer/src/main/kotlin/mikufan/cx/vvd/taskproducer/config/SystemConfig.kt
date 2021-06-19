@@ -1,6 +1,7 @@
 package mikufan.cx.vvd.taskproducer.config
 
 import org.hibernate.validator.constraints.Range
+import org.hibernate.validator.constraints.URL
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
 import org.springframework.validation.annotation.Validated
@@ -14,7 +15,7 @@ import javax.validation.constraints.NotBlank
 @ConfigurationProperties(prefix = "config")
 @ConstructorBinding @Validated
 data class SystemConfig(
-  @field:NotBlank val baseUrl: String,
+  @field:URL val baseUrl: String,
   @field:NotBlank val userAgent: String,
   @field:Range(min = 1, max = 50) val apiPageSize: Int,
   @field:Min(1) val batchSize: Int
