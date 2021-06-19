@@ -11,7 +11,7 @@ config: # configuration
     # you can also disable song PV services by not listing them
     # values here are comma separated, name must be same as the pv service string in VocaDB pv json, see VocaDB APIs documentation
     # currently we only support NicoNicoDouga, Youtube and Bilibili
-    pv-preference:
+    pv-preference: NicoNicoDouga, Youtube, Bilibili
     # maximum retry before call it a failure, this does not include the first try
     max-retry-count: 2
     # if PVs from one PV service, either original or reprinted, failed to be download,
