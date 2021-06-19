@@ -9,6 +9,7 @@
     <module>vvd-taskproducer</module>
     <module>vvd-downloader-old</module>
     <module>vvd-extractor</module>
+    <module>vvd-downloader</module>
   </modules>
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -85,12 +86,6 @@
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-devtools</artifactId>
-      <scope>runtime</scope>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-configuration-processor</artifactId>
       <optional>true</optional>
     </dependency>
@@ -142,6 +137,7 @@
           <configuration>
             <args>
               <arg>-Xjsr305=strict</arg>
+              <arg>-Xemit-jvm-type-annotations</arg>
             </args>
             <compilerPlugins>
               <plugin>spring</plugin>

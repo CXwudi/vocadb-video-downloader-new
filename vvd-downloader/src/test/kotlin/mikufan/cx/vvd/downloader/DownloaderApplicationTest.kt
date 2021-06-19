@@ -1,0 +1,27 @@
+package mikufan.cx.vvd.downloader
+
+import mikufan.cx.vvd.downloader.config.Preference
+import mu.KotlinLogging
+import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.context.ApplicationContext
+
+/**
+ * @date 2021-06-18
+ * @author CX无敌
+ */
+@SpringBootTest
+internal class DownloaderApplicationTest(
+  @Autowired val ctx: ApplicationContext
+) {
+
+  @Test
+  fun `should boot`() {
+    val pvPreference = ctx.getBean(Preference::class.java).pvPreference
+    log.debug { "pvPreference = $pvPreference" }
+    log.info { "boot success" }
+  }
+}
+
+private val log = KotlinLogging.logger {}
