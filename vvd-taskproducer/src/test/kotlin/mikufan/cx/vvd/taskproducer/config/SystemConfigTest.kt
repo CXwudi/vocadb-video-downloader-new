@@ -15,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest
   "config.api-page-size=0",
   "config.batch-size=0"
 ])
-@Disabled
+@Disabled // disabled because the failure is from application itself, not from test cases
 internal class SystemConfigTest{
 
   @Test
