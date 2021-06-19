@@ -36,5 +36,5 @@ public @interface IsDirectory {
 
   boolean checkWritable() default false;
 
-  boolean checkExecutable() default true;
+  boolean checkExecutable() default false;
 }
