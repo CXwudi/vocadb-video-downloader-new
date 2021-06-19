@@ -14,8 +14,8 @@ import javax.validation.constraints.NotBlank
 @ConfigurationProperties(prefix = "config")
 @ConstructorBinding @Validated
 data class SystemConfig(
-  @NotBlank val baseUrl: String,
-  @NotBlank val userAgent: String,
-  @Range(min = 1, max = 50) val apiPageSize: Int,
-  @Min(1) val batchSize: Int
+  @field:NotBlank val baseUrl: String,
+  @field:NotBlank val userAgent: String,
+  @field:Range(min = 1, max = 50) val apiPageSize: Int,
+  @field:Min(1) val batchSize: Int
 )

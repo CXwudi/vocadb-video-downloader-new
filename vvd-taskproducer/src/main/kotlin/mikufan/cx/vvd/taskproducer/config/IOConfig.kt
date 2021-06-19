@@ -17,8 +17,12 @@ import java.nio.file.Path
 @PathsNotSame(fields = ["outputDirectory", "errorDirectory"])
 data class IOConfig(
   val inputListId: Int,
-  @IsDirectory(optionalCheck = true) val outputDirectory: Path,
-  @IsDirectory(optionalCheck = true) val errorDirectory: Path) {
+  // in Kotlin, annotations here by default are constructor's parameters.
+  // however, spring doesn't support constructor validation. https://www.baeldung.com/javax-validation-method-constraints#1-automatic-validation-with-spring
+  // so we need to make it either field or getter annotations by @field:Annotation or @get:Annotation
+  // if @get:Annotation, spring will still evaluate it before application is up
+  @field:IsDirectory(optionalCheck = true) val outputDirectory: Path,
+  @field:IsDirectory(optionalCheck = true) val errorDirectory: Path) {
 
   init {
     if (Files.notExists(outputDirectory)) {
