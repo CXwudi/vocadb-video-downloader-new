@@ -1,6 +1,8 @@
-package mikufan.cx.vvd.downloader.util
+package mikufan.cx.vvd.downloader.config.validation
 
 import mikufan.cx.vocadbapiclient.model.PVServices
+
+import mikufan.cx.vocadbapiclient.model.PVServices.Constant.*
 import org.springframework.util.CollectionUtils
 import javax.validation.Constraint
 import javax.validation.ConstraintValidator
@@ -15,9 +17,9 @@ import kotlin.reflect.KClass
  */
 
 val SUPPORTED_SERVICES = setOf(
-  PVServices.Constant.NICONICODOUGA,
-  PVServices.Constant.YOUTUBE,
-  PVServices.Constant.BILIBILI,
+  NICONICODOUGA,
+  YOUTUBE,
+  BILIBILI,
 )
 
 /**
@@ -50,7 +52,7 @@ class SupportPvServicesValidator : ConstraintValidator<AreSupportedPvServices, L
       }
       else -> {
         val unsupportedServices = value!!.filterNot { SUPPORTED_SERVICES.contains(it) }
-        if (unsupportedServices.isEmpty()){
+        if (unsupportedServices.isEmpty()) {
           true
         } else {
           context
