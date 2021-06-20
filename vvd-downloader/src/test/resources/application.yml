@@ -19,8 +19,9 @@ config: # configuration
     try-next-pv-service: false
     # if the original PV is unavailable, should we try reprinted PV?
     try-reprinted-pv: true
-    # if try-reprinted-pv is true, should we only try reprinted PV after all original PVs are failed?
-    # if this setting is false, reprinted pv in the same pv service will be tried before moving to next available pv service
+    # when should we only try reprinted PVs? after all original PVs are failed?
+    # if this setting is true, all reprinted pvs goes after all original pvs
+    # otherwise, reprinted pv in the same pv service will be tried before moving to next available pv service
     # if try-reprinted-pv is false, nothing happens
     try-reprinted-only-after-original-pv: true
 
