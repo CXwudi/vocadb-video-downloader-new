@@ -13,7 +13,8 @@ import org.springframework.boot.context.properties.ConstructorBinding
 @ConstructorBinding
 data class Enablement(
   val enablement: Map<PVServices.Constant, List<String>>
-) { // can not use Class : Map<PVServices.Constant, List<String>> by enablement, throw NoSuchMethodException
+) { // can not use Class : Map<PVServices.Constant, List<String>> by enablement, throw NoSuchMethodException,
+  // consider to submit issue
   operator fun get(key: PVServices.Constant): List<String> = enablement[key] ?: emptyList()
-  fun containsKey(key: PVServices.Constant): Boolean = enablement.containsKey(key)
+  fun containsPvService(key: PVServices.Constant): Boolean = enablement.containsKey(key)
 }

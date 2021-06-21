@@ -19,9 +19,9 @@ internal class EnablementConfigTest(
   @Test
   fun `should correctly enable`() {
     log.debug { "enablement = $enablement" }
-    assertTrue(enablement.containsKey(NICONICODOUGA))
-    assertTrue(enablement.containsKey(YOUTUBE))
-    assertTrue(enablement.containsKey(BILIBILI))
+    assertTrue(enablement.containsPvService(NICONICODOUGA))
+    assertTrue(enablement.containsPvService(YOUTUBE))
+    assertTrue(enablement.containsPvService(BILIBILI))
   }
 }
 
