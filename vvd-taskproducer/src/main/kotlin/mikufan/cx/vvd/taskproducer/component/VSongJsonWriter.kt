@@ -8,6 +8,7 @@ import mikufan.cx.vvd.taskproducer.config.IOConfig
 import mikufan.cx.vvd.taskproducer.model.VSongTask
 import mikufan.cx.vvd.taskproducer.util.toLabelFileName
 import mu.KotlinLogging
+import org.jeasy.batch.core.record.Record
 import org.springframework.stereotype.Component
 import kotlin.io.path.absolute
 
@@ -23,9 +24,9 @@ class VSongJsonWriter(
 ) : AbstractParallelWriter<VSongTask>(recordErrorWriter) {
   private val outputDirectory = ioConfig.outputDirectory
 
-  override suspend fun write(vSongTask: VSongTask) {
-    val song = vSongTask.parameters.songForApiContract.orThrowVocaloidExp("vsong is null")
-    val label = vSongTask.label
+  override suspend fun write(record: Record<VSongTask>) {
+    val song = record.payload.parameters.songForApiContract.orThrowVocaloidExp("vsong is null")
+    val label = record.payload.label
 
     // write info json
     val infoFile = outputDirectory.resolve(label.infoFileName)

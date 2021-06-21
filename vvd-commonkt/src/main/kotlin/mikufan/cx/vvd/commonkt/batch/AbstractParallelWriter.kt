@@ -4,6 +4,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.jeasy.batch.core.record.Batch
+import org.jeasy.batch.core.record.Record
 import org.jeasy.batch.core.writer.RecordWriter
 
 /**
@@ -22,7 +23,7 @@ abstract class AbstractParallelWriter<P>(
     batch.forEach {
       launch {
         try {
-          write(it.payload)
+          write(it)
         } catch (e: Exception) {
           recordErrorHandler?.handleError(it, e) ?: throw e
         }
@@ -30,5 +31,5 @@ abstract class AbstractParallelWriter<P>(
     }
   }
 
-  abstract suspend fun write(payload: P)
+  abstract suspend fun write(record: Record<P>)
 }
