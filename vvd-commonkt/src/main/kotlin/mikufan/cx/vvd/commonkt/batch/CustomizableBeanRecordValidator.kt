@@ -8,8 +8,6 @@ import javax.validation.Validator
 import javax.validation.groups.Default
 
 /**
- * Recommended to extend this class to avoid declaring too much same type beans.
- *
  * This is a reimplementation of easy-batch-validation class but support more flexible settings.
  * @date 2021-06-14
  * @author CX无敌
@@ -17,7 +15,6 @@ import javax.validation.groups.Default
 open class CustomizableBeanRecordValidator<R>(
   private val validator: Validator,
   private vararg val groups: Class<*> = arrayOf(Default::class.java),
-  private val recordMapper: (Record<R>) -> Any = { it.payload as Any }
 ) : RecordValidator<R> {
 
   override fun processRecord(record: Record<R>): Record<R> {
@@ -39,7 +36,9 @@ open class CustomizableBeanRecordValidator<R>(
   /**
    * What to be validated from the record, by default it is the [Record.getPayload]
    *
-   * an workaround for supporting both @Bean declaration and inheritance
+   * Users can override this to validate anything in the record
+   *
+   * The return type is [Any] because user can return anything
    */
-  open fun Record<R>.toValidationObject() = recordMapper(this)
+  open fun Record<R>.toValidationObject(): Any = payload as Any
 }
