@@ -26,14 +26,18 @@ config: # configuration
 
   # which PV service uses which downloader(s), separated by comma
   # downloader names must be same as names in downloader setting
+  # when new PV service is added, change it on DownloaderBaseConfig
   enablement:
-    NicoNicoDouga: downloader1, downloader2
-    Youtube: downloader3
-    Bilibili: downloader4
+    NicoNicoDouga:
+    Youtube:
+    Bilibili:
 
 
   downloader:
     NicoNicoDouga:
+      youtube-dl:
+        launch-cmd:
+        external-args:
 
 
 

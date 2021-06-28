@@ -1,17 +1,17 @@
 package mikufan.cx.vvd.downloader
 
 import mikufan.cx.vvd.downloader.config.Preference
+import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
 import mu.KotlinLogging
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.ApplicationContext
 
 /**
  * @date 2021-06-18
  * @author CX无敌
  */
-@SpringBootTest
+@SpringBootTestWithTestProfile
 internal class DownloaderApplicationTest(
   @Autowired val ctx: ApplicationContext
 ) {

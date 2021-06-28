@@ -1,0 +1,19 @@
+# application setting
+
+io: # input, output, and error output dir, can be relative path from the terminal current directory
+  input-directory: src/test/resources/2020年V家新曲-label
+  output-directory: 2020年V家新曲-test-download
+  error-directory: 2020年V家新曲-test-download/error
+
+config: # configuration
+  enablement:
+    NicoNicoDouga: youtube-dl, downloader2
+    Youtube: downloader3
+    Bilibili: downloader4
+
+
+  downloader:
+    NicoNicoDouga:
+      youtube-dl:
+        launch-cmd: python ./youtube-dl/__main__.py
+        external-args: --write-thumbnail
