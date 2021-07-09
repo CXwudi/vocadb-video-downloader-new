@@ -53,21 +53,23 @@ class EnablementValidator(
           .addContainerElementNode("<pvService>", Map::class.java, 0)
             .inIterable().atKey(pvService)
           .addConstraintViolation()
-      }
-      declaredDownloaderNames.foldRightIndexed(declaredDownloaderNames.isNotEmpty()) { _, downloaderName, res ->
-        res and environment.containsProperty("config.downloader.$pvService.$downloaderName.launch-cmd").also { isContained ->
-          if (!isContained) {
-            disableDefaultConstraintViolation()
-            context.buildConstraintViolationWithTemplate("There is no such downloader called $downloaderName for $pvService")
-              .addPropertyNode("enablement")
-              .addContainerElementNode("<pvService>", Map::class.java, 0)
-              .inIterable().atKey(pvService)
-              // here we really don't know how to reject enablement[pvService][idx] properly
-              .addConstraintViolation()
-          }
+        false
+      } else {
+        val unknownDownloaderNames = declaredDownloaderNames.filterNot { downloaderName ->
+          environment.containsProperty("config.downloader.$pvService.$downloaderName.launch-cmd")
         }
-      }.also {
-        if (it) log.debug { "$pvService has $declaredDownloaderNames, all checked" }
+        unknownDownloaderNames.forEach { downloaderName ->
+          disableDefaultConstraintViolation()
+          context.buildConstraintViolationWithTemplate("We don't have a downloader called $downloaderName for $pvService")
+            .addPropertyNode("enablement")
+            .addContainerElementNode("<pvService>", Map::class.java, 0)
+            .inIterable().atKey(pvService)
+            // here we really don't know how to reject enablement[pvService][idx] properly
+            .addConstraintViolation()
+        }
+        unknownDownloaderNames.isEmpty().also {
+          if (it) log.debug { "$pvService has $declaredDownloaderNames, all checked" }
+        }
       }
     }.all { it }
   }
