@@ -4,7 +4,7 @@ import mikufan.cx.vocadbapiclient.api.SongApi
 import mikufan.cx.vocadbapiclient.model.ArtistCategories
 import mikufan.cx.vocadbapiclient.model.ArtistForSongContract
 import mikufan.cx.vocadbapiclient.model.SongOptionalFields
-import mikufan.cx.vvd.commonkt.exception.orThrowVocaloidExp
+import mikufan.cx.vvd.commonkt.exception.requireNotNull
 import mikufan.cx.vvd.taskproducer.model.VSongTask
 import mu.KotlinLogging
 import org.apache.commons.lang3.StringUtils
@@ -31,7 +31,7 @@ class ArtistFieldFixer(
   }
 
   override fun processRecord(record: Record<VSongTask>): Record<VSongTask> {
-    val song = record.payload.parameters.songForApiContract.orThrowVocaloidExp("VSong is null")
+    val song = record.payload.parameters.songForApiContract.requireNotNull{ "VSong is null"}
     var artistStr = song.artistString!!
     val artists = mutableListOf<ArtistForSongContract>()
     // fix various
@@ -39,7 +39,7 @@ class ArtistFieldFixer(
       val songWithArtists = songApi.apiSongsIdGet(
         song.id, SongOptionalFields(SongOptionalFields.Constant.ARTISTS), null)
       artists.addAll(songWithArtists.artists
-        .orThrowVocaloidExp("newly called ${songWithArtists.name} has a null artists list"))
+        .requireNotNull{ "newly called ${songWithArtists.name} has a null artists list"})
       val newArtistStr = formProperArtistField(artists)
       log.debug { "replacing artist str '${song.artistString}' with '$newArtistStr'" }
       artistStr = newArtistStr

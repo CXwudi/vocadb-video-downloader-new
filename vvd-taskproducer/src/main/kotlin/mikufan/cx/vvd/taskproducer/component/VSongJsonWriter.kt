@@ -3,7 +3,7 @@ package mikufan.cx.vvd.taskproducer.component
 import com.fasterxml.jackson.databind.ObjectMapper
 import mikufan.cx.vvd.commonkt.batch.AbstractParallelWriter
 import mikufan.cx.vvd.commonkt.batch.RecordErrorWriter
-import mikufan.cx.vvd.commonkt.exception.orThrowVocaloidExp
+import mikufan.cx.vvd.commonkt.exception.requireNotNull
 import mikufan.cx.vvd.taskproducer.config.IOConfig
 import mikufan.cx.vvd.taskproducer.model.VSongTask
 import mikufan.cx.vvd.taskproducer.util.toLabelFileName
@@ -25,7 +25,7 @@ class VSongJsonWriter(
   private val outputDirectory = ioConfig.outputDirectory
 
   override suspend fun write(record: Record<VSongTask>) {
-    val song = record.payload.parameters.songForApiContract.orThrowVocaloidExp("vsong is null")
+    val song = record.payload.parameters.songForApiContract.requireNotNull{ "vsong is null" }
     val label = record.payload.label
 
     // write info json

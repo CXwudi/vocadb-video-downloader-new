@@ -12,6 +12,16 @@ import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
  *
  * either returns itself or throw [RuntimeVocaloidException] if null
  */
-inline fun <reified T> T?.orThrowVocaloidExp(msg: String, exp: Throwable? = null): T {
-  return this ?: throw exp?.let { RuntimeVocaloidException(msg, it) } ?: RuntimeVocaloidException(msg)
+inline fun <reified T> T?.requireNotNull(
+  exp: Throwable? = null,
+  lazyMsg: () -> String = { "Required value is null" }
+): T {
+  return this ?: throw exp?.let { RuntimeVocaloidException(lazyMsg(), it) } ?: RuntimeVocaloidException(lazyMsg())
+}
+
+inline fun <reified T> T?.checkNotNull(
+  exp: Throwable? = null,
+  lazyMsg: () -> String = { "Required value is null" }
+): T {
+  return this ?: throw exp?.let { RuntimeVocaloidException(lazyMsg(), it) } ?: RuntimeVocaloidException(lazyMsg())
 }

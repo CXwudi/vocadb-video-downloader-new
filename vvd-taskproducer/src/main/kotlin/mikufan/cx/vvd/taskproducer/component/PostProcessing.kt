@@ -2,7 +2,7 @@ package mikufan.cx.vvd.taskproducer.component
 
 import mikufan.cx.vvd.common.label.ValidationPhase
 import mikufan.cx.vvd.commonkt.batch.CustomizableBeanRecordValidator
-import mikufan.cx.vvd.commonkt.exception.orThrowVocaloidExp
+import mikufan.cx.vvd.commonkt.exception.requireNotNull
 import mikufan.cx.vvd.taskproducer.model.VSongTask
 import mikufan.cx.vvd.taskproducer.util.toInfoFileName
 import org.jeasy.batch.core.processor.RecordProcessor
@@ -17,7 +17,7 @@ import javax.validation.Validator
 @Component
 class LabelInfoRecorder : RecordProcessor<VSongTask, VSongTask> {
   override fun processRecord(record: Record<VSongTask>): Record<VSongTask> {
-    val song = record.payload.parameters.songForApiContract.orThrowVocaloidExp("VSong is null")
+    val song = record.payload.parameters.songForApiContract.requireNotNull{ "VSong is null" }
     return record.apply {
       payload.label.infoFileName = song.toInfoFileName()
       payload.label.order = record.header.number

@@ -3,7 +3,7 @@ package mikufan.cx.vvd.taskproducer.component
 import mikufan.cx.vocadbapiclient.api.SongListApi
 import mikufan.cx.vocadbapiclient.model.SongOptionalFields
 import mikufan.cx.vvd.common.label.VSongLabel
-import mikufan.cx.vvd.commonkt.exception.orThrowVocaloidExp
+import mikufan.cx.vvd.commonkt.exception.requireNotNull
 import mikufan.cx.vvd.taskproducer.config.IOConfig
 import mikufan.cx.vvd.taskproducer.config.SystemConfig
 import mikufan.cx.vvd.taskproducer.model.Parameters
@@ -60,11 +60,12 @@ class ListReader(
           // if api call returns empty result, then return null
           partialList.forEach {
             queue.add(it.song!!)
-            lastCount = max(it.order.orThrowVocaloidExp("order is null"), lastCount) // order should always have
+            lastCount = max(it.order.requireNotNull{ "order is null" }, lastCount) // order should always have
           // number in it
           }
-          val totalCount = partialFindResult.totalCount.orThrowVocaloidExp("this should not be null as we set " +
-              "getTotalCount = true, $partialFindResult")
+          val totalCount = partialFindResult.totalCount.requireNotNull {
+            "this should not be null as we set getTotalCount = true, $partialFindResult"
+          }
           if (lastCount != totalCount) {
             log.debug { "lastCount = $lastCount, totalCount = $totalCount, more songs need to be fetched" }
             hasMore = true
