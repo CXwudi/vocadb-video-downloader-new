@@ -19,9 +19,9 @@ import org.jeasy.batch.core.writer.RecordWriter
 abstract class AbstractParallelWriter<P>(
   private val recordErrorHandler: RecordErrorHandler? = null
 ) : RecordWriter<P> {
-  override fun writeRecords(batch: Batch<P>) = runBlocking(Dispatchers.IO) {
+  override fun writeRecords(batch: Batch<P>) = runBlocking {
     batch.forEach {
-      launch {
+      launch(Dispatchers.IO) { // let the main coroutine free from running on IO
         try {
           write(it)
         } catch (e: Exception) {
@@ -31,5 +31,10 @@ abstract class AbstractParallelWriter<P>(
     }
   }
 
+  /**
+   * write a single record to somewhere.
+   *
+   * blocking IO is fine here as this suspend fun is ran in [Dispatchers.IO]
+   */
   abstract suspend fun write(record: Record<P>)
 }
