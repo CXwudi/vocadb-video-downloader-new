@@ -1,8 +1,8 @@
 package mikufan.cx.vvd.downloader.config.validation
 
 import mikufan.cx.vocadbapiclient.model.PVServices
-
 import mikufan.cx.vocadbapiclient.model.PVServices.Constant.*
+import mu.KotlinLogging
 import org.springframework.util.CollectionUtils
 import javax.validation.Constraint
 import javax.validation.ConstraintValidator
@@ -53,12 +53,13 @@ class SupportPvServicesValidator : ConstraintValidator<AreSupportedPvServices, L
       else -> {
         val unsupportedServices = value!!.filterNot { SUPPORTED_SERVICES.contains(it) }
         if (unsupportedServices.isEmpty()) {
+          log.debug { "Enabled PV Services: $value" }
           true
         } else {
           context
             .buildConstraintViolationWithTemplate(
               "${unsupportedServices.joinToString()} " +
-                "${when(unsupportedServices.size) {
+                "${when (unsupportedServices.size) {
                   1 -> "is"
                   else -> "are"}
                 } not supported yet")
@@ -69,3 +70,5 @@ class SupportPvServicesValidator : ConstraintValidator<AreSupportedPvServices, L
     }
   }
 }
+
+private val log = KotlinLogging.logger {}

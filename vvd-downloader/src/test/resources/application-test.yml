@@ -6,14 +6,25 @@ io: # input, output, and error output dir, can be relative path from the termina
   error-directory: 2020年V家新曲-test-download/error
 
 config: # configuration
+
   enablement:
-    NicoNicoDouga: youtube-dl, downloader2
-    Youtube: downloader3
-    Bilibili: downloader4
+    NicoNicoDouga: youtube-dl
+    Youtube: youtube-dl
+    Bilibili: youtube-dl
 
 
   downloader:
     NicoNicoDouga:
+      youtube-dl:
+        launch-cmd: python ./youtube-dl/__main__.py
+        external-args: --write-thumbnail
+
+    Youtube:
+      youtube-dl:
+        launch-cmd: python ./youtube-dl/__main__.py
+        external-args: --write-thumbnail
+
+    Bilibili:
       youtube-dl:
         launch-cmd: python ./youtube-dl/__main__.py
         external-args: --write-thumbnail

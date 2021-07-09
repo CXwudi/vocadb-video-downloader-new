@@ -39,6 +39,17 @@ config: # configuration
         launch-cmd:
         external-args:
 
+    Youtube:
+      youtube-dl:
+        launch-cmd:
+        external-args:
+
+    Bilibili:
+      youtube-dl:
+        launch-cmd:
+        external-args:
+
+
 
 
 # spring setting
