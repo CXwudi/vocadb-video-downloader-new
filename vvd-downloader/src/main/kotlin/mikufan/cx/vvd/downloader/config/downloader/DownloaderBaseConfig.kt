@@ -13,10 +13,12 @@ interface DownloaderBaseConfig {
  * ultimate function from string to a list of command
  */
 internal fun String.splitCommands(): List<String> {
-  val splitted = this.split(' ')
+  val splitted = this.split(' ').filter { it.isNotBlank() }
   val commands = mutableListOf<String>()
   var currentQuote = ""
   val longCommandStrs = mutableListOf<String>()
+
+  if (splitted.isEmpty()) return commands
   splitted.forEach { str ->
     // 6 beginning stages, 3 beginning with quote, 3 contains equal-quote, turn on recording mode
     if (currentQuote == "" && str.startsWith('\'') && !str.endsWith('\'')) {
@@ -50,6 +52,7 @@ internal fun String.splitCommands(): List<String> {
         quotedCommand.replace(currentQuote, "")
       }
       currentQuote = ""
+      longCommandStrs.clear()
     } else { // do stuff
       // normal model
       if (currentQuote == "") {
