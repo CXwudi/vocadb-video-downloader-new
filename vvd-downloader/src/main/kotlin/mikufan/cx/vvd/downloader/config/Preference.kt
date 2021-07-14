@@ -1,6 +1,5 @@
 package mikufan.cx.vvd.downloader.config
 
-import mikufan.cx.vocadbapiclient.model.PVServices
 import mikufan.cx.vvd.downloader.config.validation.AreSupportedPvServices
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
@@ -15,7 +14,7 @@ import javax.validation.constraints.NotEmpty
 @ConfigurationProperties(prefix = "config.preference")
 @ConstructorBinding @Validated
 data class Preference(
-  @field:NotEmpty @field:AreSupportedPvServices val pvPreference: List<PVServices.Constant>,
+  @field:NotEmpty @field:AreSupportedPvServices val pvPreference: List<PVServicesEnum>,
   @field:Min(0) val maxRetryCount: Int,
   val tryNextPvService: Boolean,
   val tryReprintedPv: Boolean,

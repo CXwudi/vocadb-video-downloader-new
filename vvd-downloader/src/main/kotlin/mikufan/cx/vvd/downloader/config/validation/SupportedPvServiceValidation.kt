@@ -1,7 +1,7 @@
 package mikufan.cx.vvd.downloader.config.validation
 
-import mikufan.cx.vocadbapiclient.model.PVServices
 import mikufan.cx.vocadbapiclient.model.PVServices.Constant.*
+import mikufan.cx.vvd.downloader.config.PVServicesEnum
 import mu.KotlinLogging
 import org.springframework.util.CollectionUtils
 import javax.validation.Constraint
@@ -42,9 +42,9 @@ annotation class AreSupportedPvServices(
  * @author CX无敌
  * @date 2020-12-21
  */
-class SupportPvServicesValidator : ConstraintValidator<AreSupportedPvServices, List<PVServices.Constant>> {
+class SupportPvServicesValidator : ConstraintValidator<AreSupportedPvServices, List<PVServicesEnum>> {
 
-  override fun isValid(value: List<PVServices.Constant>?, context: ConstraintValidatorContext): Boolean {
+  override fun isValid(value: List<PVServicesEnum>?, context: ConstraintValidatorContext): Boolean {
     context.disableDefaultConstraintViolation()
     return when {
       CollectionUtils.isEmpty(value) -> {
