@@ -12,6 +12,13 @@ interface DownloaderBaseConfig {
 /**
  * ultimate function from string to a list of command
  */
+@Deprecated(
+    """use YAML list for entering commands to avoid any other separating issue.
+      |this allow us to use back the data class
+      |for easy commands without comma involved, users can write their command separated by comma,
+      |spring boot configuration will be able to parse both YAML list and comma separated string to List<String>
+    """
+)
 internal fun String.splitCommands(): List<String> {
   val splitted = this.split(' ').filter { it.isNotBlank() }
   val commands = mutableListOf<String>()

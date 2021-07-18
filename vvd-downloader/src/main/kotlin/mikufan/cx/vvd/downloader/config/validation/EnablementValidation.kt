@@ -44,8 +44,10 @@ class EnablementValidator(
         defaultConstraintDisabled = true
       }
     }
+    // for each enabled pv service
     return preference.pvPreference.map { pvService ->
       val declaredDownloaderNames = enablement[pvService]
+      // first check if no downloader configured
       if (declaredDownloaderNames.isEmpty()) {
         disableDefaultConstraintViolation()
         context.buildConstraintViolationWithTemplate("Need at least one downloader for $pvService")
@@ -55,7 +57,9 @@ class EnablementValidator(
           .addConstraintViolation()
         false
       } else {
+        // then check if downloader names are correct
         val unknownDownloaderNames = declaredDownloaderNames.filterNot { downloaderName ->
+          // by checking if an property exists
           environment.containsProperty("config.downloader.$pvService.$downloaderName.launch-cmd")
         }
         unknownDownloaderNames.forEach { downloaderName ->

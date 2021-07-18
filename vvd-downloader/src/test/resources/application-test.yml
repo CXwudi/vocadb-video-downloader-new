@@ -16,15 +16,24 @@ config: # configuration
   downloader:
     NicoNicoDouga:
       youtube-dl:
-        launch-cmd: python ./youtube-dl/__main__.py
-        external-args: --write-thumbnail
+        launch-cmd: # python, ./youtube-dl/__main__.py  # can be separated by comma as well
+          - python
+          - ./youtube-dl/__main__.py
+        external-args:
+          - --write-thumbnail
 
     Youtube:
       youtube-dl:
-        launch-cmd: python ./youtube-dl/__main__.py
-        external-args: --write-thumbnail
+        launch-cmd:
+          - python
+          - ./youtube-dl/__main__.py
+        external-args:
+          - --write-thumbnail
 
     Bilibili:
       youtube-dl:
-        launch-cmd: python ./youtube-dl/__main__.py
-        external-args: --write-thumbnail
+        launch-cmd:
+          - python
+          - ./youtube-dl/__main__.py
+        external-args:
+          - --write-thumbnail

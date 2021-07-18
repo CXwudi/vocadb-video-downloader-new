@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired
   customProperties = [
     "config.preference.pv-preference=NicoNicoDouga, Youtube",
     "config.enablement.NicoNicoDouga=youtube-dl, other-downloader",
-    "config.downloader.NicoNicoDouga.other-downloader.launch-cmd=./command --some-args",
+    "config.downloader.NicoNicoDouga.other-downloader.launch-cmd=./command,--some-args",
   ]
 )
 internal class EnablementConfigTest(
