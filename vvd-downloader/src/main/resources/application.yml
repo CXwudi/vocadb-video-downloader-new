@@ -39,6 +39,10 @@ config: # configuration
         launch-cmd:
         external-args:
 
+      nndownload:
+        launch-cmd:
+        external-args:
+
     Youtube:
       youtube-dl:
         launch-cmd:
