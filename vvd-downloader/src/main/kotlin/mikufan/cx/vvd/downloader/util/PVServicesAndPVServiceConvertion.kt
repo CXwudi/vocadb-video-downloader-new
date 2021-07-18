@@ -3,11 +3,13 @@ package mikufan.cx.vvd.downloader.util
 import mikufan.cx.vocadbapiclient.model.PVService
 import mikufan.cx.vocadbapiclient.model.PVServices
 
+typealias PVServicesEnum = PVServices.Constant
+
 /**
  * @date 2021-06-18
  * @author CX无敌
  */
 
-fun PVServices.Constant.toPVService() = PVService.valueOf(this.value)
+fun PVServicesEnum.toPVService() = PVService.valueOf(this.value)
 
-fun PVService.toPVServices() = PVServices.Constant.valueOf(this.value)
+fun PVService.toPVServicesEnum(): PVServicesEnum = PVServicesEnum.valueOf(this.value)

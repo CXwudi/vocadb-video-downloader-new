@@ -1,5 +1,6 @@
 package mikufan.cx.vvd.downloader.config
 
+import mikufan.cx.vvd.downloader.util.PVServicesEnum
 import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
 import mu.KotlinLogging
 import org.hamcrest.MatcherAssert.assertThat

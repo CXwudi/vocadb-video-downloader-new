@@ -4,7 +4,10 @@ import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
 import mu.KotlinLogging
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import org.springframework.beans.factory.NoSuchBeanDefinitionException
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.config.ConfigurableBeanFactory
 
 /**
  * @date 2021-06-27
@@ -23,3 +26,18 @@ internal class NicoNicoYtDlConfigTest(
 }
 
 private val log = KotlinLogging.logger {}
+
+@SpringBootTestWithTestProfile(
+  customProperties = [
+    "config.preference.pv-preference=Youtube, Bilibili" // no niconico, should skipped niconico config
+  ]
+)
+internal class NicoNicoYtDlConfigConditionalSkippedTest(
+  @Autowired val beanFactory: ConfigurableBeanFactory
+) {
+
+  @Test
+  fun `should exist`() {
+    assertThrows<NoSuchBeanDefinitionException> { beanFactory.getBean(NicoNicoYtDlConfig::class.java) }
+  }
+}

@@ -1,7 +1,7 @@
 package mikufan.cx.vvd.downloader.config.validation
 
 import mikufan.cx.vocadbapiclient.model.PVServices.Constant.*
-import mikufan.cx.vvd.downloader.config.PVServicesEnum
+import mikufan.cx.vvd.downloader.util.PVServicesEnum
 import mu.KotlinLogging
 import org.springframework.util.CollectionUtils
 import javax.validation.Constraint

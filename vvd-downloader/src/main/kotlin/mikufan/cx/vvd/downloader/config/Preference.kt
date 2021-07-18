@@ -1,6 +1,7 @@
 package mikufan.cx.vvd.downloader.config
 
 import mikufan.cx.vvd.downloader.config.validation.AreSupportedPvServices
+import mikufan.cx.vvd.downloader.util.PVServicesEnum
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
 import org.springframework.validation.annotation.Validated

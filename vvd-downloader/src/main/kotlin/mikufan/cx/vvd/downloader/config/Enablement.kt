@@ -1,12 +1,11 @@
 package mikufan.cx.vvd.downloader.config
 
-import mikufan.cx.vocadbapiclient.model.PVServices
 import mikufan.cx.vvd.downloader.config.validation.IsValidEnablement
+import mikufan.cx.vvd.downloader.util.PVServicesEnum
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
 import org.springframework.validation.annotation.Validated
 
-typealias PVServicesEnum = PVServices.Constant
 
 /**
  * The config data class holding all enabled PV downloaders
