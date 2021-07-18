@@ -37,7 +37,7 @@ internal class NicoNicoYtDlConfigConditionalSkippedTest(
 ) {
 
   @Test
-  fun `should exist`() {
+  fun `should not exist`() {
     assertThrows<NoSuchBeanDefinitionException> { beanFactory.getBean(NicoNicoYtDlConfig::class.java) }
   }
 }

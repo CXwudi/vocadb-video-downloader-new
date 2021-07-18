@@ -12,12 +12,12 @@ import javax.validation.constraints.NotEmpty
  * @author CX无敌
  */
 
-const val NICONICO_CONFIG_PROP_KEY = "config.downloader.nico-nico-douga"
+const val NND_CONFIG_PROP_KEY = "config.downloader.nico-nico-douga"
 const val NND_YOUTUBE_DL = "youtube-dl"
 const val NND_NN_DOWNLOAD = "nndownload"
 
 
-@ConfigurationProperties("$NICONICO_CONFIG_PROP_KEY.$NND_YOUTUBE_DL") // warn: you have to change NicoNicoDouga to nico-nico-douga
+@ConfigurationProperties("$NND_CONFIG_PROP_KEY.$NND_YOUTUBE_DL") // warn: you have to change NicoNicoDouga to nico-nico-douga
 @ConstructorBinding @Validated
 @Conditional(NicoNicoYtDlConditional::class)
 data class NicoNicoYtDlConfig(
