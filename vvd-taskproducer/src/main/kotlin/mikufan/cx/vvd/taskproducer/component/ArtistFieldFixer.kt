@@ -1,12 +1,12 @@
 package mikufan.cx.vvd.taskproducer.component
 
+import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vocadbapiclient.api.SongApi
 import mikufan.cx.vocadbapiclient.model.ArtistCategories
 import mikufan.cx.vocadbapiclient.model.ArtistForSongContract
 import mikufan.cx.vocadbapiclient.model.SongOptionalFields
 import mikufan.cx.vvd.commonkt.exception.requireNotNull
 import mikufan.cx.vvd.taskproducer.model.VSongTask
-import mu.KotlinLogging
 import org.apache.commons.lang3.StringUtils
 import org.jeasy.batch.core.processor.RecordProcessor
 import org.jeasy.batch.core.record.Record
@@ -25,7 +25,7 @@ class ArtistFieldFixer(
 
   companion object {
     @JvmStatic
-    private val log = KotlinLogging.logger {}
+    private val log = KInlineLogging.logger()
     const val VARIOUS = "Various"
     const val UNKNOWN = "Unknown"
   }

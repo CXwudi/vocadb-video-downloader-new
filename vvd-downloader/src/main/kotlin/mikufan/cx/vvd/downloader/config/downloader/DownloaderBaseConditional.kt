@@ -1,7 +1,7 @@
 package mikufan.cx.vvd.downloader.config.downloader
 
+import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.downloader.util.PVServicesEnum
-import mu.KotlinLogging
 import org.springframework.context.annotation.Condition
 import org.springframework.context.annotation.ConditionContext
 import org.springframework.core.type.AnnotatedTypeMetadata
@@ -36,4 +36,4 @@ sealed interface DownloaderBaseConditional : Condition {
   val downloaderName: String
 }
 
-private val log = KotlinLogging.logger {}
+private val log = KInlineLogging.logger()

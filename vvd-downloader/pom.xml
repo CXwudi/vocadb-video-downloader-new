@@ -44,8 +44,8 @@
       <artifactId>kotlinx-coroutines-core-jvm</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.github.microutils</groupId>
-      <artifactId>kotlin-logging-jvm</artifactId>
+      <groupId>com.github.CXwudi</groupId>
+      <artifactId>kotlin-jvm-1_5-inline-logging</artifactId>
     </dependency>
 
     <dependency>

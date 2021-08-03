@@ -1,12 +1,12 @@
 package mikufan.cx.vvd.taskproducer.component
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vocadbapiclient.model.SongForApiContract
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.taskproducer.model.Parameters
 import mikufan.cx.vvd.taskproducer.model.VSongTask
-import mu.KotlinLogging
 import org.jeasy.batch.core.record.GenericRecord
 import org.jeasy.batch.core.record.Header
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -55,4 +55,4 @@ internal class BeforeWriteValidatorTest(
   }
 }
 
-private val log = KotlinLogging.logger {}
+private val log = KInlineLogging.logger()

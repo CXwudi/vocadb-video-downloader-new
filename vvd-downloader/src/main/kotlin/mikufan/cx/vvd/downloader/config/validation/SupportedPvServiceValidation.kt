@@ -1,8 +1,8 @@
 package mikufan.cx.vvd.downloader.config.validation
 
+import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vocadbapiclient.model.PVServices.Constant.*
 import mikufan.cx.vvd.downloader.util.PVServicesEnum
-import mu.KotlinLogging
 import org.springframework.util.CollectionUtils
 import javax.validation.Constraint
 import javax.validation.ConstraintValidator
@@ -71,4 +71,4 @@ class SupportPvServicesValidator : ConstraintValidator<AreSupportedPvServices, L
   }
 }
 
-private val log = KotlinLogging.logger {}
+private val log = KInlineLogging.logger()

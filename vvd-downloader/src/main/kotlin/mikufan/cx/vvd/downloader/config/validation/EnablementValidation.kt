@@ -1,8 +1,8 @@
 package mikufan.cx.vvd.downloader.config.validation
 
+import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.downloader.config.Enablement
 import mikufan.cx.vvd.downloader.config.Preference
-import mu.KotlinLogging
 import org.springframework.core.env.Environment
 import org.springframework.stereotype.Component
 import javax.validation.Constraint
@@ -79,4 +79,4 @@ class EnablementValidator(
   }
 }
 
-private val log = KotlinLogging.logger {}
+private val log = KInlineLogging.logger()

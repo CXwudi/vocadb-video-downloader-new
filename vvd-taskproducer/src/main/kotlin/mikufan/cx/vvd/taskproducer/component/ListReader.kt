@@ -1,5 +1,6 @@
 package mikufan.cx.vvd.taskproducer.component
 
+import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vocadbapiclient.api.SongListApi
 import mikufan.cx.vocadbapiclient.model.SongOptionalFields
 import mikufan.cx.vvd.common.label.VSongLabel
@@ -8,7 +9,6 @@ import mikufan.cx.vvd.taskproducer.config.IOConfig
 import mikufan.cx.vvd.taskproducer.config.SystemConfig
 import mikufan.cx.vvd.taskproducer.model.Parameters
 import mikufan.cx.vvd.taskproducer.model.VSongTask
-import mu.KotlinLogging
 import org.jeasy.batch.core.reader.RecordReader
 import org.jeasy.batch.core.record.GenericRecord
 import org.jeasy.batch.core.record.Header
@@ -103,4 +103,4 @@ class ListReader(
   }
 }
 
-private val log = KotlinLogging.logger {}
+private val log = KInlineLogging.logger()

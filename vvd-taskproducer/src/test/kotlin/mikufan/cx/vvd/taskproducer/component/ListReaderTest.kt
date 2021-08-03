@@ -1,7 +1,7 @@
 package mikufan.cx.vvd.taskproducer.component
 
+import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.taskproducer.model.VSongTask
-import mu.KotlinLogging
 import org.jeasy.batch.core.record.Record
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Disabled
@@ -37,4 +37,4 @@ internal class ListReaderTest(
   }
 }
 
-private val log = KotlinLogging.logger {}
+private val log = KInlineLogging.logger()

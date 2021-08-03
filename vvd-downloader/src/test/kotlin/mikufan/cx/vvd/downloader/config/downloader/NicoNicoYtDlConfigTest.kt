@@ -1,7 +1,7 @@
 package mikufan.cx.vvd.downloader.config.downloader
 
+import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
-import mu.KotlinLogging
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -25,7 +25,7 @@ internal class NicoNicoYtDlConfigTest(
   }
 }
 
-private val log = KotlinLogging.logger {}
+private val log = KInlineLogging.logger()
 
 @SpringBootTestWithTestProfile(
   customProperties = [

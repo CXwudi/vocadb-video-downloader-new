@@ -1,13 +1,13 @@
 package mikufan.cx.vvd.taskproducer.component
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.commonkt.batch.AbstractParallelWriter
 import mikufan.cx.vvd.commonkt.batch.RecordErrorWriter
 import mikufan.cx.vvd.commonkt.exception.requireNotNull
 import mikufan.cx.vvd.taskproducer.config.IOConfig
 import mikufan.cx.vvd.taskproducer.model.VSongTask
 import mikufan.cx.vvd.taskproducer.util.toLabelFileName
-import mu.KotlinLogging
 import org.jeasy.batch.core.record.Record
 import org.springframework.stereotype.Component
 import kotlin.io.path.absolute
@@ -43,4 +43,4 @@ class VSongJsonWriter(
   }
 }
 
-private val log = KotlinLogging.logger {}
+private val log = KInlineLogging.logger()

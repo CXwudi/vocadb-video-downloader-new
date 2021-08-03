@@ -1,8 +1,8 @@
 package mikufan.cx.vvd.downloader
 
+import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.downloader.config.Preference
 import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
-import mu.KotlinLogging
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationContext
@@ -24,4 +24,4 @@ internal class DownloaderApplicationTest(
   }
 }
 
-private val log = KotlinLogging.logger {}
+private val log = KInlineLogging.logger()

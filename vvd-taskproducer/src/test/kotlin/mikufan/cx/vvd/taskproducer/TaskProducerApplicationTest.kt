@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.taskproducer
 
-import mu.KotlinLogging
+import mikufan.cx.inlinelogging.KInlineLogging
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
@@ -16,4 +16,4 @@ internal class TaskProducerApplicationTest {
   }
 }
 
-private val log = KotlinLogging.logger {}
+private val log = KInlineLogging.logger()

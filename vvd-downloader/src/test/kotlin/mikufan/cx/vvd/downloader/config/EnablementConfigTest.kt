@@ -1,8 +1,8 @@
 package mikufan.cx.vvd.downloader.config
 
+import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.downloader.util.PVServicesEnum
 import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
-import mu.KotlinLogging
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.containsInAnyOrder
 import org.junit.jupiter.api.Test
@@ -31,4 +31,4 @@ internal class EnablementConfigTest(
   }
 }
 
-private val log = KotlinLogging.logger {}
+private val log = KInlineLogging.logger()
