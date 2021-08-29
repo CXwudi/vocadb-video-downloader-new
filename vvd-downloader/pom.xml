@@ -45,7 +45,7 @@
     </dependency>
     <dependency>
       <groupId>com.github.CXwudi</groupId>
-      <artifactId>kotlin-jvm-1_5-inline-logging</artifactId>
+      <artifactId>kotlin-jvm-inline-logging</artifactId>
     </dependency>
 
     <dependency>
