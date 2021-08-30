@@ -1,10 +1,10 @@
 package mikufan.cx.vvd.downloader.config.downloader
 
 import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.matchers.shouldBe
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringShouldSpec
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.springframework.beans.factory.NoSuchBeanDefinitionException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.config.ConfigurableBeanFactory
@@ -21,7 +21,7 @@ internal class NicoNicoYtDlConfigTest(
 
   should("exist") {
     log.debug { "nicoNicoYtDlConfig = $nicoNicoYtDlConfig" }
-    shouldBe(true) // if this is reached, then the niconico config bean condition is correct
+    assertTrue(true) // if this is reached, then the niconico config bean condition is correct
   }
 })
 
