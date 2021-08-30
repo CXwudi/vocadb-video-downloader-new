@@ -3,7 +3,7 @@ package mikufan.cx.vvd.downloader
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.downloader.config.Preference
 import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
-import org.junit.jupiter.api.Test
+import mikufan.cx.vvd.downloader.util.SpringShouldSpec
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationContext
 
@@ -14,14 +14,13 @@ import org.springframework.context.ApplicationContext
 @SpringBootTestWithTestProfile
 internal class DownloaderApplicationTest(
   @Autowired val ctx: ApplicationContext
-) {
+) : SpringShouldSpec({
 
-  @Test
-  fun `should boot`() {
+  should("boot") {
     val pvPreference = ctx.getBean(Preference::class.java).pvPreference
     log.debug { "pvPreference = $pvPreference" }
     log.info { "boot success" }
   }
-}
+})
 
 private val log = KInlineLogging.logger()

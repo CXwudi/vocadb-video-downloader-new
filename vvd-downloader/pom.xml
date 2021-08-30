@@ -53,6 +53,14 @@
       <artifactId>easy-batch-core</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>io.kotest</groupId>
+      <artifactId>kotest-runner-junit5-jvm</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.kotest.extensions</groupId>
+      <artifactId>kotest-extensions-spring</artifactId>
+    </dependency>
   </dependencies>
 
 
