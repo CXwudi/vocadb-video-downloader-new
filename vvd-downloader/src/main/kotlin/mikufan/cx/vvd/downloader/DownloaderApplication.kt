@@ -1,5 +1,7 @@
 package mikufan.cx.vvd.downloader
 
+import mikufan.cx.vvd.downloader.service.MainService
+import org.springframework.beans.factory.getBean
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.runApplication
@@ -13,5 +15,5 @@ import org.springframework.boot.runApplication
 class DownloaderApplication
 
 fun main(args: Array<String>) {
-  runApplication<DownloaderApplication>(*args)
+  runApplication<DownloaderApplication>(*args).use { it.getBean<MainService>().run() }
 }
