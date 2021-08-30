@@ -60,7 +60,7 @@ class ListReader(
           // if api call returns empty result, then return null
           partialList.forEach {
             queue.add(it.song!!)
-            lastCount = max(it.order.requireNotNull{ "order is null" }, lastCount) // order should always have
+            lastCount = max(it.order.requireNotNull { "order is null" }, lastCount) // order should always have
           // number in it
           }
           val totalCount = partialFindResult.totalCount.requireNotNull {
@@ -94,6 +94,7 @@ class ListReader(
       val song = itr.next()
       log.info { "start processing ${song.defaultName}" }
       GenericRecord(header, VSongTask(
+        // there are two places to store order because we need the order info to be saved in json file
         VSongLabel.builder().order(currentRecordNumber).build(), // will add label filename once everything is done
         Parameters(song)
       ))
