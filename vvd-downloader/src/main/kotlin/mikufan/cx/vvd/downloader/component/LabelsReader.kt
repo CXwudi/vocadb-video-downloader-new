@@ -27,6 +27,7 @@ class LabelsReader(
 
   private val fileItr = Files.list(inputDirectory)
     .filter { it.fileName.toString().contains(FileNamePostFix.LABEL) }
+    // is ok to leave the
     .map { objectMapper.readValue<VSongLabel>(it.toFile()) }
     .sorted { l1, l2 ->
       // here, the order is a primitive type, so it will be 0 if unassigned,

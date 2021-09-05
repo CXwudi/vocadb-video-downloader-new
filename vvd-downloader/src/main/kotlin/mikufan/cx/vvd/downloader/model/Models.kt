@@ -10,4 +10,6 @@ import mikufan.cx.vvd.common.label.VSongLabel
 
 data class VSongTask(val label: VSongLabel, val parameters: Parameters)
 
-data class Parameters(val songForApiContract: SongForApiContract?)
+data class Parameters(
+  val songForApiContract: SongForApiContract,
+)
