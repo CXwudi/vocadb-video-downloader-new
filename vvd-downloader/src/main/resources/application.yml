@@ -16,13 +16,13 @@ config: # configuration
     max-retry-count: 2
     # if PVs from one PV service, either original or reprinted, failed to be download,
     # should we move to next available PV service listed in the pv-preference, default value is false
-    try-next-pv-service: false
+    try-next-pv-service-on-fail: false
     # if the original PV is unavailable, should we try reprinted PV?
     try-reprinted-pv: true
     # if try-reprinted-pv is true, should we only try reprinted PV after all original PVs are failed?
     # if this setting is false, reprinted pv in the same pv service will be tried before moving to next available pv service
     # if try-reprinted-pv is false, nothing happens
-    try-reprinted-only-after-original-pv: true
+    try-reprinted-after-all-original-pvs: true
 
   # which PV service uses which downloader(s), separated by comma
   # downloader names must be same as names in downloader setting

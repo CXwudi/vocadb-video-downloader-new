@@ -13,11 +13,12 @@ import javax.validation.constraints.NotEmpty
  * @author CX无敌
  */
 @ConfigurationProperties(prefix = "config.preference")
-@ConstructorBinding @Validated
+@ConstructorBinding
+@Validated
 data class Preference(
   @field:NotEmpty @field:AreSupportedPvServices val pvPreference: List<PVServicesEnum>,
   @field:Min(0) val maxRetryCount: Int,
-  val tryNextPvService: Boolean,
+  val tryNextPvServiceOnFail: Boolean,
   val tryReprintedPv: Boolean,
-  val tryReprintedOnlyAfterOriginalPv: Boolean
+  val tryReprintedAfterAllOriginalPvs: Boolean
 )
