@@ -5,11 +5,11 @@ import mikufan.cx.vocadbapiclient.api.SongApi
 import mikufan.cx.vocadbapiclient.model.ArtistCategories
 import mikufan.cx.vocadbapiclient.model.ArtistForSongContract
 import mikufan.cx.vocadbapiclient.model.SongOptionalFields
-import mikufan.cx.vvd.commonkt.exception.requireNotNull
 import mikufan.cx.vvd.taskproducer.model.VSongTask
 import org.apache.commons.lang3.StringUtils
 import org.jeasy.batch.core.processor.RecordProcessor
 import org.jeasy.batch.core.record.Record
+import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -19,6 +19,7 @@ import java.util.*
  * @author CX无敌
  */
 @Component
+@Order(1)
 class ArtistFieldFixer(
   private val songApi: SongApi
 ) : RecordProcessor<VSongTask, VSongTask> {
@@ -31,15 +32,15 @@ class ArtistFieldFixer(
   }
 
   override fun processRecord(record: Record<VSongTask>): Record<VSongTask> {
-    val song = record.payload.parameters.songForApiContract.requireNotNull{ "VSong is null"}
+    val song = requireNotNull(record.payload.parameters.songForApiContract) { "VSong is null" }
     var artistStr = song.artistString!!
     val artists = mutableListOf<ArtistForSongContract>()
     // fix various
     if (artistStr.contains(VARIOUS, true)) {
       val songWithArtists = songApi.apiSongsIdGet(
-        song.id, SongOptionalFields(SongOptionalFields.Constant.ARTISTS), null)
-      artists.addAll(songWithArtists.artists
-        .requireNotNull{ "newly called ${songWithArtists.name} has a null artists list"})
+        song.id, SongOptionalFields(SongOptionalFields.Constant.ARTISTS), null
+      )
+      artists.addAll(requireNotNull(songWithArtists.artists) { "newly called ${songWithArtists.name} has a null artists list" })
       val newArtistStr = formProperArtistField(artists)
       log.debug { "replacing artist str '${song.artistString}' with '$newArtistStr'" }
       artistStr = newArtistStr
@@ -61,8 +62,10 @@ class ArtistFieldFixer(
 
   internal fun formProperArtistField(artists: List<ArtistForSongContract>): String {
     val vocalist = artists
-      .filter { it.categories!!.enums
-        .contains(ArtistCategories.Constant.VOCALIST) }
+      .filter {
+        it.categories!!.enums
+          .contains(ArtistCategories.Constant.VOCALIST)
+      }
       .map { it.name!! }
       .toList()
     val producers = artists
