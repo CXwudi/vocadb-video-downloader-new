@@ -1,5 +1,6 @@
 package mikufan.cx.vvd.commonkt.batch
 
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -17,11 +18,12 @@ import org.jeasy.batch.core.writer.RecordWriter
  * @author CX无敌
  */
 abstract class AbstractParallelWriter<P>(
-  private val recordErrorHandler: RecordErrorHandler? = null
+  private val recordErrorHandler: RecordErrorHandler? = null,
+  private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : RecordWriter<P> {
-  override fun writeRecords(batch: Batch<P>) = runBlocking {
+  override fun writeRecords(batch: Batch<P>) = runBlocking(dispatcher) {
     batch.forEach {
-      launch(Dispatchers.IO) { // let the main coroutine free from running on IO
+      launch { // let the main coroutine free from running on IO
         try {
           write(it)
         } catch (e: Exception) {

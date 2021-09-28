@@ -35,9 +35,14 @@ class MainService(
     coroutineScope {
       lateinit var record: Record<VSongTask>
       while (listReader.readRecord()?.also { record = it } != null) {
-        while (executor.activeCount >= systemConfig.batchSize) { /* wait until more thread available */
+        val thisRecord = record
+        while (executor.activeCount >= systemConfig.batchSize) {
+          /* wait until concurrent active amount get lower */
+          // this part of the code has a bug, if batch size = 1, deadlock happens here
+          // maybe because only one thread in executor and we already have main function as one thread
+          // if set batch size = 2, we have the main thread reading records, and another thread processing the record
         }
-        launch { processRecord(record) }
+        launch { processRecord(thisRecord) }
       }
     } // until all tasks finished
     log.info { "やった！続きはPVをダウンロードするに行くぞ" }
