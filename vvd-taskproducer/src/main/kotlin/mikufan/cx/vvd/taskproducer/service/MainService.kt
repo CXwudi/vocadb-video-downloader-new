@@ -1,46 +1,59 @@
 package mikufan.cx.vvd.taskproducer.service
 
+import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vvd.commonkt.batch.PipelineExceptionHandler
-import mikufan.cx.vvd.taskproducer.component.*
+import mikufan.cx.vvd.commonkt.batch.RecordErrorWriter
+import mikufan.cx.vvd.taskproducer.component.ListReader
+import mikufan.cx.vvd.taskproducer.component.VSongJsonWriter
 import mikufan.cx.vvd.taskproducer.config.SystemConfig
 import mikufan.cx.vvd.taskproducer.model.VSongTask
-import org.jeasy.batch.core.job.JobBuilder
-import org.jeasy.batch.core.job.JobExecutor
+import org.jeasy.batch.core.processor.RecordProcessor
+import org.jeasy.batch.core.record.Record
 import org.springframework.stereotype.Service
+import java.util.concurrent.LinkedBlockingDeque
+import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.TimeUnit
 
-/**
- * @date 2021-05-29
- * @author CX无敌
- */
 @Service
 class MainService(
   private val listReader: ListReader,
-  private val artistFieldFixer: ArtistFieldFixer,
-  private val labelInfoRecorder: LabelInfoRecorder,
-  private val beforeWriteValidator: BeforeWriteValidator,
+  private val taskProcessors: List<RecordProcessor<*, *>>,
   private val vSongJsonWriter: VSongJsonWriter,
-  private val pipelineExceptionHandler: PipelineExceptionHandler,
+  private val recordErrorWriter: RecordErrorWriter,
   private val systemConfig: SystemConfig
 ) : Runnable {
+  private val executor = ThreadPoolExecutor(
+    systemConfig.batchSize, systemConfig.batchSize,
+    1L, TimeUnit.HOURS,
+    LinkedBlockingDeque()
+  )
 
-  override fun run() {
-    val job = JobBuilder<VSongTask, VSongTask>()
-      .named("read VocaDB list task")
-      .batchSize(systemConfig.batchSize)
-      .reader(listReader)
-      .processor(artistFieldFixer)
-      .processor(labelInfoRecorder)
-      .validator(beforeWriteValidator)
-      .writer(vSongJsonWriter)
-      .pipelineListener(pipelineExceptionHandler)
-      .build()
+  override fun run() = runBlocking(executor.asCoroutineDispatcher()) {
+    coroutineScope {
+      lateinit var record: Record<VSongTask>
+      while (listReader.readRecord()?.also { record = it } != null) {
+        while (executor.activeCount >= systemConfig.batchSize) { /* wait until more thread available */
+        }
+        launch { processRecord(record) }
+      }
+    } // until all tasks finished
+    log.info { "やった！続きはPVをダウンロードするに行くぞ" }
+  }
 
-    val jobReport = JobExecutor().use {
-      it.execute(job)
+  @Suppress("UNCHECKED_CAST")
+  private suspend fun processRecord(record: Record<VSongTask>) {
+    var currentRecord: Record<Any> = record as Record<Any>
+    try {
+      taskProcessors.forEach { recordProcessor ->
+        currentRecord = (recordProcessor as RecordProcessor<Any, Any>).processRecord(currentRecord)
+      }
+      vSongJsonWriter.write(currentRecord as Record<VSongTask>)
+    } catch (e: Exception) {
+      recordErrorWriter.handleError(currentRecord, e)
     }
-
-    log.info { "やった！続きはPVをダウンロードするに行くぞ \n$jobReport" }
   }
 }
 

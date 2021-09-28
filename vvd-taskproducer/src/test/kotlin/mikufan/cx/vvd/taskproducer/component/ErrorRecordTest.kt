@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import mikufan.cx.vocadbapiclient.model.SongForApiContract
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.common.label.VSongLabel
-import mikufan.cx.vvd.commonkt.batch.PipelineExceptionHandler
+import mikufan.cx.vvd.commonkt.batch.RecordErrorWriter
 import mikufan.cx.vvd.taskproducer.config.IOConfig
 import mikufan.cx.vvd.taskproducer.model.Parameters
 import mikufan.cx.vvd.taskproducer.model.VSongTask
@@ -27,7 +27,7 @@ import kotlin.io.path.name
  */
 @SpringBootTest
 class ErrorRecordTest(
-  @Autowired val pipelineExceptionHandler: PipelineExceptionHandler,
+  @Autowired val recordErrorWriter: RecordErrorWriter,
   @Autowired val objectMapper: ObjectMapper,
   @Autowired ioConfig: IOConfig
 ) {
@@ -51,13 +51,13 @@ class ErrorRecordTest(
 
   @Test
   fun `should write error vsong task with exception correctly`() {
-    pipelineExceptionHandler.onRecordProcessingException(dummyRecord, RuntimeVocaloidException("some error fufufu"))
+    recordErrorWriter.handleError(dummyRecord, RuntimeVocaloidException("some error fufufu"))
     assertTrue(errorDirectory.resolve("【various】PaⅢ.REVOLUTION【雄之助, 攻】-error.json").isRegularFile())
   }
 
   @Test
   fun `should write other error task with exception correctly`() {
-    pipelineExceptionHandler.onRecordProcessingException(
+    recordErrorWriter.handleError(
       StringRecord(Header(1, "Some Other String Record", LocalDateTime.now()), "my dummy string"),
       RuntimeVocaloidException("some other errors fufufu")
     )

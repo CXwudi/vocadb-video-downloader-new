@@ -11,8 +11,8 @@ config:
   user-agent: vocadb-video-downloader-new test agent (created by CXwudi)
   #max number of songs you can fetch from one api request of the vocadb favourite list
   api-page-size: 50
-  # buffer size of songs to be stored in memory before writing to output directory
-  # if set to 1, it will write outputs of a song immediately after the song's processing is done
+  # maximum amount of song can be processed at the same time
+  # if set to < 1, it will be the number of cores
   batch-size: 10
 
 spring:

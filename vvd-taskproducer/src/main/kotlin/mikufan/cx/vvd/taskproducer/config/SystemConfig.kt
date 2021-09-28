@@ -13,10 +13,18 @@ import javax.validation.constraints.NotBlank
  * @author CX无敌
  */
 @ConfigurationProperties(prefix = "config")
-@ConstructorBinding @Validated
-data class SystemConfig(
+@ConstructorBinding
+@Validated
+class SystemConfig(
   @field:URL val baseUrl: String,
   @field:NotBlank val userAgent: String,
   @field:Range(min = 1, max = 50) val apiPageSize: Int,
-  @field:Min(1) val batchSize: Int
-)
+  batchSize: Int
+) {
+  @Min(1)
+  val batchSize = if (batchSize < 1) Runtime.getRuntime().availableProcessors() else batchSize
+
+  override fun toString(): String {
+    return "SystemConfig(baseUrl='$baseUrl', userAgent='$userAgent', apiPageSize=$apiPageSize, batchSize=$batchSize)"
+  }
+}
