@@ -11,6 +11,7 @@ import org.jeasy.batch.core.mapper.RecordMapper
 import org.jeasy.batch.core.record.GenericRecord
 import org.jeasy.batch.core.record.Header
 import org.jeasy.batch.core.record.Record
+import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
 import kotlin.io.path.div
 
@@ -19,6 +20,7 @@ import kotlin.io.path.div
  * @author CX无敌
  */
 @Component
+@Order(2)
 class LabelToTaskMapper(
   ioConfig: IOConfig,
   private val objectMapper: ObjectMapper
