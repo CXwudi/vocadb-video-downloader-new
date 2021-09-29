@@ -25,8 +25,11 @@ class MainService(
   private val recordErrorWriter: RecordErrorWriter,
   private val systemConfig: SystemConfig
 ) : Runnable {
+
+  private val realThreadLimit = systemConfig.batchSize + 1 // in coroutine, runBlocking itself takes one thread
+
   private val executor = ThreadPoolExecutor(
-    systemConfig.batchSize, systemConfig.batchSize,
+    realThreadLimit, realThreadLimit,
     1L, TimeUnit.HOURS,
     LinkedBlockingDeque()
   )
@@ -36,11 +39,13 @@ class MainService(
       lateinit var record: Record<VSongTask>
       while (listReader.readRecord()?.also { record = it } != null) {
         val thisRecord = record
-        while (executor.activeCount >= systemConfig.batchSize) {
+        while (executor.activeCount >= realThreadLimit) {
           /* wait until concurrent active amount get lower */
-          // this part of the code has a bug, if batch size = 1, deadlock happens here
-          // maybe because only one thread in executor and we already have main function as one thread
-          // if set batch size = 2, we have the main thread reading records, and another thread processing the record
+          /*
+           * this part of the code has a bug, if batch size = 1, deadlock happens here
+           * maybe because only one thread in executor and runBlocking itself is using it
+           * if set batch size = 2, we have the main thread reading records, and another thread processing the record
+           */
         }
         launch { processRecord(thisRecord) }
       }

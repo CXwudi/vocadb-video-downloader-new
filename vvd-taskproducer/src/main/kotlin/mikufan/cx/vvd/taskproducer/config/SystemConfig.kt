@@ -22,11 +22,7 @@ class SystemConfig(
   batchSize: Int
 ) {
   @Min(1)
-  val batchSize = when {
-    batchSize < 1 -> Runtime.getRuntime().availableProcessors()
-    batchSize == 1 -> 2 //
-    else -> batchSize
-  }
+  val batchSize = if (batchSize < 1) Runtime.getRuntime().availableProcessors() else batchSize
 
   override fun toString(): String {
     return "SystemConfig(baseUrl='$baseUrl', userAgent='$userAgent', apiPageSize=$apiPageSize, batchSize=$batchSize)"
