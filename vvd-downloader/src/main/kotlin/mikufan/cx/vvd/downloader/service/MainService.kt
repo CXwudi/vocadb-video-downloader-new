@@ -1,8 +1,8 @@
 package mikufan.cx.vvd.downloader.service
 
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.downloader.component.LabelsReader
+import mikufan.cx.vvd.downloader.model.VSongTask
 import org.jeasy.batch.core.processor.RecordProcessor
 import org.jeasy.batch.core.record.Record
 import org.springframework.stereotype.Service
@@ -18,7 +18,7 @@ class MainService(
 ) : Runnable {
 
   override fun run() { // not allow parallelism to avoid IP banned from downloading
-    lateinit var label: Record<VSongLabel>
+    lateinit var label: Record<VSongTask>
     while (labelsReader.readRecord()?.also { label = it } != null) {
       val thisLabel = label
       processDownload(thisLabel)
@@ -26,7 +26,7 @@ class MainService(
   }
 
   @Suppress("UNCHECKED_CAST")
-  private fun processDownload(label: Record<VSongLabel>) {
+  private fun processDownload(label: Record<VSongTask>) {
     var current: Record<Any> = label as Record<Any>
     try {
       for (processor in processors) {
