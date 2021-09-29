@@ -18,12 +18,6 @@ class MainService(
 ) : Runnable {
 
   override fun run() { // not allow parallelism to avoid IP banned from downloading
-    // this is fixed to 1 to allow label and info files moved and saved immediately after the downloading
-
-//      .batchSize(1)
-//      .reader(labelsReader)
-//      .validator(beforeProcessLabelValidator)
-//      .mapper(labelToTaskMapper)
     lateinit var label: Record<VSongLabel>
     while (labelsReader.readRecord()?.also { label = it } != null) {
       val thisLabel = label
