@@ -23,7 +23,7 @@ class MainService(
   private val taskProcessors: List<RecordProcessor<*, *>>,
   private val vSongJsonWriter: VSongJsonWriter,
   private val recordErrorWriter: RecordErrorWriter,
-  private val systemConfig: SystemConfig
+  systemConfig: SystemConfig
 ) : Runnable {
 
   private val realThreadLimit = systemConfig.batchSize + 1 // in coroutine, runBlocking itself takes one thread

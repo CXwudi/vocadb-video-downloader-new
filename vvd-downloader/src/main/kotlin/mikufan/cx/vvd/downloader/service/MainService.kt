@@ -1,6 +1,7 @@
 package mikufan.cx.vvd.downloader.service
 
 import mikufan.cx.inlinelogging.KInlineLogging
+import mikufan.cx.vvd.commonkt.batch.RecordErrorWriter
 import mikufan.cx.vvd.downloader.component.LabelsReader
 import mikufan.cx.vvd.downloader.model.VSongTask
 import org.jeasy.batch.core.processor.RecordProcessor
@@ -13,8 +14,9 @@ import org.springframework.stereotype.Service
  */
 @Service
 class MainService(
-  val labelsReader: LabelsReader,
-  val processors: List<RecordProcessor<*, *>>,
+  private val labelsReader: LabelsReader,
+  private val processors: List<RecordProcessor<*, *>>,
+  private val errorWriter: RecordErrorWriter
 ) : Runnable {
 
   override fun run() { // not allow parallelism to avoid IP banned from downloading
@@ -33,7 +35,7 @@ class MainService(
         current = (processor as RecordProcessor<Any, Any>).processRecord(current)
       }
     } catch (e: Exception) {
-      // TODO: write error
+      errorWriter.handleError(current, e)
     }
   }
 }
