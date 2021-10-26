@@ -11,6 +11,7 @@ config: # configuration
     # you can also disable song PV services by not listing them
     # values here are comma separated, name must be same as the pv service string in VocaDB pv json, see VocaDB APIs documentation
     # currently we only support NicoNicoDouga, Youtube and Bilibili
+    # recommend setting is putting all current supported PV services but just reorder them to your favourite PV services.
     pv-preference: NicoNicoDouga, Youtube, Bilibili
     # maximum retry before call it a failure, this does not include the first try
     max-retry-count: 2
@@ -28,13 +29,16 @@ config: # configuration
   # downloader names must be same as names in downloader setting
   # when new PV service is added, change it on DownloaderBaseConfig
   enablement:
-    NicoNicoDouga:
+    NicoNicoDouga:  # enable downloaders from NicoNicoDouga's available downloaders. e.g. nndownload
     Youtube:
     Bilibili:
 
 
   downloader:
     NicoNicoDouga:
+      # settings of youtube-dl/ytp-dl for downloading niconico videos
+      # settings must make sure nothing blocks from downloading the video (e.g. don't put --get-url)
+      # do the same for all other downloaders.
       youtube-dl:
         launch-cmd:
         external-args:
@@ -56,7 +60,7 @@ config: # configuration
 
 
 
-# spring setting
+# spring setting, DON't touch. unless you know what you are doing
 
 spring:
   jackson:
