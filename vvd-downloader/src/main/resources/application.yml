@@ -37,7 +37,7 @@ config: # configuration
   downloader:
     NicoNicoDouga:
       # settings of youtube-dl/ytp-dl for downloading niconico videos
-      # settings must make sure nothing blocks from downloading the video (e.g. don't put --get-url)
+      # settings must make sure nothing blocks from downloading the video (e.g. don't put --version on yt-dlp)
       # do the same for all other downloaders.
       youtube-dl:
         launch-cmd:
