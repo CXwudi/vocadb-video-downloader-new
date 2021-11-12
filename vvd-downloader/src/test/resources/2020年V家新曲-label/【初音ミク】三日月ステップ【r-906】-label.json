@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【初音ミク】三日月ステップ【r-906】-songInfo.json",
-  "order" : 119,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【初音ミク】三日月ステップ【r-906】-label.json",
+  "infoFileName": "【初音ミク】三日月ステップ【r-906】-songInfo.json",
+  "order": 119,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

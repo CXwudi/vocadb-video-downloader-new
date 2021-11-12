@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【GUMI, 鏡音リン】愛のかたまり【れるりり】-songInfo.json",
-  "order" : 70,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【GUMI, 鏡音リン】愛のかたまり【れるりり】-label.json",
+  "infoFileName": "【GUMI, 鏡音リン】愛のかたまり【れるりり】-songInfo.json",
+  "order": 70,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

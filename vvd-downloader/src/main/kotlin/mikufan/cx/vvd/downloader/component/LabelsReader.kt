@@ -2,6 +2,7 @@ package mikufan.cx.vvd.downloader.component
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.common.naming.FileNamePostFix
 import mikufan.cx.vvd.downloader.config.IOConfig
@@ -30,6 +31,7 @@ class LabelsReader(
   private val fileItr = Files.list(inputDirectory)
     .filter { it.fileName.toString().contains(FileNamePostFix.LABEL) }
     // is ok to leave the
+    .peek { log.debug { "reading label $it" } }
     .map { objectMapper.readValue<VSongLabel>(it.toFile()) }
     .sorted { l1, l2 ->
       // here, the order is a primitive type, so it will be 0 if unassigned,
@@ -47,11 +49,15 @@ class LabelsReader(
     // this can avoid bug caused by overwriting labels where both old and new label info present
     val label = VSongLabel.builder()
       .order(oldLabel.order)
+      .labelFileName(oldLabel.labelFileName)
       .infoFileName(oldLabel.infoFileName)
       .build()
     val header = Header(++order, "Input Label File", LocalDateTime.now())
+    log.info { "Start processing ${label.labelFileName}" }
     GenericRecord(header, VSongTask(label, Parameters()))
   } else {
     null
   }
 }
+
+private val log = KInlineLogging.logger()

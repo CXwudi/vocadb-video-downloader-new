@@ -35,6 +35,7 @@ class ArtistFieldFixer(
     val song = requireNotNull(record.payload.parameters.songForApiContract) { "VSong is null" }
     var artistStr = song.artistString!!
     val artists = mutableListOf<ArtistForSongContract>()
+    log.info { "Check, fix and cleanup song info for ${song.defaultName}" }
     // fix various
     if (artistStr.contains(VARIOUS, true)) {
       val songWithArtists = songApi.apiSongsIdGet(

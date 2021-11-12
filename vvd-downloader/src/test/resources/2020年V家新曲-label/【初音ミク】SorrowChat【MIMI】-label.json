@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【初音ミク】SorrowChat【MIMI】-songInfo.json",
-  "order" : 11,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【初音ミク】SorrowChat【MIMI】-label.json",
+  "infoFileName": "【初音ミク】SorrowChat【MIMI】-songInfo.json",
+  "order": 11,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

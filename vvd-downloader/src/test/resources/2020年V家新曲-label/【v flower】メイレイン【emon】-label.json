@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【v flower】メイレイン【emon】-songInfo.json",
-  "order" : 84,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【v flower】メイレイン【emon】-label.json",
+  "infoFileName": "【v flower】メイレイン【emon】-songInfo.json",
+  "order": 84,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【初音ミク】To be continued...【青屋夏生】-songInfo.json",
-  "order" : 12,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【初音ミク】To be continued...【青屋夏生】-label.json",
+  "infoFileName": "【初音ミク】To be continued...【青屋夏生】-songInfo.json",
+  "order": 12,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

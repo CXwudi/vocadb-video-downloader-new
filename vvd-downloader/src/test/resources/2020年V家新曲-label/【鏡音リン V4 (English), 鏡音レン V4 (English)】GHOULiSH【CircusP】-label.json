@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【鏡音リン V4 (English), 鏡音レン V4 (English)】GHOULiSH【CircusP】-songInfo.json",
-  "order" : 156,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【鏡音リン V4 (English), 鏡音レン V4 (English)】GHOULiSH【CircusP】-label.json",
+  "infoFileName": "【鏡音リン V4 (English), 鏡音レン V4 (English)】GHOULiSH【CircusP】-songInfo.json",
+  "order": 156,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

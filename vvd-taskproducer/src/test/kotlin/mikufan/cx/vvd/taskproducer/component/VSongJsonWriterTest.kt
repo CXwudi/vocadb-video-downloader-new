@@ -8,6 +8,7 @@ import mikufan.cx.vvd.taskproducer.config.IOConfig
 import mikufan.cx.vvd.taskproducer.model.Parameters
 import mikufan.cx.vvd.taskproducer.model.VSongTask
 import mikufan.cx.vvd.taskproducer.util.toInfoFileName
+import mikufan.cx.vvd.taskproducer.util.toLabelFileName
 import org.jeasy.batch.core.record.GenericRecord
 import org.jeasy.batch.core.record.Header
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -27,13 +28,13 @@ internal class VSongJsonWriterTest(
   @Autowired val vSongJsonWriter: VSongJsonWriter,
   @Autowired val objectMapper: ObjectMapper,
   @Autowired ioConfig: IOConfig
-){
+) {
   val outputDirectory = ioConfig.outputDirectory
 
   lateinit var dummyRecord: GenericRecord<VSongTask>
 
   @BeforeEach
-  fun setupRecord(){
+  fun setupRecord() {
     val jsonString = javaClass.classLoader
       // get the test json that contains "various"
       .getResourceAsStream("test/PaⅢ.REVOLUTION  雄之助 vocadb api response.json")
@@ -41,11 +42,13 @@ internal class VSongJsonWriterTest(
     val song: SongForApiContract = objectMapper.readValue(jsonString, SongForApiContract::class.java)
     dummyRecord = GenericRecord(
       Header(1, "Test Record", LocalDateTime.now()), VSongTask(
-      VSongLabel.builder()
-        .order(1)
-        .infoFileName(song.toInfoFileName())
-        .build(),
-      Parameters(song))
+        VSongLabel.builder()
+          .order(1)
+          .infoFileName(song.toInfoFileName())
+          .labelFileName(song.toLabelFileName())
+          .build(),
+        Parameters(song)
+      )
     )
   }
 

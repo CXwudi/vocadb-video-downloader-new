@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【結月ゆかり】蝶の行く先へ【chippy】-songInfo.json",
-  "order" : 35,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【結月ゆかり】蝶の行く先へ【chippy】-label.json",
+  "infoFileName": "【結月ゆかり】蝶の行く先へ【chippy】-songInfo.json",
+  "order": 35,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

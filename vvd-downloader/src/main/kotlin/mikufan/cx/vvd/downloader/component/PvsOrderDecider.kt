@@ -30,20 +30,25 @@ class PvsOrderDecider(
         .also { log.warn { it.message } }
     }
 
-    val availablePvs =
-      pvs.filter { !requireNotNull(it.disabled) { "can not determine if ${it.name} from ${it.service} is a disabled PV" } }
+//    val availablePvs =
+//      pvs.filter { !requireNotNull(it.disabled) { "can not determine if ${it.name} from ${it.service} is a disabled PV" } }
 
-    if (availablePvs.isEmpty()) {
-      throw RuntimeVocaloidException("After filtering out disabled PVs, ${songInfo.defaultName} doesn't have any available PVs, skip downloading")
-        .also { log.warn { it.message } }
-    }
+//    if (pvs.isEmpty()) {
+//      throw RuntimeVocaloidException("After filtering out disabled PVs, ${songInfo.defaultName} doesn't have any available PVs, skip downloading")
+//        .also { log.warn { it.message } }
+//    }
 
     val serviceToIntMap = preference.pvPreference.withIndex().associate { Pair(it.value, it.index) }
-    val sortByServPvs = availablePvs.sortedBy {
+    val sortByServPvs = pvs.sortedBy {
       serviceToIntMap[requireNotNull(it.service?.toPVServicesEnum()) { "the pv service enum is null in PV info?" }]
     }
 
-    TODO("to be complete")
+    val serviceFilteredPvs = if (!preference.tryNextPvServiceOnFail) {
+      val firstServ = preference.pvPreference[0]
+      sortByServPvs.filter { it.service?.toPVServicesEnum()?.equals(firstServ) ?: false }
+    } else sortByServPvs
+
+    TODO()
   }
 }
 

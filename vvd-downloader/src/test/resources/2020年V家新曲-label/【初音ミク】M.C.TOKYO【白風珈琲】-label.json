@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【初音ミク】M.C.TOKYO【白風珈琲】-songInfo.json",
-  "order" : 77,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【初音ミク】M.C.TOKYO【白風珈琲】-label.json",
+  "infoFileName": "【初音ミク】M.C.TOKYO【白風珈琲】-songInfo.json",
+  "order": 77,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

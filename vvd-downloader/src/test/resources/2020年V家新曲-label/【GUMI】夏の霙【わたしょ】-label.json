@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【GUMI】夏の霙【わたしょ】-songInfo.json",
-  "order" : 113,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【GUMI】夏の霙【わたしょ】-label.json",
+  "infoFileName": "【GUMI】夏の霙【わたしょ】-songInfo.json",
+  "order": 113,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【初音ミク】Poppin' Love【iXA】-songInfo.json",
-  "order" : 117,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【初音ミク】Poppin' Love【iXA】-label.json",
+  "infoFileName": "【初音ミク】Poppin' Love【iXA】-songInfo.json",
+  "order": 117,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

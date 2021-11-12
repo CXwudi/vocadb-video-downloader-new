@@ -23,6 +23,7 @@ class SongInfoLoaderTest(
         val task = taskRecord.payload
 
         header.number shouldBe orderFromLabel
+        task.label.labelFileName shouldBe labelRec.payload.label.labelFileName
         task.label.infoFileName shouldBe labelRec.payload.label.infoFileName
         task.label.order shouldBe orderFromLabel
         task.parameters.songForApiContract shouldNotBe null

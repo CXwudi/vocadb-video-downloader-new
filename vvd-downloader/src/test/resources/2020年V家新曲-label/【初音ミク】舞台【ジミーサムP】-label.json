@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【初音ミク】舞台【ジミーサムP】-songInfo.json",
-  "order" : 160,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【初音ミク】舞台【ジミーサムP】-label.json",
+  "infoFileName": "【初音ミク】舞台【ジミーサムP】-songInfo.json",
+  "order": 160,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

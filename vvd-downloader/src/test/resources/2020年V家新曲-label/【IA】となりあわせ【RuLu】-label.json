@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【IA】となりあわせ【RuLu】-songInfo.json",
-  "order" : 17,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【IA】となりあわせ【RuLu】-label.json",
+  "infoFileName": "【IA】となりあわせ【RuLu】-songInfo.json",
+  "order": 17,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

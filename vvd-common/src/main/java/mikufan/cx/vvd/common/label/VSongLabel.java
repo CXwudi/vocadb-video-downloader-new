@@ -11,15 +11,19 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 /**
- * Mutable class as the metadata for the whole vvd
+ * Mutable class as the metadata of a song used across the whole vvd
+ *
  * @author CX无敌
  * @date 2021-05-29
  */
-@Data @AllArgsConstructor
-@Builder(toBuilder = true) @Jacksonized
+@Data
+@AllArgsConstructor
+@Builder(toBuilder = true)
+@Jacksonized
 @FieldDefaults(level = AccessLevel.PROTECTED)
 public class VSongLabel {
 
+  @NotBlank(groups = ValidationPhase.One.class) String labelFileName;
   @NotBlank(groups = ValidationPhase.One.class) String infoFileName;
   @Min(value = 1, groups = ValidationPhase.One.class) long order;
 

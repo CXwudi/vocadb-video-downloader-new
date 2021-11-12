@@ -6,7 +6,6 @@ import mikufan.cx.vvd.commonkt.batch.AbstractParallelWriter
 import mikufan.cx.vvd.commonkt.batch.RecordErrorWriter
 import mikufan.cx.vvd.taskproducer.config.IOConfig
 import mikufan.cx.vvd.taskproducer.model.VSongTask
-import mikufan.cx.vvd.taskproducer.util.toLabelFileName
 import org.jeasy.batch.core.record.Record
 import org.springframework.stereotype.Component
 import kotlin.io.path.absolute
@@ -32,13 +31,10 @@ class VSongJsonWriter(
     objectMapper.writeValue(infoFile.toFile(), song)
 
     // write label json
-    val labelFile = outputDirectory.resolve(song.toLabelFileName())
+    val labelFile = outputDirectory.resolve(label.labelFileName)
     objectMapper.writeValue(labelFile.toFile(), label)
 
-    log.info {
-      "done processing ${song.defaultName}, " +
-          "wrote info json file to ${infoFile.absolute()} and label json file to ${labelFile.absolute()}"
-    }
+    log.info { "Wrote info json file to ${infoFile.absolute()} and label json file to ${labelFile.absolute()}. All done!" }
   }
 }
 

@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【Fukase (English), さとうささら, 音街ウナ, 初音ミク V3 (English)】HERO【Project OverDoze, Tsus】-songInfo.json",
-  "order" : 163,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【Fukase (English), さとうささら, 音街ウナ, 初音ミク V3 (English)】HERO【Project OverDoze, Tsus】-label.json",
+  "infoFileName": "【Fukase (English), さとうささら, 音街ウナ, 初音ミク V3 (English)】HERO【Project OverDoze, Tsus】-songInfo.json",
+  "order": 163,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

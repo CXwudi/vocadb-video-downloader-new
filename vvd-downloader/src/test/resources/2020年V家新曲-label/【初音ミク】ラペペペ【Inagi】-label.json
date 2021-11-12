@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【初音ミク】ラペペペ【Inagi】-songInfo.json",
-  "order" : 10,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【初音ミク】ラペペペ【Inagi】-label.json",
+  "infoFileName": "【初音ミク】ラペペペ【Inagi】-songInfo.json",
+  "order": 10,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

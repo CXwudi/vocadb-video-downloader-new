@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【初音ミク】0n-1ine (2020)【PSGO-Z】-songInfo.json",
-  "order" : 100,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【初音ミク】0n-1ine (2020)【PSGO-Z】-label.json",
+  "infoFileName": "【初音ミク】0n-1ine (2020)【PSGO-Z】-songInfo.json",
+  "order": 100,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

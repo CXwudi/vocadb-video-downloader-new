@@ -17,6 +17,9 @@ class LabelsReaderTest(
       do {
         val record = labelsReader.readRecord()
         count += if (record != null) 1 else 0
+        if (record != null) {
+          count shouldBe record.payload.label.order
+        }
       } while (record != null)
       // our own sample input directory have 170 labels
       count shouldBe 170

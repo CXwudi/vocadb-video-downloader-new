@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【初音ミク】今日と明日の交差線【烏丸友吾, SilkyMint】-songInfo.json",
-  "order" : 44,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【初音ミク】今日と明日の交差線【烏丸友吾, SilkyMint】-label.json",
+  "infoFileName": "【初音ミク】今日と明日の交差線【烏丸友吾, SilkyMint】-songInfo.json",
+  "order": 44,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

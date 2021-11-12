@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【v flower】あふたぁわーど【TaKU.K】-songInfo.json",
-  "order" : 135,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【v flower】あふたぁわーど【TaKU.K】-label.json",
+  "infoFileName": "【v flower】あふたぁわーど【TaKU.K】-songInfo.json",
+  "order": 135,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

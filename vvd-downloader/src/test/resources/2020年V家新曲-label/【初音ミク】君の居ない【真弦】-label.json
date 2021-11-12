@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【初音ミク】君の居ない【真弦】-songInfo.json",
-  "order" : 13,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【初音ミク】君の居ない【真弦】-label.json",
+  "infoFileName": "【初音ミク】君の居ない【真弦】-songInfo.json",
+  "order": 13,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

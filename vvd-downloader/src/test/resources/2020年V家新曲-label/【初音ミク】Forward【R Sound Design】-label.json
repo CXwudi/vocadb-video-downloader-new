@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【初音ミク】Forward【R Sound Design】-songInfo.json",
-  "order" : 6,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【初音ミク】Forward【R Sound Design】-label.json",
+  "infoFileName": "【初音ミク】Forward【R Sound Design】-songInfo.json",
+  "order": 6,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【鏡音リン, 鏡音レン】potatoになっていく【Neru】-songInfo.json",
-  "order" : 126,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【鏡音リン, 鏡音レン】potatoになっていく【Neru】-label.json",
+  "infoFileName": "【鏡音リン, 鏡音レン】potatoになっていく【Neru】-songInfo.json",
+  "order": 126,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

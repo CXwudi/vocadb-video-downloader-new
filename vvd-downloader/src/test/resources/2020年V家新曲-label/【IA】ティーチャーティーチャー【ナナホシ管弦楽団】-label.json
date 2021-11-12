@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【IA】ティーチャーティーチャー【ナナホシ管弦楽団】-songInfo.json",
-  "order" : 32,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【IA】ティーチャーティーチャー【ナナホシ管弦楽団】-label.json",
+  "infoFileName": "【IA】ティーチャーティーチャー【ナナホシ管弦楽団】-songInfo.json",
+  "order": 32,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

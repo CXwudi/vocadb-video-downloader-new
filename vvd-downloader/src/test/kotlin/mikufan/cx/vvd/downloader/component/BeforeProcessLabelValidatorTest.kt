@@ -50,6 +50,13 @@ class BeforeProcessLabelValidatorFailureTest(
       record3.payload.label.infoFileName shouldBe null
       record3.shouldFailValidationWith("must not be blank")
     }
+
+    should("not pass if has blank label file name") {
+      val record2 = labelsReader.readRecord()!!
+      record2.payload.label.order shouldBe 164
+      record2.payload.label.labelFileName shouldBe " "
+      record2.shouldFailValidationWith("must not be blank")
+    }
   }
 })
 

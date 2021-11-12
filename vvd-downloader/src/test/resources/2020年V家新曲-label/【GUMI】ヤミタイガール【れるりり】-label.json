@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【GUMI】ヤミタイガール【れるりり】-songInfo.json",
-  "order" : 92,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【GUMI】ヤミタイガール【れるりり】-label.json",
+  "infoFileName": "【GUMI】ヤミタイガール【れるりり】-songInfo.json",
+  "order": 92,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

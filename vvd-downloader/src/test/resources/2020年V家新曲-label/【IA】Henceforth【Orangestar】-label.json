@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【IA】Henceforth【Orangestar】-songInfo.json",
-  "order" : 94,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【IA】Henceforth【Orangestar】-label.json",
+  "infoFileName": "【IA】Henceforth【Orangestar】-songInfo.json",
+  "order": 94,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

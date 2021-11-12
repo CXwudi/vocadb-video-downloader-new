@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【GUMI】初恋のんちゃん【Jille.】-songInfo.json",
-  "order" : 68,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【GUMI】初恋のんちゃん【Jille.】-label.json",
+  "infoFileName": "【GUMI】初恋のんちゃん【Jille.】-songInfo.json",
+  "order": 68,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

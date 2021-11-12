@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【初音ミク】アキサメ【雨の介】-songInfo.json",
-  "order" : 42,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【初音ミク】アキサメ【雨の介】-label.json",
+  "infoFileName": "【初音ミク】アキサメ【雨の介】-songInfo.json",
+  "order": 42,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }

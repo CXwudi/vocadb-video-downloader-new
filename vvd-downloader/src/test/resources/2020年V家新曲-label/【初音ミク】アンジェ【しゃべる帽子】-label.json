@@ -1,10 +1,11 @@
 {
-  "infoFileName" : "【初音ミク】アンジェ【しゃべる帽子】-songInfo.json",
-  "order" : 169,
-  "pvFileName" : null,
-  "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "pvService" : null,
-  "pvId" : null,
-  "pvUrl" : null
+  "labelFileName": "【初音ミク】アンジェ【しゃべる帽子】-label.json",
+  "infoFileName": "【初音ミク】アンジェ【しゃべる帽子】-songInfo.json",
+  "order": 169,
+  "pvFileName": null,
+  "audioFileName": null,
+  "thumbnailFileName": null,
+  "pvService": null,
+  "pvId": null,
+  "pvUrl": null
 }
