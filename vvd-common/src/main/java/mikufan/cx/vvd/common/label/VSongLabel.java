@@ -23,6 +23,11 @@ import javax.validation.constraints.NotBlank;
 @FieldDefaults(level = AccessLevel.PROTECTED)
 public class VSongLabel {
 
+  /**
+   * the file name of this label itself <br/>
+   * we need the label name recorded in the label itself
+   * as various VSong naming methods are not globally available anymore
+   */
   @NotBlank(groups = ValidationPhase.One.class) String labelFileName;
   @NotBlank(groups = ValidationPhase.One.class) String infoFileName;
   @Min(value = 1, groups = ValidationPhase.One.class) long order;
