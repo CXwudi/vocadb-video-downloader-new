@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component
  */
 @Component
 @Order(3)
-class PvsOrderDecider(
+class PvTasksDecider(
   private val preference: Preference
 ) : RecordProcessor<VSongTask, VSongTask> {
 
@@ -33,8 +33,8 @@ class PvsOrderDecider(
     // check if empty
     throwAndLogIfNoPvsLeft(pvs, "${songInfo.defaultName} doesn't have any available PVs, skip downloading")
 
-    // check if no pvs are supported
-    val supportedPvs = pvs.filter { it.service?.toPVServicesEnum() in SUPPORTED_SERVICES }
+    // filter out pv services that users are not interested
+    val supportedPvs = pvs.filter { it.service?.toPVServicesEnum() in preference.pvPreference }
     throwAndLogIfNoPvsLeft(
       supportedPvs,
       "${songInfo.defaultName} doesn't have any PVs that are in our supported PV services $SUPPORTED_SERVICES, " +
@@ -70,7 +70,6 @@ class PvsOrderDecider(
       serviceDecidedPvs.filter { it.pvType != PVType.REPRINT } // let's allow "Other" type for now
     } else serviceDecidedPvs
     log.debug { "after deciding reprint = $reprintDecidedPvs" }
-
     throwAndLogIfNoPvsLeft(
       reprintDecidedPvs,
       "By filtering out all reprint PVs, ${songInfo.defaultName} doesn't have any available PVs, " +

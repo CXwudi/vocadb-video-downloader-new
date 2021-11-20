@@ -6,7 +6,7 @@ import org.springframework.test.annotation.DirtiesContext
 
 @SpringBootTestWithTestProfile
 @DirtiesContext
-class PvsOrderDeciderTest : SpringShouldSpec({
+class PvTasksDeciderTest : SpringShouldSpec({
 
   xcontext("PV service & types order sorting") {
     TODO("Add tests for testing the basic sorting")
