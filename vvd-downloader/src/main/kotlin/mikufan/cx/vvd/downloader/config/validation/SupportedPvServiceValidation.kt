@@ -16,7 +16,7 @@ import kotlin.reflect.KClass
  * @author CX无敌
  */
 
-val SUPPORTED_SERVICES = setOf(
+val SUPPORTED_SERVICES: Set<PVServicesEnum> = setOf(
   NICONICODOUGA,
   YOUTUBE,
   BILIBILI,

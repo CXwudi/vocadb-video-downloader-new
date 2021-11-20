@@ -16,7 +16,7 @@ data class Parameters(
   /**
    * the order of try download which PV first, then which next
    */
-  val pvCandidates: MutableList<PVTask> = mutableListOf(),
+  var pvCandidates: List<PVTask>? = null,
 )
 
 /**
@@ -24,5 +24,5 @@ data class Parameters(
  */
 data class PVTask(
   val pv: PVContract,
-
+// other field that is val ? = null
   )
