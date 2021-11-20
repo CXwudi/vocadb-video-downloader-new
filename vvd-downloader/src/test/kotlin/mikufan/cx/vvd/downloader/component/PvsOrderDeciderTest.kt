@@ -2,8 +2,10 @@ package mikufan.cx.vvd.downloader.component
 
 import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringShouldSpec
+import org.springframework.test.annotation.DirtiesContext
 
 @SpringBootTestWithTestProfile
+@DirtiesContext
 class PvsOrderDeciderTest : SpringShouldSpec({
 
   xcontext("PV service & types order sorting") {
