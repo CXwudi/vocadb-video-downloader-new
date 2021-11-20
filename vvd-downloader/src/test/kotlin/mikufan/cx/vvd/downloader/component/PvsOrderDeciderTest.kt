@@ -12,6 +12,15 @@ class PvsOrderDeciderTest : SpringShouldSpec({
     TODO("Add tests for testing the basic sorting")
   }
 
-  context("") {
+  context("Only first pv service") {
+  }
+
+  context("No reprint pvs") {
+  }
+
+  context("Only first & no prints") {
+  }
+
+  context("try reprint after fails") {
   }
 })
