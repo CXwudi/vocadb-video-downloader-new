@@ -140,7 +140,7 @@ public class NicoUnsafeIdmYoutubeDlDownloader implements PvDownloader {
     log.debug("Then, download the thumbnail");
     var fullOutputPath = dir.resolve(fileName);
 
-    FileUtils.copyURLToFile(new URL(url), fullOutputPath.toFile(), 30000, 3000000);
+    FileUtils.copyURLToFile(new URL(url), fullOutputPath.toFile());
 
     if (Files.exists(fullOutputPath)){
       return DownloadStatus.success();
