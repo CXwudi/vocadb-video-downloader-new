@@ -11,9 +11,9 @@ import org.springframework.core.type.AnnotatedTypeMetadata
  * @author CX无敌
  */
 
-sealed interface DownloaderBaseConditional : Condition {
+sealed interface DownloaderBaseCondition : Condition {
   /**
-   * Determine if niconico youtube-dl downloader should be enabled
+   * Determine if this downloader should be enabled
    * @param context the condition context
    * @param metadata the metadata of the [class][org.springframework.core.type.AnnotationMetadata]
    * or [method][org.springframework.core.type.MethodMetadata] being checked
@@ -26,7 +26,7 @@ sealed interface DownloaderBaseConditional : Condition {
       .contains(pvServices.toString()) &&
         environment.getProperty("config.enablement.$pvServices", "")
           .contains(downloaderName)
-    if (!res){
+    if (!res) {
       log.debug { "Skip loading $downloaderName downloader for $pvServices" }
     }
     return res

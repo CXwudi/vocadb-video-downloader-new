@@ -7,10 +7,10 @@ import mikufan.cx.vvd.downloader.util.PVServicesEnum
  * @author CX无敌
  */
 
-sealed class NicoNicoDownloaderBaseConditional : DownloaderBaseConditional {
+sealed class NicoNicoDownloaderBaseCondition : DownloaderBaseCondition {
   override val pvServices = PVServicesEnum.NICONICODOUGA
 }
 
-class NicoNicoYtDlConditional : NicoNicoDownloaderBaseConditional() {
+class NicoNicoYtDlCondition : NicoNicoDownloaderBaseCondition() {
   override val downloaderName: String = NND_YOUTUBE_DL
 }
