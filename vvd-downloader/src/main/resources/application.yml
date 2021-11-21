@@ -8,6 +8,9 @@ io: # input, output, and error output dir, can be relative path from the termina
 config: # configuration
   preference:
     # your order of which PV service is preferred if available
+    # a Vocaloid song can have multiple PVs available across different PV serivces (e.g. niconico, youtube, etc)
+    # when downloading PVs for a Vocaloid song, the downloader will try to find the first pv service that contains a PV for this song
+    # the downloader will use this list as an order of which pv service to check first
     # you can also disable song PV services by not listing them
     # values here are comma separated, name must be same as the pv service string in VocaDB pv json, see VocaDB APIs documentation
     # currently we only support NicoNicoDouga, Youtube and Bilibili
@@ -15,17 +18,18 @@ config: # configuration
     pv-preference: NicoNicoDouga, Youtube, Bilibili
     # maximum retry before call it a failure, this does not include the first try
     max-retry-count: 2
+    # if the original PV is unavailable, should we try reprinted PV?
+    try-reprinted-pv: true
     # if PVs from one PV service, either original or reprinted, failed to be download,
     # should we move to next available PV service listed in the pv-preference, default value is false
     # this setting can be useful to avoid this program falsely thinking that the pv service is unavailable,
-    # when the actual issue is the downloader problem, and hence move on to next pv service that is less desirable than previous one
+    # when the actual issue is the downloader problem, and hence falsely move on to next pv service that is less desirable than previous one
     try-next-pv-service-on-fail: false
-    # if the original PV is unavailable, should we try reprinted PV?
-    try-reprinted-pv: true
-    # if try-reprinted-pv is true, should we only try reprinted PV after original PVs accross all pv services are failed?
-    # if this setting is false, reprinted pv in the same pv service will be tried before moving to next available pv service
-    # if either try-reprint-pv or try-next-pv-service-on-fail is false, this setting has no effect
-    try-reprinted-after-all-original-pvs: true
+    # if try-reprinted-pv is true, should we only try reprinted PV after all original PVs across all pv services are failed?
+    # if this setting is true, the downloader will go over the pv-preference list twice.
+    # where in the first round, only original pvs are tried. then in second round, all reprinted pvs are tried
+    # setting this to false will make the download go over the pv-preference list only once.
+    try-all-original-pvs-before-reprinted-pvs: true
 
   # which PV service uses which downloader(s), separated by comma
   # downloader names must be same as names in downloader setting
