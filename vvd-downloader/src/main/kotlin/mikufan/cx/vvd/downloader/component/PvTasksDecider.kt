@@ -6,7 +6,6 @@ import mikufan.cx.vocadbapiclient.model.PVType
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.downloader.config.Preference
 import mikufan.cx.vvd.downloader.config.validation.SUPPORTED_SERVICES
-import mikufan.cx.vvd.downloader.model.PVTask
 import mikufan.cx.vvd.downloader.model.VSongTask
 import mikufan.cx.vvd.downloader.util.toPVServicesEnum
 import org.jeasy.batch.core.processor.RecordProcessor
@@ -51,7 +50,7 @@ class PvTasksDecider(
     val songInfo = requireNotNull(parameters.songForApiContract) { "null song info?" }
     val pvs = requireNotNull(songInfo.pvs) { "null pvs in song info?" }
 
-    log.info { "Deciding pv tasks" }
+    log.info { "Deciding pv orders" }
     // check if empty
     throwAndLogIfNoPvsLeft(pvs) { "${songInfo.defaultName} doesn't have any available PVs, skip downloading" }
 
@@ -95,10 +94,9 @@ class PvTasksDecider(
       val firstServ = reprintDecidedPvs.first().service
       reprintDecidedPvs.takeWhile { it.service?.equals(firstServ) ?: false }
     } else reprintDecidedPvs
-    log.debug { "after deciding services = $serviceDecidedPvs" }
 
-    parameters.pvCandidates = serviceDecidedPvs.map { PVTask(it) }
-      .also { log.info { "Done deciding PV tasks, tasks = $it" } }
+    parameters.pvCandidates = serviceDecidedPvs
+    log.info { "Done deciding PV candidates, pvs chosen = $serviceDecidedPvs" }
     return record
   }
 

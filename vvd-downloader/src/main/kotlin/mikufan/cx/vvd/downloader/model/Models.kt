@@ -16,11 +16,13 @@ data class Parameters(
   /**
    * the order of try download which PV first, then which next
    */
-  var pvCandidates: List<PVTask>? = null,
-)
+  var pvCandidates: List<PVContract>? = null,
+
+  )
 
 /**
  * using a data class to group related PV infos
+ * used during downloading phase only
  */
 data class PVTask(
   val pv: PVContract,
