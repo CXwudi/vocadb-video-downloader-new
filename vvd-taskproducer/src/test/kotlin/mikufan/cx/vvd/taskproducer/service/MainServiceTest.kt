@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest
  */
 @SpringBootTest(
   properties = [
-    "io.input-list-id=9197", // 9195 = 2020年V家新曲, 9197 = 2020年V家良曲
+    "io.input-list-id=9909", // 9195 = 2020年V家新曲, 9197 = 2020年V家良曲, 9909 = Hatsune Miku Magical Mirai 2021
     "config.batch-size=1"
   ]
 )

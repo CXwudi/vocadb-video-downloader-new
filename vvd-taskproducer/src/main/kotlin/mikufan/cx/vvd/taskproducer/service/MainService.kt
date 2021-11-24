@@ -13,6 +13,7 @@ import mikufan.cx.vvd.taskproducer.model.VSongTask
 import org.jeasy.batch.core.processor.RecordProcessor
 import org.jeasy.batch.core.record.Record
 import org.springframework.stereotype.Service
+import java.util.concurrent.Executors
 import java.util.concurrent.LinkedBlockingDeque
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
@@ -26,7 +27,7 @@ class MainService(
   systemConfig: SystemConfig
 ) : Runnable {
 
-  private val realThreadLimit = systemConfig.batchSize + 1 // in coroutine, runBlocking itself takes one thread
+  private val realThreadLimit = systemConfig.batchSize // in coroutine, runBlocking itself takes one thread
 
   private val executor = ThreadPoolExecutor(
     realThreadLimit, realThreadLimit,
@@ -34,7 +35,9 @@ class MainService(
     LinkedBlockingDeque()
   )
 
-  override fun run() = runBlocking(executor.asCoroutineDispatcher()) {
+  private val dispatcher = executor.asCoroutineDispatcher()
+
+  override fun run() = runBlocking(Executors.newSingleThreadExecutor().asCoroutineDispatcher()) {
     coroutineScope {
       lateinit var record: Record<VSongTask>
       while (listReader.readRecord()?.also { record = it } != null) {
@@ -47,7 +50,7 @@ class MainService(
            * if set batch size = 2, we have the main thread reading records, and another thread processing the record
            */
         }
-        launch { processRecord(thisRecord) }
+        launch(dispatcher) { processRecord(thisRecord) }
       }
     } // until all tasks finished
     log.info { "やった！続きはPVをダウンロードするに行くぞ" }
