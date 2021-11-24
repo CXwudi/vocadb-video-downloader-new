@@ -27,30 +27,26 @@ class MainService(
   systemConfig: SystemConfig
 ) : Runnable {
 
-  private val realThreadLimit = systemConfig.batchSize // in coroutine, runBlocking itself takes one thread
+  private val threadLimit = systemConfig.batchSize
 
   private val executor = ThreadPoolExecutor(
-    realThreadLimit, realThreadLimit,
+    threadLimit, threadLimit,
     1L, TimeUnit.HOURS,
     LinkedBlockingDeque()
   )
 
   private val dispatcher = executor.asCoroutineDispatcher()
 
-  override fun run() = runBlocking(Executors.newSingleThreadExecutor().asCoroutineDispatcher()) {
+  override fun run() = runBlocking(Executors.newSingleThreadExecutor().asCoroutineDispatcher()) { // only one thread env
     coroutineScope {
       lateinit var record: Record<VSongTask>
       while (listReader.readRecord()?.also { record = it } != null) {
         val thisRecord = record
-        while (executor.activeCount >= realThreadLimit) {
-          /* wait until concurrent active amount get lower */
-          /*
-           * this part of the code has a bug, if batch size = 1, deadlock happens here
-           * maybe because only one thread in executor and runBlocking itself is using it
-           * if set batch size = 2, we have the main thread reading records, and another thread processing the record
-           */
-        }
+        // launch the job in the controlled executor
         launch(dispatcher) { processRecord(thisRecord) }
+        while (executor.activeCount >= threadLimit) {
+          /* don't call readRecord() until concurrent active amount get lower */
+        }
       }
     } // until all tasks finished
     log.info { "やった！続きはPVをダウンロードするに行くぞ" }
