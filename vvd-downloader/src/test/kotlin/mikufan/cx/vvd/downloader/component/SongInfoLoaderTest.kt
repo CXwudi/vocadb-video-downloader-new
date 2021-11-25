@@ -2,12 +2,10 @@ package mikufan.cx.vvd.downloader.component
 
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
+import mikufan.cx.vvd.downloader.util.SpringBootDirtyTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringShouldSpec
-import org.springframework.test.annotation.DirtiesContext
 
-@DirtiesContext
-@SpringBootTestWithTestProfile
+@SpringBootDirtyTestWithTestProfile
 class SongInfoLoaderTest(
   val labelsReader: LabelsReader,
   val songInfoLoader: SongInfoLoader

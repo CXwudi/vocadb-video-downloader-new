@@ -6,13 +6,11 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContainIgnoringCase
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.downloader.model.VSongTask
-import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
+import mikufan.cx.vvd.downloader.util.SpringBootDirtyTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringShouldSpec
 import org.jeasy.batch.core.record.Record
-import org.springframework.test.annotation.DirtiesContext
 
-@DirtiesContext
-@SpringBootTestWithTestProfile(
+@SpringBootDirtyTestWithTestProfile(
   customProperties = [
     "io.input-directory=src/test/resources/2020年V家新曲 with failing labels"
   ]
@@ -60,8 +58,7 @@ class BeforeProcessLabelValidatorFailureTest(
   }
 })
 
-@DirtiesContext
-@SpringBootTestWithTestProfile
+@SpringBootDirtyTestWithTestProfile
 class BeforeProcessLabelValidatorSuccessTest(
   val labelsReader: LabelsReader,
   val beforeProcessLabelValidator: BeforeProcessLabelValidator

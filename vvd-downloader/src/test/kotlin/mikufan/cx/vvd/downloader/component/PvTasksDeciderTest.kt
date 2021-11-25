@@ -1,12 +1,10 @@
 package mikufan.cx.vvd.downloader.component
 
-import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
+import mikufan.cx.vvd.downloader.util.SpringBootDirtyTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringShouldSpec
-import org.springframework.test.annotation.DirtiesContext
 
-@SpringBootTestWithTestProfile
-@DirtiesContext
-class PvTasksDeciderTest : SpringShouldSpec({
+@SpringBootDirtyTestWithTestProfile
+class PvTasksDeciderTest() : SpringShouldSpec({
 
   xcontext("PV service & types order sorting") {
     TODO("Add tests for testing the basic sorting")

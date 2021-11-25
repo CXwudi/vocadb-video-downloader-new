@@ -1,12 +1,10 @@
 package mikufan.cx.vvd.downloader.component
 
 import io.kotest.matchers.shouldBe
-import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
+import mikufan.cx.vvd.downloader.util.SpringBootDirtyTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringShouldSpec
-import org.springframework.test.annotation.DirtiesContext
 
-@DirtiesContext
-@SpringBootTestWithTestProfile
+@SpringBootDirtyTestWithTestProfile
 class LabelsReaderTest(
   val labelsReader: LabelsReader
 ) : SpringShouldSpec({
