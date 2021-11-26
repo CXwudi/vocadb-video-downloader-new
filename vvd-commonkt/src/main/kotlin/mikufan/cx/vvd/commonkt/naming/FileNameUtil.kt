@@ -8,17 +8,17 @@ import mikufan.cx.vvd.common.naming.FileNamePostFix
  * @date 2020-12-19
  */
 
-fun SongForApiContract.toPvFileName(extensionWithDot: String = ""): String {
-  return this.toProperFileName() + FileNamePostFix.VIDEO + extensionWithDot
-}
-
-fun SongForApiContract.toThumbnailFileName(extensionWithDot: String = ""): String {
-  return this.toProperFileName() + FileNamePostFix.THUMBNAIL + extensionWithDot
-}
-
-fun SongForApiContract.toAudioFileName(extensionWithDot: String = ""): String {
-  return this.toProperFileName() + FileNamePostFix.AUDIO + extensionWithDot
-}
+// fun SongForApiContract.toPvFileName(extensionWithDot: String = ""): String {
+//  return this.toProperFileName() + FileNamePostFix.VIDEO + extensionWithDot
+// }
+//
+// fun SongForApiContract.toThumbnailFileName(extensionWithDot: String = ""): String {
+//  return this.toProperFileName() + FileNamePostFix.THUMBNAIL + extensionWithDot
+// }
+//
+// fun SongForApiContract.toAudioFileName(extensionWithDot: String = ""): String {
+//  return this.toProperFileName() + FileNamePostFix.AUDIO + extensionWithDot
+// }
 
 // not sure if above extensions are needed
 
