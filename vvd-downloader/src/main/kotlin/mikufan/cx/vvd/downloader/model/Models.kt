@@ -12,6 +12,7 @@ import mikufan.cx.vvd.common.label.VSongLabel
 data class VSongTask(val label: VSongLabel, val parameters: Parameters)
 
 data class Parameters(
+  var songProperFileName: String = "",
   var songForApiContract: SongForApiContract? = null,
   /**
    * the order of try download which PV first, then which next

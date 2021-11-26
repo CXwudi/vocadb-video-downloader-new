@@ -19,7 +19,7 @@ config: # configuration
     # maximum retry before call it a failure, this does not include the first try
     max-retry-count: 2
     # if the original PV is unavailable, should we try reprinted PV?
-    try-reprinted-pv: true
+    try-reprinted-pv: true #to improve: can let users decided on pv type, similar to how pv-preference works, make sure add similar validation as pv-preference too
     # if PVs from one PV service, either original or reprinted, failed to be download,
     # should we move to next available PV service listed in the pv-preference, default value is false
     # this setting can be useful to avoid this program falsely thinking that the pv service is unavailable,

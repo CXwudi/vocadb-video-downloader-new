@@ -10,6 +10,6 @@ typealias PVServicesEnum = PVServices.Constant
  * @author CX无敌
  */
 
-fun PVServicesEnum.toPVService() = PVService.valueOf(this.value)
+fun PVServicesEnum.toPVService() = PVService.valueOf(this.value.uppercase())
 
-fun PVService.toPVServicesEnum(): PVServicesEnum = PVServicesEnum.valueOf(this.value)
+fun PVService.toPVServicesEnum(): PVServicesEnum = PVServicesEnum.valueOf(this.value.uppercase())

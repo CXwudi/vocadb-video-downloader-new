@@ -29,20 +29,28 @@ class PvTasksDecider(
    */
   private val serviceToIntMap = preference.pvPreference.withIndex().associate { Pair(it.value, it.index) }
 
-  private val pvTypeComparator = Comparator<PVContract> { p1, p2 ->
-    when {
-      p1.pvType == p2.pvType -> 0 // if both are same type, do nothing
-      // here two pvs has different types
-      p1.pvType == PVType.ORIGINAL -> -1 // if first one is original
-      p2.pvType == PVType.ORIGINAL -> 1 // if second one is original
-      // else don't touch
-      else -> 0
-    }
-  }
   private val pvServiceKeyExtractor = ToIntFunction<PVContract> {
     requireNotNull(
-      serviceToIntMap[requireNotNull(it.service?.toPVServicesEnum()) { "the pv service enum is null in PV info?" }]
+      serviceToIntMap[requireNotNull(it.service?.toPVServicesEnum()) { "the pv service enum is null for ${it.name}?" }]
     ) { "Did we failed to filter out un-supported PV services?" }
+  }
+
+  companion object {
+
+    private val pvTypeToIntMap = mapOf(
+      PVType.ORIGINAL to 0,
+      PVType.OTHER to 1,
+      PVType.REPRINT to 2
+    )
+
+    /**
+     * to make sure that reprinted types goes behind original and others type
+     */
+    private val pvTypeComparator = ToIntFunction<PVContract> {
+      requireNotNull(
+        pvTypeToIntMap[requireNotNull(it.pvType) { "the pv type is null for ${it.name}?" }]
+      ) { "More PV Type?" }
+    }
   }
 
   override fun processRecord(record: Record<VSongTask>): Record<VSongTask> {
@@ -50,7 +58,7 @@ class PvTasksDecider(
     val songInfo = requireNotNull(parameters.songForApiContract) { "null song info?" }
     val pvs = requireNotNull(songInfo.pvs) { "null pvs in song info?" }
 
-    log.info { "Deciding pv orders" }
+    log.info { "Deciding pv orders for ${songInfo.defaultName}" }
     // check if empty
     throwAndLogIfNoPvsLeft(pvs) { "${songInfo.defaultName} doesn't have any available PVs, skip downloading" }
 
@@ -66,22 +74,23 @@ class PvTasksDecider(
     val sortedPvs = if (preference.tryAllOriginalPvsBeforeReprintedPvs) {
       supportedPvs.sortedWith(
         Comparator
-          .nullsLast(pvTypeComparator)
+          .comparingInt(pvTypeComparator)
           .thenComparingInt(pvServiceKeyExtractor)
       )
     } else {
       supportedPvs.sortedWith(
         Comparator
           .comparingInt(pvServiceKeyExtractor)
-          .thenComparing(pvTypeComparator)
+          .thenComparingInt(pvTypeComparator)
       )
     }
+    log.debug { "after deciding sorted order = ${sortedPvs.toPrettyString()}" }
 
     // decided should we try reprint pvs
     val reprintDecidedPvs = if (!preference.tryReprintedPv) {
       sortedPvs.filter { it.pvType != PVType.REPRINT } // let's allow "Other" type for now
     } else sortedPvs
-    log.debug { "after deciding reprint = $reprintDecidedPvs" }
+    log.debug { "after deciding reprinted = ${reprintDecidedPvs.toPrettyString()}" }
     // after filter check empty
     throwAndLogIfNoPvsLeft(reprintDecidedPvs) {
       "By filtering out all reprint PVs, ${songInfo.defaultName} doesn't have any available PVs, " +
@@ -96,7 +105,10 @@ class PvTasksDecider(
     } else reprintDecidedPvs
 
     parameters.pvCandidates = serviceDecidedPvs
-    log.info { "Done deciding PV candidates, pvs chosen = $serviceDecidedPvs" }
+    log.info {
+      "Done deciding PV candidates for ${songInfo.defaultName}, " +
+          "pvs chosen = ${serviceDecidedPvs.toPrettyString()}"
+    }
     return record
   }
 
@@ -110,6 +122,9 @@ class PvTasksDecider(
       throw RuntimeVocaloidException(expMsg)
     }
   }
+
+  private fun List<PVContract>.toPrettyString() =
+    this.joinToString(", ", "[", "]") { it.url ?: "NULL URL" }
 }
 
 private val log = KInlineLogging.logger()

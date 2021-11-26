@@ -33,7 +33,10 @@ class SongInfoLoader(
       (inputDirectory / label.infoFileName).toFile()
     )
     log.info { "Read song info for ${song.toProperFileName()}" }
-    task.parameters.songForApiContract = song
+    task.parameters.apply {
+      songProperFileName = song.toProperFileName()
+      songForApiContract = song
+    }
     return record
   }
 }
