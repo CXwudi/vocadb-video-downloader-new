@@ -42,7 +42,7 @@ abstract class PvTasksDeciderBaseTest(
     "config.preference.try-all-original-pvs-before-reprinted-pvs=false"
   ]
 )
-class PvTasksDeciderServiceAndTypeOnlySortingTest(
+class PvTasksDeciderWithServiceAndTypeSortingOrderTest(
   labelsReader: LabelsReader,
   songInfoLoader: SongInfoLoader,
   pvTasksDecider: PvTasksDecider,
@@ -67,6 +67,46 @@ class PvTasksDeciderServiceAndTypeOnlySortingTest(
             .dropWhile { it.pvType == PVType.ORIGINAL }
             .dropWhile { it.pvType == PVType.OTHER }
             .dropWhile { it.pvType == PVType.REPRINT }
+            .size shouldBe 0
+        }
+      }
+    }
+  }
+})
+
+@SpringBootDirtyTestWithTestProfile(
+  customProperties = [
+    "io.input-directory=src/test/resources/Hatsune Miku Magical Mirai 2021-label",
+    "config.preference.pv-preference=Bilibili, NicoNicoDouga, Youtube",
+    "config.preference.try-next-pv-service-on-fail=true",
+    "config.preference.try-all-original-pvs-before-reprinted-pvs=true"
+  ]
+)
+class PvTasksDeciderWithTypeAndServiceSortingOrderTest(
+  labelsReader: LabelsReader,
+  songInfoLoader: SongInfoLoader,
+  pvTasksDecider: PvTasksDecider,
+) : PvTasksDeciderBaseTest(labelsReader, songInfoLoader, pvTasksDecider, { testList ->
+
+  context("sorting in defined pv services order") {
+    for (task in testList) {
+      val pvs = task.payload.parameters.pvCandidates!!
+      val songName = task.payload.parameters.songForApiContract?.defaultName ?: "Null name"
+      should("correctly sort pv types for $songName") {
+        pvs
+          .dropWhile { it.pvType == PVType.ORIGINAL }
+          .dropWhile { it.pvType == PVType.OTHER }
+          .dropWhile { it.pvType == PVType.REPRINT }
+          .size shouldBe 0
+      }
+
+      should("correctly sort pv services for each pv types for $songName") {
+        for (pvType in listOf(PVType.ORIGINAL, PVType.OTHER, PVType.REPRINT)) {
+          val pvsForService = pvs.filter { it.pvType == pvType }
+          pvsForService
+            .dropWhile { it.service == PVService.BILIBILI }
+            .dropWhile { it.service == PVService.NICONICODOUGA }
+            .dropWhile { it.service == PVService.YOUTUBE }
             .size shouldBe 0
         }
       }

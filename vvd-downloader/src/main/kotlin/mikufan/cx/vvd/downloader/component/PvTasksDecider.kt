@@ -125,7 +125,7 @@ class PvTasksDecider(
   }
 
   private fun List<PVContract>.toPrettyString() =
-    this.joinToString(", ", "[", "]") { it.url ?: "NULL URL" }
+    this.joinToString(", ", "[", "]") { "${it.name} ${it.url ?: "NULL URL"} ${it.pvType}" }
 }
 
 private val log = KInlineLogging.logger()
