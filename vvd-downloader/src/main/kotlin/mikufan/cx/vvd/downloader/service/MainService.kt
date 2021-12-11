@@ -2,6 +2,7 @@ package mikufan.cx.vvd.downloader.service
 
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.commonkt.batch.RecordErrorWriter
+import mikufan.cx.vvd.commonkt.batch.toIterator
 import mikufan.cx.vvd.downloader.component.LabelsReader
 import mikufan.cx.vvd.downloader.model.VSongTask
 import org.jeasy.batch.core.processor.RecordProcessor
@@ -20,10 +21,8 @@ class MainService(
 ) : Runnable {
 
   override fun run() { // not allow parallelism to avoid IP banned from downloading
-    lateinit var label: Record<VSongTask>
-    while (labelsReader.readRecord()?.also { label = it } != null) {
-      val thisLabel = label
-      processDownload(thisLabel)
+    for (label in labelsReader.toIterator()) {
+      processDownload(label)
     }
   }
 

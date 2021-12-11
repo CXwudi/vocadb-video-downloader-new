@@ -33,7 +33,7 @@ class LabelsReader(
     // is ok to leave the
     .peek { log.debug { "reading label $it" } }
     .map { objectMapper.readValue<VSongLabel>(it.toFile()) }
-    .sorted { l1, l2 ->
+    .sorted { l1, l2 -> // because of the sorting, we have to load all file names to RAM
       // here, the order is a primitive type, so it will be 0 if unassigned,
       // and our order starts from 1
       l1.order.compareTo(l2.order)
@@ -52,7 +52,7 @@ class LabelsReader(
       .labelFileName(oldLabel.labelFileName)
       .infoFileName(oldLabel.infoFileName)
       .build()
-    val header = Header(++order, "Input Label File", LocalDateTime.now())
+    val header = Header(++order, "VSong Task by ${label.labelFileName}", LocalDateTime.now())
     log.info { "Start processing ${label.labelFileName}" }
     GenericRecord(header, VSongTask(label, Parameters()))
   } else {

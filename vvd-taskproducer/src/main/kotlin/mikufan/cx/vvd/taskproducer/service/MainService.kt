@@ -6,6 +6,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.commonkt.batch.RecordErrorWriter
+import mikufan.cx.vvd.commonkt.batch.toIterator
 import mikufan.cx.vvd.taskproducer.component.ListReader
 import mikufan.cx.vvd.taskproducer.component.VSongJsonWriter
 import mikufan.cx.vvd.taskproducer.config.SystemConfig
@@ -39,11 +40,9 @@ class MainService(
 
   override fun run() = runBlocking(Executors.newSingleThreadExecutor().asCoroutineDispatcher()) { // only one thread env
     coroutineScope {
-      lateinit var record: Record<VSongTask>
-      while (listReader.readRecord()?.also { record = it } != null) {
-        val thisRecord = record
+      for (record in listReader.toIterator()) {
         // launch the job in the controlled executor
-        launch(dispatcher) { processRecord(thisRecord) }
+        launch(dispatcher) { processRecord(record) }
         while (executor.activeCount >= threadLimit) {
           /* don't call readRecord() until concurrent active amount get lower */
         }
