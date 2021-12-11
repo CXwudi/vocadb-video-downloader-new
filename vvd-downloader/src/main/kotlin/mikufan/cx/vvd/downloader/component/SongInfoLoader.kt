@@ -7,6 +7,7 @@ import mikufan.cx.vocadbapiclient.model.SongForApiContract
 import mikufan.cx.vvd.commonkt.naming.toProperFileName
 import mikufan.cx.vvd.downloader.config.IOConfig
 import mikufan.cx.vvd.downloader.model.VSongTask
+import mikufan.cx.vvd.downloader.util.OrderConstants
 import org.jeasy.batch.core.processor.RecordProcessor
 import org.jeasy.batch.core.record.Record
 import org.springframework.core.annotation.Order
@@ -18,7 +19,7 @@ import kotlin.io.path.div
  * @author CX无敌
  */
 @Component
-@Order(2)
+@Order(OrderConstants.SONG_INFO_LOADER_ORDER)
 class SongInfoLoader(
   ioConfig: IOConfig,
   private val objectMapper: ObjectMapper

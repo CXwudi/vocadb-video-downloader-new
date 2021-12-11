@@ -7,6 +7,7 @@ import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.downloader.config.Preference
 import mikufan.cx.vvd.downloader.config.validation.SUPPORTED_SERVICES
 import mikufan.cx.vvd.downloader.model.VSongTask
+import mikufan.cx.vvd.downloader.util.OrderConstants
 import mikufan.cx.vvd.downloader.util.toPVServicesEnum
 import org.jeasy.batch.core.processor.RecordProcessor
 import org.jeasy.batch.core.record.Record
@@ -19,7 +20,7 @@ import java.util.function.ToIntFunction
  * @author CX无敌
  */
 @Component
-@Order(3)
+@Order(OrderConstants.PV_TASKS_DECIDER_ORDER)
 class PvTasksDecider(
   private val preference: Preference
 ) : RecordProcessor<VSongTask, VSongTask> {
