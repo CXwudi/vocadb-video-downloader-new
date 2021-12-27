@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import kotlinx.coroutines.runBlocking
 import mikufan.cx.vocadbapiclient.model.SongForApiContract
 import mikufan.cx.vvd.common.label.VSongLabel
+import mikufan.cx.vvd.commonkt.naming.toProperFileName
 import mikufan.cx.vvd.taskproducer.config.IOConfig
 import mikufan.cx.vvd.taskproducer.model.Parameters
 import mikufan.cx.vvd.taskproducer.model.VSongTask
@@ -44,8 +45,8 @@ internal class VSongJsonWriterTest(
       Header(1, "Test Record", LocalDateTime.now()), VSongTask(
         VSongLabel.builder()
           .order(1)
-          .infoFileName(song.toInfoFileName())
-          .labelFileName(song.toLabelFileName())
+          .infoFileName(song.toProperFileName().toInfoFileName())
+          .labelFileName(song.toProperFileName().toLabelFileName())
           .build(),
         Parameters(song)
       )

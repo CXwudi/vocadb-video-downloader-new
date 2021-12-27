@@ -3,6 +3,7 @@ package mikufan.cx.vvd.taskproducer.component
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.common.label.ValidationPhase
 import mikufan.cx.vvd.commonkt.batch.CustomizableBeanRecordValidator
+import mikufan.cx.vvd.commonkt.naming.toProperFileName
 import mikufan.cx.vvd.taskproducer.model.VSongTask
 import mikufan.cx.vvd.taskproducer.util.toInfoFileName
 import mikufan.cx.vvd.taskproducer.util.toLabelFileName
@@ -22,9 +23,10 @@ class LabelInfoRecorder : RecordProcessor<VSongTask, VSongTask> {
   override fun processRecord(record: Record<VSongTask>): Record<VSongTask> {
     val song = requireNotNull(record.payload.parameters.songForApiContract) { "VSong is null" }
     log.info { "Done processing, creating label info for ${song.defaultName}" }
+    val properFileName = song.toProperFileName()
     return record.apply {
-      payload.label.labelFileName = song.toLabelFileName()
-      payload.label.infoFileName = song.toInfoFileName()
+      payload.label.labelFileName = properFileName.toLabelFileName()
+      payload.label.infoFileName = properFileName.toInfoFileName()
       payload.label.order = record.header.number
     }
   }
