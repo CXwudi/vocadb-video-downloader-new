@@ -19,7 +19,7 @@ config:
 spring:
   jackson:
     deserialization:
-      fail-on-unknown-properties: true
+      fail-on-unknown-properties: false # make it compatible to the new vocadb client
     serialization:
       indent-output: true
     # default-property-inclusion: non_null # disabling for now, we want 3rd app read our json easily
