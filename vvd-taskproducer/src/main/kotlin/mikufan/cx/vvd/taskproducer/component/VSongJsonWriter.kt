@@ -34,7 +34,7 @@ class VSongJsonWriter(
     val labelFile = outputDirectory.resolve(label.labelFileName)
     objectMapper.writeValue(labelFile.toFile(), label)
 
-    log.info { "Wrote info json file to ${infoFile.absolute()} and label json file to ${labelFile.absolute()}. All done!" }
+    log.info { "Wrote info json file to ${infoFile.absolute()} and label json file to ${labelFile.absolute()}" }
   }
 }
 

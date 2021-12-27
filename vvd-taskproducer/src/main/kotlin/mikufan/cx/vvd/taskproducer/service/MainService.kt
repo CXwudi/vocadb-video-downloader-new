@@ -1,9 +1,9 @@
 package mikufan.cx.vvd.taskproducer.service
 
-import kotlinx.coroutines.asCoroutineDispatcher
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.commonkt.batch.RecordErrorWriter
 import mikufan.cx.vvd.commonkt.batch.toIterator
@@ -14,10 +14,7 @@ import mikufan.cx.vvd.taskproducer.model.VSongTask
 import org.jeasy.batch.core.processor.RecordProcessor
 import org.jeasy.batch.core.record.Record
 import org.springframework.stereotype.Service
-import java.util.concurrent.Executors
-import java.util.concurrent.LinkedBlockingDeque
-import java.util.concurrent.ThreadPoolExecutor
-import java.util.concurrent.TimeUnit
+import java.util.concurrent.Semaphore
 
 @Service
 class MainService(
@@ -30,22 +27,14 @@ class MainService(
 
   private val threadLimit = systemConfig.batchSize
 
-  private val executor = ThreadPoolExecutor(
-    threadLimit, threadLimit,
-    1L, TimeUnit.HOURS,
-    LinkedBlockingDeque()
-  )
+  private val semaphore = Semaphore(threadLimit) // only allow threadLimit amount of thread to run concurrently
 
-  private val dispatcher = executor.asCoroutineDispatcher()
-
-  override fun run() = runBlocking(Executors.newSingleThreadExecutor().asCoroutineDispatcher()) { // only one thread env
-    coroutineScope {
+  override fun run() = runBlocking { // only one thread env
+    withContext(Dispatchers.IO) {
+      semaphore.acquire() // thread limit applies even before reading the list
       for (record in listReader.toIterator()) {
-        // launch the job in the controlled executor
-        launch(dispatcher) { processRecord(record) }
-        while (executor.activeCount >= threadLimit) {
-          /* don't call readRecord() until concurrent active amount get lower */
-        }
+        launch { processRecord(record) }
+        semaphore.acquire() // don't read the list immediately after this iteration without thread limit
       }
     } // until all tasks finished
     log.info { "やった！続きはPVをダウンロードするに行くぞ" }
@@ -53,14 +42,19 @@ class MainService(
 
   @Suppress("UNCHECKED_CAST")
   private suspend fun processRecord(record: Record<VSongTask>) {
+    val songName = record.payload.parameters.songForApiContract?.defaultName
+    log.info { "Start processing $songName" }
     var currentRecord: Record<Any> = record as Record<Any>
     try {
       taskProcessors.forEach { recordProcessor ->
         currentRecord = (recordProcessor as RecordProcessor<Any, Any>).processRecord(currentRecord)
       }
       vSongJsonWriter.write(currentRecord as Record<VSongTask>)
+      log.info { "Done processing $songName" }
     } catch (e: Exception) {
       recordErrorWriter.handleError(currentRecord, e)
+    } finally {
+      semaphore.release() // release the semaphore when done to allow next task continues
     }
   }
 }

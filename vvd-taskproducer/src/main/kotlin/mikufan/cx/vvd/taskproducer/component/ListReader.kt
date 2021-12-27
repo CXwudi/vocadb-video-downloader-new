@@ -94,7 +94,7 @@ class ListReader(
     return if (itr.hasNext()) {
       val header = Header(++currentRecordNumber, "In-Memory Iterator", LocalDateTime.now())
       val song = itr.next()
-      log.info { "Start processing ${song.defaultName}" }
+      log.info { "Read ${song.defaultName}" }
       GenericRecord(
         header, VSongTask(
           // there are two places to store order because we need the order info to be saved in json file
