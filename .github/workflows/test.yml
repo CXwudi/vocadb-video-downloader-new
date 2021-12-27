@@ -34,4 +34,4 @@ jobs:
           ${{ runner.os }}-maven- # optional
           
     - name: Run mvn verify
-      run: mvn clean verify -pl vvd-common,vvd-commonkt,vvd-taskproducer,vvd-downloader
+      run: mvn clean verify # -pl vvd-common,vvd-commonkt,vvd-taskproducer,vvd-downloader
