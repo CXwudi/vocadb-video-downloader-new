@@ -38,6 +38,10 @@ class DownloadManager(
       for (downloader in downloaders) {
         for (attemp in 1..(1 + attemp)) {
           val result = downloader.downloadPvAndThumbnail(pv, vSongTask, outputDirectory)
+          result.fold(
+            onSuccess = {},
+            onFailure = {}
+          )
           TODO("handle result")
         }
       }

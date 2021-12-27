@@ -30,6 +30,7 @@ interface BaseDownloader {
    * @param allInfo all the information about this PV, song, task
    * @param outputDirectory where to save the PV and thumbnail
    * @return Result<DownloadFiles> either a [Result.Failure] with exception or paths of all files successfully downloaded
+   * @throws InterruptedException most likely if user presses ctrl+c
    */
   fun downloadPvAndThumbnail(pv: PVContract, allInfo: VSongTask, outputDirectory: Path): Result<DownloadFiles> {
     return try {
@@ -43,6 +44,8 @@ interface BaseDownloader {
   }
 
   /**
+   * This method should not be called outside of [downloadPvAndThumbnail]
+   *
    * Try download the pv and the thumbnail from specific [PVContract] instance to specific directory, given all the information needed from [VSongTask]
    * Implementation can throw any exception to represent a failed download.
    * Otherwise, a [DownloadFiles] instance with all valid files should be returned
@@ -50,7 +53,8 @@ interface BaseDownloader {
    * @param pv PVContract
    * @param allInfo VSongTask
    * @param outputDirectory Path
-   * @return DownloadFiles
+   * @return
+   * @throws InterruptedException most likely if user presses ctrl+c
    */
   fun tryDownload(pv: PVContract, allInfo: VSongTask, outputDirectory: Path): DownloadFiles
 }
