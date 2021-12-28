@@ -8,7 +8,9 @@ import org.jeasy.batch.core.record.Record
  * @date 2021-12-10
  * @author CX无敌
  */
-class RecordReaderIterator<P>(private val reader: RecordReader<P>) : Iterator<Record<P>> {
+class RecordReaderIterator<P> internal constructor(
+  private val reader: RecordReader<P>
+) : Iterator<Record<P>> {
   var next: Record<P>? = null
 
   override fun hasNext(): Boolean {

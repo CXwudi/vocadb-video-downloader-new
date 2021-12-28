@@ -48,7 +48,7 @@ class LabelsReader(
     // in that case, the label file is probably moved from the output directory of this module to the input directory
     // this can avoid bug caused by overwriting labels where both old and new label info present
     val label = VSongLabel.builder()
-      .order(oldLabel.order)
+      .order(oldLabel.order) // remember that users can mix their folders, given multiple same order
       .labelFileName(oldLabel.labelFileName)
       .infoFileName(oldLabel.infoFileName)
       .build()
