@@ -30,6 +30,7 @@ def add_tag(input_file, thumbnail_file, resource_dict, info_dict):
   file["artist"] = info_dict["artistString"]
   file["date"] = info_dict["publishDate"]
   file["genre"] = "VOCALOID"
+  file["comment"] = "All rights belong to {}".format(info_dict["artistString"].split("feat.")[0].strip())
   write_thumbnail(file, thumbnail_file)
 
   file["pv url"] = resource_dict["pvUrl"]
