@@ -1,0 +1,19 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="2021年V家新曲 DownloaderOldApplication" type="SpringBootApplicationConfigurationType"
+                 factoryName="Spring Boot">
+    <module name="vvd-downloader-old"/>
+    <option name="SPRING_BOOT_MAIN_CLASS" value="mikufan.cx.vvd.downloader.DownloaderApplication"/>
+    <option name="ALTERNATIVE_JRE_PATH"/>
+    <additionalParameters>
+      <param>
+        <option name="enabled" value="true"/>
+        <option name="name" value="spring.config.import"/>
+        <option name="value"
+                value="$PROJECT_DIR$/../../Vocaloid Coding POC/Project VD test/2021年V家新曲 downloader-config.yml"/>
+      </param>
+    </additionalParameters>
+    <method v="2">
+      <option name="Make" enabled="true"/>
+    </method>
+  </configuration>
+</component>
