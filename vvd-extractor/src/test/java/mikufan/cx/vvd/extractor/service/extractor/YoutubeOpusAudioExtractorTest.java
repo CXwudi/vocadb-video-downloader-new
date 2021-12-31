@@ -27,9 +27,9 @@ class YoutubeOpusAudioExtractorTest extends TestEnvHolder {
   @Test
   void testExtract() throws InterruptedException {
     var extractStatus = extractor.extractAudio(
-        Path.of("D:\\11134\\Videos\\Vocaloid Coding POC\\Project VD test\\2019年V家新曲 sample PVs 2"
+        Path.of("D:/coding-workspace/Vocaloid Coding POC/Project VD test/2019年V家新曲 sample PVs 2"
             , "【初音ミク】glare【kz】-pv.mkv"),
-        Path.of("D:\\11134\\Videos\\Vocaloid Coding POC\\Project VD test\\2019年V家新曲 sample audios 2"),
+        Path.of("D:/coding-workspace/Vocaloid Coding POC/Project VD test/2019年V家新曲 sample audios 2"),
         "【初音ミク】glare【kz】-audio.ogg"
     );
     assertTrue(extractStatus.isSucceed());

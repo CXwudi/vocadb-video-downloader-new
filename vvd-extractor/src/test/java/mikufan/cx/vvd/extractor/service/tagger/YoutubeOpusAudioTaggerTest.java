@@ -21,8 +21,9 @@ class YoutubeOpusAudioTaggerTest extends TestEnvHolder {
 
   @Test
   void testTagging() throws InterruptedException {
-    var inputDir = Path.of("D:\\11134\\Videos\\Vocaloid Coding POC\\Project VD test\\2019年V家新曲 sample PVs 2");
-    var outputDir = Path.of("D:\\11134\\Videos\\Vocaloid Coding POC\\Project VD test\\2019年V家新曲 sample audios 2");
+    // WARNING: The PC doesn't have python in windows, need to run this test in wsl environment
+    var inputDir = Path.of("/mnt/d/coding-workspace/Vocaloid Coding POC/Project VD test/2019年V家新曲 sample PVs 2");
+    var outputDir = Path.of("/mnt/d/coding-workspace/Vocaloid Coding POC/Project VD test/2019年V家新曲 sample audios 2");
 
     var extractStatus = tagger.handleTagging(
         outputDir.resolve("【初音ミク】glare【kz】-audio.ogg"),

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author CX无敌
@@ -31,7 +33,9 @@ public class YoutubeOpusAudioExtractor implements AudioExtractor {
 
   @Override
   public ExtractStatus extractAudio(Path pv, Path directory, String fileName) throws InterruptedException {
-    var extract1Pb = new ProcessBuilder(environmentConfig.getFfmpegLaunchCmd(),
+    List<String> cmdList = new ArrayList<>();
+    cmdList.addAll(environmentConfig.getFfmpegLaunchCmd());
+    cmdList.addAll(List.of(
         "-i", pv.toAbsolutePath().toString(),
         //answer yes to override
         "-y",
@@ -39,17 +43,18 @@ public class YoutubeOpusAudioExtractor implements AudioExtractor {
         "-vn",
         // copy audio
         "-acodec", "copy",
-        fileName);
+        fileName));
+    var extract1Pb = new ProcessBuilder(cmdList);
     extract1Pb.directory(directory.toFile());
     log.debug("Running extraction with command: {}", extract1Pb.command());
 
     try {
       ProcessUtil.runShortProcess(extract1Pb.start(), log::info, log::debug);
-    } catch (IOException e){
+    } catch (IOException e) {
       return ExtractStatus.failure(String.format("Fail to extract audio for %s: %s", pv, e.getMessage()));
     }
 
-    if (Files.exists(directory.resolve(fileName))){
+    if (Files.exists(directory.resolve(fileName))) {
       return ExtractStatus.success();
     } else {
       return ExtractStatus.failure(String.format("Can not find extracted file %s", fileName));

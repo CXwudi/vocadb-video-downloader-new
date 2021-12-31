@@ -9,7 +9,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 /**
  * @author CX无敌
@@ -24,7 +25,7 @@ import javax.validation.constraints.NotBlank;
 @ToString
 public class EnvironmentConfig {
 
-  @NotBlank String pythonLaunchCmd;
-  @NotBlank String ffmpegLaunchCmd;
+  @NotEmpty List<String> pythonLaunchCmd;
+  @NotEmpty List<String> ffmpegLaunchCmd;
 
 }

@@ -12,13 +12,17 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This infact can handle any .mp4, .flv, .ts video file, as long as their audio are AAC
+ *
  * @author CX无敌
  * @date 2020-12-29
  */
-@Service @Slf4j
+@Service
+@Slf4j
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class NiconicoM4aAudioExtractor implements AudioExtractor {
@@ -38,11 +42,11 @@ public class NiconicoM4aAudioExtractor implements AudioExtractor {
     );
     try {
       var extraction1Status = extractRawAudio(pv, directory, rawAudioFileName);
-      if (extraction1Status.isFailure()){
+      if (extraction1Status.isFailure()) {
         return extraction1Status;
       }
       var extraction2Status = wrapAudio(directory, rawAudioFileName, fileName);
-      if (extraction2Status.isSucceed()){
+      if (extraction2Status.isSucceed()) {
         Files.delete(directory.resolve(rawAudioFileName));
       }
       return extraction2Status;
@@ -52,7 +56,9 @@ public class NiconicoM4aAudioExtractor implements AudioExtractor {
   }
 
   private ExtractStatus extractRawAudio(Path pv, Path directory, String rawAudioFileName) throws IOException, InterruptedException {
-    var extract1Pb = new ProcessBuilder(environmentConfig.getFfmpegLaunchCmd(),
+    List<String> cmdList = new ArrayList<>();
+    cmdList.addAll(environmentConfig.getFfmpegLaunchCmd());
+    cmdList.addAll(List.of(
         "-i", pv.toAbsolutePath().toString(),
         //answer yes to override
         "-y",
@@ -60,13 +66,14 @@ public class NiconicoM4aAudioExtractor implements AudioExtractor {
         "-vn",
         // copy audio
         "-acodec", "copy",
-        rawAudioFileName);
+        rawAudioFileName));
+    var extract1Pb = new ProcessBuilder(cmdList);
     extract1Pb.directory(directory.toFile());
     log.debug("Running first extraction with command: {}", extract1Pb.command());
 
     ProcessUtil.runShortProcess(extract1Pb.start(), log::info, log::debug);
 
-    if (Files.exists(directory.resolve(rawAudioFileName))){
+    if (Files.exists(directory.resolve(rawAudioFileName))) {
       return ExtractStatus.success();
     } else {
       return ExtractStatus.failure(String.format("Can not find extracted temp file %s", rawAudioFileName));
@@ -74,19 +81,22 @@ public class NiconicoM4aAudioExtractor implements AudioExtractor {
   }
 
   private ExtractStatus wrapAudio(Path directory, String rawAudioFileName, String finalFileName) throws IOException, InterruptedException {
-    var extract2Pb = new ProcessBuilder(environmentConfig.getFfmpegLaunchCmd(),
+    List<String> cmdList = new ArrayList<>();
+    cmdList.addAll(environmentConfig.getFfmpegLaunchCmd());
+    cmdList.addAll(List.of(
         "-i", directory.resolve(rawAudioFileName).toAbsolutePath().toString(),
         "-y",
         "-acodec", "copy",
         // simulate MP4Box way of extracting m4a
         "-movflags", "+faststart",
-        finalFileName);
+        finalFileName));
+    var extract2Pb = new ProcessBuilder(cmdList);
     extract2Pb.directory(directory.toFile());
     log.debug("Running second extraction with command: {}", extract2Pb.command());
 
     ProcessUtil.runShortProcess(extract2Pb.start(), log::info, log::debug);
 
-    if (Files.exists(directory.resolve(finalFileName))){
+    if (Files.exists(directory.resolve(finalFileName))) {
       return ExtractStatus.success();
     } else {
       return ExtractStatus.failure(String.format("Can not find final extracted file %s", rawAudioFileName));

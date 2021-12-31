@@ -10,7 +10,7 @@ def add_tag(input_file, thumbnail_file, resource_dict, info_dict):
   file["title"] = info_dict["defaultName"]
   file["artist"] = info_dict["artistString"]
   file["date"] = info_dict["publishDate"]
-  file["genre"] = "VOCALOID or others"
+  file["genre"] = "VOCALOID"
   file.save()
 
   file = MP4(input_file)
@@ -20,7 +20,7 @@ def add_tag(input_file, thumbnail_file, resource_dict, info_dict):
 
   tags["covr"] = [MP4Cover(data=thumbnail_data)]
   tags["----:com.apple.iTunes:pv url"] = resource_dict["pvUrl"].encode()
-  tags["----:com.apple.iTunes:downloaded by"] = "youtube-dl (tsukumijima's niconico fix version https://github.com/tsukumijima/youtube-dl)".encode()
+  tags["----:com.apple.iTunes:downloaded by"] = "yt-dlp (included tsukumijima's niconico fix, see https://github.com/yt-dlp/yt-dlp/pull/49)".encode()
   tags["----:com.apple.iTunes:extracted by"] = "FFmpeg".encode()
   tags["----:com.apple.iTunes:tags edited by"] = "Python mutagen library".encode()
   tags["----:com.apple.iTunes:tags provided by"] = "VocaDB (https://vocadb.net/S/{})".format(info_dict["id"]).encode()

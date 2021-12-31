@@ -29,7 +29,9 @@ public class ExtractorServiceImpl implements ExtractorService {
   public ExtractStatus handleExtract(
       @Validated(ValidationPhase.Two.class) ExtractContext extractContext) {
     var extractor = extractContext.getAudioExtractor();
-    var audioFileName = FileNameUtil.buildAudioFileName(extractContext.getSongInfo(), extractContext.getAudioExtension());
+    var songInfo = extractContext.getSongInfo();
+
+    var audioFileName = FileNameUtil.buildAudioFileName(songInfo, extractContext.getAudioExtension());
     log.info("Extracting to {} by {}", audioFileName, extractor.getName());
 
     return extractor.extractAudio(

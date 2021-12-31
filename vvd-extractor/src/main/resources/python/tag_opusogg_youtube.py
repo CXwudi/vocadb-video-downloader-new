@@ -29,11 +29,11 @@ def add_tag(input_file, thumbnail_file, resource_dict, info_dict):
   file["title"] = info_dict["defaultName"]
   file["artist"] = info_dict["artistString"]
   file["date"] = info_dict["publishDate"]
-  file["genre"] = "VOCALOID or others"
+  file["genre"] = "VOCALOID"
   write_thumbnail(file, thumbnail_file)
 
   file["pv url"] = resource_dict["pvUrl"]
-  file["downloaded by"] = "youtube-dl (tsukumijima's niconico fix version https://github.com/tsukumijima/youtube-dl)"
+  file["downloaded by"] = "yt-dlp (included tsukumijima's niconico fix, see https://github.com/yt-dlp/yt-dlp/pull/49)"
   file["extracted by"] = "FFmpeg"
   file["tags edited by"] = "Python mutagen library"
   file["tags provided by"] = "VocaDB (https://vocadb.net/S/{})".format(info_dict["id"])

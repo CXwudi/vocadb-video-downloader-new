@@ -10,4 +10,4 @@ config:
   environment:
     # string representing how to launch external programs
     python-launch-cmd: python
-    ffmpeg-launch-cmd: D:\11134\Videos\Vocaloid Coding POC\ffmpeg.exe
+    ffmpeg-launch-cmd: D:/coding-workspace/Vocaloid Coding POC/ffmpeg.exe

@@ -27,10 +27,10 @@ class NiconicoM4AAudioExtractorTest extends TestEnvHolder {
   @Test
   void testExtract() throws InterruptedException {
     var extractStatus = extractor.extractAudio(
-        Path.of("D:\\11134\\Videos\\Vocaloid Coding POC\\Project VD test\\2019年V家新曲 sample PVs 2"
+        Path.of("D:/coding-workspace/Vocaloid Coding POC/Project VD test/2019年V家新曲 sample PVs 2"
             , "【初音ミク, 鏡音リン】リングの熾天使【Mitchie M】-pv.mp4"),
-        Path.of("D:\\11134\\Videos\\Vocaloid Coding POC\\Project VD test\\2019年V家新曲 sample audios 2"),
-            "【初音ミク, 鏡音リン】リングの熾天使【Mitchie M】-audio.m4a"
+        Path.of("D:/coding-workspace/Vocaloid Coding POC/Project VD test/2019年V家新曲 sample audios 2"),
+        "【初音ミク, 鏡音リン】リングの熾天使【Mitchie M】-audio.m4a"
     );
     assertTrue(extractStatus.isSucceed());
   }

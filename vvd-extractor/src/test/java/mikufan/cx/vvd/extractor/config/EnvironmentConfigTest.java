@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author CX无敌
@@ -22,7 +23,14 @@ class EnvironmentConfigTest extends TestEnvHolder {
 
   @Test
   void testExec() throws IOException, InterruptedException {
-    var processBuilder = new ProcessBuilder(environmentConfig.getFfmpegLaunchCmd(), "-version");
+    var ffmpegLaunchCmd = environmentConfig.getFfmpegLaunchCmd();
+    ffmpegLaunchCmd.addAll(List.of("-version"));
+    var processBuilder = new ProcessBuilder(ffmpegLaunchCmd);
     ProcessUtil.runShortProcess(processBuilder.start(), log::info, log::debug);
+
+    var pythonLaunchCmd = environmentConfig.getPythonLaunchCmd();
+    pythonLaunchCmd.addAll(List.of("--version"));
+    var processBuilder2 = new ProcessBuilder(pythonLaunchCmd);
+    ProcessUtil.runShortProcess(processBuilder2.start(), log::info, log::debug);
   }
 }
