@@ -1,6 +1,6 @@
 # application setting
 
-io: # vocadb favourite list id in int, output, and error output dir, can be relative path from the terminal current directory
+io: # vocadb favourite list id in int, output, and error output dir, can be relative path from the application directory
   input-list-id:
   output-directory:
   error-directory:
