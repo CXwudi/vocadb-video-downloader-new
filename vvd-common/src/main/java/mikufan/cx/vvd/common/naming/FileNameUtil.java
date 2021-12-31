@@ -20,19 +20,19 @@ public interface FileNameUtil {
     return buildBasicFileNameForSong(song) + FileNamePostFix.RESOURCES + ".json";
   }
 
-  static String buildPvFileName(SongForApi song, String extensionWithDot){
+  static String buildPvFileName(SongForApi song, String extensionWithDot) {
     return buildBasicFileNameForSong(song) + FileNamePostFix.VIDEO + extensionWithDot;
   }
 
-  static String buildThumbnailFileName(SongForApi song, String extensionWithDot){
+  static String buildThumbnailFileName(SongForApi song, String extensionWithDot) {
     return buildBasicFileNameForSong(song) + FileNamePostFix.THUMBNAIL + extensionWithDot;
   }
 
-  static String buildAudioFileName(SongForApi song, String extensionWithDot){
-    return buildBasicFileNameForSong(song) + FileNamePostFix.AUDIO + extensionWithDot;
+  static String buildAudioFileName(SongForApi song, String pvService, String pvId, String extensionWithDot) {
+    return String.format("%s - %s [%s]", buildBasicFileNameForSong(song), pvService, pvId) + extensionWithDot;
   }
 
-  static String buildBasicFileNameForSong(SongForApi song){
+  static String buildBasicFileNameForSong(SongForApi song) {
     var artists = song.getArtistString().split("feat\\.");
     var vocals = artists[1].trim();
     var producers = artists[0].trim();

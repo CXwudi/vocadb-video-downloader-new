@@ -26,7 +26,10 @@ public class TaggerServiceImpl implements TaggerService {
   @Override @SneakyThrows(InterruptedException.class)
   public ExtractStatus handleTagging(ExtractContext extractContext) {
     var tagger = extractContext.getAudioTagger();
-    var audioFileName = FileNameUtil.buildAudioFileName(extractContext.getSongInfo(), extractContext.getAudioExtension());
+    var songInfo = extractContext.getSongInfo();
+    var songResource = extractContext.getSongResource();
+
+    var audioFileName = FileNameUtil.buildAudioFileName(songInfo, songResource.getPvService(), songResource.getPvId(), extractContext.getAudioExtension());
     log.info("Tagging {} by {}", audioFileName, tagger.getName());
 
     return tagger.handleTagging(
