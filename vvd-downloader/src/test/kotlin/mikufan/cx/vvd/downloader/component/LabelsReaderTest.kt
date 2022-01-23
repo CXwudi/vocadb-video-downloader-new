@@ -20,7 +20,7 @@ class LabelsReaderTest(
         }
       } while (record != null)
       // our own sample input directory have 170 labels
-      count shouldBe 170
+      count shouldBe 154 // WARNING: update the count when changed to new list
     }
   }
 })

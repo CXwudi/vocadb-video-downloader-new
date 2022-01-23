@@ -32,7 +32,8 @@ fun SongForApiContract.toProperFileName(): SongProperFileName {
   val vocals = artists[1].trim()
   val producers = artists[0].trim()
   val songName: String = requireNotNull(defaultName) { "song name is null" }
-  return SongProperFileName(removeIllegalChars(String.format("【%s】%s【%s】", vocals, songName, producers)))
+  val vocadbId = requireNotNull(id) { "id is null" }
+  return SongProperFileName(removeIllegalChars(String.format("【%s】%s【%s】[%s]", vocals, songName, producers, vocadbId)))
 }
 
 fun removeIllegalChars(fileName: String): String {

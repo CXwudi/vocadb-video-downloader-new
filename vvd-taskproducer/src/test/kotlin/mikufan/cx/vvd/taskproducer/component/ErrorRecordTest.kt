@@ -52,7 +52,7 @@ class ErrorRecordTest(
   @Test
   fun `should write error vsong task with exception correctly`() {
     recordErrorWriter.handleError(dummyRecord, RuntimeVocaloidException("some error fufufu"))
-    assertTrue(errorDirectory.resolve("【various】PaⅢ.REVOLUTION【雄之助, 攻】-error.json").isRegularFile())
+    assertTrue(errorDirectory.resolve("【various】PaⅢ.REVOLUTION【雄之助, 攻】[299406]-error.json").isRegularFile())
   }
 
   @Test

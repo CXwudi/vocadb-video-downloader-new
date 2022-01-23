@@ -56,7 +56,7 @@ internal class VSongJsonWriterTest(
   @Test
   fun `should able to write label and song info on proper location`() = runBlocking {
     vSongJsonWriter.write(dummyRecord)
-    assertTrue(outputDirectory.resolve("【various】PaⅢ.REVOLUTION【雄之助, 攻】-label.json").isRegularFile())
-    assertTrue(outputDirectory.resolve("【various】PaⅢ.REVOLUTION【雄之助, 攻】-songInfo.json").isRegularFile())
+    assertTrue(outputDirectory.resolve("【various】PaⅢ.REVOLUTION【雄之助, 攻】[299406]-label.json").isRegularFile())
+    assertTrue(outputDirectory.resolve("【various】PaⅢ.REVOLUTION【雄之助, 攻】[299406]-songInfo.json").isRegularFile())
   }
 }
