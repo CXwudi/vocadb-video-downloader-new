@@ -32,6 +32,9 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven- # optional
-          
+
+    - name: Grant execute permission for mvnw
+      run: chmod +x mvnw
+
     - name: Run mvn verify
-      run: mvn clean verify # -pl vvd-common,vvd-commonkt,vvd-taskproducer,vvd-downloader
+      run: ./mvnw clean verify # -pl vvd-common,vvd-commonkt,vvd-taskproducer,vvd-downloader
