@@ -73,7 +73,8 @@ interface BaseDownloader {
 
 data class DownloadFiles(
   val pvFile: Path,
-  val thumbnailFile: Path
+  val thumbnailFile: Path,
+  // TODO: need handle of audio file
 )
 
 private fun Path.renameWithSameExtension(newFileNameWithoutDot: String): Path {

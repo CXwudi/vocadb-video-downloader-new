@@ -7,8 +7,6 @@
     <module>vvd-common</module>
     <module>vvd-commonkt</module>
     <module>vvd-taskproducer</module>
-    <module>vvd-downloader-old</module>
-    <module>vvd-extractor</module>
     <module>vvd-downloader</module>
   </modules>
   <parent>
@@ -51,11 +49,6 @@
 
       <dependency>
         <groupId>com.github.CXwudi</groupId>
-        <artifactId>youtubedl-java</artifactId>
-        <version>1.2.RC6</version>
-      </dependency>
-      <dependency>
-        <groupId>com.github.CXwudi</groupId>
         <artifactId>vocadb-openapi-client-java</artifactId>
         <version>1.0.1</version>
       </dependency>
@@ -79,13 +72,13 @@
       <dependency>
         <groupId>io.kotest</groupId>
         <artifactId>kotest-runner-junit5-jvm</artifactId>
-        <version>4.6.3</version>
+        <version>5.1.0</version>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>io.kotest.extensions</groupId>
         <artifactId>kotest-extensions-spring</artifactId>
-        <version>1.0.1</version>
+        <version>1.1.0</version>
         <scope>test</scope>
       </dependency>
     </dependencies>
