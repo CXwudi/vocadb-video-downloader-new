@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.SplittableRandom;
 
 /**
+ * Use this exception to indicate the business logic error
+ *
  * @author CX无敌
  * @date 2020-12-20
  */
@@ -22,7 +24,7 @@ public class RuntimeVocaloidException extends RuntimeException {
     private static final List<String> PLAINTS = List.of("Oh No! ", "どうしよう、", "やめて、", "\ud83d\ude2d, ", "\ud83d\ude30, ");
     private static final List<String> SENTENCES = List.of(
         "初音ミク & Miku fan CX are crying due to this error",
-        "初音ミク & Miku fan CX can\'t continue the dream",
+        "初音ミク & Miku fan CX can't continue the dream",
         "System is quiting and 初音ミク & Miku fan CX have to leave",
         "\n皆に忘れ去られた時\n" + "心らしきものが消えて\n" +
             "暴走の果てに見える\n" + "終わる世界...　「VOCALOID」\n" +

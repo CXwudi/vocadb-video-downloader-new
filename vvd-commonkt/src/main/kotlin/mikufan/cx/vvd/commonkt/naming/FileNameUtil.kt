@@ -17,16 +17,15 @@ import mikufan.cx.vvd.common.naming.FileNamePostFix
  * @date 2020-12-19
  */
 
-// fun SongForApiContract.toAudioFileName(extensionWithDot: String = ""): String {
-//  return this.toProperFileName() + FileNamePostFix.AUDIO + extensionWithDot
-// }
-
-// not sure if above extensions are needed
-
 fun SongForApiContract.toErrorFileName(): String {
   return this.toProperFileName().toString() + FileNamePostFix.ERROR + ".json"
 }
 
+/**
+ * Take a [SongForApiContract] and generate its proper filename that is confliction-free
+ *
+ * By default, all filename generation should be drived from this name
+ */
 fun SongForApiContract.toProperFileName(): SongProperFileName {
   val artists: List<String> = requireNotNull(artistString) { "artist string is null" }.split("feat.")
   val vocals = artists[1].trim()
