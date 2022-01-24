@@ -26,7 +26,7 @@ class DownloadManager(
 
   private val outputDirectory = ioConfig.outputDirectory
   private val errorDirectory = ioConfig.errorDirectory
-  private val attemp = preference.maxRetryCount
+  private val attempt = preference.maxRetryCount
 
   override fun processRecord(record: Record<VSongTask>): Record<VSongTask> {
     val failures = mutableListOf<Exception>()
@@ -36,7 +36,7 @@ class DownloadManager(
     for (pv in pvs) {
       val downloaders = enabledDownloaders.getDownloaderForPvService(requireNotNull(pv.service?.toPVServicesEnum()))
       for (downloader in downloaders) {
-        for (attemp in 1..(1 + attemp)) {
+        for (attempt in 1..(1 + attempt)) {
           val result = downloader.downloadPvAndThumbnail(pv, vSongTask, outputDirectory)
           result.fold(
             onSuccess = {},
