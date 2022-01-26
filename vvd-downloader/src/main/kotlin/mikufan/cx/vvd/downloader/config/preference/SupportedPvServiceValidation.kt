@@ -29,8 +29,13 @@ val SUPPORTED_SERVICES: Set<PVServicesEnum> = setOf(
  * @date 2020-12-21
  */
 @Constraint(validatedBy = [SupportPvServicesValidator::class])
-@Target(AnnotationTarget.FIELD, AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.PROPERTY, AnnotationTarget.PROPERTY_GETTER)
-@kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
+@Target(
+  AnnotationTarget.FIELD,
+  AnnotationTarget.VALUE_PARAMETER,
+  AnnotationTarget.PROPERTY,
+  AnnotationTarget.PROPERTY_GETTER
+)
+@Retention(AnnotationRetention.RUNTIME)
 @MustBeDocumented
 annotation class AreSupportedPvServices(
   val message: String = "List containing unsupported pv services",
