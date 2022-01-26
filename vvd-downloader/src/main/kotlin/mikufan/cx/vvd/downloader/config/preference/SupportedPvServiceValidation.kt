@@ -30,10 +30,8 @@ val SUPPORTED_SERVICES: Set<PVServicesEnum> = setOf(
  */
 @Constraint(validatedBy = [SupportPvServicesValidator::class])
 @Target(
-  AnnotationTarget.FIELD,
-  AnnotationTarget.VALUE_PARAMETER,
-  AnnotationTarget.PROPERTY,
-  AnnotationTarget.PROPERTY_GETTER
+  AnnotationTarget.FIELD, AnnotationTarget.VALUE_PARAMETER,
+  AnnotationTarget.PROPERTY, AnnotationTarget.PROPERTY_GETTER
 )
 @Retention(AnnotationRetention.RUNTIME)
 @MustBeDocumented
@@ -64,10 +62,13 @@ class SupportPvServicesValidator : ConstraintValidator<AreSupportedPvServices, L
           context
             .buildConstraintViolationWithTemplate(
               "${unsupportedServices.joinToString()} " +
-                "${when (unsupportedServices.size) {
-                  1 -> "is"
-                  else -> "are"}
-                } not supported yet")
+                  "${
+                    when (unsupportedServices.size) {
+                      1 -> "is"
+                      else -> "are"
+                    }
+                  } not supported yet"
+            )
             .addConstraintViolation()
           false
         }
