@@ -4,7 +4,7 @@ import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vocadbapiclient.model.PVContract
 import mikufan.cx.vocadbapiclient.model.PVType
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
-import mikufan.cx.vvd.downloader.config.Preference
+import mikufan.cx.vvd.downloader.config.preference.Preference
 import mikufan.cx.vvd.downloader.config.validation.SUPPORTED_SERVICES
 import mikufan.cx.vvd.downloader.model.VSongTask
 import mikufan.cx.vvd.downloader.util.OrderConstants

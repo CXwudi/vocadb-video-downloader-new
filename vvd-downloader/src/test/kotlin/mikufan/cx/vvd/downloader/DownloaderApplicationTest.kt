@@ -1,7 +1,7 @@
 package mikufan.cx.vvd.downloader
 
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vvd.downloader.config.Preference
+import mikufan.cx.vvd.downloader.config.preference.Preference
 import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringShouldSpec
 import org.springframework.beans.factory.annotation.Autowired

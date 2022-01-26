@@ -1,4 +1,4 @@
-package mikufan.cx.vvd.downloader.config
+package mikufan.cx.vvd.downloader.config.preference
 
 import mikufan.cx.vvd.downloader.config.validation.AreSupportedPvServices
 import mikufan.cx.vvd.downloader.util.PVServicesEnum

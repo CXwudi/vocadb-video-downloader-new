@@ -1,4 +1,4 @@
-package mikufan.cx.vvd.downloader.config
+package mikufan.cx.vvd.downloader.config.enablement
 
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import mikufan.cx.inlinelogging.KInlineLogging

@@ -1,8 +1,8 @@
 package mikufan.cx.vvd.downloader.config.validation
 
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vvd.downloader.config.Enablement
-import mikufan.cx.vvd.downloader.config.Preference
+import mikufan.cx.vvd.downloader.config.enablement.Enablement
+import mikufan.cx.vvd.downloader.config.preference.Preference
 import org.springframework.core.env.Environment
 import org.springframework.stereotype.Component
 import javax.validation.Constraint
@@ -18,7 +18,7 @@ import kotlin.reflect.KClass
 
 @Constraint(validatedBy = [EnablementValidator::class])
 @Target(AnnotationTarget.CLASS, AnnotationTarget.TYPE)
-@kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
+@Retention(AnnotationRetention.RUNTIME)
 @MustBeDocumented
 annotation class IsValidEnablement(
   val message: String = "Not a valid enablement",

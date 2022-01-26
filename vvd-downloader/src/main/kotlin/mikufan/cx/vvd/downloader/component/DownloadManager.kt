@@ -3,7 +3,7 @@ package mikufan.cx.vvd.downloader.component
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.downloader.component.downloader.EnabledDownloaders
 import mikufan.cx.vvd.downloader.config.IOConfig
-import mikufan.cx.vvd.downloader.config.Preference
+import mikufan.cx.vvd.downloader.config.preference.Preference
 import mikufan.cx.vvd.downloader.model.VSongTask
 import mikufan.cx.vvd.downloader.util.OrderConstants
 import mikufan.cx.vvd.downloader.util.toPVServicesEnum

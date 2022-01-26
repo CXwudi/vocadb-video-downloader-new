@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.downloader.component.downloader
 
-import mikufan.cx.vvd.downloader.config.Enablement
+import mikufan.cx.vvd.downloader.config.enablement.Enablement
 import mikufan.cx.vvd.downloader.util.PVServicesEnum
 import org.springframework.stereotype.Component
 
