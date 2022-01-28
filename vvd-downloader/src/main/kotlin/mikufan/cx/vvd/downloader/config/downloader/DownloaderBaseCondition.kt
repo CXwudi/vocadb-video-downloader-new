@@ -21,16 +21,17 @@ sealed interface DownloaderBaseCondition : Condition {
    */
   override fun matches(context: ConditionContext, metadata: AnnotatedTypeMetadata): Boolean {
     val environment = context.environment
-    val res = environment.getProperty("config.preference.pv-preference", "")
-      .contains(pvServices.toString()) &&
-        environment.getProperty("config.enablement.$pvServices", "")
-          .contains(downloaderName)
-    // there will be double logging problem on this code because this base condition is used on both
+    // we are not logging here because this base condition is used on both
     // configuration properties classes and downloader implementation classes.
+    // which will end up logging twice
+
 //    if (!res) {
 //      log.debug { "Skip loading $downloaderName downloader for $pvServices" }
 //    }
-    return res
+    return environment.getProperty("config.preference.pv-preference", "")
+      .contains(pvServices.toString()) &&
+        environment.getProperty("config.enablement.$pvServices", "")
+          .contains(downloaderName)
   }
 
   val pvServices: PVServicesEnum
