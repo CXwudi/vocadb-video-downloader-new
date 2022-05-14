@@ -37,7 +37,7 @@ class DownloadManager(
       val downloaders = enabledDownloaders.getDownloaderForPvService(requireNotNull(pv.service?.toPVServicesEnum()))
       for (downloader in downloaders) {
         for (attempt in 1..(1 + attempt)) {
-          val result = downloader.downloadPvAndThumbnail(pv, vSongTask, outputDirectory)
+          val result = downloader.download(pv, vSongTask, outputDirectory)
           result.fold(
             onSuccess = {},
             onFailure = {}
