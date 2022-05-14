@@ -16,9 +16,7 @@ config: # configuration
   downloader:
     NicoNicoDouga:
       youtube-dl:
-        launch-cmd: # python, ./youtube-dl/__main__.py  # can be separated by comma as well
-          - python
-          - ./youtube-dl/__main__.py
+        launch-cmd: [ "python", './youtube-dl/__main__.py' ] # can be inline as [] list, can be single or double quotes
         external-args:
           - --write-thumbnail
 
@@ -32,8 +30,8 @@ config: # configuration
 
     Bilibili:
       youtube-dl:
-        launch-cmd:
-          - python
-          - ./youtube-dl/__main__.py
+        launch-cmd: python, ./youtube-dl/__main__.py # can be separated by comma as well
         external-args:
           - --write-thumbnail
+  environment:
+    mediainfo-launch-cmd: D:\coding-workspace\Vocaloid Coding POC\MediaInfo.exe

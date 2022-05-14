@@ -61,7 +61,7 @@
       <dependency>
         <groupId>com.github.CXwudi</groupId>
         <artifactId>kotlin-jvm-idiomatic-exec</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
       </dependency>
 
       <dependency>

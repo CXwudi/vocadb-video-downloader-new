@@ -43,7 +43,7 @@ class MimeTypeDetectionPoc : SpringShouldSpec({
       detectType2("D:\\coding-workspace\\Vocaloid Coding POC\\Test Videos\\To be continued... - 初音ミク - 青屋夏生 - pic.webp")
     }
 
-    should("detect ts video file") {
+    should("detect ts video file") { // only this one is wrongly detected
       detectType2("D:\\coding-workspace\\Vocaloid Coding POC\\Test Videos\\Fexxxn feat. 音街ウナ「ラブ・バルーン」MV.ts")
     }
 
