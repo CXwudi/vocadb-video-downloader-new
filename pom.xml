@@ -24,7 +24,8 @@
   <properties>
     <java.version>17</java.version>
     <!--    <kotlin.version>1.6.0</kotlin.version>-->
-
+    <!-- explicitly setting kotlin coroutine version to resolve old dep from spring -->
+    <kotlinx-coroutines-core-jvm.version>1.6.1</kotlinx-coroutines-core-jvm.version>
   </properties>
 
   <repositories>
