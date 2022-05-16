@@ -25,13 +25,22 @@ import kotlin.io.path.readText
  * @author CX无敌
  */
 abstract class BaseCliDownloader(
-  protected val downloadConfig: DownloadConfig,
-  protected val tika: Tika,
+  private val downloadConfig: DownloadConfig,
+  private val tika: Tika,
   environmentConfig: EnvironmentConfig,
-  protected val objectMapper: ObjectMapper,
+  private val objectMapper: ObjectMapper,
 ) : BaseDownloader() {
 
   private val mediainfoLaunchCmd = environmentConfig.mediainfoLaunchCmd
+
+  private val threadPool = ThreadPoolExecutor(
+    3,
+    3,
+    downloadConfig.timeout,
+    downloadConfig.unit,
+    LinkedBlockingDeque(),
+    ExternalProcessThreadFactory("$targetPvService-$downloaderName")
+  )
 
   /**
    * download using command line, then use apache tika and mediainfo to identify the file type
@@ -42,8 +51,9 @@ abstract class BaseCliDownloader(
     val commands = buildCommands(url, baseFileName, outputDirectory)
 
     // execute commands
-    log.info { "Executing command: ${commands.joinToString(" ", "'", "'")}" }
+    log.info { "Executing command: ${commands.joinToString(" ", "`", "`")}" }
     runCmd(*commands.toTypedArray()).sync(downloadConfig.timeout, downloadConfig.unit, threadPool) {
+      // the order must be stdout first and stderr second, due to how ExternalProcessThreadFactory is coded
       onStdOutEachLine {
         if (it.isNotBlank()) {
           log.info { it }
@@ -57,9 +67,15 @@ abstract class BaseCliDownloader(
     }
 
     // finds the downloaded files
-    log.info { "Done command execution, detecting types for downloaded files" }
+    log.info { "Done command execution for $baseFileName, collecting downloaded files to their types" }
     val downloadedFiles: List<Path> = outputDirectory.listDirectoryEntries("*$baseFileName*")
     // identify which is PV, audio, thumbnails using apache tika and mediainfo
+    val downloadFilesToReturn = findDownloadedFiles(downloadedFiles)
+    log.info { "Done downloading $downloadFilesToReturn" }
+    return downloadFilesToReturn
+  }
+
+  protected open fun findDownloadedFiles(downloadedFiles: List<Path>): DownloadFiles { // open the function for testing
     val typePathMap = downloadedFiles.associateBy { detectType(it) }
     val pvFile = typePathMap[DownloadFileType.PV]
     val audioFile = typePathMap[DownloadFileType.AUDIO]
@@ -73,16 +89,14 @@ abstract class BaseCliDownloader(
     if (thumbnailFile == null) {
       throw IllegalStateException("Thumbnail file is not found")
     }
-    val downloadFiles = DownloadFiles(
+    return DownloadFiles(
       pvFile = pvFile,
       audioFile = audioFile,
       thumbnailFile = thumbnailFile,
     )
-    log.info { "Done downloading $downloadFiles" }
-    return downloadFiles
   }
 
-  private fun detectType(it: Path): DownloadFileType {
+  protected open fun detectType(it: Path): DownloadFileType { // open the function for testing
     val type = tika.detect(it)
     return when {
       type.contains("video") || type.contains("matroska") -> DownloadFileType.PV // mkv and webp usually get detected as matroska by tika
@@ -97,8 +111,8 @@ abstract class BaseCliDownloader(
         }.toTypedArray()
         val sb = StringBuilder()
 
-        log.debug { "running ${cmd.joinToString(" ", "'", "'")} to detect type" }
-        runCmd(*cmd).sync {
+        log.debug { "running ${cmd.joinToString(" ", "`", "`")} to detect type" }
+        runCmd(*cmd).sync(executor = threadPool) {
           onStdOut { sb.append(it.readText()) }
         }
         val mediaInfoJson = objectMapper.readTree(sb.toString())
@@ -126,20 +140,17 @@ abstract class BaseCliDownloader(
    * Build the command line used to download the needed resources (pv/audio + thumbnail).
    *
    * The command line will be run under the current directory of this project (so that user can specify the relative path of the executable file).
-   * Make sure specify the correct output path of downloaded files using [outputDirectory]
+   *
+   * The downloaded files must be stored in [outputDirectory]
    *
    * The downloaded files must contain the string [baseFileName] in their file names (so that we can find these downloaded files).
+   *
+   * @param baseFileName the base file name of the downloaded files
+   * @param outputDirectory the directory where the downloaded files will be stored
+   * @param url the url of the pv to be downloaded
+   * @return the command line in list of strings that will be used to download the needed resources
    */
   abstract fun buildCommands(url: String, baseFileName: String, outputDirectory: Path): List<String>
-
-  private val threadPool = ThreadPoolExecutor(
-    3,
-    3,
-    downloadConfig.timeout,
-    downloadConfig.unit,
-    LinkedBlockingDeque(),
-    ExternalProcessThreadFactory("$targetPvService-$downloaderName")
-  )
 }
 
 private class ExternalProcessThreadFactory(baseName: String) : ThreadFactory {

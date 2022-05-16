@@ -34,4 +34,4 @@ config: # configuration
         external-args:
           - --write-thumbnail
   environment:
-    mediainfo-launch-cmd: D:\coding-workspace\Vocaloid Coding POC\MediaInfo.exe
+    mediainfo-launch-cmd: fake-mediainfo-cmd

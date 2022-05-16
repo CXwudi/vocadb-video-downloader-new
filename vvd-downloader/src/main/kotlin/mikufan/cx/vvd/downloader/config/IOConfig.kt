@@ -17,8 +17,17 @@ import java.nio.file.Path
 @Validated
 @PathsNotSame(fields = ["inputDirectory", "outputDirectory", "errorDirectory"])
 data class IOConfig(
+  /**
+   * the input directory
+   */
   @field:IsDirectory val inputDirectory: Path,
+  /**
+   * the output directory
+   */
   @field:IsDirectory(optionalCheck = true) val outputDirectory: Path,
+  /**
+   * the error directory, can be inside the output directory
+   */
   @field:IsDirectory(optionalCheck = true) val errorDirectory: Path
 ) {
 
