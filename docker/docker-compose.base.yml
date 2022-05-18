@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  base:
+    image: vvd-env
+    container_name: vvd-base
+    build:
+      context: .
+      dockerfile: Dockerfile-env-setup
+    volumes:
+      - ../:/vvd
+      - ~/.m2:/root/.m2
+    working_dir: /vvd

@@ -1,4 +1,5 @@
-FROM ubuntu:latest as base
+## using debian 11-slim, which is bullseye-slim
+FROM debian:bullseye-slim as base
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV DEBIAN_FRONTEND noninteractive ## everyone is using this, so I add it in
 RUN apt-get update \
@@ -7,7 +8,7 @@ RUN apt-get update \
 FROM base as ffmpeg-builder
 RUN apt-get install -y  \
     curl \
-    xz-utils ## needed for tar
+    xz-utils ## https://superuser.com/questions/801159/cannot-decompress-tar-xz-file-getting-xz-cannot-exec-no-such-file-or-direct
 
 # install ffmpeg based on different architectures
 WORKDIR /opt/ffmpeg
@@ -29,7 +30,6 @@ RUN arch=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) && \
          && mv ffmpeg-*/ff* ./bin; \
     fi
 
-## using debian 11-slim, which is bullseye-slim
 FROM base as main
 MAINTAINER "CXwudi"
 
