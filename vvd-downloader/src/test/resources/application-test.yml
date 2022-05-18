@@ -16,7 +16,7 @@ config: # configuration
   downloader:
     NicoNicoDouga:
       youtube-dl:
-        launch-cmd: [ "python", './youtube-dl/__main__.py' ] # can be inline as [] list, can be single or double quotes
+        launch-cmd: [ "python", './youtube-dl/__main__.py' ] # can be inline as [] list, can use single or double quotes
         external-args:
           - --write-thumbnail
 
@@ -34,4 +34,4 @@ config: # configuration
         external-args:
           - --write-thumbnail
   environment:
-    mediainfo-launch-cmd: fake-mediainfo-cmd
+    mediainfo-launch-cmd: mediainfo

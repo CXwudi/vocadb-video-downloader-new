@@ -6,9 +6,8 @@ import mikufan.cx.vvd.common.naming.FileNamePostFix
 import mikufan.cx.vvd.commonkt.naming.SongProperFileName
 import mikufan.cx.vvd.downloader.model.VSongTask
 import mikufan.cx.vvd.downloader.util.PVServicesEnum
+import mikufan.cx.vvd.downloader.util.renameWithSameExtension
 import java.nio.file.Path
-import kotlin.io.path.extension
-import kotlin.io.path.moveTo
 
 /**
  * @date 2021-12-26
@@ -75,12 +74,6 @@ abstract class BaseDownloader {
    * @throws InterruptedException most likely if user presses ctrl+c
    */
   protected abstract fun tryDownload(url: String, baseFileName: String, outputDirectory: Path): DownloadFiles
-}
-
-private fun Path.renameWithSameExtension(newFileNameWithoutDot: String): Path {
-  val sibling = this.resolveSibling(newFileNameWithoutDot + this.extension)
-  this.moveTo(sibling, overwrite = true)
-  return sibling
 }
 
 internal fun SongProperFileName.toPvFileName(extensionWithDot: String = ""): String {
