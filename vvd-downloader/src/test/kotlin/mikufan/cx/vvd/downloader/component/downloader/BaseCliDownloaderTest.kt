@@ -2,8 +2,7 @@ package mikufan.cx.vvd.downloader.component.downloader
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.kotest.assertions.fail
-import io.mockk.every
-import io.mockk.mockk
+import io.kotest.matchers.string.shouldContain
 import mikufan.cx.vocadbapiclient.model.PVContract
 import mikufan.cx.vocadbapiclient.model.SongForApiContract
 import mikufan.cx.vvd.common.label.VSongLabel
@@ -16,10 +15,9 @@ import mikufan.cx.vvd.downloader.util.PVServicesEnum
 import mikufan.cx.vvd.downloader.util.SpringBootDirtyTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringShouldSpec
 import org.apache.tika.Tika
-import kotlin.io.path.Path
-import kotlin.io.path.copyTo
-import kotlin.io.path.div
-import kotlin.io.path.extension
+import org.hibernate.validator.internal.util.Contracts.assertTrue
+import java.nio.file.Path
+import kotlin.io.path.*
 
 @SpringBootDirtyTestWithTestProfile
 class BaseCliDownloaderTest(
@@ -50,10 +48,9 @@ class BaseCliDownloaderTest(
     val targetPath = source.copyTo(outputDir / "$targetFileNameWithoutExtension.$extension")
     targetPath.toFile().deleteOnExit()
   }
+  val mockDownloader = DummyCliDownloader(downloadConfig, tika, environmentConfig, objectMapper)
 
   context("assume download success") {
-    val mockDownloader = mockk<BaseCliDownloader>(relaxed = true)
-    every { mockDownloader.buildCommands(any(), any(), any()) }.answers { listOf("java", "--version") }
 
     copyTestSource("「クリーデンス」／霧島feat.初音ミク [sm39825313].jpg", "【vocalist】song1【producer】[39393]")
     copyTestSource("「クリーデンス」／霧島feat.初音ミク-sm39825313-trim.ts", "【vocalist】song1【producer】[39393]")
@@ -85,13 +82,32 @@ class BaseCliDownloaderTest(
       should("recognized downloaded files for song$it") {
         mockDownloader.download(fakeTask.parameters.songForApiContract!!.pvs!![0], fakeTask, outputDir).onFailure {
           fail("should not fail")
+        }.onSuccess { (pvFile, audioFile, thumbnailFile) ->
+          assertTrue(pvFile?.exists() == true || audioFile?.exists() == true, "pvFile or audioFile should exist")
+          assertTrue(thumbnailFile.exists(), "thumbnailFile should exist")
         }
+      }
+    }
+  }
+
+  context("assume failed download") {
+
+    val fakeTask = buildFakeTask("song-not-exist")
+    should("throw exception about not finding the file") {
+      mockDownloader.download(fakeTask.parameters.songForApiContract!!.pvs!![0], fakeTask, outputDir).onSuccess {
+        fail("should not success")
+      }.onFailure { e ->
+        e.message shouldContain "None of"
+        e is IllegalStateException
       }
     }
   }
 })
 
-abstract class DummyCliDownloader(
+/**
+ * can't use mockk because of https://github.com/mockk/mockk/issues/321
+ */
+class DummyCliDownloader(
   downloadConfig: DownloadConfig,
   tika: Tika,
   environmentConfig: EnvironmentConfig,
@@ -102,6 +118,8 @@ abstract class DummyCliDownloader(
   environmentConfig,
   objectMapper
 ) {
+  override fun buildCommands(url: String, baseFileName: String, outputDirectory: Path): List<String> =
+    listOf("java", "--version")
 
   override val downloaderName: String = "dummy-success-dl"
   override val targetPvService: PVServicesEnum = PVServicesEnum.NICONICODOUGA

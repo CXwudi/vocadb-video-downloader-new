@@ -8,7 +8,6 @@ import mikufan.cx.vvd.downloader.config.DownloadConfig
 import mikufan.cx.vvd.downloader.config.EnvironmentConfig
 import org.apache.tika.Tika
 import java.nio.file.Path
-import java.util.*
 import java.util.concurrent.LinkedBlockingDeque
 import java.util.concurrent.ThreadFactory
 import java.util.concurrent.ThreadPoolExecutor
@@ -59,16 +58,18 @@ abstract class BaseCliDownloader(
           log.info { it }
         }
       }
-      onStdErrEachLine {
+      onStdOutEachLine {
         if (it.isNotBlank()) {
           log.debug { it }
         }
       }
+      onStdIn { } // simply reset the counter
     }
 
     // finds the downloaded files
     log.info { "Done command execution for $baseFileName, collecting downloaded files to their types" }
-    val downloadedFiles: List<Path> = outputDirectory.listDirectoryEntries("*$baseFileName*")
+    val downloadedFiles: List<Path> =
+      outputDirectory.listDirectoryEntries("*${baseFileName.replace("[", "\\[").replace("]", "\\]")}*")
     // identify which is PV, audio, thumbnails using apache tika and mediainfo
     val downloadFilesToReturn = findDownloadedFiles(downloadedFiles)
     log.info { "Done downloading $downloadFilesToReturn" }
@@ -155,10 +156,11 @@ abstract class BaseCliDownloader(
 
 private class ExternalProcessThreadFactory(baseName: String) : ThreadFactory {
 
-  private val names = listOf("$baseName-stdout", "$baseName-stderr", "$baseName-stdin").toCollection(LinkedList())
+  private val names = listOf("$baseName-stdout", "$baseName-stderr", "$baseName-stdin")
+  private var counter = 0
 
   override fun newThread(r: Runnable): Thread {
-    return Thread(r, names.pop())
+    return Thread(r, names[counter++ % names.size])
   }
 }
 
