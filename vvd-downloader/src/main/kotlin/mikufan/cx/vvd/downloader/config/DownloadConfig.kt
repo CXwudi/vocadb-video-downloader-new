@@ -16,6 +16,13 @@ import javax.validation.constraints.Positive
 @ConstructorBinding
 @Validated
 data class DownloadConfig(
+  /**
+   * Maximum time to wait for downloading PV and thumbnail
+   */
   @field:Positive val timeout: Long,
+  /**
+   * Time unit of timeout
+   */
+  // currently https://hibernate.atlassian.net/browse/HV-1852 mentioned a false warning bug of HV000254
   @field:NotNull val unit: TimeUnit,
 )
