@@ -29,7 +29,10 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven- # optional
-    
+          
+    - name: Grant execute permission for mvnw
+      run: chmod +x mvnw
+      
       # In this step, this action saves a list of existing images,
       # the cache is created without them in the post run.
       # It also restores the cache if it exists.
@@ -45,6 +48,7 @@ jobs:
       
     - name: Run tests in docker container
       run: docker-compose -f 'docker/docker-compose.base.yml' -f 'docker/docker-compose.test-all.yml' up -d
+      
 #     - name: Setup Java JDK
 #       uses: actions/setup-java@v3
 #       with:
@@ -52,8 +56,7 @@ jobs:
 #         distribution: 'temurin' # See 'Supported distributions' for available options
 #         java-version: '17'
 
-#     - name: Grant execute permission for mvnw
-#       run: chmod +x mvnw
+
 
 #     - name: Run mvn verify
 #       run: ./mvnw clean verify # -pl vvd-common,vvd-commonkt,vvd-taskproducer,vvd-downloader
