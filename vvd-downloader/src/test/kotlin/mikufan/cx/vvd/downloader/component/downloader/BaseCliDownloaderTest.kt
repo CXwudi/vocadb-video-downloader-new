@@ -46,7 +46,7 @@ class BaseCliDownloaderTest(
     val source = Path("../test-files/$originFileNameWithExtension")
     val extension = source.extension
     val targetPath = source.copyTo(outputDir / "$targetFileNameWithoutExtension.$extension")
-    targetPath.toFile().deleteOnExit()
+    targetPath.toFile().deleteOnExit() // this is having problem
   }
   val mockDownloader = DummyCliDownloader(downloadConfig, tika, environmentConfig, objectMapper)
 
@@ -77,13 +77,17 @@ class BaseCliDownloaderTest(
     copyTestSource("Kikuo - 幽体離脱 [UHH2KKN0xoc].webp", "【vocalist】song4【producer】[39393]")
     copyTestSource("Kikuo - 幽体離脱 [UHH2KKN0xoc]-trim.webm", "【vocalist】song4【producer】[39393]")
 
-    (1..4).forEach {
-      val fakeTask = buildFakeTask("song$it")
-      should("recognized downloaded files for song$it") {
+    (1..4).forEach { number ->
+      val fakeTask = buildFakeTask("song$number")
+      should("recognized downloaded files for song$number") {
         mockDownloader.download(fakeTask.parameters.songForApiContract!!.pvs!![0], fakeTask, outputDir).onFailure {
-          fail("should not fail")
+          fail("should not fail for song$number")
         }.onSuccess { (pvFile, audioFile, thumbnailFile) ->
-          assertTrue(pvFile?.exists() == true || audioFile?.exists() == true, "pvFile or audioFile should exist")
+          if (number == 2) {
+            assertTrue(pvFile?.exists() == true && audioFile?.exists() == true, "pvFile and audioFile should exist")
+          } else {
+            assertTrue(pvFile?.exists() == true || audioFile?.exists() == true, "pvFile or audioFile should exist")
+          }
           assertTrue(thumbnailFile.exists(), "thumbnailFile should exist")
         }
       }

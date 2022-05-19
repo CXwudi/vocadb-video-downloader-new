@@ -9,7 +9,7 @@ import kotlin.io.path.moveTo
  */
 
 fun Path.renameWithSameExtension(newFileNameWithoutDot: String): Path {
-  val sibling = this.resolveSibling(newFileNameWithoutDot + this.extension)
+  val sibling = this.resolveSibling("$newFileNameWithoutDot.${this.extension}")
   this.moveTo(sibling, overwrite = true)
   return sibling
 }
