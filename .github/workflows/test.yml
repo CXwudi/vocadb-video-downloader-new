@@ -10,7 +10,7 @@ on:
 #     branches: [ main ]
 
 jobs:
-  java-test:
+  docker-java-test:
 
     runs-on: ubuntu-latest
     env: 
@@ -36,14 +36,15 @@ jobs:
     - uses: satackey/action-docker-layer-caching@v0.0.11
       # Ignore the failure of a step and avoid terminating the job.
       continue-on-error: true
+    
     - name: Login to DockerHub
       run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       
     - name: Build docker image
-      run: docker-compose build -f 'docker/docker-compose.base.yml' -f 'docker/docker-compose.test-all.yml'
+      run: docker-compose -f 'docker/docker-compose.base.yml' -f 'docker/docker-compose.test-all.yml' build
       
-    - name: Run tests in docker
-      run: docker-compose up -f 'docker/docker-compose.base.yml' -f 'docker/docker-compose.test-all.yml' -d
+    - name: Run tests in docker container
+      run: docker-compose -f 'docker/docker-compose.base.yml' -f 'docker/docker-compose.test-all.yml' up -d
 #     - name: Setup Java JDK
 #       uses: actions/setup-java@v3
 #       with:
