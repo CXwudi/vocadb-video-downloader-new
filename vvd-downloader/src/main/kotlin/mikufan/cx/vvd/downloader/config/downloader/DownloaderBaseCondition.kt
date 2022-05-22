@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ConditionContext
 import org.springframework.core.type.AnnotatedTypeMetadata
 
 /**
+ * all downloader condition runs this logic, only difference is the pv service type and downloader name
  * @date 2021-07-18
  * @author CX无敌
  */
