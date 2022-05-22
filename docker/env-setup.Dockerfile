@@ -6,14 +6,16 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \
     && apt-get upgrade -y
 
-FROM base as ffmpeg-builder
+FROM base as external_bin_setuper
 RUN apt-get install -y  \
     curl \
     xz-utils ## https://superuser.com/questions/801159/cannot-decompress-tar-xz-file-getting-xz-cannot-exec-no-such-file-or-direct
 
 # install ffmpeg based on different architectures
 WORKDIR /opt/ffmpeg
+# get architecture
 RUN arch=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) && \
+    # setup ffmpeg
     # for amd64, use yt-dlp specific ffmpeg
     if [ "$arch" == "amd64" ]; then \
           curl --request GET -L \
@@ -62,11 +64,11 @@ RUN apt-get install -y \
 
 # install Java from other image,
 ENV JAVA_HOME=/opt/java/openjdk
-COPY --from=eclipse-temurin:17-focal $JAVA_HOME $JAVA_HOME
+COPY --from=eclipse-temurin:17 $JAVA_HOME $JAVA_HOME
 ENV PATH="${JAVA_HOME}/bin:${PATH}"
 
 # install ffmpeg from builder
-COPY --from=ffmpeg-builder /opt/ffmpeg/bin /usr/local/bin
+COPY --from=external_bin_setuper /opt/ffmpeg/bin /usr/local/bin
 
 # simplify image
 RUN rm -rf /var/lib/apt/lists/*
