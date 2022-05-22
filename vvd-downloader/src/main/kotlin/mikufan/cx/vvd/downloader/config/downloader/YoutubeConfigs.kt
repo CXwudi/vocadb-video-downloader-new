@@ -4,6 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
 import org.springframework.context.annotation.Conditional
 import org.springframework.validation.annotation.Validated
+import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotEmpty
 
 /**
@@ -16,6 +17,6 @@ import javax.validation.constraints.NotEmpty
 @Conditional(YoutubeYtDlCondition::class)
 data class YoutubeYtDlConfigs(
   @field:NotEmpty
-  override val launchCmd: List<String>,
-  val externalArgs: List<String>,
+  override val launchCmd: List<@NotBlank String>,
+  val externalArgs: List<@NotBlank String>,
 ) : DownloaderBaseConfig
