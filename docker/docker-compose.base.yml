@@ -6,7 +6,7 @@ services:
     container_name: vvd-base
     build:
       context: .
-      dockerfile: Dockerfile-env-setup
+      dockerfile: env-setup.Dockerfile
     volumes:
       - ../:/vvd
       - ~/.m2:/root/.m2
