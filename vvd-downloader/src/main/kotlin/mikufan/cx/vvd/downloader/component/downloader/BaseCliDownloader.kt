@@ -17,6 +17,8 @@ import kotlin.io.path.listDirectoryEntries
  * A common base class for downloader that execute external command lines tools
  *
  * Subclasses can simply override [buildCommands] to complete the download implementation.
+ * Subclasses can also override any method called in [tryDownload] to customize more.
+ *
  * Otherwise, considering extending [BaseDownloader] class instead
  *
  * @date 2022-05-14

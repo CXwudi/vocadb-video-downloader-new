@@ -68,7 +68,7 @@ abstract class BaseDownloader {
    *
    * @param url the url of the PV
    * @param baseFileName the base file name that will be included in both thumbnail and pv files.
-   * this string is saved to be a filename. no other normalization needed.
+   * this string is already normalized and safe to be a filename. no other normalization needed.
    * @param outputDirectory Path
    * @return DownloadFiles
    * @throws InterruptedException most likely if user presses ctrl+c

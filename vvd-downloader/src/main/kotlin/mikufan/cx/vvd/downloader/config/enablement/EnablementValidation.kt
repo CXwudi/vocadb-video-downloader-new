@@ -1,7 +1,6 @@
-package mikufan.cx.vvd.downloader.config.validation
+package mikufan.cx.vvd.downloader.config.enablement
 
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vvd.downloader.config.enablement.Enablement
 import mikufan.cx.vvd.downloader.config.preference.Preference
 import org.springframework.core.env.Environment
 import org.springframework.stereotype.Component
@@ -59,7 +58,7 @@ class EnablementValidator(
       } else {
         // then check if downloader names are correct
         val unknownDownloaderNames = declaredDownloaderNames.filterNot { downloaderName ->
-          // by checking if an property exists
+          // by checking if a property exists, not necessarily checking if it is not empty
           environment.containsProperty("config.downloader.$pvService.$downloaderName.launch-cmd")
         }
         unknownDownloaderNames.forEach { downloaderName ->
