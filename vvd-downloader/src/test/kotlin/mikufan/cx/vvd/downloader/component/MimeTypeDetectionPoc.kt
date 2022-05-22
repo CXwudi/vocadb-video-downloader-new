@@ -5,6 +5,7 @@ import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringShouldSpec
 import org.apache.tika.Tika
+import org.junit.jupiter.api.Disabled
 import kotlin.io.path.Path
 
 /**
@@ -14,6 +15,7 @@ import kotlin.io.path.Path
 @SpringBootTestWithTestProfile(
   customProperties = ["logging.level.mikufan.cx.vvd.downloader.component=trace"]
 )
+@Disabled("has too many local file directory that not working in CI")
 class MimeTypeDetectionPoc : SpringShouldSpec({
   val tika = Tika()
   log.trace { "trace is enabled" }
