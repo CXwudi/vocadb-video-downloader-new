@@ -33,16 +33,18 @@ abstract class BaseCliDownloader(
 
   private val mediainfoLaunchCmd = environmentConfig.mediainfoLaunchCmd
 
-  private val processThreadFactory = ExternalProcessThreadFactory("$targetPvService-$downloaderName")
-  
-  private val threadPool = ThreadPoolExecutor(
-    3,
-    3,
-    downloadConfig.timeout,
-    downloadConfig.unit,
-    LinkedBlockingDeque(),
-    processThreadFactory
-  )
+  private val processThreadFactory by lazy { ExternalProcessThreadFactory("$targetPvService-$downloaderName") }
+
+  private val threadPool by lazy {
+    ThreadPoolExecutor(
+      3,
+      3,
+      downloadConfig.timeout,
+      downloadConfig.unit,
+      LinkedBlockingDeque(),
+      processThreadFactory
+    )
+  }
 
   /**
    * download using command line, then use apache tika and mediainfo to identify the file type
@@ -107,7 +109,10 @@ abstract class BaseCliDownloader(
    * @param baseFileName String the base file name of the downloaded files
    * @return DownloadFiles the files that were downloaded and their types
    */
-  protected open fun findDownloadedFiles(outputDirectory: Path, baseFileName: String): DownloadFiles { // open the function for testing
+  protected open fun findDownloadedFiles(
+    outputDirectory: Path,
+    baseFileName: String
+  ): DownloadFiles { // open the function for testing
     val downloadedFiles: List<Path> =
       outputDirectory.listDirectoryEntries("*${baseFileName.replace("[", "\\[").replace("]", "\\]")}*")
     val typePathMap = downloadedFiles.associateBy { detectType(it) }
@@ -185,7 +190,7 @@ private class ExternalProcessThreadFactory(baseName: String) : ThreadFactory {
   override fun newThread(r: Runnable): Thread {
     return Thread(r, names[counter++ % names.size])
   }
-  
+
   fun resetCounter() {
     counter = 0
   }
