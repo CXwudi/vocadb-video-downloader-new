@@ -36,3 +36,9 @@ build/
 vvd-downloader-old/logs
 vvd-taskproducer/20xx年V家新曲/
 vvd-downloader/2021年V家新曲-test-download/
+
+### My Exe ###
+vvd-downloader/aria2c.exe
+vvd-downloader/ffmpeg.exe
+vvd-downloader/MediaInfo.exe
+vvd-downloader/yt-dlp.exe
