@@ -12,6 +12,6 @@ sealed class YoutubeDownloaderBaseCondition : DownloaderBaseCondition {
   override val pvServices = PVServicesEnum.YOUTUBE
 }
 
-class YoutubeYtDlCondition : NicoNicoDownloaderBaseCondition() {
+class YoutubeYtDlCondition : YoutubeDownloaderBaseCondition() {
   override val downloaderName: String = YT_YTDL
 }

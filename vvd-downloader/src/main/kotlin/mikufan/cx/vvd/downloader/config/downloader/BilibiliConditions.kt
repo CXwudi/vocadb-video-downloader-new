@@ -12,6 +12,6 @@ sealed class BilibiliDownloaderBaseCondition : DownloaderBaseCondition {
   override val pvServices = PVServicesEnum.BILIBILI
 }
 
-class BilibiliYtDlCondition : NicoNicoDownloaderBaseCondition() {
+class BilibiliYtDlCondition : BilibiliDownloaderBaseCondition() {
   override val downloaderName: String = BILI_YTDL
 }
