@@ -13,5 +13,5 @@ sealed class NicoNicoDownloaderBaseCondition : DownloaderBaseCondition {
 }
 
 class NicoNicoYtDlCondition : NicoNicoDownloaderBaseCondition() {
-  override val downloaderName: String = NND_YOUTUBE_DL
+  override val downloaderName: String = NND_YTDL
 }

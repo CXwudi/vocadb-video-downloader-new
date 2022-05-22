@@ -9,5 +9,5 @@ package mikufan.cx.vvd.downloader.config.downloader
 
 
 const val NND_CONFIG_PROP_KEY = "config.downloader.nico-nico-douga"
-const val NND_YOUTUBE_DL = "youtube-dl"
+const val NND_YTDL = "youtube-dl"
 const val NND_NN_DOWNLOAD = "nndownload"

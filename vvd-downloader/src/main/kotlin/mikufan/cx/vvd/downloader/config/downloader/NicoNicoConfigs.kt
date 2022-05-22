@@ -13,7 +13,7 @@ import javax.validation.constraints.NotEmpty
  */
 
 
-@ConfigurationProperties("$NND_CONFIG_PROP_KEY.$NND_YOUTUBE_DL") // warn: you have to change NicoNicoDouga to nico-nico-douga
+@ConfigurationProperties("$NND_CONFIG_PROP_KEY.$NND_YTDL") // warn: you have to change NicoNicoDouga to nico-nico-douga
 @ConstructorBinding
 @Validated
 @Conditional(NicoNicoYtDlCondition::class)
