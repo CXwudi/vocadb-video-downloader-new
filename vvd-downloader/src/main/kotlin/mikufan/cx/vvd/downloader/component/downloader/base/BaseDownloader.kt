@@ -1,4 +1,4 @@
-package mikufan.cx.vvd.downloader.component.downloader
+package mikufan.cx.vvd.downloader.component.downloader.base
 
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vocadbapiclient.model.PVContract
@@ -76,16 +76,13 @@ abstract class BaseDownloader {
   protected abstract fun tryDownload(url: String, baseFileName: String, outputDirectory: Path): DownloadFiles
 }
 
-internal fun SongProperFileName.toPvFileName(extensionWithDot: String = ""): String {
-  return this.toString() + FileNamePostFix.VIDEO + extensionWithDot
-}
+internal fun SongProperFileName.toPvFileName(extensionWithDot: String = ""): String =
+  this.toString() + FileNamePostFix.VIDEO + extensionWithDot
 
-internal fun SongProperFileName.toAudioFileName(extensionWithDot: String = ""): String {
-  return this.toString() + FileNamePostFix.AUDIO + extensionWithDot
-}
+internal fun SongProperFileName.toAudioFileName(extensionWithDot: String = ""): String =
+  this.toString() + FileNamePostFix.AUDIO + extensionWithDot
 
-internal fun SongProperFileName.toThumbnailFileName(extensionWithDot: String = ""): String {
-  return this.toString() + FileNamePostFix.THUMBNAIL + extensionWithDot
-}
+internal fun SongProperFileName.toThumbnailFileName(extensionWithDot: String = ""): String =
+  this.toString() + FileNamePostFix.THUMBNAIL + extensionWithDot
 
 private val log = KInlineLogging.logger()

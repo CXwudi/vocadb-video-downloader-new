@@ -6,6 +6,7 @@ import io.kotest.matchers.string.shouldContain
 import mikufan.cx.vocadbapiclient.model.PVContract
 import mikufan.cx.vocadbapiclient.model.SongForApiContract
 import mikufan.cx.vvd.common.label.VSongLabel
+import mikufan.cx.vvd.downloader.component.downloader.base.BaseCliDownloader
 import mikufan.cx.vvd.downloader.config.DownloadConfig
 import mikufan.cx.vvd.downloader.config.EnvironmentConfig
 import mikufan.cx.vvd.downloader.config.IOConfig
@@ -29,6 +30,7 @@ class BaseCliDownloaderTest(
 ) : SpringShouldSpec({
 
   val outputDir = ioConfig.outputDirectory
+
   val buildFakeTask = fun(name: String): VSongTask {
     val fakePv = PVContract().apply {
       url = "https://fake.url"
@@ -42,12 +44,14 @@ class BaseCliDownloaderTest(
     val fakeTask = VSongTask(VSongLabel.builder().build(), Parameters(fakeSong))
     return fakeTask
   }
+
   val copyTestSource = fun(originFileNameWithExtension: String, targetFileNameWithoutExtension: String) {
     val source = Path("../test-files/$originFileNameWithExtension")
     val extension = source.extension
     val targetPath = source.copyTo(outputDir / "$targetFileNameWithoutExtension.$extension")
     targetPath.toFile().deleteOnExit() // this is having problem
   }
+
   val mockDownloader = DummyCliDownloader(downloadConfig, tika, environmentConfig, objectMapper)
 
   context("assume download success") {

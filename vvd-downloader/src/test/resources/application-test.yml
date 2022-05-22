@@ -18,7 +18,7 @@ config: # configuration
       youtube-dl:
         launch-cmd: [ "python", './youtube-dl/__main__.py' ] # can be inline as [] list, can use single or double quotes
         external-args:
-          - --write-thumbnail
+          - -v
 
     Youtube:
       youtube-dl:
@@ -26,12 +26,12 @@ config: # configuration
           - python
           - ./youtube-dl/__main__.py
         external-args:
-          - --write-thumbnail
+          - -v
 
     Bilibili:
       youtube-dl:
         launch-cmd: python, ./youtube-dl/__main__.py # can be separated by comma as well
         external-args:
-          - --write-thumbnail
+          - -v
   environment:
     mediainfo-launch-cmd: mediainfo

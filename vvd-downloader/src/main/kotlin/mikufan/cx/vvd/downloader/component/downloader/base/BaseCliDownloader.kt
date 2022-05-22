@@ -1,4 +1,4 @@
-package mikufan.cx.vvd.downloader.component.downloader
+package mikufan.cx.vvd.downloader.component.downloader.base
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import mikufan.cx.executil.runCmd

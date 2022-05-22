@@ -1,4 +1,4 @@
-package mikufan.cx.vvd.downloader.component.downloader
+package mikufan.cx.vvd.downloader.component.downloader.base
 
 import mikufan.cx.vvd.downloader.config.enablement.Enablement
 import mikufan.cx.vvd.downloader.util.PVServicesEnum
