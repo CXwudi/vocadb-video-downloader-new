@@ -28,12 +28,3 @@ data class Parameters(
       .toProperFileName()
   }
 }
-
-/**
- * using a data class to group related PV infos
- * used during downloading phase only
- */
-data class PVTask(
-  val pv: PVContract,
-// other field that is val ? = null
-)
