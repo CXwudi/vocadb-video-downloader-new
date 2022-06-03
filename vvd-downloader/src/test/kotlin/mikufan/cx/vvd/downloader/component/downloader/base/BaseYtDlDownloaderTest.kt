@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import io.kotest.matchers.shouldBe
 import mikufan.cx.vocadbapiclient.model.SongForApiContract
 import mikufan.cx.vvd.common.label.VSongLabel
-import mikufan.cx.vvd.downloader.component.downloader.BilibiliYtDlDownloader
-import mikufan.cx.vvd.downloader.component.downloader.NicoNicoYtDlDownloader
-import mikufan.cx.vvd.downloader.component.downloader.YoutubeYtDlDownloader
+import mikufan.cx.vvd.downloader.component.downloader.implementation.BilibiliYtDlDownloader
+import mikufan.cx.vvd.downloader.component.downloader.implementation.NicoNicoYtDlDownloader
+import mikufan.cx.vvd.downloader.component.downloader.implementation.YoutubeYtDlDownloader
 import mikufan.cx.vvd.downloader.config.IOConfig
 import mikufan.cx.vvd.downloader.model.Parameters
 import mikufan.cx.vvd.downloader.model.VSongTask

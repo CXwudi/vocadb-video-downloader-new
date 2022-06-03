@@ -1,12 +1,12 @@
-package mikufan.cx.vvd.downloader.component.downloader
+package mikufan.cx.vvd.downloader.component.downloader.implementation
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import mikufan.cx.vvd.downloader.component.downloader.base.BaseYtDlDownloader
 import mikufan.cx.vvd.downloader.config.DownloadConfig
 import mikufan.cx.vvd.downloader.config.EnvironmentConfig
-import mikufan.cx.vvd.downloader.config.downloader.NND_YTDL
+import mikufan.cx.vvd.downloader.config.downloader.BILI_YTDL
+import mikufan.cx.vvd.downloader.config.downloader.BilibiliYtDlConfigs
 import mikufan.cx.vvd.downloader.config.downloader.NicoNicoYtDlCondition
-import mikufan.cx.vvd.downloader.config.downloader.NicoNicoYtDlConfig
 import mikufan.cx.vvd.downloader.util.PVServicesEnum
 import org.apache.tika.Tika
 import org.springframework.context.annotation.Conditional
@@ -18,8 +18,8 @@ import org.springframework.stereotype.Component
  */
 @Component
 @Conditional(NicoNicoYtDlCondition::class)
-class NicoNicoYtDlDownloader(
-  config: NicoNicoYtDlConfig,
+class BilibiliYtDlDownloader(
+  config: BilibiliYtDlConfigs,
   downloadConfig: DownloadConfig,
   tika: Tika,
   environmentConfig: EnvironmentConfig,
@@ -27,8 +27,8 @@ class NicoNicoYtDlDownloader(
 ) : BaseYtDlDownloader(
   downloadConfig, tika, environmentConfig, objectMapper
 ) {
-  override val downloaderName: String = NND_YTDL
-  override val targetPvService: PVServicesEnum = PVServicesEnum.NICONICODOUGA
+  override val downloaderName: String = BILI_YTDL
+  override val targetPvService: PVServicesEnum = PVServicesEnum.BILIBILI
   override val launchCmd: List<String> = config.launchCmd
   override val externalArgs: List<String> = config.externalArgs
 }
