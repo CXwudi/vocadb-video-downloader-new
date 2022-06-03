@@ -1,6 +1,7 @@
 package mikufan.cx.vvd.downloader.component
 
 import mikufan.cx.inlinelogging.KInlineLogging
+import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.downloader.component.downloader.base.EnabledDownloaders
 import mikufan.cx.vvd.downloader.config.IOConfig
 import mikufan.cx.vvd.downloader.config.preference.Preference
@@ -25,7 +26,6 @@ class DownloadManager(
 ) : RecordProcessor<VSongTask, VSongTask> {
 
   private val outputDirectory = ioConfig.outputDirectory
-  private val errorDirectory = ioConfig.errorDirectory
   private val attempt = preference.maxRetryCount
 
   override fun processRecord(record: Record<VSongTask>): Record<VSongTask> {
@@ -33,20 +33,45 @@ class DownloadManager(
     val vSongTask = record.payload
     val pvs = requireNotNull(record.payload.parameters.pvCandidates) { "null pv candidate before download?" }
 
+    log.info { "Start downloading attempts on ${vSongTask.parameters.songProperFileName}" }
     for (pv in pvs) {
       val downloaders = enabledDownloaders.getDownloaderForPvService(requireNotNull(pv.service?.toPVServicesEnum()))
       for (downloader in downloaders) {
         for (attempt in 1..(1 + attempt)) {
+          log.debug { "  on attempt $attempt on pv ${pv.url} with downloader ${downloader.downloaderName}" }
           val result = downloader.download(pv, vSongTask, outputDirectory)
           result.fold(
-            onSuccess = {},
-            onFailure = {}
+            onSuccess = { downloadFiles ->
+              log.info { "Download attempt on ${vSongTask.parameters.songProperFileName} success" }
+              vSongTask.label.apply {
+                downloadFiles.pvFile?.let {
+                  this.pvFileName = it.fileName.toString()
+                }
+                downloadFiles.audioFile?.let {
+                  this.audioFileName = it.fileName.toString()
+                }
+                this.thumbnailFileName = downloadFiles.thumbnailFile.fileName.toString()
+              }
+              return record
+            },
+            onFailure = {
+              log.warn {
+                "    Attempt $attempt on pv ${pv.url} " +
+                    "with downloader ${downloader.downloaderName} failed, trying again"
+              }
+              failures.add(it as Exception)
+            }
           )
-          TODO("handle result")
         }
+        log.warn { "  Downloader ${downloader.downloaderName} failed to download pv ${pv.url}, trying next downloader" }
       }
+      log.warn { "  All attempts on pv ${pv.url} failed, trying next PV" }
     }
-    TODO()
+    log.error { "Failed to download any resources on ${vSongTask.parameters.songProperFileName}" }
+    throw RuntimeVocaloidException(
+      "Failed to download any resources on ${vSongTask.parameters.songProperFileName} with any possible attempts, exception list: " +
+          failures.joinToString(prefix = "[", postfix = "]")
+    )
   }
 }
 
