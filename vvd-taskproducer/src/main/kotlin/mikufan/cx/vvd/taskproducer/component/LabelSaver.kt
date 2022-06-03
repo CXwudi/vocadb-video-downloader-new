@@ -11,11 +11,14 @@ import org.springframework.stereotype.Component
 import kotlin.io.path.absolute
 
 /**
+ * Save the -label json and any other files to the output directory.
+ *
+ * Each label json represent one task.
  * @date 2021-06-03
  * @author CX无敌
  */
 @Component
-class VSongJsonWriter(
+class LabelSaver(
   ioConfig: IOConfig,
   private val objectMapper: ObjectMapper,
   recordErrorWriter: RecordErrorWriter

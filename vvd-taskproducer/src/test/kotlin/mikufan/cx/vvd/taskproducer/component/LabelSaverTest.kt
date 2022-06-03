@@ -25,10 +25,8 @@ import kotlin.io.path.isRegularFile
  * @date 2021-06-04
  */
 @SpringBootTest
-internal class VSongJsonWriterTest(
-  @Autowired val vSongJsonWriter: VSongJsonWriter,
-  @Autowired val objectMapper: ObjectMapper,
-  @Autowired ioConfig: IOConfig
+internal class LabelSaverTest(
+  @Autowired val labelSaver: LabelSaver, @Autowired val objectMapper: ObjectMapper, @Autowired ioConfig: IOConfig
 ) {
   val outputDirectory = ioConfig.outputDirectory
 
@@ -38,16 +36,13 @@ internal class VSongJsonWriterTest(
   fun setupRecord() {
     val jsonString = javaClass.classLoader
       // get the test json that contains "various"
-      .getResourceAsStream("test/PaⅢ.REVOLUTION  雄之助 vocadb api response.json")
-      .reader().use { it.readText() }
+      .getResourceAsStream("test/PaⅢ.REVOLUTION  雄之助 vocadb api response.json").reader().use { it.readText() }
     val song: SongForApiContract = objectMapper.readValue(jsonString, SongForApiContract::class.java)
     dummyRecord = GenericRecord(
-      Header(1, "Test Record", LocalDateTime.now()), VSongTask(
-        VSongLabel.builder()
-          .order(1)
-          .infoFileName(song.toProperFileName().toInfoFileName())
-          .labelFileName(song.toProperFileName().toLabelFileName())
-          .build(),
+      Header(1, "Test Record", LocalDateTime.now()),
+      VSongTask(
+        VSongLabel.builder().order(1).infoFileName(song.toProperFileName().toInfoFileName())
+          .labelFileName(song.toProperFileName().toLabelFileName()).build(),
         Parameters(song)
       )
     )
@@ -55,7 +50,7 @@ internal class VSongJsonWriterTest(
 
   @Test
   fun `should able to write label and song info on proper location`() = runBlocking {
-    vSongJsonWriter.write(dummyRecord)
+    labelSaver.write(dummyRecord)
     assertTrue(outputDirectory.resolve("【various】PaⅢ.REVOLUTION【雄之助, 攻】[299406]-label.json").isRegularFile())
     assertTrue(outputDirectory.resolve("【various】PaⅢ.REVOLUTION【雄之助, 攻】[299406]-songInfo.json").isRegularFile())
   }

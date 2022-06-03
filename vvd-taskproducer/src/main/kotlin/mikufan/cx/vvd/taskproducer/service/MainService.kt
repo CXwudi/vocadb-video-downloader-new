@@ -7,8 +7,8 @@ import kotlinx.coroutines.withContext
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.commonkt.batch.RecordErrorWriter
 import mikufan.cx.vvd.commonkt.batch.toIterator
+import mikufan.cx.vvd.taskproducer.component.LabelSaver
 import mikufan.cx.vvd.taskproducer.component.ListReader
-import mikufan.cx.vvd.taskproducer.component.VSongJsonWriter
 import mikufan.cx.vvd.taskproducer.config.SystemConfig
 import mikufan.cx.vvd.taskproducer.model.VSongTask
 import org.jeasy.batch.core.processor.RecordProcessor
@@ -20,7 +20,7 @@ import java.util.concurrent.Semaphore
 class MainService(
   private val listReader: ListReader,
   private val taskProcessors: List<RecordProcessor<*, *>>,
-  private val vSongJsonWriter: VSongJsonWriter,
+  private val labelSaver: LabelSaver,
   private val recordErrorWriter: RecordErrorWriter,
   systemConfig: SystemConfig
 ) : Runnable {
@@ -49,7 +49,7 @@ class MainService(
       taskProcessors.forEach { recordProcessor ->
         currentRecord = (recordProcessor as RecordProcessor<Any, Any>).processRecord(currentRecord)
       }
-      vSongJsonWriter.write(currentRecord as Record<VSongTask>)
+      labelSaver.write(currentRecord as Record<VSongTask>)
       log.info { "Done processing $songName" }
     } catch (e: Exception) {
       recordErrorWriter.handleError(currentRecord, e)
