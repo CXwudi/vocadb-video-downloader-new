@@ -51,6 +51,10 @@ class DownloadManager(
                   this.audioFileName = it.fileName.toString()
                 }
                 this.thumbnailFileName = downloadFiles.thumbnailFile.fileName.toString()
+                // recording of PV information to label is done here because only here we know the PV that is successfully downloaded
+                this.pvId = pv.pvId
+                this.pvService = pv.service.toString()
+                this.pvUrl = pv.url
               }
               return record
             },
