@@ -38,7 +38,7 @@ class DownloadManager(
       val downloaders = enabledDownloaders.getDownloaderForPvService(requireNotNull(pv.service?.toPVServicesEnum()))
       for (downloader in downloaders) {
         for (attempt in 1..(1 + attempt)) {
-          log.debug { "  on attempt $attempt on pv ${pv.url} with downloader ${downloader.downloaderName}" }
+          log.debug { "    on attempt $attempt on pv ${pv.url} with downloader ${downloader.downloaderName}" }
           val result = downloader.download(pv, vSongTask, outputDirectory)
           result.fold(
             onSuccess = { downloadFiles ->
@@ -69,7 +69,7 @@ class DownloadManager(
         }
         log.warn { "  Downloader ${downloader.downloaderName} failed to download pv ${pv.url}, trying next downloader" }
       }
-      log.warn { "  All attempts on pv ${pv.url} failed, trying next PV" }
+      log.warn { "All attempts on pv ${pv.url} failed, trying next PV" }
     }
     log.error { "Failed to download any resources on ${vSongTask.parameters.songProperFileName}" }
     throw RuntimeVocaloidException(
