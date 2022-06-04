@@ -36,6 +36,7 @@ build/
 vvd-downloader-old/logs
 vvd-taskproducer/20xx年V家新曲/
 vvd-downloader/2021年V家新曲-test-download/
+vvd-downloader/manual-test-config.yml
 
 ### My Exe ###
 vvd-downloader/aria2c.exe

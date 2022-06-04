@@ -43,13 +43,13 @@ class LabelSaver(
     objectMapper.writeValue(newLabelFile.toFile(), label)
     inputDirectory.resolve(label.labelFileName).deleteExisting() // the old label can be deleted
 
-    val newInfoFile = outputDirectory / label.infoFileName
-    inputDirectory.resolve(label.infoFileName).moveTo(newInfoFile)
+    val movedInfoFile = outputDirectory / label.infoFileName
+    inputDirectory.resolve(label.infoFileName).moveTo(movedInfoFile)
 
     log.info {
       "Done all tasks for ${parameters.songProperFileName}. " +
           "Saved new label json file to ${newLabelFile.absolute()} and deleted the old one from input directory. " +
-          "Moved the song info json file from input directory to ${newInfoFile.absolute()}"
+          "Moved the song info json file from input directory to ${movedInfoFile.absolute()}"
     }
   }
 }
