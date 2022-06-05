@@ -89,6 +89,9 @@ abstract class BaseCliDownloader(
   protected open fun execCommands(commands: List<String>) {
     runCmd(*commands.toTypedArray()).sync(downloadConfig.timeout, downloadConfig.unit, threadPool) {
       // the order must be stdout first and stderr second, due to how ExternalProcessThreadFactory is coded
+      // for yt-dlp, seems like yt-dlp will detect and use whatever stream that is opened from the caller side
+      // hence with the following setup, yt-dlp's stdout and stderr will be randomly outputted through both streams
+      // however, let's keep this setup as other youtube-dl forks and other tools may obey the correct output stream.
       onStdOutEachLine {
         if (it.isNotBlank()) {
           log.info { it }
