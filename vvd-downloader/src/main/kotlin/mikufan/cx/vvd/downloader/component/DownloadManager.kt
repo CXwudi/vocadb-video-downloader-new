@@ -14,6 +14,7 @@ import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
 
 /**
+ * Manager of downloaders, handles retrying, switching to next downloader, switching to next pv and etc.
  * @date 2021-12-10
  * @author CX无敌
  */
@@ -32,8 +33,9 @@ class DownloadManager(
     val failures = mutableListOf<Exception>()
     val vSongTask = record.payload
     val pvs = requireNotNull(record.payload.parameters.pvCandidates) { "null pv candidate before download?" }
+    val songProperFileName = vSongTask.parameters.songProperFileName
 
-    log.info { "Start downloading attempts on ${vSongTask.parameters.songProperFileName}" }
+    log.info { "Start downloading attempts on $songProperFileName" }
     for (pv in pvs) {
       val downloaders = enabledDownloaders.getDownloaderForPvService(requireNotNull(pv.service?.toPVServicesEnum()))
       for (downloader in downloaders) {
@@ -42,19 +44,10 @@ class DownloadManager(
           val result = downloader.download(pv, vSongTask, outputDirectory)
           result.fold(
             onSuccess = { downloadFiles ->
-              log.info { "Download attempt on ${vSongTask.parameters.songProperFileName} success" }
-              vSongTask.label.apply {
-                downloadFiles.pvFile?.let {
-                  this.pvFileName = it.fileName.toString()
-                }
-                downloadFiles.audioFile?.let {
-                  this.audioFileName = it.fileName.toString()
-                }
-                this.thumbnailFileName = downloadFiles.thumbnailFile.fileName.toString()
-                // recording of PV information to label is done here because only here we know the PV that is successfully downloaded
-                this.pvId = pv.pvId
-                this.pvService = pv.service.toString()
-                this.pvUrl = pv.url
+              log.info { "Download attempt on $songProperFileName success" }
+              vSongTask.parameters.apply {
+                this.downloadFiles = downloadFiles
+                this.downloadedPv = pv
               }
               return record
             },
@@ -71,9 +64,9 @@ class DownloadManager(
       }
       log.warn { "All attempts on pv ${pv.url} failed, trying next PV" }
     }
-    log.error { "Failed to download any resources on ${vSongTask.parameters.songProperFileName}" }
+    log.error { "Failed to download any resources on $songProperFileName" }
     throw RuntimeVocaloidException(
-      "Failed to download any resources on ${vSongTask.parameters.songProperFileName} with any possible attempts, exception list: " +
+      "Failed to download any resources on $songProperFileName with any possible attempts, exception list: " +
           failures.joinToString(prefix = "[", postfix = "]")
     )
   }

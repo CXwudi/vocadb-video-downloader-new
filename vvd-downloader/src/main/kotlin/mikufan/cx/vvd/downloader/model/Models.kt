@@ -5,6 +5,7 @@ import mikufan.cx.vocadbapiclient.model.SongForApiContract
 import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.commonkt.naming.SongProperFileName
 import mikufan.cx.vvd.commonkt.naming.toProperFileName
+import mikufan.cx.vvd.downloader.component.downloader.base.DownloadFiles
 
 /**
  * @date 2021-08-30
@@ -19,6 +20,9 @@ data class Parameters(
    * the order of try download which PV first, then which next
    */
   var pvCandidates: List<PVContract>? = null,
+  // next two records the download results
+  var downloadFiles: DownloadFiles? = null,
+  var downloadedPv: PVContract? = null,
 ) {
   /**
    * save the proper file name for debugging and other filename generation
