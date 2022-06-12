@@ -20,9 +20,10 @@ data class Parameters(
    * the order of try download which PV first, then which next
    */
   var pvCandidates: List<PVContract>? = null,
-  // next two records the download results
+  // next couple records the download results
   var downloadFiles: DownloadFiles? = null,
   var downloadedPv: PVContract? = null,
+  var downloaderName: String? = null,
 ) {
   /**
    * save the proper file name for debugging and other filename generation

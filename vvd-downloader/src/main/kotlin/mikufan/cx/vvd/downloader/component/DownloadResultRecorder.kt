@@ -19,6 +19,7 @@ class DownloadResultRecorder : RecordProcessor<VSongTask, VSongTask> {
     val vSongTask = record.payload
     val downloadFiles = requireNotNull(vSongTask.parameters.downloadFiles) { " null download files?" }
     val downloadedPv = requireNotNull(vSongTask.parameters.downloadedPv) { " null download pv?" }
+    val downloaderName = requireNotNull(vSongTask.parameters.downloaderName) { " null downloader name?" }
     vSongTask.label.apply {
       downloadFiles.pvFile?.let {
         this.pvFileName = it.fileName.toString()
@@ -31,6 +32,7 @@ class DownloadResultRecorder : RecordProcessor<VSongTask, VSongTask> {
       this.pvId = downloadedPv.pvId
       this.pvService = downloadedPv.service.toString()
       this.pvUrl = downloadedPv.url
+      this.downloaderName = downloaderName
     }
     return record
   }

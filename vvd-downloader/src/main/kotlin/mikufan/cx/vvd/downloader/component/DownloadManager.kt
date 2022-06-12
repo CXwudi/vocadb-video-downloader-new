@@ -48,6 +48,7 @@ class DownloadManager(
               vSongTask.parameters.apply {
                 this.downloadFiles = downloadFiles
                 this.downloadedPv = pv
+                this.downloaderName = downloader.downloaderName
               }
               return record
             },

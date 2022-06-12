@@ -55,6 +55,8 @@ public class VSongLabel {
   @NotBlank(groups = ValidationPhase.Two.class) String pvService;
   @NotBlank(groups = ValidationPhase.Two.class) String pvId;
   @NotBlank(groups = ValidationPhase.Two.class) String pvUrl;
+  // this is recorded for reference
+  @NotBlank(groups = ValidationPhase.Two.class) String downloaderName;
 
 }
 
