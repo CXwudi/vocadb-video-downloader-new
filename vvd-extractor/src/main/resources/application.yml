@@ -5,7 +5,14 @@ io: # input, output, and error output dir, can be relative path from the termina
   error-directory:
 
 config: # configuration
-  envrionment: # all cmd are list of strings, executed with the root directory of the project as the current directory
+  environment: # all cmd are list of strings, executed with the root directory of the project as the current directory
     python-launch-cmd:
     ffmpeg-launch-cmd:
     mediainfo-launch-cmd:
+
+  batch:
+    batch-size: 0 # number of files to process in parallel, default is 0 which represents # of cores
+
+  process:
+    timeout: 5
+    unit: minutes
