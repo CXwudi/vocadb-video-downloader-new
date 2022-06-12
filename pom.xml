@@ -8,6 +8,7 @@
     <module>vvd-commonkt</module>
     <module>vvd-taskproducer</module>
     <module>vvd-downloader</module>
+    <module>vvd-extractor</module>
   </modules>
   <parent>
     <groupId>org.springframework.boot</groupId>

@@ -1,0 +1,11 @@
+
+io: # input, output, and error output dir, can be relative path from the terminal current directory
+  input-directory: ./src/test/resources/2021年V家新曲-download-test
+  output-directory: 2021年V家新曲-extracted-test
+  error-directory: 2021年V家新曲-extracted-test/error
+
+config: # configuration
+  environment: # all cmd are list of strings, executed with the root directory of the project as the current directory
+    python-launch-cmd: python
+    ffmpeg-launch-cmd: ffmpeg
+    mediainfo-launch-cmd: mediainfo

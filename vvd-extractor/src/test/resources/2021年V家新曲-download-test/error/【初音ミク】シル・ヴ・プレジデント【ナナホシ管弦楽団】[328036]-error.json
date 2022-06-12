@@ -1,0 +1,131 @@
+{
+  "obj" : {
+    "header" : {
+      "number" : 3,
+      "source" : "VSong Task by 【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-label.json",
+      "creationDate" : "2022-06-04T18:41:13.0917993",
+      "scanned" : false
+    },
+    "payload" : {
+      "label" : {
+        "labelFileName" : "【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-label.json",
+        "infoFileName" : "【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-songInfo.json",
+        "order" : 24,
+        "pvFileName" : null,
+        "audioFileName" : null,
+        "thumbnailFileName" : null,
+        "pvService" : null,
+        "pvId" : null,
+        "pvUrl" : null
+      },
+      "parameters" : {
+        "songForApiContract" : {
+          "additionalNames" : null,
+          "albums" : [ ],
+          "artists" : null,
+          "artistString" : "ナナホシ管弦楽団 feat. 初音ミク",
+          "createDate" : "2021-04-19T17:19:31.457",
+          "defaultName" : "シル・ヴ・プレジデント",
+          "defaultNameLanguage" : "Japanese",
+          "deleted" : null,
+          "favoritedTimes" : 6,
+          "id" : 328036,
+          "lengthSeconds" : 193,
+          "lyrics" : null,
+          "mainPicture" : null,
+          "mergedTo" : null,
+          "name" : "シル・ヴ・プレジデント",
+          "names" : null,
+          "originalVersionId" : null,
+          "publishDate" : "2021-04-19T00:00:00",
+          "pvs" : [ {
+            "author" : "ナナホシ管弦楽団/岩見陸official",
+            "createdBy" : null,
+            "disabled" : false,
+            "extendedMetadata" : null,
+            "id" : 478090,
+            "length" : 193,
+            "name" : "シル・ヴ・プレジデント / 初音ミク - ナナホシ管弦楽団",
+            "publishDate" : "2021-04-19T00:00:00",
+            "pvId" : "QLXbggM1GXk",
+            "service" : "Youtube",
+            "pvType" : "Original",
+            "thumbUrl" : "https://i.ytimg.com/vi/QLXbggM1GXk/default.jpg",
+            "url" : "https://youtu.be/QLXbggM1GXk"
+          } ],
+          "pvServices" : "Youtube",
+          "ratingScore" : 34,
+          "releaseEvent" : null,
+          "songType" : "Cover",
+          "status" : "Finished",
+          "tags" : null,
+          "thumbUrl" : null,
+          "version" : 8,
+          "webLinks" : null,
+          "minMilliBpm" : null,
+          "maxMilliBpm" : null
+        },
+        "pvCandidates" : [ {
+          "author" : "ナナホシ管弦楽団/岩見陸official",
+          "createdBy" : null,
+          "disabled" : false,
+          "extendedMetadata" : null,
+          "id" : 478090,
+          "length" : 193,
+          "name" : "シル・ヴ・プレジデント / 初音ミク - ナナホシ管弦楽団",
+          "publishDate" : "2021-04-19T00:00:00",
+          "pvId" : "QLXbggM1GXk",
+          "service" : "Youtube",
+          "pvType" : "Original",
+          "thumbUrl" : "https://i.ytimg.com/vi/QLXbggM1GXk/default.jpg",
+          "url" : "https://youtu.be/QLXbggM1GXk"
+        } ],
+        "songProperFileName" : "【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]"
+      }
+    }
+  },
+  "exception" : {
+    "cause" : null,
+    "stackTrace" : [ {
+      "classLoaderName" : "app",
+      "moduleName" : null,
+      "moduleVersion" : null,
+      "methodName" : "processRecord",
+      "fileName" : "DownloadManager.kt",
+      "lineNumber" : 75,
+      "nativeMethod" : false,
+      "className" : "mikufan.cx.vvd.downloader.component.DownloadManager"
+    }, {
+      "classLoaderName" : "app",
+      "moduleName" : null,
+      "moduleVersion" : null,
+      "methodName" : "processDownload",
+      "fileName" : "MainService.kt",
+      "lineNumber" : 39,
+      "nativeMethod" : false,
+      "className" : "mikufan.cx.vvd.downloader.service.MainService"
+    }, {
+      "classLoaderName" : "app",
+      "moduleName" : null,
+      "moduleVersion" : null,
+      "methodName" : "run",
+      "fileName" : "MainService.kt",
+      "lineNumber" : 28,
+      "nativeMethod" : false,
+      "className" : "mikufan.cx.vvd.downloader.service.MainService"
+    }, {
+      "classLoaderName" : "app",
+      "moduleName" : null,
+      "moduleVersion" : null,
+      "methodName" : "main",
+      "fileName" : "DownloaderApplication.kt",
+      "lineNumber" : 18,
+      "nativeMethod" : false,
+      "className" : "mikufan.cx.vvd.downloader.DownloaderApplicationKt"
+    } ],
+    "message" : "どうしよう、Failed to download any resources on 【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036] with any possible attempts, exception list: [java.io.IOException: Cannot run program \"./yt-dlp.exe\": CreateProcess error=2, The system cannot find the file specified, java.io.IOException: Cannot run program \"./yt-dlp.exe\": CreateProcess error=2, The system cannot find the file specified, java.io.IOException: Cannot run program \"./yt-dlp.exe\": CreateProcess error=2, The system cannot find the file specified]. System is quiting and 初音ミク & Miku fan CX have to leave",
+    "suppressed" : [ ],
+    "localizedMessage" : "どうしよう、Failed to download any resources on 【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036] with any possible attempts, exception list: [java.io.IOException: Cannot run program \"./yt-dlp.exe\": CreateProcess error=2, The system cannot find the file specified, java.io.IOException: Cannot run program \"./yt-dlp.exe\": CreateProcess error=2, The system cannot find the file specified, java.io.IOException: Cannot run program \"./yt-dlp.exe\": CreateProcess error=2, The system cannot find the file specified]. System is quiting and 初音ミク & Miku fan CX have to leave"
+  },
+  "reason" : null
+}
