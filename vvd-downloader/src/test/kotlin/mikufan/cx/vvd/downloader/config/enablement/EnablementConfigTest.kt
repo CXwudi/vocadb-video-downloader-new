@@ -2,7 +2,7 @@ package mikufan.cx.vvd.downloader.config.enablement
 
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vvd.downloader.util.PVServicesEnum
+import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum
 import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringShouldSpec
 import org.springframework.beans.factory.annotation.Autowired

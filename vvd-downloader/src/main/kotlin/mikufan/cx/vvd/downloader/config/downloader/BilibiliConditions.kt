@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.downloader.config.downloader
 
-import mikufan.cx.vvd.downloader.util.PVServicesEnum
+import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum
 
 /**
  * conditions for bilibili downloader configs

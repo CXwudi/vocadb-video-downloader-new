@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.downloader.config.downloader
 
-import mikufan.cx.vvd.downloader.util.PVServicesEnum
+import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum
 import org.springframework.context.annotation.Condition
 import org.springframework.context.annotation.ConditionContext
 import org.springframework.core.type.AnnotatedTypeMetadata

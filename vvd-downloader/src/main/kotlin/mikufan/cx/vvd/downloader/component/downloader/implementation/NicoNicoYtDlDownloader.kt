@@ -1,13 +1,13 @@
 package mikufan.cx.vvd.downloader.component.downloader.implementation
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum
 import mikufan.cx.vvd.downloader.component.downloader.base.BaseYtDlDownloader
 import mikufan.cx.vvd.downloader.config.DownloadConfig
 import mikufan.cx.vvd.downloader.config.EnvironmentConfig
 import mikufan.cx.vvd.downloader.config.downloader.NND_YTDL
 import mikufan.cx.vvd.downloader.config.downloader.NicoNicoYtDlCondition
 import mikufan.cx.vvd.downloader.config.downloader.NicoNicoYtDlConfig
-import mikufan.cx.vvd.downloader.util.PVServicesEnum
 import org.apache.tika.Tika
 import org.springframework.context.annotation.Conditional
 import org.springframework.stereotype.Component

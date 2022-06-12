@@ -6,13 +6,13 @@ import io.kotest.matchers.string.shouldContain
 import mikufan.cx.vocadbapiclient.model.PVContract
 import mikufan.cx.vocadbapiclient.model.SongForApiContract
 import mikufan.cx.vvd.common.label.VSongLabel
+import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum
 import mikufan.cx.vvd.downloader.component.downloader.base.BaseCliDownloader
 import mikufan.cx.vvd.downloader.config.DownloadConfig
 import mikufan.cx.vvd.downloader.config.EnvironmentConfig
 import mikufan.cx.vvd.downloader.config.IOConfig
 import mikufan.cx.vvd.downloader.model.Parameters
 import mikufan.cx.vvd.downloader.model.VSongTask
-import mikufan.cx.vvd.downloader.util.PVServicesEnum
 import mikufan.cx.vvd.downloader.util.SpringBootDirtyTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringShouldSpec
 import org.apache.tika.Tika

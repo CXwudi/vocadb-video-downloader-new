@@ -4,11 +4,11 @@ import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vocadbapiclient.model.PVContract
 import mikufan.cx.vocadbapiclient.model.PVType
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
+import mikufan.cx.vvd.commonkt.vocadb.toPVServicesEnum
 import mikufan.cx.vvd.downloader.config.preference.Preference
 import mikufan.cx.vvd.downloader.config.validation.SUPPORTED_SERVICES
 import mikufan.cx.vvd.downloader.model.VSongTask
 import mikufan.cx.vvd.downloader.util.OrderConstants
-import mikufan.cx.vvd.downloader.util.toPVServicesEnum
 import org.jeasy.batch.core.processor.RecordProcessor
 import org.jeasy.batch.core.record.Record
 import org.springframework.core.annotation.Order
