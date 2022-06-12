@@ -19,7 +19,8 @@ inline fun Process.sync(
   syncer.setupHandler()
   executor.shutdown()
   waitFor(timeout, unit)
-  executor.awaitTermination(timeout, unit)
+  // waiting for threads, but should not be waiting too long as it ends when the process ends
+  executor.awaitTermination(timeout / 10, unit)
   return this
 }
 
@@ -35,6 +36,7 @@ inline fun Process.sync(
   val syncer = ProcessSyncer(executor, this)
   syncer.setupHandler()
   waitFor(timeout, unit)
+  // do not await termination on external thread pools. users should do it themselves
   return this
 }
 

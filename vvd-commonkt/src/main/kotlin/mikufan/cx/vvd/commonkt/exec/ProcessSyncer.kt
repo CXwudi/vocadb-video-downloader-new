@@ -62,7 +62,7 @@ class ProcessSyncer(
    * @param lineHandler Function1<String, Unit> code about how to handle each line in std-out
    */
   inline fun onStdOutEachLine(charset: Charset = Charsets.UTF_8, noinline lineHandler: (String) -> Unit) {
-    onStdOut(charset) { forEachLine(lineHandler) }
+    onStdOut(charset) { lineSequence().forEach(lineHandler) }
   }
 
   /**
@@ -71,7 +71,7 @@ class ProcessSyncer(
    * @param lineHandler Function1<String, Unit> code about how to handle each line in std-err
    */
   inline fun onStdErrEachLine(charset: Charset = Charsets.UTF_8, noinline lineHandler: (String) -> Unit) {
-    onStdErr(charset) { forEachLine(lineHandler) }
+    onStdErr(charset) { lineSequence().forEach(lineHandler) }
   }
 
   /**

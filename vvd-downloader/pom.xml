@@ -48,10 +48,10 @@
       <groupId>com.github.CXwudi</groupId>
       <artifactId>kotlin-jvm-inline-logging</artifactId>
     </dependency>
-<!--    <dependency>-->
-<!--      <groupId>com.github.CXwudi</groupId>-->
-<!--      <artifactId>kotlin-jvm-idiomatic-exec</artifactId>-->
-<!--    </dependency>-->
+    <dependency>
+      <groupId>com.github.CXwudi</groupId>
+      <artifactId>kotlin-jvm-idiomatic-exec</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.jeasy</groupId>
