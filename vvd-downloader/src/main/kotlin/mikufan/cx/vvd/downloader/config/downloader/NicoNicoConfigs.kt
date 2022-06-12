@@ -12,9 +12,7 @@ import javax.validation.constraints.NotEmpty
  * @date 2021-06-27
  * @author CX无敌
  */
-
-
-@ConfigurationProperties("$NND_CONFIG_PROP_KEY.$NND_YTDL") // warn: you have to change NicoNicoDouga to nico-nico-douga
+@ConfigurationProperties("$NND_CONFIG_PROP_KEY.$NND_YTDL")
 @ConstructorBinding
 @Validated
 @Conditional(NicoNicoYtDlCondition::class)

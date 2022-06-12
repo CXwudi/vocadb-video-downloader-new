@@ -1,9 +1,9 @@
 package mikufan.cx.vvd.downloader.component.downloader.base
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import mikufan.cx.executil.runCmd
-import mikufan.cx.executil.sync
 import mikufan.cx.inlinelogging.KInlineLogging
+import mikufan.cx.vvd.commonkt.exec.runCmd
+import mikufan.cx.vvd.commonkt.exec.sync
 import mikufan.cx.vvd.downloader.config.DownloadConfig
 import mikufan.cx.vvd.downloader.config.EnvironmentConfig
 import org.apache.tika.Tika
