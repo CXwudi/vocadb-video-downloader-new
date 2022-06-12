@@ -58,6 +58,11 @@ public class VSongLabel {
   // this is recorded for reference
   @NotBlank(groups = ValidationPhase.Two.class) String downloaderName;
 
+  /**
+   * the name of the final output audio file that has thumbnail and tags properly added
+   */
+  @NotBlank(groups = ValidationPhase.Three.class) String processedAudioFileName;
+
 }
 
 /**

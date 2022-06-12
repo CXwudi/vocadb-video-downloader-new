@@ -1,13 +1,13 @@
-package mikufan.cx.vvd.downloader.component
+package mikufan.cx.vvd.extractor.component
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.common.naming.FileNamePostFix
-import mikufan.cx.vvd.downloader.config.IOConfig
-import mikufan.cx.vvd.downloader.model.Parameters
-import mikufan.cx.vvd.downloader.model.VSongTask
+import mikufan.cx.vvd.extractor.config.IOConfig
+import mikufan.cx.vvd.extractor.model.Parameters
+import mikufan.cx.vvd.extractor.model.VSongTask
 import org.jeasy.batch.core.reader.RecordReader
 import org.jeasy.batch.core.record.GenericRecord
 import org.jeasy.batch.core.record.Header
@@ -17,18 +17,17 @@ import java.nio.file.Files
 import java.time.LocalDateTime
 
 /**
- * @date 2021-08-30
+ * @date 2022-06-12
  * @author CX无敌
  */
 @Component
 class LabelsReader(
   ioConfig: IOConfig,
-  val objectMapper: ObjectMapper,
+  private val objectMapper: ObjectMapper,
 ) : RecordReader<VSongTask> {
 
-  private val inputDirectory = ioConfig.inputDirectory
-
-  private val fileItr = Files.list(inputDirectory)
+  private val inputDir = ioConfig.inputDirectory
+  private val fileItr = Files.list(inputDir)
     .filter { it.fileName.toString().contains(FileNamePostFix.LABEL) }
     // is ok to leave the
     .peek { log.debug { "reading label $it" } }
@@ -47,12 +46,18 @@ class LabelsReader(
   override fun readRecord(): Record<VSongTask>? = if (fileItr.hasNext()) {
     val oldLabel = fileItr.next()
     // creating new label instance in case if user want to re-download a song
-    // in that case, the label file is probably moved from the output directory of this module to the input directory
-    // this can avoid bug caused by overwriting labels where both old and new label info present
+    // as usual, transfer the needed info from old label
     val label = VSongLabel.builder()
-      .order(oldLabel.order)
       .labelFileName(oldLabel.labelFileName)
       .infoFileName(oldLabel.infoFileName)
+      .order(oldLabel.order)
+      .pvFileName(oldLabel.pvFileName)
+      .audioFileName(oldLabel.audioFileName)
+      .thumbnailFileName(oldLabel.thumbnailFileName)
+      .pvService(oldLabel.pvService)
+      .pvId(oldLabel.pvId)
+      .pvUrl(oldLabel.pvUrl)
+      .downloaderName(oldLabel.downloaderName)
       .build()
     val header = Header(++order, "VSong Task by ${label.labelFileName}", LocalDateTime.now())
     log.info { "Start processing ${label.labelFileName}" }

@@ -1,6 +1,8 @@
 package mikufan.cx.vvd.extractor.service
 
+import kotlinx.coroutines.runBlocking
 import mikufan.cx.inlinelogging.KInlineLogging
+import mikufan.cx.vvd.extractor.component.LabelsReader
 import org.springframework.stereotype.Service
 
 /**
@@ -8,9 +10,12 @@ import org.springframework.stereotype.Service
  * @author CX无敌
  */
 @Service
-class MainService : Runnable {
+class MainService(
+  private val labelsReader: LabelsReader
+) : Runnable {
   
-  override fun run() {
+  override fun run() = runBlocking {
+
   }
 }
 
