@@ -11,6 +11,7 @@ import java.nio.file.Path
 import java.util.concurrent.LinkedBlockingDeque
 import java.util.concurrent.ThreadFactory
 import java.util.concurrent.ThreadPoolExecutor
+import javax.annotation.PreDestroy
 import kotlin.io.path.listDirectoryEntries
 
 /**
@@ -182,6 +183,12 @@ abstract class BaseCliDownloader(
         }
       }
     }
+  }
+  
+  @PreDestroy
+  fun shutdownThreadPool() {
+    log.debug { "Shutting down the common pool in $downloaderName for $targetPvService" }
+    threadPool.shutdown()
   }
 }
 

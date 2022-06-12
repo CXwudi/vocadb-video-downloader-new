@@ -71,7 +71,7 @@ class ProcessSyncer(
    * @param lineHandler Function1<String, Unit> code about how to handle each line in std-err
    */
   inline fun onStdErrEachLine(charset: Charset = Charsets.UTF_8, noinline lineHandler: (String) -> Unit) {
-    onStdOut(charset) { forEachLine(lineHandler) }
+    onStdErr(charset) { forEachLine(lineHandler) }
   }
 
   /**
@@ -99,7 +99,7 @@ class ProcessSyncer(
       logStdOut(it, logger)
     }
     val logStdErr = chooseLogMethod(stdErrLevel)
-    onStdOutEachLine {
+    onStdErrEachLine {
       logStdErr(it, logger)
     }
   }

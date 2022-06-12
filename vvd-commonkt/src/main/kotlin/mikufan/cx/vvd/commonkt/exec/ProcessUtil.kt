@@ -35,7 +35,6 @@ inline fun Process.sync(
   val syncer = ProcessSyncer(executor, this)
   syncer.setupHandler()
   waitFor(timeout, unit)
-  executor.awaitTermination(timeout, unit)
   return this
 }
 
