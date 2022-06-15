@@ -34,13 +34,23 @@ class BeforeProcessLabelValidatorFailureTest(
     val oneRecord = labelsReader.readRecord()!!
     oneRecord.payload.label.apply {
       this.downloaderName = ""
-      this.pvFileName = ""
-      this.audioFileName = ""
     }
 
     should("throw exception on ${oneRecord.payload.label.labelFileName}") {
       shouldThrow<RuntimeVocaloidException> {
         beforeProcessLabelValidator.processRecord(oneRecord)
+      }
+    }
+
+    val anotherRecord = labelsReader.readRecord()!!
+    anotherRecord.payload.label.apply {
+      this.pvFileName = ""
+      this.audioFileName = ""
+    }
+
+    should("throw exception on ${anotherRecord.payload.label.labelFileName}") {
+      shouldThrow<RuntimeVocaloidException> {
+        beforeProcessLabelValidator.processRecord(anotherRecord)
       }
     }
   }
