@@ -5,15 +5,22 @@ import mikufan.cx.vocadbapiclient.model.PVContract
 import mikufan.cx.vvd.common.naming.FileNamePostFix
 import mikufan.cx.vvd.commonkt.naming.SongProperFileName
 import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum
+import mikufan.cx.vvd.downloader.component.DownloadManager
 import mikufan.cx.vvd.downloader.model.VSongTask
 import mikufan.cx.vvd.downloader.util.renameWithSameExtension
 import java.nio.file.Path
 
 /**
+ * The base class for all downloader.
+ *
+ * If you want to create a new downloader, you should extend this class or any sub-baseclass of this class.
+ *
+ * If you want to use it in other project, simply remove the [download] method to remove any dependency with VocaDB
+ * and any other dependencies in this project.
+ *
  * @date 2021-12-26
  * @author CX无敌
  */
-
 abstract class BaseDownloader {
 
   /**
@@ -31,6 +38,9 @@ abstract class BaseDownloader {
    * Download the pv (or/and audio) and the thumbnail from specific [PVContract] instance to specific directory,
    * given all the information needed from [VSongTask]
    *
+   * This method sounds like can be moved away to [DownloadManager], but we decide to keep it to allow max
+   * flexibility for other downloader implementations in the future.
+   *
    * @param pv the PV to be downloaded
    * @param allInfo all the information about this PV, song, task
    * @param outputDirectory where to save the PV and thumbnail
@@ -41,7 +51,6 @@ abstract class BaseDownloader {
     val baseFileName = allInfo.parameters.songProperFileName
     return try {
       val url = requireNotNull(pv.url) { "${pv.name} has a null url?" }
-
       log.info { "Starting downloading files from $url to $outputDirectory with base name $baseFileName" }
       val (pvFile, audioFile, thumbnailFile) = tryDownload(url, baseFileName.toString(), outputDirectory)
 
