@@ -68,7 +68,9 @@ public class VSongLabel {
 /**
  * To check {@link VSongLabel} has validate resources. <br/>
  * Which means has either {@link VSongLabel#pvFileName} or {@link VSongLabel#audioFileName} non-empty and
- * has {@link VSongLabel#thumbnailFileName} non-empty.
+ * has {@link VSongLabel#thumbnailFileName} non-empty. <br/>
+ * However, this doesn't check if the file is really exists, because we want the program to freely use any location
+ * as the root folder to store these resources.
  * @author CX无敌
  */
 @Constraint(validatedBy = HasRequiredResourceValidator.class)
