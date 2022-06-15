@@ -1,4 +1,5 @@
 import base64
+import imghdr
 from mutagen.flac import Picture
 from mutagen.oggopus import OggOpus
 
@@ -6,17 +7,22 @@ from mutagen.oggopus import OggOpus
 def write_thumbnail(file, thumbnail_file):
   """
   writing thumbnail to ogg opus file
+
+  reference: https://github.com/ytdl-org/youtube-dl/pull/28894/files
+  https://mutagen.readthedocs.io/en/latest/user/vcomment.html
   """
   with open(thumbnail_file, "rb") as f:
     thumbnail_data = f.read()
+    image_type = imghdr.what(f)
   
   p = Picture()
   p.data = thumbnail_data
+  p.mime = image_type
   p.type = 3 # means front cover
 
-  encoded_thumb = base64.encodebytes(p.write())
+  encoded_thumb = base64.b64decode(p.write())
 
-  file["metadata_block_picture"] = [encoded_thumb.decode()]
+  file["metadata_block_picture"] = [encoded_thumb.decode("ascii")]
   
 
 def add_tag(input_file, thumbnail_file, resource_dict, info_dict):
