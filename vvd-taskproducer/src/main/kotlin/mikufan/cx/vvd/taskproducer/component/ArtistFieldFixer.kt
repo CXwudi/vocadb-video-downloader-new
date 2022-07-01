@@ -6,6 +6,7 @@ import mikufan.cx.vocadbapiclient.model.ArtistCategories
 import mikufan.cx.vocadbapiclient.model.ArtistForSongContract
 import mikufan.cx.vocadbapiclient.model.SongOptionalFields
 import mikufan.cx.vvd.taskproducer.model.VSongTask
+import mikufan.cx.vvd.taskproducer.util.OrderConstants
 import org.apache.commons.lang3.StringUtils
 import org.jeasy.batch.core.processor.RecordProcessor
 import org.jeasy.batch.core.record.Record
@@ -19,7 +20,7 @@ import java.util.*
  * @author CX无敌
  */
 @Component
-@Order(1)
+@Order(OrderConstants.ARTIST_FIELD_FIXER_ORDER)
 class ArtistFieldFixer(
   private val songApi: SongApi
 ) : RecordProcessor<VSongTask, VSongTask> {
