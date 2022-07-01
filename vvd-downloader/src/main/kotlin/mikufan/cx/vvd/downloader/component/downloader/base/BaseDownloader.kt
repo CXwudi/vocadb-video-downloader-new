@@ -75,6 +75,8 @@ abstract class BaseDownloader {
    * Implementation can throw any exception to represent a failed download.
    * Otherwise, a valid [DownloadFiles] instance should be returned
    *
+   * This method can be ported to other projects if anyone wants to use it in their own project
+   *
    * @param url the url of the PV
    * @param baseFileName the base file name that will be included in both thumbnail and pv files.
    * this string is already normalized and safe to be a filename. no other normalization needed.
