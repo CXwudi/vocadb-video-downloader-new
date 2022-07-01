@@ -20,6 +20,9 @@ import org.hibernate.validator.internal.util.Contracts.assertTrue
 import java.nio.file.Path
 import kotlin.io.path.*
 
+/**
+ * This test requires the docker env
+ */
 @SpringBootDirtyTestWithTestProfile
 class BaseCliDownloaderTest(
   ioConfig: IOConfig,
