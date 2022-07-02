@@ -84,7 +84,7 @@ abstract class BaseDownloader {
    * @return DownloadFiles
    * @throws InterruptedException most likely if user presses ctrl+c
    */
-  protected abstract fun tryDownload(url: String, baseFileName: String, outputDirectory: Path): DownloadFiles
+  internal abstract fun tryDownload(url: String, baseFileName: String, outputDirectory: Path): DownloadFiles
 }
 
 internal fun SongProperFileName.toPvFileName(extensionWithDot: String = ""): String =

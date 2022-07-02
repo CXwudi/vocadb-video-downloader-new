@@ -3,16 +3,11 @@ package mikufan.cx.vvd.downloader.component.downloader
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.kotest.assertions.fail
 import io.kotest.matchers.string.shouldContain
-import mikufan.cx.vocadbapiclient.model.PVContract
-import mikufan.cx.vocadbapiclient.model.SongForApiContract
-import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum
 import mikufan.cx.vvd.downloader.component.downloader.base.BaseCliDownloader
 import mikufan.cx.vvd.downloader.config.DownloadConfig
 import mikufan.cx.vvd.downloader.config.EnvironmentConfig
 import mikufan.cx.vvd.downloader.config.IOConfig
-import mikufan.cx.vvd.downloader.model.Parameters
-import mikufan.cx.vvd.downloader.model.VSongTask
 import mikufan.cx.vvd.downloader.util.SpringBootDirtyTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringShouldSpec
 import org.apache.tika.Tika
@@ -33,20 +28,6 @@ class BaseCliDownloaderTest(
 ) : SpringShouldSpec({
 
   val outputDir = ioConfig.outputDirectory
-
-  val buildFakeTask = fun(name: String): VSongTask {
-    val fakePv = PVContract().apply {
-      url = "https://fake.url"
-    }
-    val fakeSong = SongForApiContract().apply {
-      pvs = listOf(fakePv)
-      this.defaultName = name
-      artistString = "producer feat. vocalist"
-      id = 39393
-    }
-    val fakeTask = VSongTask(VSongLabel.builder().build(), Parameters(fakeSong))
-    return fakeTask
-  }
 
   val copyTestSource = fun(originFileNameWithExtension: String, targetFileNameWithoutExtension: String) {
     val source = Path("../test-files/$originFileNameWithExtension")
@@ -84,10 +65,11 @@ class BaseCliDownloaderTest(
     copyTestSource("Kikuo - 幽体離脱 [UHH2KKN0xoc].webp", "【vocalist】song4【producer】[39393]")
     copyTestSource("Kikuo - 幽体離脱 [UHH2KKN0xoc]-trim.webm", "【vocalist】song4【producer】[39393]")
 
-    (1..4).forEach { number ->
-      val fakeTask = buildFakeTask("song$number")
+    for (number in 1..4) {
       should("recognized downloaded files for song$number") {
-        mockDownloader.download(fakeTask.parameters.songForApiContract!!.pvs!![0], fakeTask, outputDir).onFailure {
+        runCatching {
+          mockDownloader.tryDownload("fake url", "【vocalist】song$number【producer】[39393]", outputDir)
+        }.onFailure {
           fail("should not fail for song$number")
         }.onSuccess { (pvFile, audioFile, thumbnailFile) ->
           if (number == 2) {
@@ -103,9 +85,10 @@ class BaseCliDownloaderTest(
 
   context("assume failed download") {
 
-    val fakeTask = buildFakeTask("song-not-exist")
     should("throw exception about not finding the file") {
-      mockDownloader.download(fakeTask.parameters.songForApiContract!!.pvs!![0], fakeTask, outputDir).onSuccess {
+      runCatching {
+        mockDownloader.tryDownload("fake url", "【vocalist】song doesn't exist【producer】[39393]", outputDir)
+      }.onSuccess {
         fail("should not success")
       }.onFailure { e ->
         e.message shouldContain "None of"
