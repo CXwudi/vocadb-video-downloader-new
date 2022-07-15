@@ -4,10 +4,10 @@ import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vocadbapiclient.model.PVContract
 import mikufan.cx.vvd.common.naming.FileNamePostFix
 import mikufan.cx.vvd.commonkt.naming.SongProperFileName
+import mikufan.cx.vvd.commonkt.naming.renameWithSameExtension
 import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum
 import mikufan.cx.vvd.downloader.component.DownloadManager
 import mikufan.cx.vvd.downloader.model.VSongTask
-import mikufan.cx.vvd.downloader.util.renameWithSameExtension
 import java.nio.file.Path
 
 /**

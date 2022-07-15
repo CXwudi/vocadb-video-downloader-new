@@ -1,4 +1,4 @@
-package mikufan.cx.vvd.downloader.util
+package mikufan.cx.vvd.commonkt.naming
 
 import java.nio.file.Path
 import kotlin.io.path.extension

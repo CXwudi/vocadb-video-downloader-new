@@ -1,11 +1,14 @@
 package mikufan.cx.vvd.extractor.component.extractor.base
 
 import mikufan.cx.inlinelogging.KInlineLogging
+import mikufan.cx.vvd.common.naming.FileNamePostFix
+import mikufan.cx.vvd.commonkt.naming.SongProperFileName
+import mikufan.cx.vvd.commonkt.naming.renameWithSameExtension
 import mikufan.cx.vvd.extractor.model.VSongTask
 import java.nio.file.Path
 
 /**
- * The base class for all audio extractors.
+ * The base class for all audio extractors, that extract the audio track to a file from a video file.
  *
  * If you want to create a new extractor, you should extend this class or any sub-baseclass of this class.
  *
@@ -30,12 +33,17 @@ abstract class BaseAudioExtractor {
    * @param pvFile Path the PV file to be extracted
    * @param allInfo VSongTask all information of the song
    * @param outputDirectory Path the directory to save the extracted audio track
-   * @return Result<Path> the path of the extracted audio track
+   * @return Result<Path> either a [Result.Failure] with exception or the path of the extracted audio file
+   * @throws InterruptedException most likely if user presses ctrl+c
    */
   fun extract(pvFile: Path, allInfo: VSongTask, outputDirectory: Path): Result<Path> {
     val baseFileName = allInfo.parameters.songProperFileName
     return try {
-      Result.success(tryExtract(pvFile, baseFileName.toString(), outputDirectory))
+      log.info { "Start extracting audio track from $pvFile to $outputDirectory with base file name $baseFileName" }
+      val extractedAudioFile = tryExtract(pvFile, baseFileName.toString(), outputDirectory)
+      val movedAudioFile = extractedAudioFile.renameWithSameExtension(baseFileName.toAudioFileName())
+      log.info { "Extract success =￣ω￣= for $baseFileName, we got $movedAudioFile" }
+      Result.success(movedAudioFile)
     } catch (e: InterruptedException) {
       Thread.currentThread().interrupt()
       log.error { "Extraction for $baseFileName gets interrupted" }
@@ -49,14 +57,22 @@ abstract class BaseAudioExtractor {
   /**
    * Extract the audio track from the PV file of the song to the [outputDirectory] with a base file name [baseOutputFileName].
    *
+   * The method returns the path of the extracted audio file to indicate it succeeds.
+   * Otherwise, throw exception to indicate it fails.
+   *
    * This method can be ported to other projects if anyone wants to use it in their own project
    *
    * @param inputPvFile Path the PV file to be extracted
    * @param baseOutputFileName String the base file name of the output file, without extension
    * @param outputDirectory Path the directory to save the extracted audio track
-   * @return Path the path of the extracted audio track
+   * @return Path the path of the extracted audio file
+   * @throws InterruptedException most likely if user presses ctrl+c
+   * @throws Exception if any other error occurs
    */
   internal abstract fun tryExtract(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): Path
 }
 
 private val log = KInlineLogging.logger()
+
+internal fun SongProperFileName.toAudioFileName(extensionWithDot: String = ""): String =
+  this.toString() + FileNamePostFix.AUDIO + extensionWithDot
