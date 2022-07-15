@@ -40,7 +40,7 @@ vvd-downloader/manual-test-config.yml
 vvd-extractor/2021年V家新曲-extracted-test/
 
 ### My Exe ###
-vvd-downloader/aria2c.exe
-vvd-downloader/ffmpeg.exe
-vvd-downloader/MediaInfo.exe
-vvd-downloader/yt-dlp.exe
+**/aria2c.exe
+**/ffmpeg.exe
+**/MediaInfo.exe
+**/yt-dlp.exe
