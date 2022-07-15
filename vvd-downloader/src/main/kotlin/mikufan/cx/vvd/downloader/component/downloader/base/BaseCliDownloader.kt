@@ -4,14 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import mikufan.cx.executil.runCmd
 import mikufan.cx.executil.sync
 import mikufan.cx.inlinelogging.KInlineLogging
-//import mikufan.cx.vvd.commonkt.exec.runCmd  // commented out to easily enable back quick debug on exec library
-//import mikufan.cx.vvd.commonkt.exec.sync
+import mikufan.cx.vvd.commonkt.threading.ExternalProcessThreadFactory
 import mikufan.cx.vvd.downloader.config.DownloadConfig
 import mikufan.cx.vvd.downloader.config.EnvironmentConfig
 import org.apache.tika.Tika
 import java.nio.file.Path
 import java.util.concurrent.LinkedBlockingDeque
-import java.util.concurrent.ThreadFactory
 import java.util.concurrent.ThreadPoolExecutor
 import javax.annotation.PreDestroy
 import kotlin.io.path.listDirectoryEntries
@@ -54,7 +52,6 @@ abstract class BaseCliDownloader(
    * download using command line, then use apache tika and mediainfo to identify the file type
    */
   override fun tryDownload(url: String, baseFileName: String, outputDirectory: Path): DownloadFiles {
-
     // build commands
     val commands = buildCommands(url, baseFileName, outputDirectory)
 
@@ -189,20 +186,6 @@ abstract class BaseCliDownloader(
   fun shutdownThreadPool() {
     log.debug { "Shutting down the common pool in $downloaderName for $targetPvService" }
     threadPool.shutdown()
-  }
-}
-
-private class ExternalProcessThreadFactory(baseName: String) : ThreadFactory {
-
-  private val names = listOf("$baseName-stdout", "$baseName-stderr", "$baseName-stdin")
-  private var counter = 0
-
-  override fun newThread(r: Runnable): Thread {
-    return Thread(r, names[counter++ % names.size])
-  }
-
-  fun resetCounter() {
-    counter = 0
   }
 }
 
