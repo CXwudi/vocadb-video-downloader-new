@@ -19,6 +19,9 @@ import kotlin.io.path.copyTo
 import kotlin.io.path.div
 import kotlin.io.path.extension
 
+/**
+ * just to test the [BaseDownloader.download] logic without considering the [BaseDownloader.tryDownload]
+ */
 @SpringBootDirtyTestWithTestProfile
 class BaseDownloaderTest(
   ioConfig: IOConfig
@@ -61,15 +64,15 @@ class BaseDownloaderTest(
 
     copyTestSource(
       "【世界计划】KAITO&MEIKO「ニジイロストーリーズ」 (Another Vocal版) [459823810_part1].f6-trim.mp4",
-      "【vocalist】OSTER project song【producer】[39393]"
+      "【vocalist】OSTER project song【producer】[39393]-i0"
     )
     copyTestSource(
       "【世界计划】KAITO&MEIKO「ニジイロストーリーズ」 (Another Vocal版) [459823810_part1].f2-trim.m4a",
-      "【vocalist】OSTER project song【producer】[39393].audio"
+      "【vocalist】OSTER project song【producer】[39393]-i0.audio"
     )
     copyTestSource(
       "【世界计划】KAITO&MEIKO「ニジイロストーリーズ」 (Another Vocal版) [459823810_part1].jpg",
-      "【vocalist】OSTER project song【producer】[39393].thumbnail"
+      "【vocalist】OSTER project song【producer】[39393]-i0.thumbnail"
     )
 
     should("properly handle renaming of song") {
