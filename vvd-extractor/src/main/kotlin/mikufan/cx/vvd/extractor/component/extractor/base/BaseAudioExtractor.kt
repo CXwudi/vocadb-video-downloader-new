@@ -63,7 +63,8 @@ abstract class BaseAudioExtractor {
    * This method can be ported to other projects if anyone wants to use it in their own project
    *
    * @param inputPvFile Path the PV file to be extracted
-   * @param baseOutputFileName String the base file name of the output file, without extension
+   * @param baseOutputFileName String the base file name of the output file, without extension.
+   * this string is already normalized and safe to be a filename. no other normalization needed.
    * @param outputDirectory Path the directory to save the extracted audio track
    * @return Path the path of the extracted audio file
    * @throws InterruptedException most likely if user presses ctrl+c

@@ -78,7 +78,7 @@ abstract class BaseDownloader {
    * This method can be ported to other projects if anyone wants to use it in their own project
    *
    * @param url the url of the PV
-   * @param baseFileName the base file name that will be included in both thumbnail and pv files.
+   * @param baseFileName the base file name that will be included in both thumbnail and pv files, without extension.
    * this string is already normalized and safe to be a filename. no other normalization needed.
    * @param outputDirectory Path
    * @return DownloadFiles
