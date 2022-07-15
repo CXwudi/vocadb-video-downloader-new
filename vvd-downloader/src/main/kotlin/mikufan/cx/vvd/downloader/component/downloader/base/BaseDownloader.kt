@@ -11,7 +11,7 @@ import mikufan.cx.vvd.downloader.util.renameWithSameExtension
 import java.nio.file.Path
 
 /**
- * The base class for all downloader.
+ * The base class for all downloader, which can download the pv/audio and thumbnail of a song.
  *
  * If you want to create a new downloader, you should extend this class or any sub-baseclass of this class.
  *
@@ -83,6 +83,7 @@ abstract class BaseDownloader {
    * @param outputDirectory Path
    * @return DownloadFiles
    * @throws InterruptedException most likely if user presses ctrl+c
+   * @throws Exception if any other error occurs
    */
   internal abstract fun tryDownload(url: String, baseFileName: String, outputDirectory: Path): DownloadFiles
 }
