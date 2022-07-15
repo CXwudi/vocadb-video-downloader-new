@@ -6,7 +6,7 @@ import mikufan.cx.executil.runCmd
 import mikufan.cx.executil.sync
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
-import mikufan.cx.vvd.extractor.config.EnvrionmentConfig
+import mikufan.cx.vvd.extractor.config.EnvironmentConfig
 import mikufan.cx.vvd.extractor.config.IOConfig
 import mikufan.cx.vvd.extractor.model.VSongTask
 import mikufan.cx.vvd.extractor.util.OrderConstants
@@ -31,7 +31,7 @@ import kotlin.io.path.notExists
 @Order(OrderConstants.EXTRACTOR_DECIDER_ORDER)
 class ExtractorDecider(
   ioConfig: IOConfig,
-  environmentConfig: EnvrionmentConfig,
+  environmentConfig: EnvironmentConfig,
   private val objectMapper: ObjectMapper,
   private val ctx: ApplicationContext,
 ) : RecordProcessor<VSongTask, VSongTask> {
