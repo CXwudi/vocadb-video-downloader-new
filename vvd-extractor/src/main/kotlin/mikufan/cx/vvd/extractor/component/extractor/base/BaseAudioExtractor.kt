@@ -6,6 +6,7 @@ import mikufan.cx.vvd.commonkt.naming.SongProperFileName
 import mikufan.cx.vvd.commonkt.naming.renameWithSameExtension
 import mikufan.cx.vvd.extractor.model.VSongTask
 import java.nio.file.Path
+import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * The base class for all audio extractors, that extract the audio track to a file from a video file.
@@ -40,7 +41,8 @@ abstract class BaseAudioExtractor {
     val baseFileName = allInfo.parameters.songProperFileName
     return try {
       log.info { "Start extracting audio track from $pvFile to $outputDirectory with base file name $baseFileName" }
-      val extractedAudioFile = tryExtract(pvFile, baseFileName.toString(), outputDirectory)
+      val uniqueBaseFileName = "$baseFileName-i${idAccumulator.getAndIncrement()}"
+      val extractedAudioFile = tryExtract(pvFile, uniqueBaseFileName, outputDirectory)
       val movedAudioFile = extractedAudioFile.renameWithSameExtension(baseFileName.toAudioFileName())
       log.info { "Extract success =￣ω￣= for $baseFileName, we got $movedAudioFile" }
       Result.success(movedAudioFile)
@@ -55,7 +57,7 @@ abstract class BaseAudioExtractor {
   }
 
   /**
-   * Extract the audio track from the PV file of the song to the [outputDirectory] with a base file name [baseOutputFileName].
+   * Extract the audio track from the PV file of the song to the [outputDirectory] with a base file name [baseFileName].
    *
    * The method returns the path of the extracted audio file to indicate it succeeds.
    * Otherwise, throw exception to indicate it fails.
@@ -63,17 +65,20 @@ abstract class BaseAudioExtractor {
    * This method can be ported to other projects if anyone wants to use it in their own project
    *
    * @param inputPvFile Path the PV file to be extracted
-   * @param baseOutputFileName String the base file name of the output file, without extension.
+   * @param baseFileName String the base file name of the output audio file, without extension.
+   * such file name must be unique enough so that only related file contain this string.
    * this string is already normalized and safe to be a filename. no other normalization needed.
    * @param outputDirectory Path the directory to save the extracted audio track
    * @return Path the path of the extracted audio file
    * @throws InterruptedException most likely if user presses ctrl+c
    * @throws Exception if any other error occurs
    */
-  internal abstract fun tryExtract(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): Path
+  internal abstract fun tryExtract(inputPvFile: Path, baseFileName: String, outputDirectory: Path): Path
 }
-
-private val log = KInlineLogging.logger()
 
 internal fun SongProperFileName.toAudioFileName(extensionWithDot: String = ""): String =
   this.toString() + FileNamePostFix.AUDIO + extensionWithDot
+
+private val idAccumulator = AtomicInteger(0)
+
+private val log = KInlineLogging.logger()
