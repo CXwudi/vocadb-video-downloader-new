@@ -11,6 +11,8 @@ import java.util.concurrent.atomic.AtomicInteger
 /**
  * The base class for all audio extractors, that extract the audio track to a file from a video file.
  *
+ * Implementation must be stateless to allow parallel execution of multiple files.
+ *
  * If you want to create a new extractor, you should extend this class or any sub-baseclass of this class.
  *
  * If you want to use it in other project, simply remove the [extract] method to remove any dependency with VocaDB

@@ -16,3 +16,19 @@ config: # configuration
   process:
     timeout: 5
     unit: minutes
+
+
+# spring setting, DON't touch. unless you know what you are doing
+
+spring:
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+    serialization:
+      indent-output: true
+    # default-property-inclusion: non_null # disabling for now, we want 3rd app read our json easily
+
+
+logging:
+  level:
+    mikufan: debug

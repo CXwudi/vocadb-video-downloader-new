@@ -61,7 +61,7 @@ abstract class BaseCliAudioExtractor(
    */
   abstract fun buildCommands(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): List<String>
 
-  private fun executeCommands(commands: List<String>) {
+  protected open fun executeCommands(commands: List<String>) {
     runCmd(*commands.toTypedArray()).sync(processConfig.timeout, processConfig.unit, threadPool) {
       // the order must be stdout first and stderr second, due to how ExternalProcessThreadFactory is coded
       onStdOutEachLine {
@@ -78,6 +78,13 @@ abstract class BaseCliAudioExtractor(
     processThreadFactory.resetCounter()
   }
 
+  /**
+   * It is encouraged to override this method to find the extracted audio file,
+   * instead of relying on [Path.listDirectoryEntries] to find the extracted audio file.
+   * @param outputDirectory Path the directory to store the output audio file.
+   * @param baseOutputFileName String the base file name of the output audio file.
+   * @return Path the path of the extracted audio file.
+   */
   protected open fun findExtractedAudioFile(outputDirectory: Path, baseOutputFileName: String): Path {
     val possibleFiles =
       outputDirectory.listDirectoryEntries("*${baseOutputFileName.replace("[", "\\[").replace("]", "\\]")}*")
