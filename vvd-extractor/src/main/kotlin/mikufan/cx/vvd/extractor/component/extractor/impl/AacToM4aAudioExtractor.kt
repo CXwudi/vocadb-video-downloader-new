@@ -35,19 +35,24 @@ class AacToM4aAudioExtractor(
 
   /**
    * modified the super class method to execute two commands
+   *
+   * in windows, java can't execute two commands connected by &&, it will only run the one before &&
+   *
+   * so we simply just execute two commands in two separated processes
    */
   override fun tryExtract(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): Path {
-    // build commands
     val tempAacFile = buildTempAacFile(outputDirectory, baseOutputFileName)
+
     val aacCommands = buildAacCommands(inputPvFile, tempAacFile)
-    val m4aCommands = buildM4aCommands(tempAacFile, baseOutputFileName, outputDirectory)
-    // execute commands
     log.info { "Executing first commands to get temp aac: ${aacCommands.joinToString(" ", "`", "`")}" }
     executeCommands(aacCommands)
     log.info { "Done executing first command for $baseOutputFileName" }
+
+    val m4aCommands = buildM4aCommands(tempAacFile, baseOutputFileName, outputDirectory)
     log.info { "Next, get final m4a file by executing: $${m4aCommands.joinToString(" ", "`", "`")}" }
     executeCommands(m4aCommands)
     log.info { "Done executing m4a commands for $baseOutputFileName" }
+
     tempAacFile.deleteIfExists()
     // find the extracted audio file
     return findExtractedAudioFile(outputDirectory, baseOutputFileName)
