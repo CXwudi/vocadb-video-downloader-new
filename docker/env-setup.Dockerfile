@@ -34,7 +34,7 @@ RUN arch=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) && \
     fi
 
 FROM base as main
-MAINTAINER "CXwudi"
+LABEL Author="CXwudi"
 
 RUN apt-get install -y \
     # needed by add-apt-repository
