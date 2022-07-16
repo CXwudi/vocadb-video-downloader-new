@@ -71,4 +71,4 @@ ENV PATH="${JAVA_HOME}/bin:${PATH}"
 COPY --from=external_bin_setuper /opt/ffmpeg/bin /usr/local/bin
 
 # simplify image
-RUN rm -rf /var/lib/apt/lists/*
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
