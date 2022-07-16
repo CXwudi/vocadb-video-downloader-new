@@ -51,7 +51,7 @@ ENV \
 RUN apt-get install -y --no-install-recommends\
     python3-pip \
     && update-alternatives --install /usr/bin/python python /usr/bin/python3 2 \
-    && pip install --upgrade  \
+    && pip install --upgrade --no-cache-dir \
     pip \
     mutagen  \
     yt-dlp
