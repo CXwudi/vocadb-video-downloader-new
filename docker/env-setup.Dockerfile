@@ -3,8 +3,7 @@ FROM debian:bullseye-slim as base
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ## everyone is using this, so I add it in
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update \
-    && apt-get upgrade -y
+RUN apt-get update
 
 FROM base as external_bin_setuper
 RUN apt-get install -y  \
@@ -36,7 +35,7 @@ RUN arch=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) && \
 FROM base as main
 LABEL Author="CXwudi"
 
-RUN apt-get install -y \
+RUN apt-get install -y --no-install-recommends \
     # needed by add-apt-repository
     #    software-properties-common \
     locales \
@@ -49,7 +48,7 @@ ENV \
   LC_ALL="en_US.UTF-8"
 
 # let the python installation be a saperate step, so that we can change to any installation method without invalidating previous layers
-RUN apt-get install -y \
+RUN apt-get install -y --no-install-recommends\
     python3-pip \
     && update-alternatives --install /usr/bin/python python /usr/bin/python3 2 \
     && pip install --upgrade  \
