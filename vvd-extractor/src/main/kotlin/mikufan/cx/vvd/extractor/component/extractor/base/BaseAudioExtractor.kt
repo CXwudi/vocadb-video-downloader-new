@@ -57,7 +57,7 @@ abstract class BaseAudioExtractor {
   }
 
   /**
-   * Extract the audio track from the PV file of the song to the [outputDirectory] with a base file name [baseFileName].
+   * Extract the audio track from the PV file of the song to the [outputDirectory] with a base file name [baseOutputFileName].
    *
    * The method returns the path of the extracted audio file to indicate it succeeds.
    * Otherwise, throw exception to indicate it fails.
@@ -65,7 +65,7 @@ abstract class BaseAudioExtractor {
    * This method can be ported to other projects if anyone wants to use it in their own project
    *
    * @param inputPvFile Path the PV file to be extracted
-   * @param baseFileName String the base file name of the output audio file, without extension.
+   * @param baseOutputFileName String the base file name of the output audio file, without extension.
    * such file name must be unique enough so that only related file contain this string.
    * this string is already normalized and safe to be a filename. no other normalization needed.
    * @param outputDirectory Path the directory to save the extracted audio track
@@ -73,7 +73,7 @@ abstract class BaseAudioExtractor {
    * @throws InterruptedException most likely if user presses ctrl+c
    * @throws Exception if any other error occurs
    */
-  internal abstract fun tryExtract(inputPvFile: Path, baseFileName: String, outputDirectory: Path): Path
+  internal abstract fun tryExtract(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): Path
 }
 
 internal fun SongProperFileName.toAudioFileName(extensionWithDot: String = ""): String =

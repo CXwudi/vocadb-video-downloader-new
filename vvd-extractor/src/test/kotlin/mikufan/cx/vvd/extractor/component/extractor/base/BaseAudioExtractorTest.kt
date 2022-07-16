@@ -46,8 +46,8 @@ class BaseAudioExtractorTest(
   context("assume success extraction") {
     val fakeExtractor = object : BaseAudioExtractor() {
       override val name = "fake audio extractor"
-      override fun tryExtract(inputPvFile: Path, baseFileName: String, outputDirectory: Path): Path {
-        return outputDirectory.resolve("$baseFileName.m4a")
+      override fun tryExtract(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): Path {
+        return outputDirectory.resolve("$baseOutputFileName.m4a")
       }
     }
 
@@ -70,7 +70,7 @@ class BaseAudioExtractorTest(
     should("works") {
       val fakeExtractor = object : BaseAudioExtractor() {
         override val name = "fake audio extractor"
-        override fun tryExtract(inputPvFile: Path, baseFileName: String, outputDirectory: Path): Path {
+        override fun tryExtract(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): Path {
           throw RuntimeVocaloidException("fake exception")
         }
       }
