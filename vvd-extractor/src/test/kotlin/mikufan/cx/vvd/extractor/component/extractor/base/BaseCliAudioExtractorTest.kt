@@ -67,7 +67,7 @@ class DummyCliAudioExtractor(
   processConfig: ProcessConfig,
 ) : BaseCliAudioExtractor(processConfig) {
 
-  override fun buildCommands(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): List<String> =
+  override fun buildCommand(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): List<String> =
     listOf("java", "--version")
 
   override val name: String = "dummy cli audio extractor"

@@ -37,11 +37,11 @@ abstract class BaseCliAudioExtractor(
    */
   override fun tryExtract(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): Path {
     // build commands
-    val commands = buildCommands(inputPvFile, baseOutputFileName, outputDirectory)
+    val command = buildCommand(inputPvFile, baseOutputFileName, outputDirectory)
 
     // execute commands
-    log.info { "Executing commands: ${commands.joinToString(" ", "`", "`")}" }
-    executeCommands(commands)
+    log.info { "Executing commands: ${command.joinToString(" ", "`", "`")}" }
+    executeCommand(command)
     log.info { "Done command execution for $baseOutputFileName, start finding the extracted audio file" }
     // find the extracted audio file
     return findExtractedAudioFile(outputDirectory, baseOutputFileName)
@@ -59,9 +59,9 @@ abstract class BaseCliAudioExtractor(
    * @param outputDirectory Path the directory to store the output audio file.
    * @return List<String> the commands to be executed.
    */
-  abstract fun buildCommands(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): List<String>
+  abstract fun buildCommand(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): List<String>
 
-  protected open fun executeCommands(commands: List<String>) {
+  protected open fun executeCommand(commands: List<String>) {
     runCmd(*commands.toTypedArray()).sync(processConfig.timeout, processConfig.unit, threadPool) {
       // the order must be stdout first and stderr second, due to how ExternalProcessThreadFactory is coded
       onStdOutEachLine {

@@ -17,7 +17,7 @@ import kotlin.io.path.listDirectoryEntries
 /**
  * A common base class for downloader that execute external command lines tools
  *
- * Subclasses can simply override [buildCommands] to complete the download implementation.
+ * Subclasses can simply override [buildCommand] to complete the download implementation.
  * Subclasses can also override any method called in [tryDownload] to customize more.
  *
  * Otherwise, considering extending [BaseDownloader] class instead
@@ -53,11 +53,11 @@ abstract class BaseCliDownloader(
    */
   override fun tryDownload(url: String, baseFileName: String, outputDirectory: Path): DownloadFiles {
     // build commands
-    val commands = buildCommands(url, baseFileName, outputDirectory)
+    val command = buildCommand(url, baseFileName, outputDirectory)
 
     // execute commands
-    log.info { "Executing command: ${commands.joinToString(" ", "`", "`")}" }
-    execCommands(commands)
+    log.info { "Executing command: ${command.joinToString(" ", "`", "`")}" }
+    execCommand(command)
     log.info { "Done command execution for $baseFileName, collecting downloaded files to their types" }
 
     // finds the downloaded files, and identify which is PV, audio, thumbnails using apache tika and mediainfo
@@ -81,13 +81,13 @@ abstract class BaseCliDownloader(
    * @param url the url of the pv to be downloaded
    * @return the command line in list of strings that will be used to download the needed resources
    */
-  abstract fun buildCommands(url: String, baseFileName: String, outputDirectory: Path): List<String>
+  abstract fun buildCommand(url: String, baseFileName: String, outputDirectory: Path): List<String>
 
   /**
    * Execute the command line in [commands]
    * @param commands List<String> the command line in list of strings to be executed
    */
-  protected open fun execCommands(commands: List<String>) {
+  protected open fun execCommand(commands: List<String>) {
     runCmd(*commands.toTypedArray()).sync(downloadConfig.timeout, downloadConfig.unit, threadPool) {
       // the order must be stdout first and stderr second, due to how ExternalProcessThreadFactory is coded
       onStdOutEachLine {

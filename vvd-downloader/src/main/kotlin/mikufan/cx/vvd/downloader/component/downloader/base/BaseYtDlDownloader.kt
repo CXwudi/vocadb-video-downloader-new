@@ -41,7 +41,7 @@ abstract class BaseYtDlDownloader(
    * @param url the url of the pv to be downloaded
    * @return the command line in list of strings that will be used to download the needed resources
    */
-  override fun buildCommands(url: String, baseFileName: String, outputDirectory: Path): List<String> {
+  override fun buildCommand(url: String, baseFileName: String, outputDirectory: Path): List<String> {
     return buildList {
       addAll(launchCmd)
       addAll(externalArgs)

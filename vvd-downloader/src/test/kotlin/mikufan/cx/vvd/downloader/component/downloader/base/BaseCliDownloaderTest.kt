@@ -111,7 +111,7 @@ class DummyCliDownloader(
   environmentConfig,
   objectMapper
 ) {
-  override fun buildCommands(url: String, baseFileName: String, outputDirectory: Path): List<String> =
+  override fun buildCommand(url: String, baseFileName: String, outputDirectory: Path): List<String> =
     listOf("java", "--version")
 
   override val downloaderName: String = "dummy-success-dl"

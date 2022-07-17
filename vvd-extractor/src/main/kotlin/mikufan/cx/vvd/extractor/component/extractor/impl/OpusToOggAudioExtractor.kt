@@ -31,7 +31,7 @@ class OpusToOggAudioExtractor(
    */
   override val name: String = "Ogg Audio Extractor by FFmpeg"
 
-  override fun buildCommands(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): List<String> = buildList {
+  override fun buildCommand(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): List<String> = buildList {
     addAll(ffmpegLaunchCmd)
     add("-i")
     add(inputPvFile.toString())

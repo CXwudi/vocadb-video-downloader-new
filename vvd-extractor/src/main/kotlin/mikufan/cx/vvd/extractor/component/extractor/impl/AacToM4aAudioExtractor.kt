@@ -43,14 +43,14 @@ class AacToM4aAudioExtractor(
   override fun tryExtract(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): Path {
     val tempAacFile = buildTempAacFile(outputDirectory, baseOutputFileName)
 
-    val aacCommands = buildAacCommands(inputPvFile, tempAacFile)
-    log.info { "Executing first commands to get temp aac: ${aacCommands.joinToString(" ", "`", "`")}" }
-    executeCommands(aacCommands)
+    val aacCommand = buildAacCommand(inputPvFile, tempAacFile)
+    log.info { "Executing first commands to get temp aac: ${aacCommand.joinToString(" ", "`", "`")}" }
+    executeCommand(aacCommand)
     log.info { "Done executing first command for $baseOutputFileName" }
 
-    val m4aCommands = buildM4aCommands(tempAacFile, baseOutputFileName, outputDirectory)
-    log.info { "Next, get final m4a file by executing: $${m4aCommands.joinToString(" ", "`", "`")}" }
-    executeCommands(m4aCommands)
+    val m4aCommand = buildM4aCommand(tempAacFile, baseOutputFileName, outputDirectory)
+    log.info { "Next, get final m4a file by executing: $${m4aCommand.joinToString(" ", "`", "`")}" }
+    executeCommand(m4aCommand)
     log.info { "Done executing m4a commands for $baseOutputFileName" }
 
     tempAacFile.deleteIfExists()
@@ -59,13 +59,13 @@ class AacToM4aAudioExtractor(
   }
 
   /**
-   * not needed for this class as we use [buildAacCommands] and [buildM4aCommands]
+   * not needed for this class as we use [buildAacCommand] and [buildM4aCommand]
    */
-  override fun buildCommands(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): List<String> {
+  override fun buildCommand(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): List<String> {
     throw UnsupportedOperationException("Not needed")
   }
 
-  private fun buildAacCommands(inputPvFile: Path, tempAacFile: Path): List<String> = buildList {
+  private fun buildAacCommand(inputPvFile: Path, tempAacFile: Path): List<String> = buildList {
     addAll(ffmpegLaunchCmd)
     add("-i")
     add(inputPvFile.toString())
@@ -76,7 +76,7 @@ class AacToM4aAudioExtractor(
     add(tempAacFile.toString())
   }
 
-  private fun buildM4aCommands(tempAacFile: Path, baseOutputFileName: String, outputDirectory: Path): List<String> = buildList {
+  private fun buildM4aCommand(tempAacFile: Path, baseOutputFileName: String, outputDirectory: Path): List<String> = buildList {
     addAll(ffmpegLaunchCmd)
     add("-i")
     add(tempAacFile.toString())
