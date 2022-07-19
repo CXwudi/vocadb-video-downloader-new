@@ -6,6 +6,8 @@ import mikufan.cx.executil.runCmd
 import mikufan.cx.executil.sync
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
+import mikufan.cx.vvd.extractor.component.extractor.impl.AacToM4aAudioExtractor
+import mikufan.cx.vvd.extractor.component.extractor.impl.OpusToOggAudioExtractor
 import mikufan.cx.vvd.extractor.config.EnvironmentConfig
 import mikufan.cx.vvd.extractor.config.IOConfig
 import mikufan.cx.vvd.extractor.model.VSongTask
@@ -13,6 +15,7 @@ import mikufan.cx.vvd.extractor.util.OrderConstants
 import org.apache.commons.lang3.mutable.MutableObject
 import org.jeasy.batch.core.processor.RecordProcessor
 import org.jeasy.batch.core.record.Record
+import org.springframework.beans.factory.getBean
 import org.springframework.context.ApplicationContext
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
@@ -46,9 +49,8 @@ class ExtractorDecider(
     val audioFile = inputDirectory / record.payload.label.audioFileName
     if (audioFile.exists()) {
       log.info { "Skip choosing audio extractor for $baseFileName as it contains an audio file $audioFile" }
-      return record.apply {
-        payload.parameters.chosenAudioExtractor = Optional.empty()
-      }
+      record.payload.parameters.chosenAudioExtractor = Optional.empty()
+      return record
     }
     val pvFile = inputDirectory / record.payload.label.pvFileName
     if (pvFile.notExists()) {
@@ -57,13 +59,18 @@ class ExtractorDecider(
             "Nor does it has a valid audio file."
       )
     }
-    val audioFormat = checkAudioFormat(pvFile)
     /*
     list of common audio format from video format
     mp4/flv -> aac
     webm,mkv -> opus/aac/flac (opus from youtube-dl/yt-dlp with ffmpeg, without ffmpeg, it would be aac)
      */
-    TODO("continue back here when finished all audio extractors")
+    val chosenAudioExtractor = when (val audioFormat = checkAudioFormat(pvFile)) {
+      "aac" -> ctx.getBean<AacToM4aAudioExtractor>()
+      "opus" -> ctx.getBean<OpusToOggAudioExtractor>()
+      else -> throw RuntimeVocaloidException("Unsupported audio format $audioFormat for song $baseFileName")
+    }
+    log.info { "Decided to use ${chosenAudioExtractor.name} to extract audio from $baseFileName" }
+    record.payload.parameters.chosenAudioExtractor = Optional.of(chosenAudioExtractor)
     return record
   }
 
