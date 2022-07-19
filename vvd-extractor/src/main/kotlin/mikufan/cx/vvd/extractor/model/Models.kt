@@ -6,6 +6,7 @@ import mikufan.cx.vvd.commonkt.naming.SongProperFileName
 import mikufan.cx.vvd.commonkt.naming.toProperFileName
 import mikufan.cx.vvd.extractor.component.ExtractorDecider
 import mikufan.cx.vvd.extractor.component.extractor.base.BaseAudioExtractor
+import java.nio.file.Path
 import java.util.*
 
 /**
@@ -23,6 +24,7 @@ data class Parameters(
    * it is [Optional] because a vsong may already have the audio defined in [VSongLabel]
    */
   var chosenAudioExtractor: Optional<BaseAudioExtractor>? = null,
+  var finalAudioFile: Path? = null,
 ) {
   /**
    * save the proper file name for debugging and other filename generation
