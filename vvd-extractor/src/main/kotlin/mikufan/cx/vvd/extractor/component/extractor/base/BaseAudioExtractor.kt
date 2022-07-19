@@ -6,7 +6,6 @@ import mikufan.cx.vvd.commonkt.naming.SongProperFileName
 import mikufan.cx.vvd.commonkt.naming.renameWithSameExtension
 import mikufan.cx.vvd.extractor.model.VSongTask
 import java.nio.file.Path
-import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * The base class for all audio extractors, that extract the audio track to a file from a video file.
@@ -43,9 +42,10 @@ abstract class BaseAudioExtractor {
     val baseFileName = allInfo.parameters.songProperFileName
     return try {
       log.info { "Start extracting audio track from $pvFile to $outputDirectory with base file name $baseFileName" }
-      val uniqueBaseFileName = "$baseFileName-i${idAccumulator.getAndIncrement()}"
-      val extractedAudioFile = tryExtract(pvFile, uniqueBaseFileName, outputDirectory)
-      val movedAudioFile = extractedAudioFile.renameWithSameExtension(baseFileName.toAudioFileName())
+      // add the post fix to make the name of the extracted audio file unique
+      val tempBaseFileName = "$baseFileName-extracting"
+      val extractedAudioFile = tryExtract(pvFile, tempBaseFileName, outputDirectory)
+      val movedAudioFile = extractedAudioFile.renameWithSameExtension(baseFileName.toFinalAudioFileName())
       log.info { "Extract success =￣ω￣= for $baseFileName, we got $movedAudioFile" }
       Result.success(movedAudioFile)
     } catch (e: InterruptedException) {
@@ -78,9 +78,7 @@ abstract class BaseAudioExtractor {
   internal abstract fun tryExtract(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): Path
 }
 
-internal fun SongProperFileName.toAudioFileName(extensionWithDot: String = ""): String =
+internal fun SongProperFileName.toFinalAudioFileName(extensionWithDot: String = ""): String =
   this.toString() + FileNamePostFix.AUDIO + extensionWithDot
-
-private val idAccumulator = AtomicInteger(0)
 
 private val log = KInlineLogging.logger()

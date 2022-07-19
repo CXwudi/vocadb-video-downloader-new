@@ -9,7 +9,6 @@ import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum
 import mikufan.cx.vvd.downloader.component.DownloadManager
 import mikufan.cx.vvd.downloader.model.VSongTask
 import java.nio.file.Path
-import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * The base class for all downloader, which can download the pv/audio and thumbnail of a song.
@@ -53,8 +52,9 @@ abstract class BaseDownloader {
     return try {
       val url = requireNotNull(pv.url) { "${pv.name} has a null url?" }
       log.info { "Starting downloading files from $url to $outputDirectory with base name $baseFileName" }
-      val uniqueBaseFileName = "$baseFileName-i${idAccumulator.getAndIncrement()}"
-      val (pvFile, audioFile, thumbnailFile) = tryDownload(url, uniqueBaseFileName, outputDirectory)
+      // add a fix temp postfix of file name on downloaded files to make them unique, and easier to find
+      val tempBaseFileName = "$baseFileName-downloading"
+      val (pvFile, audioFile, thumbnailFile) = tryDownload(url, tempBaseFileName, outputDirectory)
 
       val movedPvFile: Path? = pvFile?.renameWithSameExtension(baseFileName.toPvFileName())
       val movedAudioFile: Path? = audioFile?.renameWithSameExtension(baseFileName.toAudioFileName())
@@ -100,5 +100,4 @@ internal fun SongProperFileName.toAudioFileName(extensionWithDot: String = ""): 
 internal fun SongProperFileName.toThumbnailFileName(extensionWithDot: String = ""): String =
   this.toString() + FileNamePostFix.THUMBNAIL + extensionWithDot
 
-private val idAccumulator = AtomicInteger(0)
 private val log = KInlineLogging.logger()

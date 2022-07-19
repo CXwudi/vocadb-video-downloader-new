@@ -53,7 +53,7 @@ class BaseAudioExtractorTest(
 
     copyTestSource(
       "【世界计划】KAITO&MEIKO「ニジイロストーリーズ」 (Another Vocal版) [459823810_part1].f2-trim.m4a",
-      "【vocalist】OSTER project song【producer】[39393]-i0"
+      "【vocalist】OSTER project song【producer】[39393]-extracting"
     )
 
     should("properly handle renaming of the extracted audio") {
