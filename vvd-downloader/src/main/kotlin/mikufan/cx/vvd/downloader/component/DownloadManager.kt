@@ -53,11 +53,12 @@ class DownloadManager(
               return record
             },
             onFailure = {
+              if (it !is Exception) { throw it }
               log.warn {
                 "    Attempt $attempt on pv ${pv.url} " +
                     "with downloader ${downloader.downloaderName} failed, trying again"
               }
-              failures.add(it as Exception)
+              failures.add(it)
             }
           )
         }
