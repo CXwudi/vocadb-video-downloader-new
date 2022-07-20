@@ -47,7 +47,7 @@ jobs:
       run: docker-compose -f 'docker/docker-compose.base.yml' -f 'docker/docker-compose.test-all.yml' build
       
     - name: Run tests in docker container
-      run: docker-compose -f 'docker/docker-compose.base.yml' -f 'docker/docker-compose.test-all.yml' up
+      run: docker-compose -f 'docker/docker-compose.base.yml' -f 'docker/docker-compose.test-all.yml' up --exit-code-from base
       
 #     - name: Setup Java JDK
 #       uses: actions/setup-java@v3

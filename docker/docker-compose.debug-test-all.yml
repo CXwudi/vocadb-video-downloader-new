@@ -3,6 +3,7 @@ version: '3.7'
 
 services:
   base:
+    container_name: vvd-debug-test-all
     ports:
       - '8000:8000'
     command: [ './mvnw', 'clean', 'verify', '-Dmaven.surefire.debug="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:8000"']

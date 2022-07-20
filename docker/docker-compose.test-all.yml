@@ -3,4 +3,5 @@ version: '3.7'
 
 services:
   base:
+    container_name: vvd-test-all
     command: [ './mvnw', 'clean', 'verify' ]
