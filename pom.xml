@@ -29,6 +29,12 @@
   </properties>
 
   <repositories>
+    <!--  with multiple repos, it is better to put maven central at front. -->
+    <!--  maven always pull packages starting from the first repo defined here, and last one is maven central-->
+    <repository>
+      <id>maven-central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
     <!-- for helping me to use maven packages from GitHub -->
     <repository>
       <id>jitpack.io</id>
