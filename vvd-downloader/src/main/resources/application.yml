@@ -22,8 +22,8 @@ config: # configuration
     try-reprinted-pv: true #to improve: can let users decided on pv type, similar to how pv-preference works, make sure add similar validation as pv-preference too
     # if PVs from one PV service, either original or reprinted, failed to be download,
     # should we move to next available PV service listed in the pv-preference, default value is false
-    # this setting can be useful to avoid this program falsely thinking that the pv service is unavailable,
-    # when the actual issue is the downloader problem, and hence falsely move on to next pv service that is less desirable than previous one
+    # currently it is false as default because we don't want to switch to next PV service due to our codebase bug
+    # while the pv is actually available or the downloader is working properly
     try-next-pv-service-on-fail: false
     # if try-reprinted-pv is true, should we only try reprinted PV after all original PVs across all pv services are failed?
     # if this setting is true, the downloader will go over the pv-preference list twice.
