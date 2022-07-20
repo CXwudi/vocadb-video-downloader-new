@@ -17,6 +17,10 @@ config: # configuration
     timeout: 5
     unit: minutes
 
+  preference:
+    retry-on-extraction: 3 # number of times to retry on audio extraction error
+    retry-on-tagging: 3 # number of times to retry on audio file tagging error
+
 
 # spring setting, DON't touch. unless you know what you are doing
 
