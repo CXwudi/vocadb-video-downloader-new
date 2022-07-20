@@ -46,12 +46,18 @@ class ExtractorDecider(
     val baseFileName = record.payload.parameters.songProperFileName
     log.info { "Start deciding the best audio extractor for $baseFileName" }
     // if the label contains a valid audio file, then skip extraction
-    val audioFile = inputDirectory / record.payload.label.audioFileName
-    if (audioFile.exists()) {
-      log.info { "Skip choosing audio extractor for $baseFileName as it contains an audio file $audioFile" }
-      record.payload.parameters.chosenAudioExtractor = Optional.empty()
-      return record
+    val audioFileName: String? = record.payload.label.audioFileName
+    if (!audioFileName.isNullOrBlank()) {
+      val audioFile = inputDirectory / audioFileName
+      if (audioFile.exists()) {
+        log.info { "Skip choosing audio extractor for $baseFileName as it contains an audio file $audioFile" }
+        record.payload.parameters.chosenAudioExtractor = Optional.empty()
+        return record
+      } else {
+        log.warn { "Audio file $audioFileName is declared in label json file but doesn't exist in inout directory, trading as no audio file" }
+      }
     }
+
     val pvFile = inputDirectory / record.payload.label.pvFileName
     if (pvFile.notExists()) {
       throw RuntimeVocaloidException(
