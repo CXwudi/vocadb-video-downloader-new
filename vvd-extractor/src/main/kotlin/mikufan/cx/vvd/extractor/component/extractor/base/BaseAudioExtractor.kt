@@ -45,7 +45,7 @@ abstract class BaseAudioExtractor {
       // add the post fix to make the name of the extracted audio file unique
       val tempBaseFileName = "$baseFileName-extracting"
       val extractedAudioFile = tryExtract(pvFile, tempBaseFileName, outputDirectory)
-      val movedAudioFile = extractedAudioFile.renameWithSameExtension(baseFileName.toFinalAudioFileName())
+      val movedAudioFile = extractedAudioFile.renameWithSameExtension(baseFileName.toAudioFileName())
       log.info { "Extract success =￣ω￣= for $baseFileName, we got $movedAudioFile" }
       Result.success(movedAudioFile)
     } catch (e: InterruptedException) {
@@ -78,7 +78,7 @@ abstract class BaseAudioExtractor {
   internal abstract fun tryExtract(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): Path
 }
 
-internal fun SongProperFileName.toFinalAudioFileName(extensionWithDot: String = ""): String =
+internal fun SongProperFileName.toAudioFileName(extensionWithDot: String = ""): String =
   this.toString() + FileNamePostFix.AUDIO + extensionWithDot
 
 private val log = KInlineLogging.logger()
