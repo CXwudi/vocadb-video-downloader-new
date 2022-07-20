@@ -1,9 +1,10 @@
 package mikufan.cx.vvd.extractor.component
 
 import mikufan.cx.inlinelogging.KInlineLogging
+import mikufan.cx.vocadbapiclient.model.SongForApiContract
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.common.label.VSongLabel
-import mikufan.cx.vvd.commonkt.naming.SongProperFileName
+import mikufan.cx.vvd.commonkt.naming.removeIllegalChars
 import mikufan.cx.vvd.extractor.config.IOConfig
 import mikufan.cx.vvd.extractor.config.Preference
 import mikufan.cx.vvd.extractor.model.VSongTask
@@ -37,11 +38,12 @@ class ExtractorRunner(
     val parameters = record.payload.parameters
     val label = record.payload.label
     val baseFileName = parameters.songProperFileName
+    val songInfo = requireNotNull(parameters.songForApiContract) { "songForApiContract must not be null" }
     val chosenAudioExtractorOpt = requireNotNull(parameters.chosenAudioExtractor) { "null optional audio extractor?" }
     log.info { "Start running chosen extractor or skip for $baseFileName" }
     // although audio extractor does give a proper file name to the extracted audio file, it is only for extractor purpose
     // we need a final audio file that is for the user to use, play and store
-    val finalAudioFileBaseName = buildFinalAudioFileBaseName(baseFileName, label)
+    val finalAudioFileBaseName = buildFinalAudioFileBaseName(songInfo, label)
     if (chosenAudioExtractorOpt.isPresent) { // for vsong task that need extraction from PV, perform extraction and rename
       val chosenAudioExtractor = chosenAudioExtractorOpt.get()
       log.info { "${chosenAudioExtractor.name} is in charge of extraction of $baseFileName" }
@@ -86,9 +88,19 @@ class ExtractorRunner(
   }
 
   private fun buildFinalAudioFileBaseName(
-    baseFileName: SongProperFileName,
+    songInfo: SongForApiContract,
     label: VSongLabel
-  ): String = "$baseFileName [${label.pvService} ${label.pvId}]"
+  ): String {
+    val finalFileNameBase = songInfo.let {
+      // this code is exactly same in [mikufan.cx.vvd.commonkt.naming.FileNameUtilKt.toProperFileName], but without the VocaDB ID
+      val artists: List<String> = requireNotNull(it.artistString) { "artist string is null" }.split("feat.")
+      val vocals = artists[1].trim()
+      val producers = artists[0].trim()
+      val songName: String = requireNotNull(it.defaultName) { "song name is null" }
+      removeIllegalChars(String.format("【%s】%s【%s】", vocals, songName, producers))
+    }
+    return "$finalFileNameBase - ${label.pvService} [${label.pvId}]"
+  }
 }
 
 private val log = KInlineLogging.logger()
