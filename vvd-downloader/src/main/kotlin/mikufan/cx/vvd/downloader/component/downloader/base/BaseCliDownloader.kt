@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import mikufan.cx.executil.runCmd
 import mikufan.cx.executil.sync
 import mikufan.cx.inlinelogging.KInlineLogging
+import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.commonkt.threading.ExternalProcessThreadFactory
 import mikufan.cx.vvd.downloader.config.DownloadConfig
 import mikufan.cx.vvd.downloader.config.EnvironmentConfig
@@ -124,7 +125,7 @@ abstract class BaseCliDownloader(
       log.warn { "Found other files: ${typePathMap[DownloadFileType.OTHERS]}" }
     }
     if (pvFile == null && audioFile == null) {
-      throw IllegalStateException("None of PV file and audio file is found")
+      throw RuntimeVocaloidException("None of PV file and audio file is found. Download may failed, or the file renaming is incorrect.")
     }
     if (thumbnailFile == null) {
       throw IllegalStateException("Thumbnail file is not found")
