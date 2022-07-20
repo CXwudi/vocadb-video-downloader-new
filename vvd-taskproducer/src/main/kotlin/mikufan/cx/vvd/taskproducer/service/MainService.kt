@@ -43,7 +43,7 @@ class MainService(
 
   @Suppress("UNCHECKED_CAST")
   private suspend fun processRecord(record: Record<VSongTask>) {
-    val songName = record.payload.parameters.songForApiContract?.toProperFileName()
+    val songName = record.payload.parameters.songForApiContract?.toProperFileName() // at this time, only song info fetched, but label json is not ready yet
     log.info { "Start processing $songName" }
     var currentRecord: Record<Any> = record as Record<Any>
     try {
@@ -53,6 +53,7 @@ class MainService(
       labelSaver.write(currentRecord as Record<VSongTask>)
       log.info { "Done processing $songName" }
     } catch (e: Exception) {
+      log.error(e) { "An exception occurred when processing ${songName ?: "an unknown song"}, check the error directory for more information" }
       recordErrorWriter.handleError(currentRecord, e)
     } finally {
       semaphore.release() // release the semaphore when done to allow next task continues

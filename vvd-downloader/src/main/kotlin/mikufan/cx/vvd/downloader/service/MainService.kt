@@ -32,14 +32,16 @@ class MainService(
 
   @Suppress("UNCHECKED_CAST")
   // current we don't need to cast to Any, but for better robustness, let's keep it for now
-  private fun processDownload(label: Record<VSongTask>) {
-    var current: Record<Any> = label as Record<Any>
+  private fun processDownload(record: Record<VSongTask>) {
+    val infoFileName = record.payload.label.infoFileName // song info is not loaded at this time
+    var current: Record<Any> = record as Record<Any>
     try {
       for (processor in processors) {
         current = (processor as RecordProcessor<Any, Any>).processRecord(current)
       }
       runBlocking { labelSaver.write(current as Record<VSongTask>) }
     } catch (e: Exception) {
+      log.error(e) { "An exception occurred when processing ${infoFileName ?: "an unknown song"}, check the error directory for more information" }
       errorWriter.handleError(current, e)
     }
   }
