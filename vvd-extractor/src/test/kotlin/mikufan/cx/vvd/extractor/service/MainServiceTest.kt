@@ -16,7 +16,7 @@ import mikufan.cx.vvd.extractor.util.SpringShouldSpec
 class MainServiceTest(
   private val mainService: MainService
 ) : SpringShouldSpec({
-  should("run on this test env") {
+  xshould("run on this test env") {
     shouldNotThrow<Exception> {
       mainService.run()
     }
