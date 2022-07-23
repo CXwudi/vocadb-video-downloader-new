@@ -3,8 +3,10 @@ package mikufan.cx.vvd.extractor.component.extractor.impl
 import mikufan.cx.vvd.extractor.component.extractor.base.BaseCliAudioExtractor
 import mikufan.cx.vvd.extractor.config.EnvironmentConfig
 import mikufan.cx.vvd.extractor.config.ProcessConfig
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Component
 import java.nio.file.Path
+import java.util.concurrent.ThreadPoolExecutor
 import kotlin.io.path.exists
 
 /**
@@ -21,8 +23,9 @@ import kotlin.io.path.exists
 @Component
 class OpusToOggAudioExtractor(
   processConfig: ProcessConfig,
-  environmentConfig: EnvironmentConfig
-) : BaseCliAudioExtractor(processConfig) {
+  environmentConfig: EnvironmentConfig,
+  @Qualifier("extractorThreadPool") threadPool: ThreadPoolExecutor
+) : BaseCliAudioExtractor(processConfig, threadPool) {
 
   private val ffmpegLaunchCmd = environmentConfig.ffmpegLaunchCmd
 

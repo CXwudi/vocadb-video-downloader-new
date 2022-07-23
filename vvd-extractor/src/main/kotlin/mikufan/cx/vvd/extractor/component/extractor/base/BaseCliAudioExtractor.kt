@@ -3,12 +3,10 @@ package mikufan.cx.vvd.extractor.component.extractor.base
 import mikufan.cx.executil.runCmd
 import mikufan.cx.executil.sync
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vvd.commonkt.threading.ExternalProcessThreadFactory
 import mikufan.cx.vvd.extractor.config.ProcessConfig
+import org.springframework.beans.factory.annotation.Qualifier
 import java.nio.file.Path
-import java.util.concurrent.LinkedBlockingDeque
 import java.util.concurrent.ThreadPoolExecutor
-import javax.annotation.PreDestroy
 import kotlin.io.path.listDirectoryEntries
 
 /**
@@ -17,20 +15,8 @@ import kotlin.io.path.listDirectoryEntries
  */
 abstract class BaseCliAudioExtractor(
   private val processConfig: ProcessConfig,
+  @Qualifier("extractorThreadPool") private val threadPool: ThreadPoolExecutor
 ) : BaseAudioExtractor() {
-
-  private val processThreadFactory by lazy { ExternalProcessThreadFactory(name) }
-
-  private val threadPool by lazy {
-    ThreadPoolExecutor(
-      3,
-      3,
-      processConfig.timeout,
-      processConfig.unit,
-      LinkedBlockingDeque(),
-      processThreadFactory
-    )
-  }
 
   /**
    * Extract audio file by executing a command line
@@ -75,7 +61,6 @@ abstract class BaseCliAudioExtractor(
         }
       }
     }
-    processThreadFactory.resetCounter()
   }
 
   /**
@@ -95,12 +80,6 @@ abstract class BaseCliAudioExtractor(
     } else {
       return possibleFiles.first()
     }
-  }
-
-  @PreDestroy
-  fun shutdownThreadPool() {
-    log.debug { "Shutting down the common pool in $name" }
-    threadPool.shutdown()
   }
 }
 
