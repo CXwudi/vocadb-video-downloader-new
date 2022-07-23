@@ -7,7 +7,9 @@ import mikufan.cx.vvd.extractor.config.IOConfig
 import mikufan.cx.vvd.extractor.config.ProcessConfig
 import mikufan.cx.vvd.extractor.util.SpringBootDirtyTestWithTestProfile
 import mikufan.cx.vvd.extractor.util.SpringShouldSpec
+import org.springframework.beans.factory.annotation.Qualifier
 import java.nio.file.Path
+import java.util.concurrent.ThreadPoolExecutor
 import kotlin.io.path.Path
 import kotlin.io.path.copyTo
 import kotlin.io.path.div
@@ -17,6 +19,7 @@ import kotlin.io.path.extension
 class BaseCliAudioExtractorTest(
   ioConfig: IOConfig,
   processConfig: ProcessConfig,
+  @Qualifier("extractorThreadPool") threadPool: ThreadPoolExecutor
 ) : SpringShouldSpec({
   val outputDir = ioConfig.outputDirectory
 
@@ -27,7 +30,7 @@ class BaseCliAudioExtractorTest(
     targetPath.toFile().deleteOnExit() // this is having problem
   }
 
-  val dummyAudioExtractor = DummyCliAudioExtractor(processConfig)
+  val dummyAudioExtractor = DummyCliAudioExtractor(processConfig, threadPool)
   context("assume success extraction") {
     copyTestSource("「クリーデンス」／霧島feat.初音ミク-sm39825313-trim.ts", "【vocalist】song1【producer】[39393]")
     copyTestSource(
@@ -65,7 +68,8 @@ class BaseCliAudioExtractorTest(
 
 class DummyCliAudioExtractor(
   processConfig: ProcessConfig,
-) : BaseCliAudioExtractor(processConfig) {
+  threadPool: ThreadPoolExecutor
+) : BaseCliAudioExtractor(processConfig, threadPool) {
 
   override fun buildCommand(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): List<String> =
     listOf("java", "--version")
