@@ -15,8 +15,6 @@ import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
 import kotlin.io.path.copyTo
 import kotlin.io.path.div
-import kotlin.io.path.extension
-import kotlin.io.path.moveTo
 
 /**
  * @date 2022-07-19
@@ -38,12 +36,11 @@ class ExtractorRunner(
     val parameters = record.payload.parameters
     val label = record.payload.label
     val baseFileName = parameters.songProperFileName
-    val songInfo = requireNotNull(parameters.songForApiContract) { "songForApiContract must not be null" }
+//    val songInfo = requireNotNull(parameters.songForApiContract) { "songForApiContract must not be null" }
     val chosenAudioExtractorOpt = requireNotNull(parameters.chosenAudioExtractor) { "null optional audio extractor?" }
     log.info { "Start running chosen extractor or skip for $baseFileName" }
-    // although audio extractor does give a proper file name to the extracted audio file, it is only for extractor purpose
-    // we need a final audio file that is for the user to use, play and store
-    val finalAudioFileBaseName = buildFinalAudioFileBaseName(songInfo, label)
+
+    // val finalAudioFileBaseName = buildFinalAudioFileBaseName(songInfo, label)
     if (chosenAudioExtractorOpt.isPresent) { // for vsong task that need extraction from PV, perform extraction and rename
       val chosenAudioExtractor = chosenAudioExtractorOpt.get()
       log.info { "${chosenAudioExtractor.name} is in charge of extraction of $baseFileName" }
@@ -57,10 +54,8 @@ class ExtractorRunner(
           outputDirectory
         ).fold(
           onSuccess = { extractedAudioFile ->
-            val finalAudioFile = outputDirectory / "$finalAudioFileBaseName.${extractedAudioFile.extension}"
-            extractedAudioFile.moveTo(finalAudioFile, overwrite = true)
-            parameters.finalAudioFile = finalAudioFile
-            log.info { "Extracted audio file is $extractedAudioFile, moved to $finalAudioFile" }
+            parameters.finalAudioFile = extractedAudioFile
+            log.info { "Extracted audio file is $extractedAudioFile" }
             return record
           },
           onFailure =  {
@@ -79,7 +74,7 @@ class ExtractorRunner(
     } else { // for vsong task that already has the audio file, we simply just copy over the audio file
       log.info { "No audio extraction need to performed for $baseFileName" }
       val audioFile = inputDirectory / label.audioFileName
-      val finalAudioFile = outputDirectory / "$finalAudioFileBaseName.${audioFile.extension}"
+      val finalAudioFile = outputDirectory / label.audioFileName
       audioFile.copyTo(finalAudioFile, overwrite = true)
       parameters.finalAudioFile = finalAudioFile
       log.info { "Simply copy the existing audio file $audioFile to final audio file $finalAudioFile" }
@@ -87,6 +82,9 @@ class ExtractorRunner(
     return record
   }
 
+  /**
+   * TODO: move the final renaming to a specific component, so that in future we can allow custom final naming
+   */
   private fun buildFinalAudioFileBaseName(
     songInfo: SongForApiContract,
     label: VSongLabel
