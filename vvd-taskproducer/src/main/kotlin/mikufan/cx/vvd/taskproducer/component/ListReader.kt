@@ -26,7 +26,7 @@ import mikufan.cx.vocadbapiclient.model.SongForApiContract as VSong
 @Component
 @Validated
 class ListReader(
-  private val songListApi: SongListApi,
+  songListApi: SongListApi,
   ioConfig: IOConfig,
   systemConfig: SystemConfig
 ) : RecordReader<VSongTask> {
