@@ -13,7 +13,6 @@ import mikufan.cx.vvd.extractor.model.VSongTask
 import org.jeasy.batch.core.processor.RecordProcessor
 import org.jeasy.batch.core.record.Record
 import org.springframework.stereotype.Service
-import java.util.*
 
 /**
  * @date 2022-06-11
@@ -30,17 +29,11 @@ class MainService(
   private val semaphore = Semaphore(batchConfig.batchSize)
 
   override fun run() {
-    // this map can potentially be large as it eventually saves all song info and label info
-    // we are using map here because we don't need the size
-    // nor can't the order in the label suitable as it can be duplicated, by merging two inputs together
-    val processed = Collections.synchronizedMap(mutableMapOf<Int, VSongTask>())
     runBlocking(Dispatchers.IO) {
       semaphore.acquire()
-      labelsReader.toIterator().withIndex().forEach { (index, label) ->
+      labelsReader.toIterator().forEach { label ->
         launch {
-          processExtract(label).onSuccess {
-            processed[index] = it.payload
-          }
+          processExtract(label)
         }
         semaphore.acquire()
       }
@@ -50,18 +43,17 @@ class MainService(
   }
 
   @Suppress("UNCHECKED_CAST")
-  private suspend fun processExtract(record: Record<VSongTask>): Result<Record<VSongTask>> {
+  private suspend fun processExtract(record: Record<VSongTask>) {
     val infoFileName = record.payload.label.infoFileName // song info is not loaded at this time
     var currentRecord: Record<Any> = record as Record<Any>
-    return try {
+    try {
       taskProcessors.forEach { recordProcessor ->
         currentRecord = (recordProcessor as RecordProcessor<Any, Any>).processRecord(currentRecord)
       }
-      Result.success(currentRecord as Record<VSongTask>)
+      // TODO: save the label
     } catch (e: Exception) {
       log.error(e) { "An exception occurred when processing ${infoFileName ?: "an unknown song"}, check the error directory for more information" }
       recordErrorWriter.handleError(currentRecord, e)
-      Result.failure(e)
     } finally {
       semaphore.release() // release the semaphore when done to allow next task continues
     }
