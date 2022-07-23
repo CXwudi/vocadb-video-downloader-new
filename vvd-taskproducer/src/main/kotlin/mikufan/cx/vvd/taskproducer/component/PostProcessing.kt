@@ -28,7 +28,7 @@ class LabelInfoRecorder : RecordProcessor<VSongTask, VSongTask> {
     return record.apply {
       payload.label.labelFileName = properFileName.toLabelFileName()
       payload.label.infoFileName = properFileName.toInfoFileName()
-      payload.label.order = record.header.number
+      // order is already recorded during list reader
     }
   }
 }

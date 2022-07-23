@@ -51,7 +51,10 @@ class ListReader(
         if (queue.isEmpty()) { // lazy read the list when need
           log.debug { "start fetching $pageSize songs from index $startIdx" }
           val partialFindResult = readSongList(
-            listId, startIdx, pageSize, SongOptionalFields(
+            listId,
+            startIdx,
+            pageSize,
+            SongOptionalFields(
               SongOptionalFields.Constant.ALBUMS,
               SongOptionalFields.Constant.PVS
             )
@@ -92,11 +95,13 @@ class ListReader(
 
   override fun readRecord(): Record<VSongTask>? {
     return if (itr.hasNext()) {
+      // we don't really need header, but we just want to make it not-null
       val header = Header(++currentRecordNumber, "In-Memory Iterator", LocalDateTime.now())
       val song = itr.next()
       log.info { "Read ${song.defaultName}" }
       GenericRecord(
-        header, VSongTask(
+        header,
+        VSongTask(
           // there are two places to store order because we need the order info to be saved in json file
           VSongLabel.builder().order(currentRecordNumber).build(), // will add label filename once everything is done
           Parameters(song)
