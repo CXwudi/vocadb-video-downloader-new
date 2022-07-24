@@ -31,12 +31,12 @@ class MediaFormatChecker(
 
   private val mediainfoLaunchCmd = environmentConfig.mediainfoLaunchCmd
 
-  fun checkAudioFormat(pvFile: Path): String {
-    log.debug { "checking the format of the audio track through mediainfo for $pvFile" }
+  fun checkAudioFormat(mediaFile: Path): String {
+    log.debug { "checking the format of the audio track through mediainfo for $mediaFile" }
     val cmd = buildList {
       addAll(mediainfoLaunchCmd)
       add("--output=JSON")
-      add(pvFile.toString())
+      add(mediaFile.toString())
     }
     val jsonHolder = MutableObject<JsonNode>()
     runCmd(cmd).sync(processConfig.timeout, processConfig.unit, threadPool) {
@@ -45,12 +45,12 @@ class MediaFormatChecker(
     val mediainfoJson = jsonHolder.value
     val tracks = mediainfoJson["media"]["track"]
     if (tracks.size() <= 1) {
-      throw RuntimeVocaloidException("mediainfo shows $pvFile has no tracks: $mediainfoJson")
+      throw RuntimeVocaloidException("mediainfo shows $mediaFile has no tracks: $mediainfoJson")
     }
     val audioTrack = tracks.firstOrNull { it["@type"].asText().lowercase() == "audio" }
-      ?: throw RuntimeVocaloidException("mediainfo shows $pvFile has no audio track: $mediainfoJson")
+      ?: throw RuntimeVocaloidException("mediainfo shows $mediaFile has no audio track: $mediainfoJson")
     val audioFormat = audioTrack["Format"].asText().lowercase()
-    log.debug { "mediainfo shows $pvFile has audio track with format $audioFormat" }
+    log.debug { "mediainfo shows $mediaFile has audio track with format $audioFormat" }
     return audioFormat
   }
 }
