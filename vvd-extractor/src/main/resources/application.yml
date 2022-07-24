@@ -14,6 +14,8 @@ config: # configuration
     batch-size: 0 # number of files to process in parallel, default is 0 which represents # of cores
 
   process:
+    # each process in this module should be run in fairly quick time, even though for a one-hour video, it should be run in less than 5 minutes
+    # if you think you need more time, change the setting here
     timeout: 5
     unit: minutes
 
