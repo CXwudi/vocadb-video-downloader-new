@@ -89,7 +89,7 @@ abstract class BaseCliDownloader(
    * @param commands List<String> the command line in list of strings to be executed
    */
   protected open fun execCommand(commands: List<String>) {
-    runCmd(*commands.toTypedArray()).sync(downloadConfig.timeout, downloadConfig.unit, threadPool) {
+    runCmd(commands).sync(downloadConfig.timeout, downloadConfig.unit, threadPool) {
       // the order must be stdout first and stderr second, due to how ExternalProcessThreadFactory is coded
       onStdOutEachLine {
         if (it.isNotBlank()) {
@@ -154,11 +154,11 @@ abstract class BaseCliDownloader(
           addAll(mediainfoLaunchCmd)
           add("--output=JSON")
           add(file.toString())
-        }.toTypedArray()
+        }
         val sb = StringBuilder()
 
         log.debug { "running ${cmd.joinToString(" ", "`", "`")} to detect type" }
-        runCmd(*cmd).sync(executor = threadPool) {
+        runCmd(cmd).sync(executor = threadPool) {
           onStdOut { sb.append(this.readText()) }
         }
         processThreadFactory.resetCounter()

@@ -48,7 +48,7 @@ abstract class BaseCliAudioExtractor(
   abstract fun buildCommand(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): List<String>
 
   protected open fun executeCommand(commands: List<String>) {
-    runCmd(*commands.toTypedArray()).sync(processConfig.timeout, processConfig.unit, threadPool) {
+    runCmd(commands).sync(processConfig.timeout, processConfig.unit, threadPool) {
       // the order must be stdout first and stderr second, due to how ExternalProcessThreadFactory is coded
       onStdOutEachLine {
         if (it.isNotBlank()) {
