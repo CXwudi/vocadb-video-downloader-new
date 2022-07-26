@@ -52,6 +52,10 @@ class MainService(
       }
       labelSaver.write(currentRecord as Record<VSongTask>)
       log.info { "Done processing $songName" }
+    } catch (e: InterruptedException) {
+      Thread.currentThread().interrupt()
+      log.error { "Task producer process interrupted by the user, quiting" }
+      throw e
     } catch (e: Exception) {
       log.error(e) { "An exception occurred when processing ${songName ?: "an unknown song"}, check the error directory for more information" }
       recordErrorWriter.handleError(currentRecord, e)

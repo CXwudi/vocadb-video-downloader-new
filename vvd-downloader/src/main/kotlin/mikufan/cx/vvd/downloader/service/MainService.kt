@@ -40,6 +40,10 @@ class MainService(
         current = (processor as RecordProcessor<Any, Any>).processRecord(current)
       }
       runBlocking { labelSaver.write(current as Record<VSongTask>) }
+    } catch (e: InterruptedException) {
+      Thread.currentThread().interrupt()
+      log.error { "Downloading process interrupted by the user, quiting" }
+      throw e
     } catch (e: Exception) {
       log.error(e) { "An exception occurred when processing ${infoFileName ?: "an unknown song"}, check the error directory for more information" }
       errorWriter.handleError(current, e)

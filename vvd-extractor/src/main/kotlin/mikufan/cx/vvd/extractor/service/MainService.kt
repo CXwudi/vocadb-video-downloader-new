@@ -51,6 +51,10 @@ class MainService(
         currentRecord = (recordProcessor as RecordProcessor<Any, Any>).processRecord(currentRecord)
       }
       // TODO: save the label
+    } catch (e: InterruptedException) {
+      Thread.currentThread().interrupt()
+      log.error { "Extraction process interrupted by the user, quiting" }
+      throw e
     } catch (e: Exception) {
       log.error(e) { "An exception occurred when processing ${infoFileName ?: "an unknown song"}, check the error directory for more information" }
       recordErrorWriter.handleError(currentRecord, e)
