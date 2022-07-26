@@ -1,6 +1,8 @@
 package mikufan.cx.vvd.extractor.util
 
 import org.springframework.util.ResourceUtils
+import java.nio.file.Path
+import java.nio.file.Paths
 
 /**
  * @date 2022-05-21
@@ -14,4 +16,10 @@ fun loadResourceAsString(resourceName: String): String {
   } else {
     throw IllegalArgumentException("resource not found: $resourceName")
   }
+}
+
+fun getResourceAsPath(resourceName: String): Path {
+  return ResourceUtils::class.java.classLoader.getResource(resourceName)?.let {
+    Paths.get(it.toURI())
+  } ?: throw IllegalArgumentException("resource not found: $resourceName")
 }

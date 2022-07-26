@@ -3,6 +3,7 @@ package mikufan.cx.vvd.extractor.component
 import io.kotest.matchers.shouldBe
 import mikufan.cx.vvd.extractor.util.SpringBootDirtyTestWithTestProfile
 import mikufan.cx.vvd.extractor.util.SpringShouldSpec
+import mikufan.cx.vvd.extractor.util.getResourceAsPath
 import kotlin.io.path.Path
 
 @SpringBootDirtyTestWithTestProfile
@@ -10,7 +11,7 @@ class MediaFormatCheckerTest(
   private val mediaFormatChecker: MediaFormatChecker
 ) : SpringShouldSpec({
 
-  context("checking the audio format") {
+  context("checking the audio format from PV") {
     should("find the audio format of mp4") {
       val audioFormat =
         mediaFormatChecker.checkAudioFormat(Path("../test-files/【初音ミク】LONELY POP feat.初音ミク (Yandere VIP Remix)【オリジナル】 [sm40260101]-trim.mp4"))
@@ -26,6 +27,20 @@ class MediaFormatCheckerTest(
     should("find audio format in webm") {
       val audioFormat =
         mediaFormatChecker.checkAudioFormat(Path("../test-files/Kikuo - 幽体離脱 [UHH2KKN0xoc]-trim.webm"))
+      audioFormat shouldBe "opus"
+    }
+  }
+
+  context("checking the audio format from audio file") {
+    should("find audio format of m4a") {
+      val audioFormat =
+        mediaFormatChecker.checkAudioFormat(getResourceAsPath("test-audio-files/【初音ミク】ヤー・チャイカ【yamada】[350950]-audio.m4a"))
+      audioFormat shouldBe "aac"
+    }
+
+    should("find audio format of ogg") {
+      val audioFormat =
+        mediaFormatChecker.checkAudioFormat(getResourceAsPath("test-audio-files/【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-audio.ogg"))
       audioFormat shouldBe "opus"
     }
   }
