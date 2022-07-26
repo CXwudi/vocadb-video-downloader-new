@@ -54,7 +54,7 @@ class ExtractorRunner(
           outputDirectory
         ).fold(
           onSuccess = { extractedAudioFile ->
-            parameters.finalAudioFile = extractedAudioFile
+            parameters.processedAudioFile = extractedAudioFile
             log.info { "Extracted audio file is $extractedAudioFile" }
             return record
           },
@@ -76,7 +76,7 @@ class ExtractorRunner(
       val audioFile = inputDirectory / label.audioFileName
       val finalAudioFile = outputDirectory / label.audioFileName
       audioFile.copyTo(finalAudioFile, overwrite = true)
-      parameters.finalAudioFile = finalAudioFile
+      parameters.processedAudioFile = finalAudioFile
       log.info { "Simply copy the existing audio file $audioFile to final audio file $finalAudioFile" }
     }
     return record

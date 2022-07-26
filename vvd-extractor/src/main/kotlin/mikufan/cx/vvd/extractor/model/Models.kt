@@ -24,7 +24,12 @@ data class Parameters(
    * it is [Optional] because a vsong may already have the audio defined in [VSongLabel]
    */
   var chosenAudioExtractor: Optional<BaseAudioExtractor>? = null,
-  var finalAudioFile: Path? = null,
+  /**
+   * the audio file to be processed.
+   *
+   * either it is extracted by [chosenAudioExtractor] or it is copied over to outputDirectory from [VSongLabel]
+   */
+  var processedAudioFile: Path? = null,
 ) {
   /**
    * save the proper file name for debugging and other filename generation
