@@ -27,7 +27,7 @@ class NicoNicoYtDlDownloader(
 ) : BaseYtDlDownloader(
   downloadConfig, tika, environmentConfig, objectMapper
 ) {
-  override val downloaderName: String = NND_YTDL
+  override val downloaderName: String = "$NND_YTDL or its forks"
   override val targetPvService: PVServicesEnum = PVServicesEnum.NICONICODOUGA
   override val launchCmd: List<String> = config.launchCmd
   override val externalArgs: List<String> = config.externalArgs

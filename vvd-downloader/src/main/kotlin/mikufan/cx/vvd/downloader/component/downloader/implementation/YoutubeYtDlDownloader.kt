@@ -27,7 +27,7 @@ class YoutubeYtDlDownloader(
 ) : BaseYtDlDownloader(
   downloadConfig, tika, environmentConfig, objectMapper
 ) {
-  override val downloaderName: String = YT_YTDL
+  override val downloaderName: String = "$YT_YTDL or its forks"
   override val targetPvService: PVServicesEnum = PVServicesEnum.YOUTUBE
   override val launchCmd: List<String> = config.launchCmd
   override val externalArgs: List<String> = config.externalArgs

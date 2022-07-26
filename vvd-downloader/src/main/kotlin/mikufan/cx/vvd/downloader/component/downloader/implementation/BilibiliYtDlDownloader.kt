@@ -27,7 +27,7 @@ class BilibiliYtDlDownloader(
 ) : BaseYtDlDownloader(
   downloadConfig, tika, environmentConfig, objectMapper
 ) {
-  override val downloaderName: String = BILI_YTDL
+  override val downloaderName: String = "$BILI_YTDL or its forks"
   override val targetPvService: PVServicesEnum = PVServicesEnum.BILIBILI
   override val launchCmd: List<String> = config.launchCmd
   override val externalArgs: List<String> = config.externalArgs
