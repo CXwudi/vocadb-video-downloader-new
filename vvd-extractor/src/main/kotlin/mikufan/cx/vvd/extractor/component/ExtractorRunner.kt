@@ -1,10 +1,7 @@
 package mikufan.cx.vvd.extractor.component
 
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vocadbapiclient.model.SongForApiContract
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
-import mikufan.cx.vvd.common.label.VSongLabel
-import mikufan.cx.vvd.commonkt.naming.removeIllegalChars
 import mikufan.cx.vvd.extractor.config.IOConfig
 import mikufan.cx.vvd.extractor.config.Preference
 import mikufan.cx.vvd.extractor.model.VSongTask
@@ -31,7 +28,7 @@ class ExtractorRunner(
   private val outputDirectory = ioConfig.outputDirectory
 
   private val retryOnExtraction = preference.retryOnExtraction
-  
+
   override fun processRecord(record: Record<VSongTask>): Record<VSongTask> {
     val parameters = record.payload.parameters
     val label = record.payload.label
@@ -46,8 +43,9 @@ class ExtractorRunner(
       log.info { "${chosenAudioExtractor.name} is in charge of extraction of $baseFileName" }
       val failures = mutableListOf<Exception>()
 
-      repeat(retryOnExtraction) { i -> 
-        log.info { "start attempt ${i + 1}" }
+      // retry count is only counted for failed extraction, so +1 to always run extraction once
+      repeat(retryOnExtraction + 1) { i ->
+        log.debug { "  start attempt ${i + 1}" }
         chosenAudioExtractor.extract(
           inputDirectory / label.pvFileName,
           record.payload,
@@ -58,9 +56,11 @@ class ExtractorRunner(
             log.info { "Extracted audio file is $extractedAudioFile" }
             return record
           },
-          onFailure =  {
-            if (it !is Exception) { throw it }
-            log.warn { "Failed to extract audio file for $baseFileName on attempt ${i + 1}" }
+          onFailure = {
+            if (it !is Exception) {
+              throw it
+            }
+            log.warn { "  Failed to extract audio file for $baseFileName on attempt ${i + 1}" }
             failures.add(it)
           }
         )
@@ -68,8 +68,8 @@ class ExtractorRunner(
 
       log.error { "All extraction attempt on $baseFileName by ${chosenAudioExtractor.name} failed" }
       throw RuntimeVocaloidException(
-          "All extraction attempt on $baseFileName by ${chosenAudioExtractor.name} failed, " +
-          "exception list: ${failures.joinToString(prefix = "[", postfix = "]")}"
+        "All extraction attempt on $baseFileName by ${chosenAudioExtractor.name} failed, " +
+            "exception list: ${failures.joinToString(prefix = "[", postfix = "]")}"
       )
     } else { // for vsong task that already has the audio file, we simply just copy over the audio file
       log.info { "No audio extraction need to performed for $baseFileName" }
@@ -85,20 +85,20 @@ class ExtractorRunner(
   /**
    * TODO: move the final renaming to a specific component, so that in future we can allow custom final naming
    */
-  private fun buildFinalAudioFileBaseName(
-    songInfo: SongForApiContract,
-    label: VSongLabel
-  ): String {
-    val finalFileNameBase = songInfo.let {
-      // this code is exactly same in [mikufan.cx.vvd.commonkt.naming.FileNameUtilKt.toProperFileName], but without the VocaDB ID
-      val artists: List<String> = requireNotNull(it.artistString) { "artist string is null" }.split("feat.")
-      val vocals = artists[1].trim()
-      val producers = artists[0].trim()
-      val songName: String = requireNotNull(it.defaultName) { "song name is null" }
-      removeIllegalChars(String.format("【%s】%s【%s】", vocals, songName, producers))
-    }
-    return "$finalFileNameBase - ${label.pvService} [${label.pvId}]"
-  }
+//  private fun buildFinalAudioFileBaseName(
+//    songInfo: SongForApiContract,
+//    label: VSongLabel
+//  ): String {
+//    val finalFileNameBase = songInfo.let {
+//      // this code is exactly same in [mikufan.cx.vvd.commonkt.naming.FileNameUtilKt.toProperFileName], but without the VocaDB ID
+//      val artists: List<String> = requireNotNull(it.artistString) { "artist string is null" }.split("feat.")
+//      val vocals = artists[1].trim()
+//      val producers = artists[0].trim()
+//      val songName: String = requireNotNull(it.defaultName) { "song name is null" }
+//      removeIllegalChars(String.format("【%s】%s【%s】", vocals, songName, producers))
+//    }
+//    return "$finalFileNameBase - ${label.pvService} [${label.pvId}]"
+//  }
 }
 
 private val log = KInlineLogging.logger()

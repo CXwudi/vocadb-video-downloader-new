@@ -5,8 +5,7 @@
   "pvFileName" : "【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-pv.webm",
   "audioFileName" : null,
   "thumbnailFileName" : "【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-thumbnail.webp",
-  "pvService" : "Youtube",
-  "pvId" : "QLXbggM1GXk",
-  "pvUrl" : "https://youtu.be/QLXbggM1GXk",
-  "downloaderName" : "youtube-dl"
+  "pvVocaDbId" : 478090,
+  "downloaderName" : "youtube-dl or its forks",
+  "processedAudioFileName" : null
 }

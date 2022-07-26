@@ -11,8 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 import javax.validation.Constraint;
 import javax.validation.ConstraintValidator;
 import javax.validation.Payload;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -41,20 +41,21 @@ public class VSongLabel {
    */
   @NotBlank(groups = ValidationPhase.One.class) String labelFileName;
   @NotBlank(groups = ValidationPhase.One.class) String infoFileName;
-  @Min(value = 1, groups = ValidationPhase.One.class) long order;
+  /**
+   * order value always start at 1, not the programmer's 0-based index
+   */
+  @Positive(groups = ValidationPhase.One.class) long order;
 
   // these three will be validated by @HasRequiredResource
-
+  // mediainfo will be used in vvd-extractor to accurately determine the audio format
   String pvFileName;
   String audioFileName;
   String thumbnailFileName;
 
-  // we need to record this because the audio format is depended on file formats downloaded from pv service
-  // careful that youtube can download either .mp4 or .mkv depended on if ffmpeg exists
-  // for .mkv, the audio format is undetectable without using mediainfo exe
-  @NotBlank(groups = ValidationPhase.Two.class) String pvService;
-  @NotBlank(groups = ValidationPhase.Two.class) String pvId;
-  @NotBlank(groups = ValidationPhase.Two.class) String pvUrl;
+  /**
+   * need the VocaDB ID of the pv so that we know which PV is successfully downloaded
+   */
+  @Positive(groups = ValidationPhase.Two.class) int pvVocaDbId;
   // this is recorded for reference
   @NotBlank(groups = ValidationPhase.Two.class) String downloaderName;
 
