@@ -30,6 +30,7 @@ data class Parameters(
    * either it is extracted by [chosenAudioExtractor] or it is copied over to outputDirectory from [VSongLabel]
    */
   var processedAudioFile: Path? = null,
+  // TODO: add chosenAudioTagger
 ) {
   /**
    * save the proper file name for debugging and other filename generation
