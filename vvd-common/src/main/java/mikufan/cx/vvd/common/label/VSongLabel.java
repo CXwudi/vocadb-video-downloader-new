@@ -1,9 +1,6 @@
 package mikufan.cx.vvd.common.label;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.jackson.Jacksonized;
 import org.apache.commons.lang3.StringUtils;
@@ -54,6 +51,8 @@ public class VSongLabel {
 
   /**
    * need the VocaDB ID of the pv so that we know which PV is successfully downloaded
+   * <p>
+   * the VocaDB PV ID should always be positive.
    */
   @Positive(groups = ValidationPhase.Two.class) int pvVocaDbId;
   // this is recorded for reference
@@ -72,10 +71,11 @@ public class VSongLabel {
  * has {@link VSongLabel#thumbnailFileName} non-empty. <br/>
  * However, this doesn't check if the file is really exists, because we want the program to freely use any location
  * as the root folder to store these resources.
+ *
  * @author CX无敌
  */
 @Constraint(validatedBy = HasRequiredResourceValidator.class)
-@Target({ TYPE })
+@Target({TYPE})
 @Retention(RUNTIME)
 @Documented
 @interface HasRequiredResource {
@@ -91,7 +91,24 @@ class HasRequiredResourceValidator implements ConstraintValidator<HasRequiredRes
 
   @Override
   public boolean isValid(VSongLabel value, javax.validation.ConstraintValidatorContext context) {
-    return StringUtils.isNotBlank(value.getPvFileName()) || StringUtils.isNotBlank(value.getAudioFileName())
-        && StringUtils.isNotBlank(value.getThumbnailFileName());
+    var hasMedia = StringUtils.isNotBlank(value.getPvFileName()) || StringUtils.isNotBlank(value.getAudioFileName());
+    var hasThumbnail = StringUtils.isNotBlank(value.getThumbnailFileName());
+    var result = hasMedia && hasThumbnail;
+    if (!result) {
+      context.disableDefaultConstraintViolation();
+      if (!hasMedia) {
+        context.buildConstraintViolationWithTemplate("%s must contain at least one of a PV file or an audio file".formatted(value.infoFileName))
+            .addPropertyNode("pvFileName")
+            .addPropertyNode("audioFileName")
+            .addConstraintViolation();
+      }
+
+      if (!hasThumbnail) {
+        context.buildConstraintViolationWithTemplate("%s must contain a thumbnail file".formatted(value.infoFileName))
+            .addPropertyNode("thumbnailFileName")
+            .addConstraintViolation();
+      }
+    }
+    return result;
   }
 }

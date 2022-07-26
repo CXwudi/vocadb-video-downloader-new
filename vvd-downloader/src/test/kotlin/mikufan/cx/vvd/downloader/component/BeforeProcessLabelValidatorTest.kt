@@ -32,7 +32,7 @@ class BeforeProcessLabelValidatorFailureTest(
     should("not pass if missing an order") {
       val record1 = labelsReader.readRecord()!!
       record1.payload.label.order shouldBe 0
-      record1.shouldFailValidationWith("must be greater than or equal to 1")
+      record1.shouldFailValidationWith("must be greater than 0")
     }
 
     should("not pass if has blank info file name") {
