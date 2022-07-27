@@ -56,11 +56,7 @@ class ExtractorDecider(
             "Nor does it has a valid audio file."
       )
     }
-    /*
-    list of common audio format from video format
-    mp4/flv -> aac
-    webm,mkv -> opus/aac/flac (opus from youtube-dl/yt-dlp with ffmpeg, without ffmpeg, it would be aac)
-     */
+
     val chosenAudioExtractor = when (val audioFormat = audioMediaFormatChecker.checkAudioFormat(pvFile)) {
       "aac" -> ctx.getBean<AacToM4aAudioExtractor>()
       "opus" -> ctx.getBean<OpusToOggAudioExtractor>()

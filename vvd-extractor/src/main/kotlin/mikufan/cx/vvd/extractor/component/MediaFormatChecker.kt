@@ -31,6 +31,16 @@ class MediaFormatChecker(
 
   private val mediainfoLaunchCmd = environmentConfig.mediainfoLaunchCmd
 
+  /**
+   * Check the audio format of the given file.
+   *
+   * List of common audio format from video format:
+   *  - mp4/flv/ts -> aac
+   *  - webm/mkv -> opus/aac/flac (opus from youtube-dl/yt-dlp with ffmpeg, without ffmpeg, it would be aac)
+   * @param mediaFile Path the media file.
+   * @return String the audio format, in smaller case letters.
+   * @throws RuntimeVocaloidException if the file doesn't contain any audio track.
+   */
   fun checkAudioFormat(mediaFile: Path): String {
     log.debug { "checking the format of the audio track through mediainfo for $mediaFile" }
     val cmd = buildList {
