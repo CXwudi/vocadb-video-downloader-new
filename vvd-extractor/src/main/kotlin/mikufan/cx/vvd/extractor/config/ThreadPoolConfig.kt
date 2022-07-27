@@ -24,7 +24,7 @@ class ThreadPoolConfig {
     processConfig.timeout,
     processConfig.unit,
     LinkedBlockingDeque(),
-    SharedExternalProcessThreadFactory("mediainfo-runner")
+    SharedExternalProcessThreadFactory("mediainfo-runner-t")
   )
 
   @Bean("extractorThreadPool")
@@ -34,7 +34,7 @@ class ThreadPoolConfig {
     processConfig.timeout,
     processConfig.unit,
     LinkedBlockingDeque(),
-    SharedExternalProcessThreadFactory("base-cli-extractor")
+    SharedExternalProcessThreadFactory("cli-extractor-t")
   )
 
   @Bean("taggerThreadPool")
@@ -44,14 +44,14 @@ class ThreadPoolConfig {
     processConfig.timeout,
     processConfig.unit,
     LinkedBlockingDeque(),
-    SharedExternalProcessThreadFactory("base-mutagen-tagger")
+    SharedExternalProcessThreadFactory("cli-tagger-t")
   )
 
   private fun SharedExternalProcessThreadFactory(name: String): ThreadFactory =
     object : ThreadFactory {
       private val counter = AtomicInteger(0)
       override fun newThread(r: Runnable): Thread {
-        return Thread(r, "$name-${counter.getAndIncrement()}")
+        return Thread(r, "$name${counter.getAndIncrement()}")
       }
     }
 }

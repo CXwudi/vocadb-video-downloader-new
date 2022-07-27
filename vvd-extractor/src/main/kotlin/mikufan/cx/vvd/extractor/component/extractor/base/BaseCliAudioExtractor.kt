@@ -49,7 +49,6 @@ abstract class BaseCliAudioExtractor(
 
   protected open fun executeCommand(commands: List<String>) {
     runCmd(commands).sync(processConfig.timeout, processConfig.unit, threadPool) {
-      // the order must be stdout first and stderr second, due to how ExternalProcessThreadFactory is coded
       onStdOutEachLine {
         if (it.isNotBlank()) {
           log.info { it }
