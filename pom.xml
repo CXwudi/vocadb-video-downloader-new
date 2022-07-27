@@ -97,12 +97,12 @@
         <version>5.4.0</version>
         <scope>test</scope>
         <!-- workaround for https://github.com/Kotlin/kotlinx.coroutines/issues/3334 -->
-        <exclusions>
-          <exclusion>
-            <groupId>org.jetbrains.kotlinx</groupId>
-            <artifactId>kotlinx-coroutines-bom</artifactId>
-          </exclusion>
-        </exclusions>
+<!--        <exclusions>-->
+<!--          <exclusion>-->
+<!--            <groupId>org.jetbrains.kotlinx</groupId>-->
+<!--            <artifactId>kotlinx-coroutines-bom</artifactId>-->
+<!--          </exclusion>-->
+<!--        </exclusions>-->
       </dependency>
       <dependency>
         <groupId>io.kotest.extensions</groupId>
