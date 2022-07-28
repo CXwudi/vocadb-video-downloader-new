@@ -94,20 +94,13 @@
       <dependency>
         <groupId>io.kotest</groupId>
         <artifactId>kotest-runner-junit5-jvm</artifactId>
-        <version>5.4.0</version>
+        <version>5.4.1</version>
         <scope>test</scope>
-        <!-- workaround for https://github.com/Kotlin/kotlinx.coroutines/issues/3334 -->
-<!--        <exclusions>-->
-<!--          <exclusion>-->
-<!--            <groupId>org.jetbrains.kotlinx</groupId>-->
-<!--            <artifactId>kotlinx-coroutines-bom</artifactId>-->
-<!--          </exclusion>-->
-<!--        </exclusions>-->
       </dependency>
       <dependency>
         <groupId>io.kotest.extensions</groupId>
         <artifactId>kotest-extensions-spring</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2</version>
         <scope>test</scope>
       </dependency>
     </dependencies>
