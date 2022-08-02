@@ -26,6 +26,8 @@
     <java.version>17</java.version>
     <!-- can un-comment to resolve deps conflict from spring when happened -->
     <kotlin.version>1.7.10</kotlin.version>
+    <!-- can un-comment to resolve deps conflict from spring when happened -->
+    <!--<kotlin-coroutines.version>1.6.4</kotlin-coroutines.version>-->
   </properties>
 
   <repositories>
@@ -58,7 +60,7 @@
       <dependency>
         <groupId>com.github.CXwudi</groupId>
         <artifactId>vocadb-openapi-client-java</artifactId>
-        <version>1.0.1</version>
+        <version>1.1.0</version>
       </dependency>
 
       <dependency>
@@ -72,14 +74,6 @@
         <version>1.1.0</version>
       </dependency>
 
-      <!-- un-comment this to use different coroutine version-->
-<!--      <dependency>-->
-<!--        <groupId>org.jetbrains.kotlinx</groupId>-->
-<!--        <artifactId>kotlinx-coroutines-bom</artifactId>-->
-<!--        <version>1.6.1</version>-->
-<!--        <type>pom</type>-->
-<!--        <scope>import</scope>-->
-<!--      </dependency>-->
       <dependency>
         <groupId>org.jeasy</groupId>
         <artifactId>easy-batch-core</artifactId>
