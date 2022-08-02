@@ -34,7 +34,7 @@ abstract class BaseInternalPythonMutagenAudioTagger(
     requireNotNull(this::class.java.classLoader.getResourceAsStream("python/$pythonScriptFileName")) {
       "$pythonScriptFileName not found in resources/python directory"
     }.bufferedReader().let { reader ->
-      val tempPythonFile = Files.createTempFile("python", ".py")
+      val tempPythonFile = Files.createTempFile("python-mutagen-tagger-", ".py")
       tempPythonFile.bufferedWriter().use { writer ->
         reader.forEachLine { // forEachLine already called use {}
           writer.write(it)
