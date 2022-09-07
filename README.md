@@ -1,6 +1,6 @@
 # vocadb-video-downloader-new
 
-A video downloader for VocaDB, download a list of Vocaloid PVs and extract them into music files
+A WIP video downloader for VocaDB, download a list of Vocaloid PVs and extract them into music files with tags properly added.
 
 This is a reimplementation of [this repo](https://github.com/CXwudi/vocadb-video-downloader)
 
