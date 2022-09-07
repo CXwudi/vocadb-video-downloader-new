@@ -1,17 +1,16 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Run all tests in docker" type="docker-deploy" factoryName="docker-compose.yml"
-                 server-name="Docker Window">
+  <configuration default="false" name="Run all tests in docker" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker Window">
     <deployment type="docker-compose.yml">
       <settings>
-        <option name="envFilePath" value=""/>
+        <option name="envFilePath" value="" />
         <option name="secondarySourceFiles">
           <list>
-            <option value="docker/docker-compose.test-all.yml"/>
+            <option value="docker/docker-compose.test-all.yml" />
           </list>
         </option>
-        <option name="sourceFilePath" value="docker/docker-compose.base.yml"/>
+        <option name="sourceFilePath" value="docker/docker-compose.base.yml" />
       </settings>
     </deployment>
-    <method v="2"/>
+    <method v="2" />
   </configuration>
 </component>

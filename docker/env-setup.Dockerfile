@@ -18,14 +18,14 @@ RUN arch=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) && \
     # for amd64, use yt-dlp specific ffmpeg
     if [ "$arch" == "amd64" ]; then \
           curl --request GET -L \
-             --url 'https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-n5.0-latest-linux64-gpl-5.0.tar.xz'\
+             --url 'https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz'\
              --output 'ffmpeg.tar.xz' \
           && tar -xvf ffmpeg.tar.xz \
           && mkdir bin \
           && mv ffmpeg-*/bin/* ./bin; \
     else \
          curl --request GET -L \
-                 --url 'https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-${arch}-static.tar.xz'\
+                 --url 'https://johnvansickle.com/ffmpeg/releases/ffmpeg-git-${arch}-static.tar.xz'\
                  --output 'ffmpeg.tar.xz' \
          && tar -xvf ffmpeg.tar.xz \
          && mkdir bin \
