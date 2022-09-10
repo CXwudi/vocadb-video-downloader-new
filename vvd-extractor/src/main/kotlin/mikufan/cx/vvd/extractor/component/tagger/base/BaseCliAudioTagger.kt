@@ -15,8 +15,8 @@ import java.util.concurrent.ThreadPoolExecutor
  * @author CX无敌
  */
 abstract class BaseCliAudioTagger(
-  private val processConfig: ProcessConfig,
-  @Qualifier("taggerThreadPool") private val threadPool: ThreadPoolExecutor
+  protected val processConfig: ProcessConfig,
+  @Qualifier("taggerThreadPool") protected val threadPool: ThreadPoolExecutor
 ) : BaseAudioTagger() {
 
   override fun tryTag(audioFile: Path, allInfo: VSongTask) {
@@ -24,7 +24,7 @@ abstract class BaseCliAudioTagger(
     log.info { "Executing commands: ${command.joinToString(" ", "`", "`")}" }
     executeCommand(command)
     log.info { "Done executing commands for $audioFile" }
-    // WARNING: we don't know how to check if the tag addition success
+    // simply reply on command execution to check success tag addition
   }
 
   /**
@@ -38,7 +38,8 @@ abstract class BaseCliAudioTagger(
   abstract fun buildCommand(audioFile: Path, allInfo: VSongTask): List<String>
 
   protected open fun executeCommand(commands: List<String>) {
-    runCmd(commands).sync(processConfig.timeout, processConfig.unit, threadPool) {
+    val process = runCmd(commands)
+    process.sync(processConfig.timeout, processConfig.unit, threadPool) {
       onStdOutEachLine {
         if (it.isNotBlank()) {
           log.info { it }
@@ -48,6 +49,11 @@ abstract class BaseCliAudioTagger(
         if (it.isNotBlank()) {
           log.debug { it }
         }
+      }
+    }
+    process.exitValue().let {
+      if (it != 0) {
+        throw IllegalStateException("Command failed with exit code $it")
       }
     }
   }

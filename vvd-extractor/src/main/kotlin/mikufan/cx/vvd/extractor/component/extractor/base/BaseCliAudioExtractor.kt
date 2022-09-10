@@ -14,8 +14,8 @@ import kotlin.io.path.listDirectoryEntries
  * @author CX无敌
  */
 abstract class BaseCliAudioExtractor(
-  private val processConfig: ProcessConfig,
-  @Qualifier("extractorThreadPool") private val threadPool: ThreadPoolExecutor
+  protected val processConfig: ProcessConfig,
+  @Qualifier("extractorThreadPool") protected val threadPool: ThreadPoolExecutor
 ) : BaseAudioExtractor() {
 
   /**
@@ -48,7 +48,8 @@ abstract class BaseCliAudioExtractor(
   abstract fun buildCommand(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): List<String>
 
   protected open fun executeCommand(commands: List<String>) {
-    runCmd(commands).sync(processConfig.timeout, processConfig.unit, threadPool) {
+    val process = runCmd(commands)
+    process.sync(processConfig.timeout, processConfig.unit, threadPool) {
       onStdOutEachLine {
         if (it.isNotBlank()) {
           log.info { it }
@@ -58,6 +59,11 @@ abstract class BaseCliAudioExtractor(
         if (it.isNotBlank()) {
           log.debug { it }
         }
+      }
+    }
+    process.exitValue().let {
+      if (it != 0) {
+        throw IllegalStateException("Command failed with exit code $it")
       }
     }
   }
