@@ -9,7 +9,6 @@ object OrderConstants {
 
   /*
   TODO:
-    tagger decider
     tagger runner
     lastModifiedChanger // rely on order int to achieve parallel
     finalRenamer
