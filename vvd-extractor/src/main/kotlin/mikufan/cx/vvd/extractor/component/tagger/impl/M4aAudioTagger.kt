@@ -60,5 +60,7 @@ class M4aAudioTagger(
     add(infoFile.toString())
     add("-aen")
     add(audioExtractorName)
+    add("-atn")
+    add(name)
   }
 }

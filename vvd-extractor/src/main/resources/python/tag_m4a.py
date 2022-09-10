@@ -1,4 +1,4 @@
-def add_tag(input_file, thumbnail_file, label_dict, info_dict, audio_extractor_name):
+def add_tag(input_file, thumbnail_file, label_dict, info_dict, audio_extractor_name, audio_tagger_name):
   """
   real add tags
   """
@@ -25,7 +25,7 @@ def add_tag(input_file, thumbnail_file, label_dict, info_dict, audio_extractor_n
   pv_dict = list(filter(lambda x: x["id"] == label_dict["pvVocaDbId"], info_dict["pvs"]))[0]
   tags["----:com.apple.iTunes:pv url"] = pv_dict["url"].encode()
   tags["----:com.apple.iTunes:extracted by"] = audio_extractor_name.encode()
-  tags["----:com.apple.iTunes:tags edited by"] = "Python mutagen library".encode()
+  tags["----:com.apple.iTunes:tags edited by"] = audio_tagger_name.encode()
   tags["----:com.apple.iTunes:tags provided by"] = "VocaDB (https://vocadb.net/S/{})".format(info_dict["id"]).encode()
   tags["----:com.apple.iTunes:made by"] = "CXwudi's vocadb-video-downloader-new (https://github.com/CXwudi/vocadb-video-downloader-new)".encode()
 
@@ -48,6 +48,7 @@ def main():
   parser.add_argument("-t", "--thumbnail", required=True, help="input thumbnail file")
   parser.add_argument("-if", "--info", required=True, help="input info file")
   parser.add_argument("-aen", "--audio-extractor-name", required=True, help="audio extractor name")
+  parser.add_argument("-atn", "--audio-tagger-name", required=True, help="audio tagger name")
 
   # Grab the Arguments
   args = parser.parse_args()
@@ -60,7 +61,7 @@ def main():
   # e.g. 霊々音頭でまた来世 is 霊々音頭て　゙また来世　in niconico website title
   # print("received args are " + str(vars(args)))
 
-  add_tag(args.input, args.thumbnail, label_dict, info_dict, args.audio_extractor_name)
+  add_tag(args.input, args.thumbnail, label_dict, info_dict, args.audio_extractor_name, args.audio_tagger_name)
 
 
 if __name__ == "__main__":
