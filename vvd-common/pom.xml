@@ -12,8 +12,8 @@
   <artifactId>vvd-common</artifactId>
 
   <dependencies>
-    <dependency> <!-- commonkt needs -->
-      <groupId>com.github.CXwudi</groupId>
+    <dependency>
+      <groupId>com.github.VocaDB</groupId>
       <artifactId>vocadb-openapi-client-java</artifactId>
     </dependency>
 
