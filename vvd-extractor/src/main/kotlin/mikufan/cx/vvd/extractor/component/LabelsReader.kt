@@ -45,7 +45,7 @@ class LabelsReader(
 
   override fun readRecord(): Record<VSongTask>? = if (fileItr.hasNext()) {
     val oldLabel = fileItr.next()
-    // creating new label instance in case if user want to re-download a song
+    // creating new label instance in case if user want to re-extract a song
     // as usual, transfer the needed info from old label
     val label = VSongLabel.builder()
       .labelFileName(oldLabel.labelFileName)

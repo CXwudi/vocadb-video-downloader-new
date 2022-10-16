@@ -62,8 +62,10 @@ abstract class BaseInternalPythonMutagenAudioTagger(
   
   @PreDestroy
   fun deleteTempPythonFile() {
-    log.debug { "Deleting temp python script file $loadedPythonScriptFile from $pythonScriptFileName" }
-    Files.deleteIfExists(loadedPythonScriptFile)
+    val exists = Files.deleteIfExists(loadedPythonScriptFile)
+    if (exists) {
+      log.debug { "Deleted temp python file $loadedPythonScriptFile loaded from $pythonScriptFileName" }
+    }
   }
 }
 
