@@ -21,7 +21,7 @@ import kotlin.io.path.extension
 
 @SpringBootDirtyTestWithTestProfile
 class BaseAudioExtractorTest(
-  ioConfig: IOConfig
+  ioConfig: IOConfig,
 ) : SpringShouldSpec({
 
   val outputDir = ioConfig.outputDirectory
@@ -44,6 +44,16 @@ class BaseAudioExtractorTest(
   }
 
   context("assume success extraction") {
+    // java.lang.ClassCastException: class sun.nio.fs.WindowsPath cannot be cast to class kotlin.Result
+//    val fakeExtractor = mockk<BaseAudioExtractor> {
+//      every { extract(any(), any(), any()) } answers { callOriginal() }
+//      every { name } returns "Fake Audio Extractor"
+//      val baseOutputFileNameSlot = slot<String>()
+//      val outputDirectorySlot = slot<Path>()
+//      every { tryExtract(any(), capture(baseOutputFileNameSlot), capture(outputDirectorySlot)) } answers {
+//        outputDirectorySlot.captured / "${baseOutputFileNameSlot.captured}.m4a"
+//      }
+//    }
     val fakeExtractor = object : BaseAudioExtractor() {
       override val name = "fake audio extractor"
       override fun tryExtract(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): Path {
