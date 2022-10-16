@@ -2,6 +2,8 @@ package mikufan.cx.vvd.extractor.component.tagger.base
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.kotest.matchers.shouldBe
+import io.mockk.every
+import io.mockk.mockk
 import mikufan.cx.vocadbapiclient.model.SongForApiContract
 import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.extractor.component.extractor.base.BaseAudioExtractor
@@ -29,6 +31,8 @@ class BaseInternalPythonMutagenAudioTaggerTest(
   private val oggAudioTagger: OggAudioTagger,
   private val objectMapper: ObjectMapper,
 ) : SpringShouldSpec({
+  val dummyAudioExtractor: BaseAudioExtractor = mockk()
+  every { dummyAudioExtractor.name } returns "Dummy Audio Extractor for Testing"
 
   val outputDirectory = ioConfig.outputDirectory
 
@@ -49,7 +53,7 @@ class BaseInternalPythonMutagenAudioTaggerTest(
       loadResourceAsString(infoFileName),
       SongForApiContract::class.java
     )
-    val task = VSongTask(label, Parameters(song, Optional.of(DummyAudioExtractor), audioFile))
+    val task = VSongTask(label, Parameters(song, Optional.of(dummyAudioExtractor), audioFile))
     audioTagger.tag(audioFile, task).isSuccess shouldBe true
   }
 
