@@ -19,11 +19,14 @@ import kotlin.io.path.div
 import kotlin.io.path.extension
 
 /**
+ * This is the audio tagger for opus but in ogg container
+ *
+ * It should also work for opus audio file as well.
  * @date 2022-07-30
  * @author CX无敌
  */
 @Component
-class OggAudioTagger(
+class OggOpusAudioTagger(
   ioConfig: IOConfig,
   environmentConfig: EnvironmentConfig,
   processConfig: ProcessConfig,

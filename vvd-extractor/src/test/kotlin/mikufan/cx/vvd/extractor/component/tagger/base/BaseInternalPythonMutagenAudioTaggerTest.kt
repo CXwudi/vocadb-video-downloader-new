@@ -8,7 +8,7 @@ import mikufan.cx.vocadbapiclient.model.SongForApiContract
 import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.extractor.component.extractor.base.BaseAudioExtractor
 import mikufan.cx.vvd.extractor.component.tagger.impl.M4aAudioTagger
-import mikufan.cx.vvd.extractor.component.tagger.impl.OggAudioTagger
+import mikufan.cx.vvd.extractor.component.tagger.impl.OggOpusAudioTagger
 import mikufan.cx.vvd.extractor.config.IOConfig
 import mikufan.cx.vvd.extractor.model.Parameters
 import mikufan.cx.vvd.extractor.model.VSongTask
@@ -28,7 +28,7 @@ import kotlin.io.path.copyTo
 class BaseInternalPythonMutagenAudioTaggerTest(
   ioConfig: IOConfig,
   private val m4aAudioTagger: M4aAudioTagger,
-  private val oggAudioTagger: OggAudioTagger,
+  private val oggOpusAudioTagger: OggOpusAudioTagger,
   private val objectMapper: ObjectMapper,
 ) : SpringShouldSpec({
   val dummyAudioExtractor: BaseAudioExtractor = mockk()
@@ -72,15 +72,8 @@ class BaseInternalPythonMutagenAudioTaggerTest(
         copyTestAudioFile("test-audio-files/【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-audio.ogg"),
         "2021年V家新曲-download-test/【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-label.json",
         "2021年V家新曲-download-test/【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-songInfo.json",
-        oggAudioTagger
+        oggOpusAudioTagger
       )
     }
   }
 })
-
-private object DummyAudioExtractor : BaseAudioExtractor() {
-  override val name: String = "Dummy Audio Extractor for Testing"
-  override fun tryExtract(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): Path {
-    return inputPvFile
-  }
-}
