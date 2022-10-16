@@ -14,7 +14,13 @@ import kotlin.io.path.Path
 import kotlin.io.path.copyTo
 import kotlin.io.path.div
 import kotlin.io.path.extension
-
+/**
+ * This test only makes sure that the main logic [BaseCliAudioExtractor.tryExtract] is working
+ *
+ * No actual extraction is done,
+ * test environment is set up by moving some test music files to the target output directory
+ * and trading it as the actual extraction output.
+ */
 @SpringBootDirtyTestWithTestProfile
 class BaseCliAudioExtractorTest(
   ioConfig: IOConfig,
@@ -66,6 +72,7 @@ class BaseCliAudioExtractorTest(
   }
 })
 
+// can't use mockk for this as we need actual calling of protected method
 class DummyCliAudioExtractor(
   processConfig: ProcessConfig,
   threadPool: ThreadPoolExecutor

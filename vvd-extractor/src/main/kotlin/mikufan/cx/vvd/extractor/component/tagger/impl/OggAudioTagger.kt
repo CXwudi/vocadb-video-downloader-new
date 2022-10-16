@@ -88,7 +88,7 @@ class OggAudioTagger(
    * if we need to, better add a new component just for converting the thumbnail.
    * that would require adding a new field in [VSongTask] to store the converted thumbnail
    */
-  @Deprecated("not needed anymore")
+  @Deprecated("not needed anymore as webp thumbnail is supported by foobar2000 and Poweramp")
   private inline fun withCorrectThumbnailImageFormat(allInfo: VSongTask, tryTagBlock: (allInfo: VSongTask) -> Unit) {
     val thumbnailFile = inputDirectory / allInfo.label.thumbnailFileName
     val thumbnailFormat = thumbnailFile.extension.lowercase()
