@@ -1,6 +1,6 @@
 # vocadb-video-downloader-new
 
-An integrated cli-based media achieving solution for VocaDB, it can:
+An integrated cli-based media archiving solution for VocaDB, it can:
 
 1. read a favourite list in VocaDB and download them into a folder of JSON files (by calling [VocaDB APIs](https://github.com/VocaDB/vocadb-openapi-client-java/blob/main/README%20Original.md#documentation-for-api-endpoints))
 2. download the PV for each songs in the favourite list (using the output from 1. as input)
