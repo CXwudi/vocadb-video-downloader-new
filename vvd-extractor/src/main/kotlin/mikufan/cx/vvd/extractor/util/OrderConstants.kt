@@ -6,6 +6,7 @@ object OrderConstants {
   const val EXTRACTOR_DECIDER_ORDER = 3
   const val EXTRACTOR_RUNNER_ORDER = 4
   const val TAGGER_DECIDER_ORDER = 5
+  const val TAGGER_RUNNER_ORDER = 6
 
   /*
   TODO:

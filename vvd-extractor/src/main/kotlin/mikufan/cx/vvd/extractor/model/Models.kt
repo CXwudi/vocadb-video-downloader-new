@@ -6,6 +6,7 @@ import mikufan.cx.vvd.commonkt.naming.SongProperFileName
 import mikufan.cx.vvd.commonkt.naming.toProperFileName
 import mikufan.cx.vvd.extractor.component.ExtractorDecider
 import mikufan.cx.vvd.extractor.component.extractor.base.BaseAudioExtractor
+import mikufan.cx.vvd.extractor.component.tagger.base.BaseAudioTagger
 import java.nio.file.Path
 import java.util.*
 
@@ -25,12 +26,15 @@ data class Parameters(
    */
   var chosenAudioExtractor: Optional<BaseAudioExtractor>? = null,
   /**
-   * the audio file to be processed.
+   * the audio file to be used for tagging,
    *
    * either it is extracted by [chosenAudioExtractor] or it is copied over to outputDirectory from [VSongLabel]
+   *
+   * it should be saved in [outputDirectory] with [songProperFileName]
    */
   var processedAudioFile: Path? = null,
-  // TODO: add chosenAudioTagger
+
+  var chosenAudioTagger: BaseAudioTagger? = null,
 ) {
   /**
    * save the proper file name for debugging and other filename generation
