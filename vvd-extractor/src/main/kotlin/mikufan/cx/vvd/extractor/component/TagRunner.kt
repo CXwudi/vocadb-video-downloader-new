@@ -61,13 +61,18 @@ class TagRunnerCore {
         },
         onFailure = {
           if (it !is Exception) {
-            throw RuntimeVocaloidException("Tagging of $songBaseName failed", it)
+            throw it
           }
+          log.warn { "  Failed to add tags for $songBaseName on attempt ${i + 1}" }
           failures.add(it)
-          log.warn(it) { "Tagging of $songBaseName failed" }
         }
       )
-    } // end of retry loop
+    }
+    log.error { "All extraction attempt on $songBaseName by ${audioTagger.name} failed" }
+    throw RuntimeVocaloidException(
+      "All extraction attempt on $songBaseName by ${audioTagger.name} failed, " +
+          "exception list: ${failures.joinToString(prefix = "[", postfix = "]")}"
+    )
   }
 }
 
