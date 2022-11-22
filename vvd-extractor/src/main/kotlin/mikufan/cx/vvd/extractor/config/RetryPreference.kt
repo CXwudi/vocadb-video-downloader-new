@@ -9,7 +9,7 @@ import javax.validation.constraints.PositiveOrZero
  * @date 2022-07-19
  * @author CX无敌
  */
-@ConfigurationProperties(prefix = "config.preference")
+@ConfigurationProperties(prefix = "config.retry")
 @ConstructorBinding
 @Validated
 data class RetryPreference(
