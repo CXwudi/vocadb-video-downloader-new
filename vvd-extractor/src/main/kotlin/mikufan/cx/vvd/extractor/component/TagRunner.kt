@@ -40,6 +40,7 @@ class TagRunner(
 class TagRunnerCore {
 
   /**
+   * Run the [BaseAudioTagger] with given retry count, fail and throw exception if all retry failed
    *
    * @param audioTagger BaseAudioTagger to tag the audio file
    * @param targetFile Path of the audio file to be tagged
