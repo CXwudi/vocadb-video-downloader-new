@@ -12,6 +12,7 @@ import mikufan.cx.vvd.downloader.config.IOConfig
 import mikufan.cx.vvd.downloader.model.Parameters
 import mikufan.cx.vvd.downloader.model.VSongTask
 import mikufan.cx.vvd.downloader.util.SpringBootDirtyTestWithTestProfile
+import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringShouldSpec
 import java.nio.file.Path
 import kotlin.io.path.Path
@@ -22,7 +23,7 @@ import kotlin.io.path.extension
 /**
  * just to test the [BaseDownloader.download] logic without considering the [BaseDownloader.tryDownload]
  */
-@SpringBootDirtyTestWithTestProfile
+@SpringBootTestWithTestProfile
 class BaseDownloaderTest(
   ioConfig: IOConfig
 ) : SpringShouldSpec({

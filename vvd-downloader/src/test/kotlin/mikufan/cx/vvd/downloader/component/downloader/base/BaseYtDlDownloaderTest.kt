@@ -11,11 +11,12 @@ import mikufan.cx.vvd.downloader.config.IOConfig
 import mikufan.cx.vvd.downloader.model.Parameters
 import mikufan.cx.vvd.downloader.model.VSongTask
 import mikufan.cx.vvd.downloader.util.SpringBootDirtyTestWithTestProfile
+import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringShouldSpec
 import mikufan.cx.vvd.downloader.util.loadResourceAsString
 import org.junit.jupiter.api.Disabled
 
-@SpringBootDirtyTestWithTestProfile(
+@SpringBootTestWithTestProfile(
   customProperties = [
     "config.downloader.NicoNicoDouga.youtube-dl.launch-cmd=yt-dlp",
     "config.downloader.Youtube.youtube-dl.launch-cmd=yt-dlp",

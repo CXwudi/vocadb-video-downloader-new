@@ -6,6 +6,7 @@ import io.kotest.matchers.string.shouldStartWith
 import mikufan.cx.vvd.extractor.config.IOConfig
 import mikufan.cx.vvd.extractor.config.ProcessConfig
 import mikufan.cx.vvd.extractor.util.SpringBootDirtyTestWithTestProfile
+import mikufan.cx.vvd.extractor.util.SpringBootTestWithTestProfile
 import mikufan.cx.vvd.extractor.util.SpringShouldSpec
 import org.springframework.beans.factory.annotation.Qualifier
 import java.nio.file.Path
@@ -21,7 +22,7 @@ import kotlin.io.path.extension
  * test environment is set up by moving some test music files to the target output directory
  * and trading it as the actual extraction output.
  */
-@SpringBootDirtyTestWithTestProfile
+@SpringBootTestWithTestProfile
 class BaseCliAudioExtractorTest(
   ioConfig: IOConfig,
   processConfig: ProcessConfig,

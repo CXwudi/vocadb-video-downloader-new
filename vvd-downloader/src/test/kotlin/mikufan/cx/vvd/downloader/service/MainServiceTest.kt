@@ -2,9 +2,10 @@ package mikufan.cx.vvd.downloader.service
 
 import io.kotest.assertions.throwables.shouldNotThrow
 import mikufan.cx.vvd.downloader.util.SpringBootDirtyTestWithTestProfile
+import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringShouldSpec
 
-@SpringBootDirtyTestWithTestProfile(
+@SpringBootTestWithTestProfile(
   customProperties = [
     "io.input-directory=src/test/resources/2021年V家精品-tasks-test",
     "config.preference.try-next-pv-service-on-fail=true",

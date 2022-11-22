@@ -2,11 +2,12 @@ package mikufan.cx.vvd.extractor.component
 
 import io.kotest.matchers.shouldBe
 import mikufan.cx.vvd.extractor.util.SpringBootDirtyTestWithTestProfile
+import mikufan.cx.vvd.extractor.util.SpringBootTestWithTestProfile
 import mikufan.cx.vvd.extractor.util.SpringShouldSpec
 import mikufan.cx.vvd.extractor.util.getResourceAsPath
 import kotlin.io.path.Path
 
-@SpringBootDirtyTestWithTestProfile
+@SpringBootTestWithTestProfile
 class MediaFormatCheckerTest(
   private val mediaFormatChecker: MediaFormatChecker
 ) : SpringShouldSpec({

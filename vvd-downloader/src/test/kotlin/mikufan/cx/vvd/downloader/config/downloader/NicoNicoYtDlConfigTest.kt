@@ -3,6 +3,7 @@ package mikufan.cx.vvd.downloader.config.downloader
 import io.kotest.assertions.throwables.shouldThrow
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.downloader.util.SpringBootDirtyTestWithTestProfile
+import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringShouldSpec
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.springframework.beans.factory.NoSuchBeanDefinitionException
@@ -13,7 +14,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory
  * @date 2021-06-27
  * @author CX无敌
  */
-@SpringBootDirtyTestWithTestProfile
+@SpringBootTestWithTestProfile
 internal class NicoNicoYtDlConfigTest(
   // the niconico config bean should exist
   @Autowired val nicoNicoYtDlConfig: NicoNicoYtDlConfig
@@ -27,7 +28,7 @@ internal class NicoNicoYtDlConfigTest(
 
 private val log = KInlineLogging.logger()
 
-@SpringBootDirtyTestWithTestProfile(
+@SpringBootTestWithTestProfile(
   customProperties = [
     "config.preference.pv-preference=Youtube, Bilibili" // no niconico, should skipped niconico config
   ]

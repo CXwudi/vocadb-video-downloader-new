@@ -9,12 +9,13 @@ import mikufan.cx.vvd.extractor.config.IOConfig
 import mikufan.cx.vvd.extractor.model.Parameters
 import mikufan.cx.vvd.extractor.model.VSongTask
 import mikufan.cx.vvd.extractor.util.SpringBootDirtyTestWithTestProfile
+import mikufan.cx.vvd.extractor.util.SpringBootTestWithTestProfile
 import mikufan.cx.vvd.extractor.util.SpringShouldSpec
 import mikufan.cx.vvd.extractor.util.loadResourceAsString
 import org.springframework.util.ResourceUtils
 import java.nio.file.Paths
 
-@SpringBootDirtyTestWithTestProfile(
+@SpringBootTestWithTestProfile(
   customProperties = [
     "config.environment.ffmpeg-launch-cmd=ffmpeg"
   ]

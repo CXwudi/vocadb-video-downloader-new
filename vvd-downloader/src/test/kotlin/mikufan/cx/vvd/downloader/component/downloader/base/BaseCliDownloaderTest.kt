@@ -8,6 +8,7 @@ import mikufan.cx.vvd.downloader.config.DownloadConfig
 import mikufan.cx.vvd.downloader.config.EnvironmentConfig
 import mikufan.cx.vvd.downloader.config.IOConfig
 import mikufan.cx.vvd.downloader.util.SpringBootDirtyTestWithTestProfile
+import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringShouldSpec
 import org.apache.tika.Tika
 import org.hibernate.validator.internal.util.Contracts.assertTrue
@@ -17,7 +18,7 @@ import kotlin.io.path.*
 /**
  * This test requires the docker env
  */
-@SpringBootDirtyTestWithTestProfile
+@SpringBootTestWithTestProfile
 class BaseCliDownloaderTest(
   ioConfig: IOConfig,
   private val downloadConfig: DownloadConfig,

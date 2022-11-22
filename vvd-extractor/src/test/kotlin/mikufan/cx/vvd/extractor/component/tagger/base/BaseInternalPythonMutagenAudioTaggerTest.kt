@@ -12,15 +12,12 @@ import mikufan.cx.vvd.extractor.component.tagger.impl.OggOpusAudioTagger
 import mikufan.cx.vvd.extractor.config.IOConfig
 import mikufan.cx.vvd.extractor.model.Parameters
 import mikufan.cx.vvd.extractor.model.VSongTask
-import mikufan.cx.vvd.extractor.util.SpringBootDirtyTestWithTestProfile
-import mikufan.cx.vvd.extractor.util.SpringShouldSpec
-import mikufan.cx.vvd.extractor.util.getResourceAsPath
-import mikufan.cx.vvd.extractor.util.loadResourceAsString
+import mikufan.cx.vvd.extractor.util.*
 import java.nio.file.Path
 import java.util.*
 import kotlin.io.path.copyTo
 
-@SpringBootDirtyTestWithTestProfile(
+@SpringBootTestWithTestProfile(
   customProperties = [
     "config.environment.python-launch-cmd=python"
   ]

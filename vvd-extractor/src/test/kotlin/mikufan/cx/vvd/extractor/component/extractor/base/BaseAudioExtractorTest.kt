@@ -11,7 +11,7 @@ import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.extractor.config.IOConfig
 import mikufan.cx.vvd.extractor.model.Parameters
 import mikufan.cx.vvd.extractor.model.VSongTask
-import mikufan.cx.vvd.extractor.util.SpringBootDirtyTestWithTestProfile
+import mikufan.cx.vvd.extractor.util.SpringBootTestWithTestProfile
 import mikufan.cx.vvd.extractor.util.SpringShouldSpec
 import java.nio.file.Path
 import kotlin.io.path.Path
@@ -19,7 +19,7 @@ import kotlin.io.path.copyTo
 import kotlin.io.path.div
 import kotlin.io.path.extension
 
-@SpringBootDirtyTestWithTestProfile
+@SpringBootTestWithTestProfile
 class BaseAudioExtractorTest(
   ioConfig: IOConfig,
 ) : SpringShouldSpec({
