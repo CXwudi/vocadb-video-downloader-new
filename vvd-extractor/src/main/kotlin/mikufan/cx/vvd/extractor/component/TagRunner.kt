@@ -4,7 +4,7 @@ import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.commonkt.naming.SongProperFileName
 import mikufan.cx.vvd.extractor.component.tagger.base.BaseAudioTagger
-import mikufan.cx.vvd.extractor.config.Preference
+import mikufan.cx.vvd.extractor.config.RetryPreference
 import mikufan.cx.vvd.extractor.model.VSongTask
 import mikufan.cx.vvd.extractor.util.OrderConstants
 import org.jeasy.batch.core.processor.RecordProcessor
@@ -21,10 +21,10 @@ import java.nio.file.Path
 @Order(OrderConstants.TAGGER_RUNNER_ORDER)
 class TagRunner(
   private val tagRunnerCore: TagRunnerCore,
-  preference: Preference,
+  retryPreference: RetryPreference,
 ) : RecordProcessor<VSongTask, VSongTask> {
 
-  private val retryOnTagging = preference.retryOnTagging
+  private val retryOnTagging = retryPreference.retryOnTagging
 
   override fun processRecord(record: Record<VSongTask>): Record<VSongTask> {
     val parameters = record.payload.parameters

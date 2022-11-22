@@ -7,10 +7,10 @@ object OrderConstants {
   const val EXTRACTOR_RUNNER_ORDER = 4
   const val TAGGER_DECIDER_ORDER = 5
   const val TAGGER_RUNNER_ORDER = 6
+  const val LAST_MODIFIED_CHANGER = 7
 
   /*
   TODO:
-    tagger runner
     lastModifiedChanger // rely on order int to achieve parallel
     finalRenamer
     labelSaver

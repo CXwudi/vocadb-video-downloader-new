@@ -19,7 +19,7 @@ config: # configuration
     timeout: 5
     unit: minutes
 
-  preference:
+  retry:
     retry-on-extraction: 2 # number of times to retry on audio extraction error
     retry-on-tagging: 2 # number of times to retry on audio file tagging error
 

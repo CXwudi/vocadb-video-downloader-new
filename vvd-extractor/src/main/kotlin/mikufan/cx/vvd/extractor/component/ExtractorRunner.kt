@@ -3,7 +3,7 @@ package mikufan.cx.vvd.extractor.component
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.extractor.config.IOConfig
-import mikufan.cx.vvd.extractor.config.Preference
+import mikufan.cx.vvd.extractor.config.RetryPreference
 import mikufan.cx.vvd.extractor.model.VSongTask
 import mikufan.cx.vvd.extractor.util.OrderConstants
 import org.jeasy.batch.core.processor.RecordProcessor
@@ -21,13 +21,13 @@ import kotlin.io.path.div
 @Order(OrderConstants.EXTRACTOR_RUNNER_ORDER)
 class ExtractorRunner(
   ioConfig: IOConfig,
-  preference: Preference,
+  retryPreference: RetryPreference,
 ) : RecordProcessor<VSongTask, VSongTask> {
 
   private val inputDirectory = ioConfig.inputDirectory
   private val outputDirectory = ioConfig.outputDirectory
 
-  private val retryOnExtraction = preference.retryOnExtraction
+  private val retryOnExtraction = retryPreference.retryOnExtraction
 
   override fun processRecord(record: Record<VSongTask>): Record<VSongTask> {
     val parameters = record.payload.parameters

@@ -12,7 +12,7 @@ import javax.validation.constraints.PositiveOrZero
 @ConfigurationProperties(prefix = "config.preference")
 @ConstructorBinding
 @Validated
-data class Preference(
+data class RetryPreference(
   @field:PositiveOrZero val retryOnExtraction: Int,
   @field:PositiveOrZero val retryOnTagging: Int,
 )
