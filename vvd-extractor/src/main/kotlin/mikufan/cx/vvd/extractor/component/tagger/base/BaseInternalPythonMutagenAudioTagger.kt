@@ -9,6 +9,7 @@ import java.nio.file.Path
 import java.util.concurrent.ThreadPoolExecutor
 import javax.annotation.PreDestroy
 import kotlin.io.path.bufferedWriter
+import kotlin.io.path.deleteIfExists
 
 /**
  * Base audio tagger powered by python mutagen library.
@@ -30,7 +31,7 @@ abstract class BaseInternalPythonMutagenAudioTagger(
    */
   abstract val pythonScriptFileName: String
 
-  private val loadedPythonScriptFile: Path by lazy {
+  private val pythonScriptFileLazy = lazy {
     requireNotNull(this::class.java.classLoader.getResourceAsStream("python/$pythonScriptFileName")) {
       "$pythonScriptFileName not found in resources/python directory"
     }.bufferedReader().let { reader ->
@@ -45,10 +46,11 @@ abstract class BaseInternalPythonMutagenAudioTagger(
       tempPythonFile
     }
   }
+  private val pythonScriptFile: Path by pythonScriptFileLazy
 
   override fun buildCommand(audioFile: Path, allInfo: VSongTask): List<String> = buildList {
     addAll(pythonLaunchCmd)
-    add(loadedPythonScriptFile.toString())
+    add(pythonScriptFile.toString())
     addAll(buildArguments(audioFile, allInfo))
   }
 
@@ -62,9 +64,11 @@ abstract class BaseInternalPythonMutagenAudioTagger(
   
   @PreDestroy
   fun deleteTempPythonFile() {
-    val exists = Files.deleteIfExists(loadedPythonScriptFile)
-    if (exists) {
-      log.debug { "Deleted temp python file $loadedPythonScriptFile loaded from $pythonScriptFileName" }
+    if (pythonScriptFileLazy.isInitialized()) {
+      val exists = pythonScriptFile.deleteIfExists()
+      if (exists) {
+        log.debug { "Deleted temp python file $pythonScriptFile loaded from $pythonScriptFileName" }
+      }
     }
   }
 }
