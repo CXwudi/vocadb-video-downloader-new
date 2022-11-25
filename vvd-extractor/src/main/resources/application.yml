@@ -23,6 +23,12 @@ config: # configuration
     retry-on-extraction: 2 # number of times to retry on audio extraction error
     retry-on-tagging: 2 # number of times to retry on audio file tagging error
 
+  current-time:
+    # by default, this field is empty means using the time when this app is launched.
+    # if you want to start from a specific time, change the setting here
+    # the format is yyyy-MM-dd HH:mm:ss, with your local time zone
+    start-from: ""
+
 
 # spring setting, DON't touch. unless you know what you are doing
 

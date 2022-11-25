@@ -9,3 +9,5 @@ config: # configuration
     python-launch-cmd: python
     ffmpeg-launch-cmd: ffmpeg
     mediainfo-launch-cmd: mediainfo
+  batch:
+    batch-size: 1 # set to 1 to make it easier to check the log
