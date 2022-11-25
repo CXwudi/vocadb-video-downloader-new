@@ -49,10 +49,10 @@ class AacToM4aAudioExtractor(
     val aacCommand = buildAacCommand(inputPvFile, tempAacFile)
     log.info { "Executing first commands to get temp aac: ${aacCommand.joinToString(" ", "`", "`")}" }
     executeCommand(aacCommand)
-    log.info { "Done executing first command for $baseOutputFileName" }
+    log.info { "Done executing temp acc command for $baseOutputFileName" }
 
     val m4aCommand = buildM4aCommand(tempAacFile, baseOutputFileName, outputDirectory)
-    log.info { "Next, get final m4a file by executing: $${m4aCommand.joinToString(" ", "`", "`")}" }
+    log.info { "Next, get final m4a file by executing: ${m4aCommand.joinToString(" ", "`", "`")}" }
     executeCommand(m4aCommand)
     log.info { "Done executing m4a commands for $baseOutputFileName" }
 
