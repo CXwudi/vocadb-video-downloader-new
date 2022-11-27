@@ -11,8 +11,8 @@ object OrderConstants {
 
   /*
   TODO:
-    lastModifiedChanger // rely on order int to achieve parallel
     finalRenamer
+    // after process label validator, let's only add it if one day more vvd-module is needed after this one
     labelSaver
    */
 }
