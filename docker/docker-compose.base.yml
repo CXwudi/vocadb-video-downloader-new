@@ -9,5 +9,6 @@ services:
       dockerfile: env-setup.Dockerfile
     volumes:
       - ../:/vvd
-      - ~/.m2:~/.m2
+      # can't use relative path so have to use /root/.m2
+      - ~/.m2:/root/.m2 
     working_dir: /vvd
