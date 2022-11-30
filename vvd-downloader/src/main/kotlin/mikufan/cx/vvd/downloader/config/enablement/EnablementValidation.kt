@@ -1,13 +1,13 @@
 package mikufan.cx.vvd.downloader.config.enablement
 
+import jakarta.validation.Constraint
+import jakarta.validation.ConstraintValidator
+import jakarta.validation.ConstraintValidatorContext
+import jakarta.validation.Payload
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.downloader.config.preference.Preference
 import org.springframework.core.env.Environment
 import org.springframework.stereotype.Component
-import javax.validation.Constraint
-import javax.validation.ConstraintValidator
-import javax.validation.ConstraintValidatorContext
-import javax.validation.Payload
 import kotlin.reflect.KClass
 
 /**

@@ -1,5 +1,6 @@
 package mikufan.cx.vvd.downloader.component
 
+import jakarta.validation.Validator
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.common.label.ValidationPhase
 import mikufan.cx.vvd.commonkt.batch.CustomizableBeanRecordValidator
@@ -8,7 +9,6 @@ import mikufan.cx.vvd.downloader.util.OrderConstants
 import org.jeasy.batch.core.record.Record
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
-import javax.validation.Validator
 
 @Component
 @Order(OrderConstants.BEFORE_PROCESS_LABEL_VALIDATOR_ORDER)

@@ -1,16 +1,15 @@
 package mikufan.cx.vvd.extractor.config
 
+import jakarta.validation.constraints.Min
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.boot.context.properties.ConstructorBinding
 import org.springframework.validation.annotation.Validated
-import javax.validation.constraints.Min
 
 /**
  * @date 2022-06-12
  * @author CX无敌
  */
 @ConfigurationProperties("config.batch")
-@ConstructorBinding
+
 @Validated
 class BatchConfig(
   batchSize: Int,

@@ -1,7 +1,6 @@
 package mikufan.cx.vvd.extractor.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.boot.context.properties.ConstructorBinding
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import java.time.InstantSource
@@ -36,7 +35,7 @@ class InstantSourceConfig {
 }
 
 @ConfigurationProperties(prefix = "config.current-time")
-@ConstructorBinding
+
 data class CurrentTimeConfig(
   val startFrom: String? = null,
 )

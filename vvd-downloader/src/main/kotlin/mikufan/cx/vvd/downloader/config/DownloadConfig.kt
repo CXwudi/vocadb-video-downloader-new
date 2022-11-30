@@ -1,11 +1,10 @@
 package mikufan.cx.vvd.downloader.config
 
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Positive
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.boot.context.properties.ConstructorBinding
 import org.springframework.validation.annotation.Validated
 import java.util.concurrent.TimeUnit
-import javax.validation.constraints.NotNull
-import javax.validation.constraints.Positive
 
 /**
  * Some configuration during downloading
@@ -13,7 +12,7 @@ import javax.validation.constraints.Positive
  * @author CX无敌
  */
 @ConfigurationProperties(prefix = "config.download")
-@ConstructorBinding
+
 @Validated
 data class DownloadConfig(
   /**

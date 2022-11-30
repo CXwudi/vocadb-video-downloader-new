@@ -1,11 +1,11 @@
 package mikufan.cx.vvd.commonkt.batch
 
+import jakarta.validation.ConstraintViolation
+import jakarta.validation.Validator
+import jakarta.validation.groups.Default
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import org.jeasy.batch.core.record.Record
 import org.jeasy.batch.core.validator.RecordValidator
-import javax.validation.ConstraintViolation
-import javax.validation.Validator
-import javax.validation.groups.Default
 
 /**
  * This is a reimplementation of easy-batch-validation class but support more flexible settings.

@@ -1,5 +1,6 @@
 package mikufan.cx.vvd.taskproducer.component
 
+import jakarta.validation.Validator
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.common.label.ValidationPhase
 import mikufan.cx.vvd.commonkt.batch.CustomizableBeanRecordValidator
@@ -12,7 +13,6 @@ import org.jeasy.batch.core.processor.RecordProcessor
 import org.jeasy.batch.core.record.Record
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
-import javax.validation.Validator
 
 /**
  * @date 2021-06-12

@@ -1,5 +1,6 @@
 package mikufan.cx.vvd.taskproducer.config
 
+import jakarta.validation.Valid
 import mikufan.cx.vocadbapiclient.api.SongApi
 import mikufan.cx.vocadbapiclient.api.SongListApi
 import mikufan.cx.vocadbapiclient.client.ApiClient
@@ -9,7 +10,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.http.client.BufferingClientHttpRequestFactory
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.client.RestTemplate
-import javax.validation.Valid
+import java.util.function.Supplier
 
 /**
  * @date 2021-05-29
@@ -33,9 +34,9 @@ class ApiConfig {
 
   @Bean
   fun restTemplate(restTemplateBuilder: RestTemplateBuilder): RestTemplate =
-    restTemplateBuilder.requestFactory {
+    restTemplateBuilder.requestFactory(Supplier {
       // simulate how ApiClient build restTemplate
       BufferingClientHttpRequestFactory(restTemplateBuilder.buildRequestFactory())
-    }.build()
+    }).build()
 }
 

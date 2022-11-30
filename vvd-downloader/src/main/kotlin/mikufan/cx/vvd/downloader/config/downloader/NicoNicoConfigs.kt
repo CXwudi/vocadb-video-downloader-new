@@ -1,11 +1,10 @@
 package mikufan.cx.vvd.downloader.config.downloader
 
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotEmpty
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.boot.context.properties.ConstructorBinding
 import org.springframework.context.annotation.Conditional
 import org.springframework.validation.annotation.Validated
-import javax.validation.constraints.NotBlank
-import javax.validation.constraints.NotEmpty
 
 /**
  * Files of all niconico download config classes
@@ -13,7 +12,7 @@ import javax.validation.constraints.NotEmpty
  * @author CX无敌
  */
 @ConfigurationProperties("$NND_CONFIG_PROP_KEY.$NND_YTDL")
-@ConstructorBinding
+
 @Validated
 @Conditional(NicoNicoYtDlCondition::class)
 data class NicoNicoYtDlConfig(
