@@ -9,5 +9,5 @@ services:
       dockerfile: env-setup.Dockerfile
     volumes:
       - ../:/vvd
-      - ~/.m2:/root/.m2
+      - ~/.m2:~/.m2
     working_dir: /vvd
