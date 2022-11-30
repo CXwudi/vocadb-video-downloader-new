@@ -1,5 +1,6 @@
 package mikufan.cx.vvd.extractor.component.tagger.base
 
+import jakarta.annotation.PreDestroy
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.extractor.config.EnvironmentConfig
 import mikufan.cx.vvd.extractor.config.ProcessConfig
@@ -7,7 +8,6 @@ import mikufan.cx.vvd.extractor.model.VSongTask
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.concurrent.ThreadPoolExecutor
-import javax.annotation.PreDestroy
 import kotlin.io.path.bufferedWriter
 import kotlin.io.path.deleteIfExists
 

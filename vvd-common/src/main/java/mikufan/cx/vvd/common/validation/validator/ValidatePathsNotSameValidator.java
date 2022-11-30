@@ -1,10 +1,10 @@
 package mikufan.cx.vvd.common.validation.validator;
 
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException;
 import mikufan.cx.vvd.common.validation.annotation.PathsNotSame;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -73,10 +73,10 @@ public class ValidatePathsNotSameValidator implements ConstraintValidator<PathsN
       var field = object.getClass().getDeclaredField(fieldName);
       field.setAccessible(true);
       var rawObjectPath = field.get(object);
-      if (rawObjectPath instanceof Path){
-        path = (Path) rawObjectPath;
-      } else if (rawObjectPath instanceof File){
-        path = ((File) rawObjectPath).toPath();
+      if (rawObjectPath instanceof Path fieldPath){
+        path = fieldPath;
+      } else if (rawObjectPath instanceof File fieldFile){
+        path = fieldFile.toPath();
       } else {
         context.buildConstraintViolationWithTemplate(String.format("The field is not a path: %s", fieldName))
             .addPropertyNode(fieldName)

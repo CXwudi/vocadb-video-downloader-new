@@ -11,8 +11,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.validation.annotation.Validated;
 
-import javax.annotation.PostConstruct;
-import javax.validation.constraints.NotNull;
+import jakarta.annotation.PostConstruct;
+import jakarta.validation.constraints.NotNull;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,7 +23,7 @@ import java.nio.file.Path;
  * @date 2020-12-17
  */
 @ConfigurationProperties(prefix = "io")
-@ConstructorBinding @Validated
+ @Validated
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @AllArgsConstructor @Getter @ToString
 @PathsNotSame(fields = {"inputDirectory", "outputDirectory", "errorDirectory"})

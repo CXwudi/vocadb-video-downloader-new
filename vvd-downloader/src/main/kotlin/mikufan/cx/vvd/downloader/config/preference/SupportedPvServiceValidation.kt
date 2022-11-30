@@ -1,13 +1,13 @@
 package mikufan.cx.vvd.downloader.config.validation
 
+import jakarta.validation.Constraint
+import jakarta.validation.ConstraintValidator
+import jakarta.validation.ConstraintValidatorContext
+import jakarta.validation.Payload
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vocadbapiclient.model.PVServices.Constant.*
 import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum
 import org.springframework.util.CollectionUtils
-import javax.validation.Constraint
-import javax.validation.ConstraintValidator
-import javax.validation.ConstraintValidatorContext
-import javax.validation.Payload
 import kotlin.reflect.KClass
 
 /**

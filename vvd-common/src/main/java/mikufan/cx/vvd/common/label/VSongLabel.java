@@ -1,15 +1,18 @@
 package mikufan.cx.vvd.common.label;
 
-import lombok.*;
+import jakarta.validation.Constraint;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.Payload;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.jackson.Jacksonized;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.validation.Constraint;
-import javax.validation.ConstraintValidator;
-import javax.validation.Payload;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -90,7 +93,7 @@ public class VSongLabel {
 class HasRequiredResourceValidator implements ConstraintValidator<HasRequiredResource, VSongLabel> {
 
   @Override
-  public boolean isValid(VSongLabel value, javax.validation.ConstraintValidatorContext context) {
+  public boolean isValid(VSongLabel value, jakarta.validation.ConstraintValidatorContext context) {
     var hasMedia = StringUtils.isNotBlank(value.getPvFileName()) || StringUtils.isNotBlank(value.getAudioFileName());
     var hasThumbnail = StringUtils.isNotBlank(value.getThumbnailFileName());
     var result = hasMedia && hasThumbnail;

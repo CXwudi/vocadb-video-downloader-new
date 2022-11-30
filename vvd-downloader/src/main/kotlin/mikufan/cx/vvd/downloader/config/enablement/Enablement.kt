@@ -2,7 +2,6 @@ package mikufan.cx.vvd.downloader.config.enablement
 
 import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.boot.context.properties.ConstructorBinding
 import org.springframework.validation.annotation.Validated
 
 /**
@@ -11,7 +10,7 @@ import org.springframework.validation.annotation.Validated
  * @author CX无敌
  */
 @ConfigurationProperties(prefix = "config") // this is the only way to inject Map from spring configuration
-@ConstructorBinding
+
 @Validated
 @IsValidEnablement
 data class Enablement(

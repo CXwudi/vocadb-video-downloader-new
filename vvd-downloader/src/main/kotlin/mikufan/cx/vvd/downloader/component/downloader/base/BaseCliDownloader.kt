@@ -1,6 +1,7 @@
 package mikufan.cx.vvd.downloader.component.downloader.base
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import jakarta.annotation.PreDestroy
 import mikufan.cx.executil.runCmd
 import mikufan.cx.executil.sync
 import mikufan.cx.inlinelogging.KInlineLogging
@@ -12,7 +13,6 @@ import org.apache.tika.Tika
 import java.nio.file.Path
 import java.util.concurrent.LinkedBlockingDeque
 import java.util.concurrent.ThreadPoolExecutor
-import javax.annotation.PreDestroy
 import kotlin.io.path.listDirectoryEntries
 
 /**
