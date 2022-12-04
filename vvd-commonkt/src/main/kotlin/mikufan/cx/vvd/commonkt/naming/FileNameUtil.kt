@@ -43,7 +43,5 @@ fun removeIllegalChars(fileName: String): String {
     .replace("? ", " ")
     .replace("* ", " ")
     .replace(": ", " ")
-    .replace("?", " ")
-    .replace("*", " ")
-    .replace(":", " ")
+    .replace(Regex("[\\\\/:*?\"<>|]"), " ")
 }
