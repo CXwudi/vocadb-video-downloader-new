@@ -37,7 +37,7 @@ def add_tag(input_file, thumbnail_file, label_dict, info_dict, audio_extractor_n
   file["comment"] = "All rights belong to {}".format(info_dict["artistString"].split("feat.")[0].strip())
   write_thumbnail(file, thumbnail_file)
   # the filter should fine exactly one PV, otherwise it would not come to vvd-extractor module
-  pv_dict = list(filter(lambda x: x["id"] == label_dict["pvVocaDbId"], info_dict["pvs"]))[0]
+  pv_dict = list(filter(lambda x: x["id"] == label_dict["vocaDbPvId"], info_dict["pvs"]))[0]
   file["pv url"] = pv_dict["url"]
   file["downloaded by"] = label_dict["downloaderName"]
   file["extracted by"] = audio_extractor_name

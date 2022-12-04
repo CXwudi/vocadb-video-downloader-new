@@ -24,7 +24,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * Mutable class as the metadata of a song used across the whole vvd
  *
  * @author CX无敌
- * @date 2021-05-29
+ * 2021-05-29
  */
 @Data
 @AllArgsConstructor
@@ -57,7 +57,7 @@ public class VSongLabel {
    * <p>
    * the VocaDB PV ID should always be positive.
    */
-  @Positive(groups = ValidationPhase.Two.class) int pvVocaDbId;
+  @Positive(groups = ValidationPhase.Two.class) int vocaDbPvId;
   // this is recorded for reference
   @NotBlank(groups = ValidationPhase.Two.class) String downloaderName;
 

@@ -72,7 +72,7 @@ class BeforeProcessLabelValidatorFailureTest(
 
     val thirdRecord = labelsReader.readRecord()!!
     thirdRecord.payload.label.apply {
-      this.pvVocaDbId = 0
+      this.vocaDbPvId = 0
     }
 
     should("throw exception on ${thirdRecord.payload.label.labelFileName}") {

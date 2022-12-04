@@ -29,7 +29,7 @@ class DownloadResultRecorder : RecordProcessor<VSongTask, VSongTask> {
       }
       this.thumbnailFileName = downloadFiles.thumbnailFile.fileName.toString()
       // recording of PV information to label is done here because only here we know the PV that is successfully downloaded
-      this.pvVocaDbId = requireNotNull(downloadedPv.id) { " null pv id for $downloadedPv" }
+      this.vocaDbPvId = requireNotNull(downloadedPv.id) { " null pv id for $downloadedPv" }
       this.downloaderName = downloaderName
     }
     return record

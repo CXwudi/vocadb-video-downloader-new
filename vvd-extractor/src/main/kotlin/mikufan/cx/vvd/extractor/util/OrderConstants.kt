@@ -8,6 +8,7 @@ object OrderConstants {
   const val TAGGER_DECIDER_ORDER = 5
   const val TAGGER_RUNNER_ORDER = 6
   const val LAST_MODIFIED_CHANGER = 7
+  const val FINAL_RENAMER_ORDER = 8
 
   /*
   TODO:

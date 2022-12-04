@@ -54,7 +54,7 @@ class LabelsReader(
       .pvFileName(oldLabel.pvFileName)
       .audioFileName(oldLabel.audioFileName)
       .thumbnailFileName(oldLabel.thumbnailFileName)
-      .pvVocaDbId(oldLabel.pvVocaDbId)
+      .vocaDbPvId(oldLabel.vocaDbPvId)
       .downloaderName(oldLabel.downloaderName)
       .build()
     val header = Header(++order, "VSong Task by ${label.labelFileName}", LocalDateTime.now())

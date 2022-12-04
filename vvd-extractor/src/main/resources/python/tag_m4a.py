@@ -22,7 +22,7 @@ def add_tag(input_file, thumbnail_file, label_dict, info_dict, audio_extractor_n
   tags["covr"] = [MP4Cover(data=thumbnail_data)]
   tags["----:com.apple.iTunes:downloaded by"] = label_dict["downloaderName"].encode()
   # the filter should fine exactly one PV, otherwise it would not come to vvd-extractor module
-  pv_dict = list(filter(lambda x: x["id"] == label_dict["pvVocaDbId"], info_dict["pvs"]))[0]
+  pv_dict = list(filter(lambda x: x["id"] == label_dict["vocaDbPvId"], info_dict["pvs"]))[0]
   tags["----:com.apple.iTunes:pv url"] = pv_dict["url"].encode()
   tags["----:com.apple.iTunes:extracted by"] = audio_extractor_name.encode()
   tags["----:com.apple.iTunes:tags edited by"] = audio_tagger_name.encode()
