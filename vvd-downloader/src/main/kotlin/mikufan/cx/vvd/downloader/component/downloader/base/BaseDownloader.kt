@@ -56,9 +56,9 @@ abstract class BaseDownloader {
       val tempBaseFileName = "$baseFileName-downloading"
       val (pvFile, audioFile, thumbnailFile) = tryDownload(url, tempBaseFileName, outputDirectory)
 
-      val movedPvFile: Path? = pvFile?.renameWithSameExtension(baseFileName.toPvFileName())
-      val movedAudioFile: Path? = audioFile?.renameWithSameExtension(baseFileName.toAudioFileName())
-      val movedThumbnailFile = thumbnailFile.renameWithSameExtension(baseFileName.toThumbnailFileName())
+      val movedPvFile: Path? = pvFile?.renameWithSameExtension(baseFileName.toPvFileName(), true)
+      val movedAudioFile: Path? = audioFile?.renameWithSameExtension(baseFileName.toAudioFileName(), true)
+      val movedThumbnailFile = thumbnailFile.renameWithSameExtension(baseFileName.toThumbnailFileName(), true)
       log.info { "Download success =￣ω￣= for $baseFileName" }
       Result.success(DownloadFiles(movedPvFile, movedAudioFile, movedThumbnailFile))
     } catch (e: InterruptedException) {

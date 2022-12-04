@@ -45,7 +45,7 @@ abstract class BaseAudioExtractor {
       // add the post fix to make the name of the extracted audio file unique
       val tempBaseFileName = "$baseFileName-extracting"
       val extractedAudioFile = tryExtract(pvFile, tempBaseFileName, outputDirectory)
-      val movedAudioFile = extractedAudioFile.renameWithSameExtension(baseFileName.toAudioFileName())
+      val movedAudioFile = extractedAudioFile.renameWithSameExtension(baseFileName.toAudioFileName(), true)
       log.info { "Extract success =￣ω￣= for $baseFileName, we got $movedAudioFile" }
       Result.success(movedAudioFile)
     } catch (e: InterruptedException) {
