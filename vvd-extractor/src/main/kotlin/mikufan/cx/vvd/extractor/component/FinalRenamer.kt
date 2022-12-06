@@ -60,7 +60,7 @@ class FinalRenamerCore {
     val pvService = requireNotNull(pvInfo.service) { "pv service is null" }
     val pvId = requireNotNull(pvInfo.pvId) { "pv id is null" }
     val fileName = "【%s】%s【%s】[%s %s]".format(vocals, songName, producers, pvService, pvId)
-    return SongProperFileName(removeIllegalChars(fileName))
+    return SongProperFileName(removeIllegalChars(fileName)) // remove illegal chars
   }
 }
 
