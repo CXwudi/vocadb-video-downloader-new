@@ -19,9 +19,9 @@ import java.nio.file.Path
  */
 @Order(OrderConstants.FINAL_RENAMER_ORDER)
 @Component
-class FinalRenamer(
-  private val finalRenamerCore: FinalRenamerCore,
-) : RecordProcessor<VSongTask, VSongTask> {
+class FinalRenamer : RecordProcessor<VSongTask, VSongTask> {
+
+  private val finalRenamerCore = FinalRenamerCore()
 
   override fun processRecord(record: Record<VSongTask>): Record<VSongTask> {
     val label = record.payload.label
@@ -34,7 +34,6 @@ class FinalRenamer(
   }
 }
 
-@Component
 class FinalRenamerCore {
 
   fun doProperRename(
