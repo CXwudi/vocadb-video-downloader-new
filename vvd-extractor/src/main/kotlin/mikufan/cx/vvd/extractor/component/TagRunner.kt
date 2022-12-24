@@ -20,10 +20,10 @@ import java.nio.file.Path
 @Component
 @Order(OrderConstants.TAGGER_RUNNER_ORDER)
 class TagRunner(
-  private val tagRunnerCore: TagRunnerCore,
   retryPreference: RetryPreference,
 ) : RecordProcessor<VSongTask, VSongTask> {
 
+  private val tagRunnerCore = TagRunnerCore()
   private val retryOnTagging = retryPreference.retryOnTagging
 
   override fun processRecord(record: Record<VSongTask>): Record<VSongTask> {
@@ -36,7 +36,6 @@ class TagRunner(
   }
 }
 
-@Component
 class TagRunnerCore {
 
   /**
