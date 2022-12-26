@@ -12,7 +12,6 @@ object OrderConstants {
 
   /*
   TODO:
-    finalRenamer
     // after process label validator, let's only add it if one day more vvd-module is needed after this one
     labelSaver
    */
