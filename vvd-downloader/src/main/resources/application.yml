@@ -90,7 +90,7 @@ spring:
       indent-output: true
     # default-property-inclusion: non_null # disabling for now, we want 3rd app read our json easily
   config:
-    import: optional:file:./my-downloader-config.yml
+    import: optional:file:./my-downloader-config.yml,optional:file:./my-downloader-config.yaml,optional:file:./my-downloader-config.properties
 
 logging:
   level:

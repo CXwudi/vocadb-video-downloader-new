@@ -40,7 +40,7 @@ spring:
       indent-output: true
     # default-property-inclusion: non_null # disabling for now, we want 3rd app read our json easily
   config:
-    import: optional:file:./my-extractor-config.yml
+    import: optional:file:./my-extractor-config.yml,optional:file:./my-extractor-config.yaml,optional:file:./my-extractor-config.properties
 
 logging:
   level:
