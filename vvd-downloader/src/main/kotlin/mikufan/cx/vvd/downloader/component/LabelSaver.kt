@@ -39,12 +39,12 @@ class LabelSaver(
   override suspend fun write(record: Record<VSongTask>) {
     val (label, parameters) = record.payload
 
+    val movedInfoFile = outputDirectory / label.infoFileName
+    inputDirectory.resolve(label.infoFileName).moveTo(movedInfoFile)
+
     val newLabelFile = outputDirectory / label.labelFileName
     objectMapper.writeValue(newLabelFile.toFile(), label)
     inputDirectory.resolve(label.labelFileName).deleteExisting() // the old label can be deleted
-
-    val movedInfoFile = outputDirectory / label.infoFileName
-    inputDirectory.resolve(label.infoFileName).moveTo(movedInfoFile)
 
     log.info {
       "Done all tasks for ${parameters.songProperFileName}. " +
