@@ -39,8 +39,9 @@ spring:
     serialization:
       indent-output: true
     # default-property-inclusion: non_null # disabling for now, we want 3rd app read our json easily
-
+  config:
+    import: optional:file:./my-extractor-config.yml
 
 logging:
   level:
-    mikufan: debug
+    mikufan: info
