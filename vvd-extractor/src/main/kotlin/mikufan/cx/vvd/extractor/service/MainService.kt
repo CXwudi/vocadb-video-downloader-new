@@ -38,7 +38,6 @@ class MainService(
         semaphore.acquire()
       }
     }
-    TODO("new function to save all data sequentially, with respect to their orders")
     log.info { "やった！全部完成" }
   }
 
