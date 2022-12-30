@@ -47,10 +47,12 @@ internal class ArtistFieldFixerTest(
   }
 
   @TestFactory
-  fun `should fix unknown artist field`() = listOf(
+  fun `should fix unknown artist field but except unknown producer`() = listOf(
       "GYARI feat. 鏡音リン V4X (Unknown), 鏡音レン V4X (Unknown)" to "GYARI feat. 鏡音リン V4X, 鏡音レン V4X",
       "100回嘔吐 feat. 初音ミク, 音街ウナ (Unknown), v flower" to "100回嘔吐 feat. 初音ミク, 音街ウナ, v flower",
-      "れるりり feat. Fukase (Unknown)" to "れるりり feat. Fukase")
+      "れるりり feat. Fukase (Unknown)" to "れるりり feat. Fukase",
+      "Unknown producer" to "Unknown producer",
+  )
     .map { (unfixed, expected) ->
       DynamicTest.dynamicTest("can fix $unfixed to $expected") {
         val fixed = artistFieldFixer.removeUnknown(unfixed)

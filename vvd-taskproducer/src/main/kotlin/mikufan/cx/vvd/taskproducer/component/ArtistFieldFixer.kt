@@ -79,11 +79,15 @@ class ArtistFieldFixer(
   }
 
   internal fun removeUnknown(artistStr: String): String {
-    return artistStr
-      .replace(UNKNOWN.lowercase(Locale.getDefault()), "")
-      .replace(UNKNOWN.uppercase(Locale.getDefault()), "")
-      .replace(UNKNOWN, "")
-      .replace(" ()", "")
-      .replace("()", "")
+    return if (artistStr.lowercase().contains("${UNKNOWN.lowercase()} producer")) {
+      artistStr
+    } else {
+      artistStr
+        .replace(UNKNOWN.lowercase(Locale.getDefault()), "")
+        .replace(UNKNOWN.uppercase(Locale.getDefault()), "")
+        .replace(UNKNOWN, "")
+        .replace(" ()", "")
+        .replace("()", "")
+    }
   }
 }
