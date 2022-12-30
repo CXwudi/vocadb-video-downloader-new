@@ -12,8 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest
  */
 @SpringBootTest(
   properties = [
-    "io.input-list-id=9909", // 10018 = 2021年V家新曲, 10020 = 2021年V家良曲, 9909 = Hatsune Miku Magical Mirai 2021
-    "config.batch-size=1"
+    "io.input-list-id=11058", // 11058 = 2022年V家新曲, 10020 = 2021年V家良曲, 9909 = Hatsune Miku Magical Mirai 2021
+    "config.batch-size=1",
   ]
 )
 @Disabled // just to make sure main service runs on real production

@@ -8,7 +8,6 @@ import kotlinx.coroutines.withContext
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.commonkt.batch.RecordErrorWriter
 import mikufan.cx.vvd.commonkt.batch.toIterator
-import mikufan.cx.vvd.commonkt.naming.toProperFileName
 import mikufan.cx.vvd.taskproducer.component.LabelSaver
 import mikufan.cx.vvd.taskproducer.component.ListReader
 import mikufan.cx.vvd.taskproducer.config.SystemConfig
@@ -43,7 +42,9 @@ class MainService(
 
   @Suppress("UNCHECKED_CAST")
   private suspend fun processRecord(record: Record<VSongTask>) {
-    val songName = record.payload.parameters.songForApiContract?.toProperFileName() // at this time, only song info fetched, but label json is not ready yet
+    // at this time, only song info fetched, but label json is not ready yet
+    // also not using toProperSongName as the artist string is still unfixed
+    val songName = record.payload.parameters.songForApiContract?.defaultName
     log.info { "Start processing $songName" }
     var currentRecord: Record<Any> = record as Record<Any>
     try {
