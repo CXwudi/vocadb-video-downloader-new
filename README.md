@@ -10,8 +10,8 @@ These 3 steps are implemented respectively as
 
 1. `vvd-taskproducer`
 2. `vvd-downloader`
-3. `vvd-extractor` (Currently work in progress)
+3. `vvd-extractor`
 
-A proper documentation for each module will be provided after `vvd-extractor` is completed.
+A proper documentation for each module is work on progress now.
 
 But for now, if you really want to use this program, contact me through email or Discord at CXwudi#3565
