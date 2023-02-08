@@ -19,9 +19,9 @@ import java.nio.file.Path
  */
 @Order(OrderConstants.FINAL_RENAMER_ORDER)
 @Component
-class FinalRenamer : RecordProcessor<VSongTask, VSongTask> {
-
-  private val finalRenamerCore = FinalRenamerCore()
+class FinalRenamer(
+  private val finalRenamerCore: FinalRenamerCore,
+) : RecordProcessor<VSongTask, VSongTask> {
 
   override fun processRecord(record: Record<VSongTask>): Record<VSongTask> {
     val label = record.payload.label
@@ -29,11 +29,14 @@ class FinalRenamer : RecordProcessor<VSongTask, VSongTask> {
     val audioFile = requireNotNull(parameters.processedAudioFile) { "null processed audio file?" }
     val songInfo = requireNotNull(parameters.songForApiContract) { "null song info?" }
     val vocaDbPvId = label.vocaDbPvId
-    parameters.processedAudioFile = finalRenamerCore.doProperRename(audioFile, songInfo, vocaDbPvId)
+    val newFile = finalRenamerCore.doProperRename(audioFile, songInfo, vocaDbPvId)
+    parameters.processedAudioFile = newFile
+    label.processedAudioFileName = newFile.fileName.toString()
     return record
   }
 }
 
+@Component
 class FinalRenamerCore {
 
   fun doProperRename(

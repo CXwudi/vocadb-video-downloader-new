@@ -19,10 +19,8 @@ import kotlin.io.path.setLastModifiedTime
 @Order(OrderConstants.LAST_MODIFIED_CHANGER)
 @Component
 class LastModifiedChanger(
-  instantSource: InstantSource,
+  private val lastModifiedChangerCore: LastModifiedChangerCore,
 ) : RecordProcessor<VSongTask, VSongTask> {
-
-  private val lastModifiedChangerCore = LastModifiedChangerCore(instantSource)
 
   override fun processRecord(record: Record<VSongTask>): Record<VSongTask> {
     val payload = record.payload
@@ -34,6 +32,7 @@ class LastModifiedChanger(
   }
 }
 
+@Component
 class LastModifiedChangerCore(
   instantSource: InstantSource,
 ) {
