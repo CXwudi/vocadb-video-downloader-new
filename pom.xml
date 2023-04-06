@@ -296,6 +296,12 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <compilerArgs>
+            <!-- mimic spring's compiler config -->
+            <arg>-parameters</arg>
+          </compilerArgs>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
