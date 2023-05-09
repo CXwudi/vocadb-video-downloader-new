@@ -14,8 +14,7 @@ RUN apt-get install -y  \
 WORKDIR /opt/ffmpeg
 # get architecture
 RUN arch=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) && \
-    # setup ffmpeg
-    # for amd64, use yt-dlp specific ffmpeg
+    # setup ffmpeg, using yt-dlp specific ffmpeg
     if [ "$arch" == "amd64" ]; then \
         curl --request GET -L \
             --url 'https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz'\
