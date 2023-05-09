@@ -1,11 +1,11 @@
 ## using debian 11-slim, which is bullseye-slim
-FROM debian:bullseye-slim as base
+FROM debian:bullseye-slim AS base
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ## everyone is using this, so I add it in
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
 
-FROM base as external_bin_setuper
+FROM base AS external_bin_setuper
 RUN apt-get install -y  \
     curl \
     xz-utils ## https://superuser.com/questions/801159/cannot-decompress-tar-xz-file-getting-xz-cannot-exec-no-such-file-or-direct
@@ -17,22 +17,22 @@ RUN arch=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) && \
     # setup ffmpeg
     # for amd64, use yt-dlp specific ffmpeg
     if [ "$arch" == "amd64" ]; then \
-          curl --request GET -L \
-             --url 'https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz'\
-             --output 'ffmpeg.tar.xz' \
-          && tar -xvf ffmpeg.tar.xz \
-          && mkdir bin \
-          && mv ffmpeg-*/bin/* ./bin; \
+        curl --request GET -L \
+            --url 'https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz'\
+            --output 'ffmpeg.tar.xz' \
+        && tar -xvf ffmpeg.tar.xz \
+        && mkdir bin \
+        && mv ffmpeg-*/bin/* ./bin; \
     else \
-         curl --request GET -L \
-                 --url 'https://johnvansickle.com/ffmpeg/releases/ffmpeg-git-${arch}-static.tar.xz'\
-                 --output 'ffmpeg.tar.xz' \
-         && tar -xvf ffmpeg.tar.xz \
-         && mkdir bin \
-         && mv ffmpeg-*/ff* ./bin; \
+        curl --request GET -L \
+            --url 'https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linuxarm64-gpl.tar.xz'\
+            --output 'ffmpeg.tar.xz' \
+        && tar -xvf ffmpeg.tar.xz \
+        && mkdir bin \
+        && mv ffmpeg-*/bin/* ./bin; \
     fi
 
-FROM base as main
+FROM base AS main
 LABEL Author="CXwudi"
 
 RUN apt-get install -y --no-install-recommends \
