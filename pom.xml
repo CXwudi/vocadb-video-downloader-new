@@ -24,7 +24,7 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <spring-boot.version>3.1.0</spring-boot.version>
     <!-- can un-comment to resolve deps conflict from spring when happened -->
-    <kotlin.version>1.8.21</kotlin.version>
+    <kotlin.version>1.8.22</kotlin.version>
     <kotlin.compiler.jvmTarget>${java.version}</kotlin.compiler.jvmTarget>
     <!-- can un-comment to resolve deps conflict from spring when happened -->
     <!--<kotlin-coroutines.version>1.6.4</kotlin-coroutines.version>-->
