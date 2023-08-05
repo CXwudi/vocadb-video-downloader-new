@@ -1,5 +1,24 @@
-# application setting
+# Task Producer
 
+This module read a VocaDB favourite list, and for each song in the list, it will create a `-task` JSON file storing some metadata needed for the next two modules (`vvd-downloader` and `vvd-extractor`), and a `-info` JSON file storing all useful information about the song.
+
+All JSON files are stored in the output directory specified in the configuration.
+
+## Before moving on
+
+If you haven't read the common document yet, please read it first: [Common document](../doc/common%20part.md)
+
+## Additional Prerequisites
+
+None
+
+## All configurations
+
+All configurations can be found in [`application.yml`](./src/main/resources/application.yml) file.
+
+Below is a copy of the content of the `application.yml` file for your reference. However, make sure to check the latest version of the file yourself:
+
+```yaml
 io: # all fields are required
   # the VocaDB favourite list ID in Int, can be retrieved from URL https://vocadb.net/L/<The ID is here>
   input-list-id:
@@ -18,19 +37,5 @@ config: # all fields are required
   api-page-size: 50
   # maximum amount of song can be processed at the same time
   # if set to < 1, it will be the number of logical CPU cores
-  batch-size: 10
-
-# spring setting, don't touch it unless u know Spring very well
-spring:
-  jackson:
-    deserialization:
-      fail-on-unknown-properties: true
-    serialization:
-      indent-output: true
-    # default-property-inclusion: non_null # disabling for now, we want 3rd app read our json easily
-  config:
-    import: optional:file:./my-producer-config.yml,optional:file:./my-producer-config.yaml,optional:file:./my-producer-config.properties
-
-logging:
-  level:
-    mikufan: info
+  batch-size: 0
+```
