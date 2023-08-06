@@ -1,5 +1,48 @@
-# application setting
+# Downloader
 
+The module, as the name suggested, mainly takes charge of downloading videos. It will read the `-task` and `-songInfo` JSON files created by the previous module (`vvd-taskproducer`), and download the videos/audios and the thumbnails of the song to the output directory specified in the configuration.
+
+The `-task` JSON file will also be updated with the download resources of video/audio/thumbnail, and will be moved to the output directory as well.
+
+## Before moving on
+
+If you haven't read the common document yet, please read it first: [Common document](../doc/common%20part.md)
+
+## Additional Prerequisites
+
+Besides the common prerequisites, you also need:
+
+1. A valid Video Downloader for each supported video service (see the [next section](#video-downloader-setups) for more details)
+2. [MediaInfo CLI](https://mediaarea.net/en/MediaInfo/Download)
+
+Optional prerequisites:
+
+1. FFmpeg (Highly recommended for downloading high-quality videos/audios from Youtube)
+2. [Aria2c](https://aria2.github.io/) (Highly recommended for downloading NicoNico videos)
+
+### Video Downloader Setups
+
+Currently, VocaDB Video Downloader only supports:
+
+| Supported Video Service | Supported Video Downloader for this service |
+| ------------- | ---------------- |
+| Niconico      | youtube-dl or its fork, [nndownload](https://github.com/AlexAplin/nndownload)      |
+| YouTube       | youtube-dl or its fork     |
+| Bilibili      | youtube-dl or its fork     |
+
+So pretty much by setting up one of the youtube-dl distributions, you are good to go.
+
+I highly recommend [yt-dlp](https://github.com/yt-dlp/yt-dlp) instead of youtube-dl, with the binary of the yt-dlp's specific [FFmpeg](https://github.com/yt-dlp/FFmpeg-Builds) placed beside the yt-dlp binary.
+
+If you are using youtube-dl or its fork to download videos from NicoNico, I highly recommend installing [aria2c](https://aria2.github.io/) and configuring youtube-dl/yt-dlp to use aria2c as the external downloader for NicoNico videos. This sometimes can bypass the speed throttling problem from NicoNico.
+
+## All configurations
+
+All configurations can be found in [`application.yml`](./src/main/resources/application.yml) file.
+
+Below is a copy of the content of the `application.yml` file for your reference. However, make sure to check for any updates to the file yourself:
+
+```yaml
 io: # all fields are required
   # this must be pointing to the output directory of the previous module, the task producer module. In another word, the directory specified in the 'io.output-directory' field of the previous module
   # can be an absolute path or a relative path from the application current running directory
@@ -97,19 +140,4 @@ config: # configuration
     timeout: 10
     # the unit of the timeout value, can be any values listed in https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/TimeUnit.html. e.g. seconds, minutes, hours, days
     unit: minutes
-
-# spring setting, DON't touch. unless you know what you are doing
-
-spring:
-  jackson:
-    deserialization:
-      fail-on-unknown-properties: true
-    serialization:
-      indent-output: true
-    # default-property-inclusion: non_null # disabling for now, we want 3rd app read our json easily
-  config:
-    import: optional:file:./my-downloader-config.yml,optional:file:./my-downloader-config.yaml,optional:file:./my-downloader-config.properties
-
-logging:
-  level:
-    mikufan: info
+```
