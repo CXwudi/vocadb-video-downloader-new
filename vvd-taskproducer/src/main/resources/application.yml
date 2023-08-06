@@ -8,7 +8,7 @@ io: # all fields are required
   # the error directory of this module, used for reporting errors for debugging, can be an absolute path or a relative path from the application current running directory
   error-directory:
 
-config: # all fields are required
+config: # all fields are optional except the user-agent field
   # the base url of VocaDB
   # can change it to https://utaitedb.net if your list is on UtaiteDB, but may some compatibility issues
   base-url: https://vocadb.net

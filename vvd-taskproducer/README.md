@@ -1,6 +1,6 @@
 # Task Producer
 
-This module read a VocaDB favourite list, and for each song in the list, it will create a `-task` JSON file storing some metadata needed for the next two modules (`vvd-downloader` and `vvd-extractor`), and a `-info` JSON file storing all useful information about the song.
+This module read a VocaDB favourite list, and for each song in the list, it will create a `-task` JSON file storing some metadata needed for the next two modules (`vvd-downloader` and `vvd-extractor`), and a `-songInfo` JSON file storing all useful information about the song.
 
 All JSON files are stored in the output directory specified in the configuration.
 
@@ -16,7 +16,7 @@ None
 
 All configurations can be found in [`application.yml`](./src/main/resources/application.yml) file.
 
-Below is a copy of the content of the `application.yml` file for your reference. However, make sure to check the latest version of the file yourself:
+Below is a copy of the content of the `application.yml` file for your reference. However, make sure to check for any updates to the file yourself:
 
 ```yaml
 io: # all fields are required
@@ -27,7 +27,7 @@ io: # all fields are required
   # the error directory of this module, used for reporting errors for debugging, can be an absolute path or a relative path from the application current running directory
   error-directory:
 
-config: # all fields are required
+config: # all fields are optional except the user-agent field
   # the base url of VocaDB
   # can change it to https://utaitedb.net if your list is on UtaiteDB, but may some compatibility issues
   base-url: https://vocadb.net
@@ -37,5 +37,5 @@ config: # all fields are required
   api-page-size: 50
   # maximum amount of song can be processed at the same time
   # if set to < 1, it will be the number of logical CPU cores
-  batch-size: 0
+  batch-size: 10
 ```
