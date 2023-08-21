@@ -127,9 +127,7 @@ abstract class BaseCliDownloader(
     if (pvFile == null && audioFile == null) {
       throw RuntimeVocaloidException("None of PV file and audio file is found. Download may failed, or the file renaming is incorrect.")
     }
-    if (thumbnailFile == null) {
-      throw IllegalStateException("Thumbnail file is not found")
-    }
+    checkNotNull(thumbnailFile) { "Thumbnail file is not found" }
     return DownloadFiles(
       pvFile = pvFile,
       audioFile = audioFile,
@@ -165,11 +163,11 @@ abstract class BaseCliDownloader(
         val mediaInfoJson = objectMapper.readTree(sb.toString())
         // no need to check if the file exists, since we got the file from `outputDirectory.listDirectoryEntries()`
         val tracks = mediaInfoJson["media"]["track"]
-        if (tracks.size() <= 1) { // confirmed that for image, video and audio files, the first track is always at index 1
+        return if (tracks.size() <= 1) { // confirmed that for image, video and audio files, the first track is always at index 1
           log.warn { "Find out the file ${file.fileName} is not a video or audio or image type" }
-          return DownloadFileType.OTHERS
+          DownloadFileType.OTHERS
         } else {
-          return when (val typeName = tracks[1]["@type"].asText().lowercase()) {
+          when (val typeName = tracks[1]["@type"].asText().lowercase()) {
             "video" -> DownloadFileType.PV
             "audio" -> DownloadFileType.AUDIO
             "image" -> DownloadFileType.THUMBNAIL
