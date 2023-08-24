@@ -11,6 +11,7 @@ config: # configuration
     NicoNicoDouga: youtube-dl
     Youtube: youtube-dl
     Bilibili: youtube-dl
+    SoundCloud: youtube-dl
 
 
   downloader:
@@ -31,6 +32,12 @@ config: # configuration
     Bilibili:
       youtube-dl:
         launch-cmd: python, ./youtube-dl/__main__.py # can be separated by comma as well
+        external-args:
+          - -v
+
+    SoundCloud:
+      youtube-dl:
+        launch-cmd: yt-dlp
         external-args:
           - -v
   environment:
