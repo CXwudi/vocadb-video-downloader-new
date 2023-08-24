@@ -19,7 +19,7 @@ config: # configuration
     # you can also disable one or more PV services by not listing them
     # values here are comma separated, the value must be same as the pv service string in VocaDB APIs Swagger Page at https://vocadb.net/swagger/ui/index
     # but currently we only support NicoNicoDouga, Youtube, Bilibili and SoundCloud
-    pv-preference: NicoNicoDouga, SoundCloud, Youtube, Bilibili
+    pv-preference: NicoNicoDouga, Youtube, Bilibili, SoundCloud
     # maximum retry before calling it a failure
     # this does not include the first try. For example, 2 means a maximum of 3 tries can be performed
     max-retry-count: 2

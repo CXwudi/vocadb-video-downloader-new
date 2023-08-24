@@ -29,6 +29,7 @@ Currently, VocaDB Video Downloader only supports:
 | Niconico      | youtube-dl or its fork, [nndownload](https://github.com/AlexAplin/nndownload)      |
 | YouTube       | youtube-dl or its fork     |
 | Bilibili      | youtube-dl or its fork     |
+| SoundCloud    | youtube-dl or its fork     |
 
 So pretty much by setting up one of the youtube-dl distributions, you are good to go.
 
@@ -61,8 +62,8 @@ config: # configuration
     # the downloader will use this list as an order of which pv service to check first
     # you can also disable one or more PV services by not listing them
     # values here are comma separated, the value must be same as the pv service string in VocaDB APIs Swagger Page at https://vocadb.net/swagger/ui/index
-    # but currently we only support NicoNicoDouga, Youtube and Bilibili
-    pv-preference: NicoNicoDouga, Youtube, Bilibili
+    # but currently we only support NicoNicoDouga, Youtube, Bilibili and SoundCloud
+    pv-preference: NicoNicoDouga, Youtube, Bilibili, SoundCloud
     # maximum retry before calling it a failure
     # this does not include the first try. For example, 2 means a maximum of 3 tries can be performed
     max-retry-count: 2
@@ -85,11 +86,13 @@ config: # configuration
   # (note for dev): when new PV service is added, change it on DownloaderBaseConfig
   enablement:
     # currently support youtube-dl and nndownload
-    NicoNicoDouga: 
+    NicoNicoDouga:
     # currently only support youtube-dl
-    Youtube: 
+    Youtube:
     # currently only support youtube-dl
     Bilibili:
+    # currently only support youtube-dl
+    SoundCloud:
 
   # which field is required or optional depends on if the pv service is listed in config.preference.pv-preference field also if the downloader is enabled in the config.enablement field
   downloader:
@@ -125,6 +128,12 @@ config: # configuration
         launch-cmd:
         external-args:
 
+    # same way of configuring NicoNicoDouga
+    SoundCloud:
+      youtube-dl:
+        launch-cmd:
+        external-args:
+
   # all fields are requried
   environment:
     # path of the mediainfo cli tool
@@ -132,7 +141,7 @@ config: # configuration
     # or if the cli tool is already in your PATH, you can leave this as "mediainfo"
     # for debian based distros, you can install mediainfo using "sudo apt-get install mediainfo"
     mediainfo-launch-cmd:
-  
+
   # all fields are required
   download:
     # these two fields control the timeout of the downloading. If the download is not finished within the timeout, the download will be considered as failed.
