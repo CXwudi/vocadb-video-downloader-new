@@ -20,6 +20,7 @@ val SUPPORTED_SERVICES: Set<PVServicesEnum> = setOf(
   NICONICODOUGA,
   YOUTUBE,
   BILIBILI,
+  SOUNDCLOUD,
 )
 
 /**
