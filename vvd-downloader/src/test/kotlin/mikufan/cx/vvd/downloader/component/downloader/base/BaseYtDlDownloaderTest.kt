@@ -6,11 +6,11 @@ import mikufan.cx.vocadbapiclient.model.SongForApiContract
 import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.downloader.component.downloader.implementation.BilibiliYtDlDownloader
 import mikufan.cx.vvd.downloader.component.downloader.implementation.NicoNicoYtDlDownloader
+import mikufan.cx.vvd.downloader.component.downloader.implementation.SoundCloudYtDlDownloader
 import mikufan.cx.vvd.downloader.component.downloader.implementation.YoutubeYtDlDownloader
 import mikufan.cx.vvd.downloader.config.IOConfig
 import mikufan.cx.vvd.downloader.model.Parameters
 import mikufan.cx.vvd.downloader.model.VSongTask
-import mikufan.cx.vvd.downloader.util.SpringBootDirtyTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringShouldSpec
 import mikufan.cx.vvd.downloader.util.loadResourceAsString
@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Disabled
     "config.downloader.NicoNicoDouga.youtube-dl.launch-cmd=yt-dlp",
     "config.downloader.Youtube.youtube-dl.launch-cmd=yt-dlp",
     "config.downloader.Bilibili.youtube-dl.launch-cmd=yt-dlp",
+    "config.downloader.sound-cloud.youtube-dl.launch-cmd=yt-dlp",
   ]
 )
 @Disabled("do not download PVs for every commit in CI")
@@ -28,6 +29,7 @@ class BaseYtDlDownloaderTest(
   private val nicoNicoYtDlDownloader: NicoNicoYtDlDownloader,
   private val youtubeYtDlDownloader: YoutubeYtDlDownloader,
   private val bilibiliYtDlDownloader: BilibiliYtDlDownloader,
+  private val soundCloudYtDlDownloader: SoundCloudYtDlDownloader,
   private val objectMapper: ObjectMapper,
   ioConfig: IOConfig,
 ) : SpringShouldSpec({
@@ -55,6 +57,10 @@ class BaseYtDlDownloaderTest(
 
     should("successfully download video and thumbnail from bilibili") {
       testDownload("2021年V家新曲-label/【初音ミク, 神威がくぽ】侵蝕性⇆恋愛症候群【天钦, 动点P】[335778]-songInfo.json", 0, bilibiliYtDlDownloader)
+    }
+
+    should("successfully download video and thumbnail from soundcloud") {
+      testDownload("2021年V家新曲-label/【初音ミク】WANCO!!【Twinfield】[336290]-songInfo.json", 2, soundCloudYtDlDownloader)
     }
   }
 })

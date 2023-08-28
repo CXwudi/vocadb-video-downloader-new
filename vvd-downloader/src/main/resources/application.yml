@@ -18,8 +18,8 @@ config: # configuration
     # the downloader will use this list as an order of which pv service to check first
     # you can also disable one or more PV services by not listing them
     # values here are comma separated, the value must be same as the pv service string in VocaDB APIs Swagger Page at https://vocadb.net/swagger/ui/index
-    # but currently we only support NicoNicoDouga, Youtube and Bilibili
-    pv-preference: NicoNicoDouga, Youtube, Bilibili
+    # but currently we only support NicoNicoDouga, Youtube, Bilibili and SoundCloud
+    pv-preference: NicoNicoDouga, Youtube, Bilibili, SoundCloud
     # maximum retry before calling it a failure
     # this does not include the first try. For example, 2 means a maximum of 3 tries can be performed
     max-retry-count: 2
@@ -47,6 +47,8 @@ config: # configuration
     Youtube: 
     # currently only support youtube-dl
     Bilibili:
+    # currently only support youtube-dl
+    SoundCloud:
 
   # which field is required or optional depends on if the pv service is listed in config.preference.pv-preference field also if the downloader is enabled in the config.enablement field
   downloader:
@@ -78,6 +80,12 @@ config: # configuration
 
     # same way of configuring NicoNicoDouga
     Bilibili:
+      youtube-dl:
+        launch-cmd:
+        external-args:
+
+    # same way of configuring NicoNicoDouga
+    SoundCloud:
       youtube-dl:
         launch-cmd:
         external-args:
