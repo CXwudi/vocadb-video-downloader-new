@@ -8,10 +8,10 @@ An integrated cli-based media archiving solution for VocaDB, it can:
 
 These 3 steps are implemented respectively as
 
-1. `vvd-taskproducer`
-2. `vvd-downloader`
-3. `vvd-extractor`
+1. [`vvd-taskproducer`](./vvd-taskproducer)
+2. [`vvd-downloader`](./vvd-downloader)
+3. [`vvd-extractor`](./vvd-extractor)
 
-A proper documentation for each module is work on progress now.
+All 3 modules share a common document, please read it first: [Common document](./doc/common%20part.md)
 
-But for now, if you really want to use this program, contact me through email or Discord at CXwudi#3565
+Then for each module, please read their own README.md file for more details.
