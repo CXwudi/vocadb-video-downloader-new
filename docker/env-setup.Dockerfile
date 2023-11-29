@@ -1,14 +1,15 @@
-## using debian 11-slim, which is bullseye-slim
-FROM debian:bullseye-slim AS base
+FROM debian:12-slim AS base
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ## everyone is using this, so I add it in
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update
 
 FROM base AS external_bin_setuper
-RUN apt-get install -y  \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
-    xz-utils ## https://superuser.com/questions/801159/cannot-decompress-tar-xz-file-getting-xz-cannot-exec-no-such-file-or-direct
+    ## https://superuser.com/questions/801159/cannot-decompress-tar-xz-file-getting-xz-cannot-exec-no-such-file-or-direct \
+    xz-utils \
+    ca-certificates \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # install ffmpeg based on different architectures
 WORKDIR /opt/ffmpeg
@@ -34,11 +35,12 @@ RUN arch=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) && \
 FROM base AS main
 LABEL Author="CXwudi"
 
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     # needed by add-apt-repository
     #    software-properties-common \
     locales \
-    mediainfo
+    mediainfo \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen # set UTF-8 to support Chinese and Japanese
 ENV \
@@ -47,10 +49,11 @@ ENV \
   LC_ALL="en_US.UTF-8"
 
 # let the python installation be a saperate step, so that we can change to any installation method without invalidating previous layers
-RUN apt-get install -y --no-install-recommends\
+RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-pip \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* \
     && update-alternatives --install /usr/bin/python python /usr/bin/python3 2 \
-    && pip install --upgrade --no-cache-dir \
+    && pip install --upgrade --no-cache-dir --break-system-packages \
     pip \
     mutagen  \
     yt-dlp
