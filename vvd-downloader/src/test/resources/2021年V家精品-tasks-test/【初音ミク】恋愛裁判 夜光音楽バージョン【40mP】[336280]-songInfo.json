@@ -12,7 +12,9 @@
   "lengthSeconds" : 222,
   "lyrics" : null,
   "mainPicture" : null,
+  "maxMilliBpm" : null,
   "mergedTo" : null,
+  "minMilliBpm" : null,
   "name" : "恋愛裁判 夜光音楽バージョン",
   "names" : null,
   "originalVersionId" : 57519,
@@ -20,7 +22,7 @@
   "pvs" : [ {
     "author" : "NHK",
     "createdBy" : null,
-    "disabled" : false,
+    "disabled" : true,
     "extendedMetadata" : null,
     "id" : 492825,
     "length" : 222,
@@ -34,7 +36,7 @@
   }, {
     "author" : "",
     "createdBy" : null,
-    "disabled" : false,
+    "disabled" : true,
     "extendedMetadata" : null,
     "id" : 498047,
     "length" : 221,
@@ -62,15 +64,15 @@
     "thumbUrl" : "http://i1.hdslb.com/bfs/archive/b893a8d782c2bc14a50501e08eaa14d410709c3f.jpg",
     "url" : "https://www.bilibili.com/video/av375861065"
   } ],
-  "pvServices" : "Youtube,Bilibili,NicoNicoDouga",
+  "pvServices" : "Bilibili",
   "ratingScore" : 7,
   "releaseEvent" : null,
+  "releaseEvents" : null,
   "songType" : "Remix",
   "status" : "Finished",
   "tags" : null,
   "thumbUrl" : null,
-  "version" : 3,
+  "version" : 4,
   "webLinks" : null,
-  "minMilliBpm" : null,
-  "maxMilliBpm" : null
+  "cultureCodes" : null
 }

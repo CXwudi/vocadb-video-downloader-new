@@ -12,7 +12,9 @@
   "lengthSeconds" : 212,
   "lyrics" : null,
   "mainPicture" : null,
+  "maxMilliBpm" : null,
   "mergedTo" : null,
+  "minMilliBpm" : null,
   "name" : "ヤー・チャイカ",
   "names" : null,
   "originalVersionId" : null,
@@ -46,15 +48,15 @@
     "thumbUrl" : "https://i.ytimg.com/vi/k1n0bSRDj7s/default.jpg",
     "url" : "https://youtu.be/k1n0bSRDj7s"
   } ],
-  "pvServices" : "Youtube,NicoNicoDouga",
+  "pvServices" : "NicoNicoDouga,Youtube",
   "ratingScore" : 15,
   "releaseEvent" : null,
+  "releaseEvents" : null,
   "songType" : "Original",
   "status" : "Finished",
   "tags" : null,
   "thumbUrl" : null,
   "version" : 6,
   "webLinks" : null,
-  "minMilliBpm" : null,
-  "maxMilliBpm" : null
+  "cultureCodes" : null
 }
