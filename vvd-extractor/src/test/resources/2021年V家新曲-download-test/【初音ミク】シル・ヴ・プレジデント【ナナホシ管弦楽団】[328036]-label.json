@@ -1,11 +1,11 @@
 {
   "labelFileName" : "【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-label.json",
   "infoFileName" : "【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-songInfo.json",
-  "order" : 24,
-  "pvFileName" : "【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-pv.webm",
+  "order" : 147,
+  "pvFileName" : null,
   "audioFileName" : null,
-  "thumbnailFileName" : "【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-thumbnail.webp",
-  "vocaDbPvId" : 478090,
-  "downloaderName" : "youtube-dl or its forks",
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
   "processedAudioFileName" : null
 }

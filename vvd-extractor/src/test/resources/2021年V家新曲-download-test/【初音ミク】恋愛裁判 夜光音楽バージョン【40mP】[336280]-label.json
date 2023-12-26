@@ -1,11 +1,11 @@
 {
   "labelFileName" : "【初音ミク】恋愛裁判 夜光音楽バージョン【40mP】[336280]-label.json",
   "infoFileName" : "【初音ミク】恋愛裁判 夜光音楽バージョン【40mP】[336280]-songInfo.json",
-  "order" : 14,
-  "pvFileName" : "【初音ミク】恋愛裁判 夜光音楽バージョン【40mP】[336280]-pv.mp4",
-  "audioFileName" : "【初音ミク】恋愛裁判 夜光音楽バージョン【40mP】[336280]-audio.m4a",
-  "thumbnailFileName" : "【初音ミク】恋愛裁判 夜光音楽バージョン【40mP】[336280]-thumbnail.jpg",
-  "vocaDbPvId" : 627502,
-  "downloaderName" : "youtube-dl or its forks",
+  "order" : 59,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
   "processedAudioFileName" : null
 }
