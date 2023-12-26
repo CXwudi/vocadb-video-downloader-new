@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【Saki AI】アン・トライアングル【キト】[366321]-label.json",
-  "infoFileName": "【Saki AI】アン・トライアングル【キト】[366321]-songInfo.json",
-  "order": 137,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【Saki AI】アン・トライアングル【キト】[366321]-label.json",
+  "infoFileName" : "【Saki AI】アン・トライアングル【キト】[366321]-songInfo.json",
+  "order" : 137,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

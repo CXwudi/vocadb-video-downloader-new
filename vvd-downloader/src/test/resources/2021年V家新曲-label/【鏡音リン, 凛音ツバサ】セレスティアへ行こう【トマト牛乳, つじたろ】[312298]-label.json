@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【鏡音リン, 凛音ツバサ】セレスティアへ行こう【トマト牛乳, つじたろ】[312298]-label.json",
-  "infoFileName": "【鏡音リン, 凛音ツバサ】セレスティアへ行こう【トマト牛乳, つじたろ】[312298]-songInfo.json",
-  "order": 9,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【鏡音リン, 凛音ツバサ】セレスティアへ行こう【トマト牛乳, つじたろ】[312298]-label.json",
+  "infoFileName" : "【鏡音リン, 凛音ツバサ】セレスティアへ行こう【トマト牛乳, つじたろ】[312298]-songInfo.json",
+  "order" : 9,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【歌愛ユキ, 初音ミク】ハローマリーナ【稲葉曇】[366700]-label.json",
-  "infoFileName": "【歌愛ユキ, 初音ミク】ハローマリーナ【稲葉曇】[366700]-songInfo.json",
-  "order": 127,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【歌愛ユキ, 初音ミク】ハローマリーナ【稲葉曇】[366700]-label.json",
+  "infoFileName" : "【歌愛ユキ, 初音ミク】ハローマリーナ【稲葉曇】[366700]-songInfo.json",
+  "order" : 127,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

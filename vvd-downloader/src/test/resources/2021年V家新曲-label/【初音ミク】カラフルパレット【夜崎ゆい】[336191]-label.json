@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク】カラフルパレット【夜崎ゆい】[336191]-label.json",
-  "infoFileName": "【初音ミク】カラフルパレット【夜崎ゆい】[336191]-songInfo.json",
-  "order": 56,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク】カラフルパレット【夜崎ゆい】[336191]-label.json",
+  "infoFileName" : "【初音ミク】カラフルパレット【夜崎ゆい】[336191]-songInfo.json",
+  "order" : 56,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

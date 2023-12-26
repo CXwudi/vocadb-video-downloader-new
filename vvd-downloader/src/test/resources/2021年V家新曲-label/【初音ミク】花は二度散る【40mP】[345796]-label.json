@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク】花は二度散る【40mP】[345796]-label.json",
-  "infoFileName": "【初音ミク】花は二度散る【40mP】[345796]-songInfo.json",
-  "order": 150,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク】花は二度散る【40mP】[345796]-label.json",
+  "infoFileName" : "【初音ミク】花は二度散る【40mP】[345796]-songInfo.json",
+  "order" : 150,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

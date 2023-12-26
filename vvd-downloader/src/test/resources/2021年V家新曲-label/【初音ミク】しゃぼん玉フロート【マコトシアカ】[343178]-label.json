@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク】しゃぼん玉フロート【マコトシアカ】[343178]-label.json",
-  "infoFileName": "【初音ミク】しゃぼん玉フロート【マコトシアカ】[343178]-songInfo.json",
-  "order": 75,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク】しゃぼん玉フロート【マコトシアカ】[343178]-label.json",
+  "infoFileName" : "【初音ミク】しゃぼん玉フロート【マコトシアカ】[343178]-songInfo.json",
+  "order" : 75,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

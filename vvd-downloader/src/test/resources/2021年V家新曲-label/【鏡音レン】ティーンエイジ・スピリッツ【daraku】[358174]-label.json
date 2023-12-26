@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【鏡音レン】ティーンエイジ・スピリッツ【daraku】[358174]-label.json",
-  "infoFileName": "【鏡音レン】ティーンエイジ・スピリッツ【daraku】[358174]-songInfo.json",
-  "order": 126,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【鏡音レン】ティーンエイジ・スピリッツ【daraku】[358174]-label.json",
+  "infoFileName" : "【鏡音レン】ティーンエイジ・スピリッツ【daraku】[358174]-songInfo.json",
+  "order" : 126,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

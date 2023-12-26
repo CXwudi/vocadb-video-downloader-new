@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【歌愛ユキ】徒夜【青栗鼠】[354763]-label.json",
-  "infoFileName": "【歌愛ユキ】徒夜【青栗鼠】[354763]-songInfo.json",
-  "order": 103,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【歌愛ユキ】徒夜【青栗鼠】[354763]-label.json",
+  "infoFileName" : "【歌愛ユキ】徒夜【青栗鼠】[354763]-songInfo.json",
+  "order" : 103,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

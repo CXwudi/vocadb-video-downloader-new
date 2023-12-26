@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク】嫌い嫌い【タカノン】[344156]-label.json",
-  "infoFileName": "【初音ミク】嫌い嫌い【タカノン】[344156]-songInfo.json",
-  "order": 132,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク】嫌い嫌い【タカノン】[344156]-label.json",
+  "infoFileName" : "【初音ミク】嫌い嫌い【タカノン】[344156]-songInfo.json",
+  "order" : 132,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

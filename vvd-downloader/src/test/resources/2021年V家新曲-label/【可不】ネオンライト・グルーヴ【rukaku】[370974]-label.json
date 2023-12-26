@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【可不】ネオンライト・グルーヴ【rukaku】[370974]-label.json",
-  "infoFileName": "【可不】ネオンライト・グルーヴ【rukaku】[370974]-songInfo.json",
-  "order": 138,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【可不】ネオンライト・グルーヴ【rukaku】[370974]-label.json",
+  "infoFileName" : "【可不】ネオンライト・グルーヴ【rukaku】[370974]-songInfo.json",
+  "order" : 138,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

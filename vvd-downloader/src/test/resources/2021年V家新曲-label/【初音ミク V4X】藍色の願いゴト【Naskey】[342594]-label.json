@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク V4X】藍色の願いゴト【Naskey】[342594]-label.json",
-  "infoFileName": "【初音ミク V4X】藍色の願いゴト【Naskey】[342594]-songInfo.json",
-  "order": 74,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク V4X】藍色の願いゴト【Naskey】[342594]-label.json",
+  "infoFileName" : "【初音ミク V4X】藍色の願いゴト【Naskey】[342594]-songInfo.json",
+  "order" : 74,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

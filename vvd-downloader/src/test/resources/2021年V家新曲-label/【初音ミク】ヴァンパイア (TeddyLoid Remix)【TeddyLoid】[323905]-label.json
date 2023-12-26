@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク】ヴァンパイア (TeddyLoid Remix)【TeddyLoid】[323905]-label.json",
-  "infoFileName": "【初音ミク】ヴァンパイア (TeddyLoid Remix)【TeddyLoid】[323905]-songInfo.json",
-  "order": 38,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク】ヴァンパイア (TeddyLoid Remix)【TeddyLoid】[323905]-label.json",
+  "infoFileName" : "【初音ミク】ヴァンパイア (TeddyLoid Remix)【TeddyLoid】[323905]-songInfo.json",
+  "order" : 38,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

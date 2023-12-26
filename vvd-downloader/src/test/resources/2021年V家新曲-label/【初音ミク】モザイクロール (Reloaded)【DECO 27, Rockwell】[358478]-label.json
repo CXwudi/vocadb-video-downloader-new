@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク】モザイクロール (Reloaded)【DECO 27, Rockwell】[358478]-label.json",
-  "infoFileName": "【初音ミク】モザイクロール (Reloaded)【DECO 27, Rockwell】[358478]-songInfo.json",
-  "order": 110,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク】モザイクロール (Reloaded)【DECO 27, Rockwell】[358478]-label.json",
+  "infoFileName" : "【初音ミク】モザイクロール (Reloaded)【DECO 27, Rockwell】[358478]-songInfo.json",
+  "order" : 110,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

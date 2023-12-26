@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【GUMI】ばかでかい花を咲かせたいな【しもひけ】[314181]-label.json",
-  "infoFileName": "【GUMI】ばかでかい花を咲かせたいな【しもひけ】[314181]-songInfo.json",
-  "order": 17,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【GUMI】ばかでかい花を咲かせたいな【しもひけ】[314181]-label.json",
+  "infoFileName" : "【GUMI】ばかでかい花を咲かせたいな【しもひけ】[314181]-songInfo.json",
+  "order" : 17,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

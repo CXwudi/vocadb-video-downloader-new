@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【音街ウナ】終末インザビターライフ【シシド, MURASAKI】[363460]-label.json",
-  "infoFileName": "【音街ウナ】終末インザビターライフ【シシド, MURASAKI】[363460]-songInfo.json",
-  "order": 122,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【音街ウナ】終末インザビターライフ【シシド, MURASAKI】[363460]-label.json",
+  "infoFileName" : "【音街ウナ】終末インザビターライフ【シシド, MURASAKI】[363460]-songInfo.json",
+  "order" : 122,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

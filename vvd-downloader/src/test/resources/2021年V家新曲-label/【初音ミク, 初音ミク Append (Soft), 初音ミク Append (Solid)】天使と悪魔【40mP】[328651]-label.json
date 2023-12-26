@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク, 初音ミク Append (Soft), 初音ミク Append (Solid)】天使と悪魔【40mP】[328651]-label.json",
-  "infoFileName": "【初音ミク, 初音ミク Append (Soft), 初音ミク Append (Solid)】天使と悪魔【40mP】[328651]-songInfo.json",
-  "order": 43,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク, 初音ミク Append (Soft), 初音ミク Append (Solid)】天使と悪魔【40mP】[328651]-label.json",
+  "infoFileName" : "【初音ミク, 初音ミク Append (Soft), 初音ミク Append (Solid)】天使と悪魔【40mP】[328651]-songInfo.json",
+  "order" : 43,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

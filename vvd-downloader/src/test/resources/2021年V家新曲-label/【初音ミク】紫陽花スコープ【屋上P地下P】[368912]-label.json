@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク】紫陽花スコープ【屋上P地下P】[368912]-label.json",
-  "infoFileName": "【初音ミク】紫陽花スコープ【屋上P地下P】[368912]-songInfo.json",
-  "order": 133,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク】紫陽花スコープ【屋上P地下P】[368912]-label.json",
+  "infoFileName" : "【初音ミク】紫陽花スコープ【屋上P地下P】[368912]-songInfo.json",
+  "order" : 133,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【GUMI】そこにあるもの【yuk】[311866]-label.json",
-  "infoFileName": "【GUMI】そこにあるもの【yuk】[311866]-songInfo.json",
-  "order": 7,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【GUMI】そこにあるもの【yuk】[311866]-label.json",
+  "infoFileName" : "【GUMI】そこにあるもの【yuk】[311866]-songInfo.json",
+  "order" : 7,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

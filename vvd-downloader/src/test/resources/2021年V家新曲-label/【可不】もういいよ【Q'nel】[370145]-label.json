@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【可不】もういいよ【Q'nel】[370145]-label.json",
-  "infoFileName": "【可不】もういいよ【Q'nel】[370145]-songInfo.json",
-  "order": 136,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【可不】もういいよ【Q'nel】[370145]-label.json",
+  "infoFileName" : "【可不】もういいよ【Q'nel】[370145]-songInfo.json",
+  "order" : 136,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

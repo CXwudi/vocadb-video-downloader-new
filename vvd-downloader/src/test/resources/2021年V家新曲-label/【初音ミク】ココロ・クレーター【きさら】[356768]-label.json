@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク】ココロ・クレーター【きさら】[356768]-label.json",
-  "infoFileName": "【初音ミク】ココロ・クレーター【きさら】[356768]-songInfo.json",
-  "order": 107,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク】ココロ・クレーター【きさら】[356768]-label.json",
+  "infoFileName" : "【初音ミク】ココロ・クレーター【きさら】[356768]-songInfo.json",
+  "order" : 107,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

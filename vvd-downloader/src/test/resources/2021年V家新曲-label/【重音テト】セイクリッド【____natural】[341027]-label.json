@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【重音テト】セイクリッド【____natural】[341027]-label.json",
-  "infoFileName": "【重音テト】セイクリッド【____natural】[341027]-songInfo.json",
-  "order": 68,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【重音テト】セイクリッド【____natural】[341027]-label.json",
+  "infoFileName" : "【重音テト】セイクリッド【____natural】[341027]-songInfo.json",
+  "order" : 68,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

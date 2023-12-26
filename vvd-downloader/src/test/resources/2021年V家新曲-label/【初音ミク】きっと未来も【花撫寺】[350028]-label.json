@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク】きっと未来も【花撫寺】[350028]-label.json",
-  "infoFileName": "【初音ミク】きっと未来も【花撫寺】[350028]-songInfo.json",
-  "order": 108,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク】きっと未来も【花撫寺】[350028]-label.json",
+  "infoFileName" : "【初音ミク】きっと未来も【花撫寺】[350028]-songInfo.json",
+  "order" : 108,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

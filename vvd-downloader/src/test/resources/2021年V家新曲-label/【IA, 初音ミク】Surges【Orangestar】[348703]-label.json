@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【IA, 初音ミク】Surges【Orangestar】[348703]-label.json",
-  "infoFileName": "【IA, 初音ミク】Surges【Orangestar】[348703]-songInfo.json",
-  "order": 88,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【IA, 初音ミク】Surges【Orangestar】[348703]-label.json",
+  "infoFileName" : "【IA, 初音ミク】Surges【Orangestar】[348703]-songInfo.json",
+  "order" : 88,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

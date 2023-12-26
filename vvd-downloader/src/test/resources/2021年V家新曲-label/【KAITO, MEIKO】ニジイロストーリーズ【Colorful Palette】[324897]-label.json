@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【KAITO, MEIKO】ニジイロストーリーズ【Colorful Palette】[324897]-label.json",
-  "infoFileName": "【KAITO, MEIKO】ニジイロストーリーズ【Colorful Palette】[324897]-songInfo.json",
-  "order": 154,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【KAITO, MEIKO】ニジイロストーリーズ【Colorful Palette】[324897]-label.json",
+  "infoFileName" : "【KAITO, MEIKO】ニジイロストーリーズ【Colorful Palette】[324897]-songInfo.json",
+  "order" : 154,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

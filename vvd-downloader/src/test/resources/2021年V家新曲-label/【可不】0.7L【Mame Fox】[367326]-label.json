@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【可不】0.7L【Mame Fox】[367326]-label.json",
-  "infoFileName": "【可不】0.7L【Mame Fox】[367326]-songInfo.json",
-  "order": 130,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【可不】0.7L【Mame Fox】[367326]-label.json",
+  "infoFileName" : "【可不】0.7L【Mame Fox】[367326]-songInfo.json",
+  "order" : 130,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク】四季彩のセレナーデ【夜崎ゆい】[312550]-label.json",
-  "infoFileName": "【初音ミク】四季彩のセレナーデ【夜崎ゆい】[312550]-songInfo.json",
-  "order": 13,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク】四季彩のセレナーデ【夜崎ゆい】[312550]-label.json",
+  "infoFileName" : "【初音ミク】四季彩のセレナーデ【夜崎ゆい】[312550]-songInfo.json",
+  "order" : 13,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }
