@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【鏡音リン, 鏡音レン】リモコン【じーざすP】[3387]-label.json",
-  "infoFileName": "【鏡音リン, 鏡音レン】リモコン【じーざすP】[3387]-songInfo.json",
-  "order": 30,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【鏡音リン, 鏡音レン】リモコン【じーざすP】[3387]-label.json",
+  "infoFileName" : "【鏡音リン, 鏡音レン】リモコン【じーざすP】[3387]-songInfo.json",
+  "order" : 30,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

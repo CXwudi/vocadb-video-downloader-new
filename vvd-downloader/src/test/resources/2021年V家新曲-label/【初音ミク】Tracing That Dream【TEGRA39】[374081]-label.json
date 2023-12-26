@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク】Tracing That Dream【TEGRA39】[374081]-label.json",
-  "infoFileName": "【初音ミク】Tracing That Dream【TEGRA39】[374081]-songInfo.json",
-  "order": 145,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク】Tracing That Dream【TEGRA39】[374081]-label.json",
+  "infoFileName" : "【初音ミク】Tracing That Dream【TEGRA39】[374081]-songInfo.json",
+  "order" : 145,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

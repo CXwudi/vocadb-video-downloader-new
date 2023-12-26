@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク】礼儀作法【一二三】[354164]-label.json",
-  "infoFileName": "【初音ミク】礼儀作法【一二三】[354164]-songInfo.json",
-  "order": 102,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク】礼儀作法【一二三】[354164]-label.json",
+  "infoFileName" : "【初音ミク】礼儀作法【一二三】[354164]-songInfo.json",
+  "order" : 102,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

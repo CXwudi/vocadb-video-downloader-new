@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【巡音ルカ V4X】「１」【164】[328268]-label.json",
-  "infoFileName": "【巡音ルカ V4X】「１」【164】[328268]-songInfo.json",
-  "order": 49,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【巡音ルカ V4X】「１」【164】[328268]-label.json",
+  "infoFileName" : "【巡音ルカ V4X】「１」【164】[328268]-songInfo.json",
+  "order" : 49,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

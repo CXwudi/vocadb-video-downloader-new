@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【鳴花ヒメ】ゼロ距離恋愛【れるりり, teppe】[342547]-label.json",
-  "infoFileName": "【鳴花ヒメ】ゼロ距離恋愛【れるりり, teppe】[342547]-songInfo.json",
-  "order": 69,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【鳴花ヒメ】ゼロ距離恋愛【れるりり, teppe】[342547]-label.json",
+  "infoFileName" : "【鳴花ヒメ】ゼロ距離恋愛【れるりり, teppe】[342547]-songInfo.json",
+  "order" : 69,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

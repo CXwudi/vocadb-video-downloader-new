@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【音街ウナ】Darling Love【Mame Fox】[344909]-label.json",
-  "infoFileName": "【音街ウナ】Darling Love【Mame Fox】[344909]-songInfo.json",
-  "order": 77,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【音街ウナ】Darling Love【Mame Fox】[344909]-label.json",
+  "infoFileName" : "【音街ウナ】Darling Love【Mame Fox】[344909]-songInfo.json",
+  "order" : 77,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

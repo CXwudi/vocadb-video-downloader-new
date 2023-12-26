@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【鏡音リン, 鏡音レン】コーバスと追走劇【トマト牛乳】[362668]-label.json",
-  "infoFileName": "【鏡音リン, 鏡音レン】コーバスと追走劇【トマト牛乳】[362668]-songInfo.json",
-  "order": 121,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【鏡音リン, 鏡音レン】コーバスと追走劇【トマト牛乳】[362668]-label.json",
+  "infoFileName" : "【鏡音リン, 鏡音レン】コーバスと追走劇【トマト牛乳】[362668]-songInfo.json",
+  "order" : 121,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

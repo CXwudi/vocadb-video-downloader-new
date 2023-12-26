@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク Append (Sweet)】あめふりテレフォン【ckwa】[312520]-label.json",
-  "infoFileName": "【初音ミク Append (Sweet)】あめふりテレフォン【ckwa】[312520]-songInfo.json",
-  "order": 12,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク Append (Sweet)】あめふりテレフォン【ckwa】[312520]-label.json",
+  "infoFileName" : "【初音ミク Append (Sweet)】あめふりテレフォン【ckwa】[312520]-songInfo.json",
+  "order" : 12,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

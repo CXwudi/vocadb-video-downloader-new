@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【闇音レンリ】月下香寓話【藍色にしもん】[333938]-label.json",
-  "infoFileName": "【闇音レンリ】月下香寓話【藍色にしもん】[333938]-songInfo.json",
-  "order": 53,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【闇音レンリ】月下香寓話【藍色にしもん】[333938]-label.json",
+  "infoFileName" : "【闇音レンリ】月下香寓話【藍色にしもん】[333938]-songInfo.json",
+  "order" : 53,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク】Magical Words【Yo-SK】[349404]-label.json",
-  "infoFileName": "【初音ミク】Magical Words【Yo-SK】[349404]-songInfo.json",
-  "order": 91,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク】Magical Words【Yo-SK】[349404]-label.json",
+  "infoFileName" : "【初音ミク】Magical Words【Yo-SK】[349404]-songInfo.json",
+  "order" : 91,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

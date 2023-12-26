@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【巡音ルカ】ダブルラリアット 【アゴアニキ】[3129]-label.json",
-  "infoFileName": "【巡音ルカ】ダブルラリアット 【アゴアニキ】[3129]-songInfo.json",
-  "order": 10,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【巡音ルカ】ダブルラリアット 【アゴアニキ】[3129]-label.json",
+  "infoFileName" : "【巡音ルカ】ダブルラリアット 【アゴアニキ】[3129]-songInfo.json",
+  "order" : 10,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

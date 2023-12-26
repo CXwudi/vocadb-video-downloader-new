@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク】あんぱん【かぁくん】[356781]-label.json",
-  "infoFileName": "【初音ミク】あんぱん【かぁくん】[356781]-songInfo.json",
-  "order": 106,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク】あんぱん【かぁくん】[356781]-label.json",
+  "infoFileName" : "【初音ミク】あんぱん【かぁくん】[356781]-songInfo.json",
+  "order" : 106,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

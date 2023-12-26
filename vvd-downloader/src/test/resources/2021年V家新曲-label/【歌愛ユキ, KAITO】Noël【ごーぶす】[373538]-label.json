@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【歌愛ユキ, KAITO】Noël【ごーぶす】[373538]-label.json",
-  "infoFileName": "【歌愛ユキ, KAITO】Noël【ごーぶす】[373538]-songInfo.json",
-  "order": 140,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【歌愛ユキ, KAITO】Noël【ごーぶす】[373538]-label.json",
+  "infoFileName" : "【歌愛ユキ, KAITO】Noël【ごーぶす】[373538]-songInfo.json",
+  "order" : 140,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

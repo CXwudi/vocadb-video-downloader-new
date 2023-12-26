@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【GUMI】Maou【TKN】[314599]-label.json",
-  "infoFileName": "【GUMI】Maou【TKN】[314599]-songInfo.json",
-  "order": 55,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【GUMI】Maou【TKN】[314599]-label.json",
+  "infoFileName" : "【GUMI】Maou【TKN】[314599]-songInfo.json",
+  "order" : 55,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

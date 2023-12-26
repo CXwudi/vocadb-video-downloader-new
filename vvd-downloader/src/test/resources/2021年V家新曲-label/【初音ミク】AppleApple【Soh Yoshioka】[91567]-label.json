@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク】AppleApple【Soh Yoshioka】[91567]-label.json",
-  "infoFileName": "【初音ミク】AppleApple【Soh Yoshioka】[91567]-songInfo.json",
-  "order": 87,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク】AppleApple【Soh Yoshioka】[91567]-label.json",
+  "infoFileName" : "【初音ミク】AppleApple【Soh Yoshioka】[91567]-songInfo.json",
+  "order" : 87,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

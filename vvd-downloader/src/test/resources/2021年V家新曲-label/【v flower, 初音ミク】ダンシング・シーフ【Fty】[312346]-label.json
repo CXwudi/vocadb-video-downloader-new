@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【v flower, 初音ミク】ダンシング・シーフ【Fty】[312346]-label.json",
-  "infoFileName": "【v flower, 初音ミク】ダンシング・シーフ【Fty】[312346]-songInfo.json",
-  "order": 10,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【v flower, 初音ミク】ダンシング・シーフ【Fty】[312346]-label.json",
+  "infoFileName" : "【v flower, 初音ミク】ダンシング・シーフ【Fty】[312346]-songInfo.json",
+  "order" : 10,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

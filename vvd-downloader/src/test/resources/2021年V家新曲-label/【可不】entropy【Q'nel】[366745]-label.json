@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【可不】entropy【Q'nel】[366745]-label.json",
-  "infoFileName": "【可不】entropy【Q'nel】[366745]-songInfo.json",
-  "order": 129,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【可不】entropy【Q'nel】[366745]-label.json",
+  "infoFileName" : "【可不】entropy【Q'nel】[366745]-songInfo.json",
+  "order" : 129,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

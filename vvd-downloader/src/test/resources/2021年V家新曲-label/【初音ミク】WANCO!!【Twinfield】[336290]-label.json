@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク】WANCO!!【Twinfield】[336290]-label.json",
-  "infoFileName": "【初音ミク】WANCO!!【Twinfield】[336290]-songInfo.json",
-  "order": 58,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク】WANCO!!【Twinfield】[336290]-label.json",
+  "infoFileName" : "【初音ミク】WANCO!!【Twinfield】[336290]-songInfo.json",
+  "order" : 58,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

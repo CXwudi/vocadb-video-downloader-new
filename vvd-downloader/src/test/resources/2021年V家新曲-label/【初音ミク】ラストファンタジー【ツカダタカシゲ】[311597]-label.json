@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク】ラストファンタジー【ツカダタカシゲ】[311597]-label.json",
-  "infoFileName": "【初音ミク】ラストファンタジー【ツカダタカシゲ】[311597]-songInfo.json",
-  "order": 5,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク】ラストファンタジー【ツカダタカシゲ】[311597]-label.json",
+  "infoFileName" : "【初音ミク】ラストファンタジー【ツカダタカシゲ】[311597]-songInfo.json",
+  "order" : 5,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

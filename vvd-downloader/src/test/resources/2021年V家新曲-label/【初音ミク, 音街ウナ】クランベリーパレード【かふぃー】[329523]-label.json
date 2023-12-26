@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク, 音街ウナ】クランベリーパレード【かふぃー】[329523]-label.json",
-  "infoFileName": "【初音ミク, 音街ウナ】クランベリーパレード【かふぃー】[329523]-songInfo.json",
-  "order": 48,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク, 音街ウナ】クランベリーパレード【かふぃー】[329523]-label.json",
+  "infoFileName" : "【初音ミク, 音街ウナ】クランベリーパレード【かふぃー】[329523]-songInfo.json",
+  "order" : 48,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

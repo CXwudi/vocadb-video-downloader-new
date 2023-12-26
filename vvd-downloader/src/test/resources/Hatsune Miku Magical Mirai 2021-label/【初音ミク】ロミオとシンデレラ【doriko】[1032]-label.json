@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク】ロミオとシンデレラ【doriko】[1032]-label.json",
-  "infoFileName": "【初音ミク】ロミオとシンデレラ【doriko】[1032]-songInfo.json",
-  "order": 28,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク】ロミオとシンデレラ【doriko】[1032]-label.json",
+  "infoFileName" : "【初音ミク】ロミオとシンデレラ【doriko】[1032]-songInfo.json",
+  "order" : 28,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

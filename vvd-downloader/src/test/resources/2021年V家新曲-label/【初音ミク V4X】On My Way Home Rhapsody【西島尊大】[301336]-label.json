@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク V4X】On My Way Home Rhapsody【西島尊大】[301336]-label.json",
-  "infoFileName": "【初音ミク V4X】On My Way Home Rhapsody【西島尊大】[301336]-songInfo.json",
-  "order": 64,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク V4X】On My Way Home Rhapsody【西島尊大】[301336]-label.json",
+  "infoFileName" : "【初音ミク V4X】On My Way Home Rhapsody【西島尊大】[301336]-songInfo.json",
+  "order" : 64,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

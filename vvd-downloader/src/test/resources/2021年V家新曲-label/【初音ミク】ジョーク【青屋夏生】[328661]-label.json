@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク】ジョーク【青屋夏生】[328661]-label.json",
-  "infoFileName": "【初音ミク】ジョーク【青屋夏生】[328661]-songInfo.json",
-  "order": 39,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク】ジョーク【青屋夏生】[328661]-label.json",
+  "infoFileName" : "【初音ミク】ジョーク【青屋夏生】[328661]-songInfo.json",
+  "order" : 39,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

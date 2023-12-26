@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【v flower】パメラ【バルーン】[359877]-label.json",
-  "infoFileName": "【v flower】パメラ【バルーン】[359877]-songInfo.json",
-  "order": 114,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【v flower】パメラ【バルーン】[359877]-label.json",
+  "infoFileName" : "【v flower】パメラ【バルーン】[359877]-songInfo.json",
+  "order" : 114,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

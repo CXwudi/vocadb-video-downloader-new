@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク】ヴァンパイア【DECO 27, Rockwell】[321205]-label.json",
-  "infoFileName": "【初音ミク】ヴァンパイア【DECO 27, Rockwell】[321205]-songInfo.json",
-  "order": 37,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク】ヴァンパイア【DECO 27, Rockwell】[321205]-label.json",
+  "infoFileName" : "【初音ミク】ヴァンパイア【DECO 27, Rockwell】[321205]-songInfo.json",
+  "order" : 37,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }

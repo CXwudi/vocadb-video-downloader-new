@@ -1,9 +1,11 @@
 {
-  "labelFileName": "【初音ミク】ラブリー少女【ぷく｡o○】[329178]-label.json",
-  "infoFileName": "【初音ミク】ラブリー少女【ぷく｡o○】[329178]-songInfo.json",
-  "order": 44,
-  "pvFileName": null,
-  "audioFileName": null,
-  "thumbnailFileName": null,
-  "vocaDbPvId": 0
+  "labelFileName" : "【初音ミク】ラブリー少女【ぷく｡o○】[329178]-label.json",
+  "infoFileName" : "【初音ミク】ラブリー少女【ぷく｡o○】[329178]-songInfo.json",
+  "order" : 44,
+  "pvFileName" : null,
+  "audioFileName" : null,
+  "thumbnailFileName" : null,
+  "vocaDbPvId" : 0,
+  "downloaderName" : null,
+  "processedAudioFileName" : null
 }
