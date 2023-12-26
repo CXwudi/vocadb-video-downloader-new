@@ -6,9 +6,6 @@ name: Run Tests on Docker
 on:
   push:
     branches: [ "main", "renovate/**" ]
-  pull_request:
-    branches: [ "main" ]
-    branches-ignore: [ "renovate/**" ]
 
 jobs:
   docker-java-test:
