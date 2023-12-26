@@ -2,10 +2,10 @@
   "labelFileName" : "【初音ミク】ヤー・チャイカ【yamada】[350950]-label.json",
   "infoFileName" : "【初音ミク】ヤー・チャイカ【yamada】[350950]-songInfo.json",
   "order" : 95,
-  "pvFileName" : null,
+  "pvFileName" : "【初音ミク】ヤー・チャイカ【yamada】[350950]-pv.mp4",
   "audioFileName" : null,
-  "thumbnailFileName" : null,
-  "vocaDbPvId" : 0,
-  "downloaderName" : null,
+  "thumbnailFileName" : "【初音ミク】ヤー・チャイカ【yamada】[350950]-thumbnail.jpg",
+  "vocaDbPvId" : 520721,
+  "downloaderName" : "youtube-dl or its forks",
   "processedAudioFileName" : null
 }
