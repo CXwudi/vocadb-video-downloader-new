@@ -2,18 +2,17 @@ def add_tag(input_file, thumbnail_file, label_dict, info_dict, audio_extractor_n
   """
   real add tags
   """
-  from mutagen.mp3 import MP3, EasyMP3, TextFrame
-  from mutagen.id3 import ID3, APIC, TXXX, ID3NoHeaderError
+  from mutagen.mp3 import MP3, EasyMP3
+  from mutagen.id3 import ID3, APIC, TXXX, COMM, ID3NoHeaderError
   import imghdr
 
   # Use EasyMP3 for simple id3 tags
-  file = EasyMP3(input_file, ID3=ID3)
+  file = EasyMP3(input_file)
   file.delete()
   file["title"] = info_dict["defaultName"]
   file["artist"] = info_dict["artistString"]
   file["date"] = info_dict["publishDate"]
   file["genre"] = "VOCALOID"
-  file["comments"] = "All rights belong to {}".format(info_dict["artistString"].split("feat.")[0].strip())
   file.save(v2_version=3)
 
   # Use MP3 for more complex id3 tags
@@ -24,7 +23,11 @@ def add_tag(input_file, thumbnail_file, label_dict, info_dict, audio_extractor_n
     thumbnail_data = f.read()
 
   # Add APIC frame for album art
-  tags.add(APIC(3, 'image/' + image_type, 3, 'Front cover', thumbnail_data))
+  tags.add(APIC(encoding = 3, mime = 'image/' + image_type, type = 3, desc = 'Front cover', data = thumbnail_data))
+
+  # Add comment frame for comments
+  tags.add(COMM(encoding = 3, lang = 'eng', text = "All rights belong to {}".format(info_dict["artistString"].split("feat.")[0].strip())
+))
 
   # Add TXXX frames for custom strings
   txxx_names = ["downloaded by", "pv url", "extracted by",
