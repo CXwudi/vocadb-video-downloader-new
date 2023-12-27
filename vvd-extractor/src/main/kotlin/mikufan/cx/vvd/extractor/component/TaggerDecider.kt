@@ -6,8 +6,10 @@ import mikufan.cx.vvd.extractor.component.extractor.impl.AacToM4aAudioExtractor
 import mikufan.cx.vvd.extractor.component.extractor.impl.OpusToOggAudioExtractor
 import mikufan.cx.vvd.extractor.component.tagger.base.BaseAudioTagger
 import mikufan.cx.vvd.extractor.component.tagger.impl.M4aAudioTagger
+import mikufan.cx.vvd.extractor.component.tagger.impl.Mp3AudioTagger
 import mikufan.cx.vvd.extractor.component.tagger.impl.OggOpusAudioTagger
 import mikufan.cx.vvd.extractor.model.VSongTask
+import mikufan.cx.vvd.extractor.util.AudioMediaFormat
 import mikufan.cx.vvd.extractor.util.OrderConstants
 import org.jeasy.batch.core.processor.RecordProcessor
 import org.jeasy.batch.core.record.Record
@@ -56,8 +58,9 @@ class TaggerDeciderCore(
     // no audio extractor = is using audio file copied from label to outputDirectory
     val audioFile = requireNotNull(processedAudioFile) { "null processedAudioFile?" }
     when (val audioFormat = audioMediaFormatChecker.checkAudioFormat(audioFile)) {
-      "aac" -> beanFactory.getBean<M4aAudioTagger>()
-      "opus" -> beanFactory.getBean<OggOpusAudioTagger>()
+      AudioMediaFormat.AAC -> beanFactory.getBean<M4aAudioTagger>()
+      AudioMediaFormat.OPUS -> beanFactory.getBean<OggOpusAudioTagger>()
+      AudioMediaFormat.MPEG_AUDIO -> beanFactory.getBean<Mp3AudioTagger>()
       else -> throw RuntimeVocaloidException("Audio format $audioFormat is not supported from $audioFile")
     }
   }
