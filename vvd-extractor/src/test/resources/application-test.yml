@@ -11,3 +11,7 @@ config: # configuration
     mediainfo-launch-cmd: mediainfo
   batch:
     batch-size: 1 # set to 1 to make it easier to check the log
+
+logging:
+  level:
+    mikufan: debug
