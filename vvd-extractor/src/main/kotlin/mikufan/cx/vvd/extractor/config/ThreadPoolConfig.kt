@@ -49,7 +49,6 @@ class ThreadPoolConfig {
     SharedExternalProcessThreadFactory("cli-tagger-t")
   )
 
-  private fun SharedExternalProcessThreadFactory(name: String): ThreadFactory = ThreadFactory {
-    r -> Thread.ofVirtual().name(name, 0).start(r)
-  }
+  private fun SharedExternalProcessThreadFactory(name: String): ThreadFactory =
+    Thread.ofVirtual().name(name, 0).factory()
 }
