@@ -6,6 +6,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.withContext
 import mikufan.cx.inlinelogging.KInlineLogging
+import mikufan.cx.vvd.commonkt.batch.LOOM
 import mikufan.cx.vvd.commonkt.batch.RecordErrorWriter
 import mikufan.cx.vvd.commonkt.batch.toIterator
 import mikufan.cx.vvd.taskproducer.component.LabelSaver
@@ -27,10 +28,15 @@ class MainService(
 
   private val threadLimit = systemConfig.batchSize
 
-  private val semaphore = Semaphore(threadLimit) // only allow threadLimit amount of thread to run concurrently
+  /**
+   * A semaphore to control the number of concurrent tasks
+   *
+   * We still need this because we don't want to store all the tasks in memory
+   */
+  private val semaphore = Semaphore(threadLimit)
 
   override fun run() = runBlocking { // only one thread env
-    withContext(Dispatchers.IO) {
+    withContext(Dispatchers.LOOM) {
       semaphore.acquire() // thread limit applies even before reading the list
       for (record in listReader.toIterator()) {
         launch { processRecord(record) }

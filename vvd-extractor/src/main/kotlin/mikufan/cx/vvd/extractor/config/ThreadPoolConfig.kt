@@ -5,9 +5,11 @@ import org.springframework.context.annotation.Configuration
 import java.util.concurrent.LinkedBlockingDeque
 import java.util.concurrent.ThreadFactory
 import java.util.concurrent.ThreadPoolExecutor
-import java.util.concurrent.atomic.AtomicInteger
 
 /**
+ * Even though we have Java 21 virtual thread, we can't create infinite multi processes.
+ *
+ * So still need limitations on threads for running external processes
  * @date 2022-07-23
  * @author CX无敌
  */
@@ -47,11 +49,7 @@ class ThreadPoolConfig {
     SharedExternalProcessThreadFactory("cli-tagger-t")
   )
 
-  private fun SharedExternalProcessThreadFactory(name: String): ThreadFactory =
-    object : ThreadFactory {
-      private val counter = AtomicInteger(0)
-      override fun newThread(r: Runnable): Thread {
-        return Thread(r, "$name${counter.getAndIncrement()}")
-      }
-    }
+  private fun SharedExternalProcessThreadFactory(name: String): ThreadFactory = ThreadFactory {
+    r -> Thread.ofVirtual().name(name, 0).start(r)
+  }
 }

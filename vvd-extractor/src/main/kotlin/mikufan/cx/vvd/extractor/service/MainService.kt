@@ -5,6 +5,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Semaphore
 import mikufan.cx.inlinelogging.KInlineLogging
+import mikufan.cx.vvd.commonkt.batch.LOOM
 import mikufan.cx.vvd.commonkt.batch.RecordErrorWriter
 import mikufan.cx.vvd.commonkt.batch.toIterator
 import mikufan.cx.vvd.extractor.component.LabelsReader
@@ -26,10 +27,16 @@ class MainService(
   batchConfig: BatchConfig
 ) : Runnable {
 
+  /**
+   * A semaphore to control the number of concurrent tasks
+   *
+   * We still need this because we don't want to create infinite number of subprocesses,
+   * as well as not storing all the tasks in memory
+   */
   private val semaphore = Semaphore(batchConfig.batchSize)
 
   override fun run() {
-    runBlocking(Dispatchers.IO) {
+    runBlocking(Dispatchers.LOOM) {
       semaphore.acquire()
       labelsReader.toIterator().forEach { label ->
         launch {
