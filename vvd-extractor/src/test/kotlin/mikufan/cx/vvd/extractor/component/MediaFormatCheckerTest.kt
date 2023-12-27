@@ -46,7 +46,7 @@ class MediaFormatCheckerTest(
 
     should("find audio format of mp3") {
       val audioFormat =
-        mediaFormatChecker.checkAudioFormat(getResourceAsPath("test-audio-files/【初音ミク】WANCO!!【Twinfield】.mp3"))
+        mediaFormatChecker.checkAudioFormat(getResourceAsPath("test-audio-files/【初音ミク】WANCO!!【Twinfield】[336290]-audio.mp3"))
       audioFormat shouldBe "mpeg audio"
     }
   }
