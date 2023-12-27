@@ -52,7 +52,7 @@ class TaggerDeciderCore(
     when (val decidedExtractor = decidedExtractorOpt.get()) {
       is AacToM4aAudioExtractor -> beanFactory.getBean<M4aAudioTagger>()
       is OpusToOggAudioExtractor -> beanFactory.getBean<OggOpusAudioTagger>()
-      else -> error("This should not happened, unknown audio extractor: $decidedExtractor")
+      else -> error("This should not happened, unknown audio extractor: ${decidedExtractor.name}")
     }
   } else {
     // no audio extractor = is using audio file copied from label to outputDirectory
