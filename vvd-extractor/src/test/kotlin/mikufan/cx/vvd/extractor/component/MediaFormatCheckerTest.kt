@@ -1,7 +1,6 @@
 package mikufan.cx.vvd.extractor.component
 
 import io.kotest.matchers.shouldBe
-import mikufan.cx.vvd.extractor.util.SpringBootDirtyTestWithTestProfile
 import mikufan.cx.vvd.extractor.util.SpringBootTestWithTestProfile
 import mikufan.cx.vvd.extractor.util.SpringShouldSpec
 import mikufan.cx.vvd.extractor.util.getResourceAsPath
@@ -43,6 +42,12 @@ class MediaFormatCheckerTest(
       val audioFormat =
         mediaFormatChecker.checkAudioFormat(getResourceAsPath("test-audio-files/【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-audio.ogg"))
       audioFormat shouldBe "opus"
+    }
+
+    should("find audio format of mp3") {
+      val audioFormat =
+        mediaFormatChecker.checkAudioFormat(getResourceAsPath("test-audio-files/【初音ミク】WANCO!!【Twinfield】.mp3"))
+      audioFormat shouldBe "mpeg audio"
     }
   }
 })
