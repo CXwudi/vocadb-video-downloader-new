@@ -18,34 +18,42 @@ jobs:
       DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
 
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v4
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
-          
-    - name: Grant execute permission for mvnw
-      run: chmod +x mvnw
-      
-      # In this step, this action saves a list of existing images,
-      # the cache is created without them in the post run.
-      # It also restores the cache if it exists.
-    - uses: satackey/action-docker-layer-caching@v0.0.11
-      # Ignore the failure of a step and avoid terminating the job.
-      continue-on-error: true
-    
-    - name: Login to DockerHub
-      run: docker login -u $DOCKER_USER -p $DOCKER_PASS
-      
-    - name: Build docker image
-      run: docker-compose -f 'docker/docker-compose.base.yml' -f 'docker/docker-compose.test-all.yml' build
-      
-    - name: Run tests in docker container
-      run: docker-compose -f 'docker/docker-compose.base.yml' -f 'docker/docker-compose.test-all.yml' up --exit-code-from base
-      
+      - name: free disk space
+        run: |
+          sudo swapoff -a
+          sudo rm -f /swapfile
+          sudo apt clean
+          docker rmi $(docker image ls -aq)
+          df -h
+
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Grant execute permission for mvnw
+        run: chmod +x mvnw
+
+        # In this step, this action saves a list of existing images,
+        # the cache is created without them in the post run.
+        # It also restores the cache if it exists.
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        # Ignore the failure of a step and avoid terminating the job.
+        continue-on-error: true
+
+      - name: Login to DockerHub
+        run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+      - name: Build docker image
+        run: docker-compose -f 'docker/docker-compose.base.yml' -f 'docker/docker-compose.test-all.yml' build
+
+      - name: Run tests in docker container
+        run: docker-compose -f 'docker/docker-compose.base.yml' -f 'docker/docker-compose.test-all.yml' up --exit-code-from base
+
 #     - name: Setup Java JDK
 #       uses: actions/setup-java@v3
 #       with:
