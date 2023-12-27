@@ -15,7 +15,7 @@ import java.util.*
 import kotlin.io.path.Path
 import kotlin.io.path.name
 
-class TaggerDeciderTest : ShouldSpec({
+class TaggerDeciderCoreTest : ShouldSpec({
 
   val fakeM4aFile = Path("fake.m4a")
   val fakeOpusFile = Path("fake.opus")
