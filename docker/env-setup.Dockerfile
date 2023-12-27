@@ -65,7 +65,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # install Java from other image,
 ENV JAVA_HOME=/opt/java/openjdk
-COPY --from=eclipse-temurin:17 $JAVA_HOME $JAVA_HOME
+COPY --from=eclipse-temurin:21 $JAVA_HOME $JAVA_HOME
 ENV PATH="${JAVA_HOME}/bin:${PATH}"
 
 # install ffmpeg from builder

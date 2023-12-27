@@ -4,7 +4,7 @@
 
 All 3 modules require the following:
 
-1. Java 17 or above
+1. Java 21 or above
 
 Some modules have additional prerequisites. Please refer to the corresponding module's `README.md` for details.
 
