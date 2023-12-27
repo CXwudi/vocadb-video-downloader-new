@@ -92,8 +92,8 @@ config: # configuration
 
   # all fields are requried
   environment:
-    # path of the mediainfo cli tool
-    # be aware that we need the executable MediaInfo.exe file, not the .dll file
+    # path of the mediainfo cli tool.
+    # be aware that we need the executable MediaInfo.exe file, not the .dll file.
     # or if the cli tool is already in your PATH, you can leave this as "mediainfo"
     # for debian based distros, you can install mediainfo using "sudo apt-get install mediainfo"
     mediainfo-launch-cmd:
