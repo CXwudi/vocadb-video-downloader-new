@@ -26,8 +26,7 @@ def add_tag(input_file, thumbnail_file, label_dict, info_dict, audio_extractor_n
   tags.add(APIC(encoding = 3, mime = 'image/' + image_type, type = 3, desc = 'Front cover', data = thumbnail_data))
 
   # Add comment frame for comments
-  tags.add(COMM(encoding = 3, lang = 'eng', text = "All rights belong to {}".format(info_dict["artistString"].split("feat.")[0].strip())
-))
+  tags.add(COMM(encoding = 3, lang = 'eng', text = "All rights belong to {}".format(info_dict["artistString"].split("feat.")[0].strip())))
 
   # Add TXXX frames for custom strings
   txxx_names = ["downloaded by", "pv url", "extracted by",
