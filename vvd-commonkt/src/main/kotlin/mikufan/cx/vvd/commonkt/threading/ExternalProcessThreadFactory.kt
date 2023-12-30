@@ -17,7 +17,7 @@ class ExternalProcessThreadFactory(baseName: String) : ThreadFactory {
   private var counter = 0
 
   override fun newThread(r: Runnable): Thread {
-    return Thread(r, names[counter++ % names.size])
+    return Thread.ofVirtual().name(names[counter++ % names.size]).start(r)
   }
 
   /**
