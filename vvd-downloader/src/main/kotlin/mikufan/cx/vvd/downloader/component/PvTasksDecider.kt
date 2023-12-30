@@ -36,7 +36,7 @@ class PvTasksDecider(
       serviceToIntMap[requireNotNull(it.service?.toPVServicesEnum()) { "the pv service enum is null for ${it.name}?" }]
     ) { "Did we failed to filter out un-supported PV services?" } * 10
     if (preference.preferSmIdOverSoId) {
-      order + if (it.service == PVService.NICONICODOUGA && it.pvId?.startsWith("sm") == true) 1 else 0
+      order + if (it.service == PVService.NICONICODOUGA && it.pvId?.startsWith("sm") == true) -1 else 0
     } else {
       order
     }
