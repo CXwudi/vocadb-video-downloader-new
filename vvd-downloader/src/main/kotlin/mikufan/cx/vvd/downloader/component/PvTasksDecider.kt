@@ -110,12 +110,13 @@ class PvTasksDecider(
       val firstServ = reprintDecidedPvs.first().service
       reprintDecidedPvs.takeWhile { it.service?.equals(firstServ) ?: false }
     } else reprintDecidedPvs
+    log.debug { "after deciding try next pv services" }
 
-    parameters.pvCandidates = serviceDecidedPvs
     log.info {
       "Done deciding PV candidates for ${songInfo.defaultName}, " +
-          "pvs chosen = ${serviceDecidedPvs.toPrettyString()}"
+          "final chosen pvs = ${serviceDecidedPvs.toPrettyString()}"
     }
+    parameters.pvCandidates = serviceDecidedPvs
     return record
   }
 
