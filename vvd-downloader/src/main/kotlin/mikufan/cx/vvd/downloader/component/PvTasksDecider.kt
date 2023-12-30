@@ -2,6 +2,7 @@ package mikufan.cx.vvd.downloader.component
 
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vocadbapiclient.model.PVContract
+import mikufan.cx.vocadbapiclient.model.PVService
 import mikufan.cx.vocadbapiclient.model.PVType
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.commonkt.vocadb.toPVServicesEnum
@@ -31,9 +32,14 @@ class PvTasksDecider(
   private val serviceToIntMap = preference.pvPreference.withIndex().associate { Pair(it.value, it.index) }
 
   private val pvServiceKeyExtractor = ToIntFunction<PVContract> {
-    requireNotNull(
+    val order = requireNotNull(
       serviceToIntMap[requireNotNull(it.service?.toPVServicesEnum()) { "the pv service enum is null for ${it.name}?" }]
-    ) { "Did we failed to filter out un-supported PV services?" }
+    ) { "Did we failed to filter out un-supported PV services?" } * 10
+    if (preference.preferSmIdOverSoId) {
+      order + if (it.service == PVService.NICONICODOUGA && it.pvId?.startsWith("sm") == true) 1 else 0
+    } else {
+      order
+    }
   }
 
   companion object {

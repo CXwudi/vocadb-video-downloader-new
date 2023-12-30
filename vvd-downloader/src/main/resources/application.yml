@@ -36,6 +36,11 @@ config: # configuration
     # where in the first round, only original pvs are tried. then in second round, all reprinted pvs are tried
     # setting this to false will make the downloader try original pvs and reprinted pvs in the same round
     try-all-original-pvs-before-reprinted-pvs: true
+    # For songs with two NicoNicoDouga PVs of the same PV type (e.g., two original PVs), should we prefer smId over soId?
+    # This setting can be helpful for songs from events like 無色透名祭 where the original PV is uploaded with a blank thumbnail,
+    # and then the producer re-uploaded another PV claimed as original PV with a better animation and a thumbnail
+    # setting this to true will make the downloader prefer the PV with smId over the PV with soId
+    prefer-sm-id-over-so-id: true
 
   # which PV service uses which downloader(s), separated by comma
   # which field is required or optional depends on if the pv service is listed in config.preference.pv-preference field

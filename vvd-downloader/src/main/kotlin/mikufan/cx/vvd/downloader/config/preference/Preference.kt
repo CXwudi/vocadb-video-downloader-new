@@ -19,5 +19,6 @@ data class Preference(
   @field:Min(0) val maxRetryCount: Int,
   val tryNextPvServiceOnFail: Boolean,
   val tryReprintedPv: Boolean,
-  val tryAllOriginalPvsBeforeReprintedPvs: Boolean
+  val tryAllOriginalPvsBeforeReprintedPvs: Boolean,
+  val preferSmIdOverSoId: Boolean,
 )
