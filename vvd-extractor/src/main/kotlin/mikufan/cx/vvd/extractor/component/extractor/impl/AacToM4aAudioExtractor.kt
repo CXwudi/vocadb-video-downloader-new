@@ -12,12 +12,13 @@ import kotlin.io.path.deleteIfExists
 import kotlin.io.path.exists
 
 /**
- * The lossless audio extractor for any video with AAC LC audio track.
+ * The lossless audio extractor for video with AAC LC audio track.
  * Extracted audio will be in m4a format.
  *
- * It execute two commands:
- * 1. ffmpeg -i input.mp4 -vn -acodec copy -y temp.aac
- * 2. ffmpeg -i temp.aac -vn --acodec copy -y -movflags +faststart output.m4a
+ * It executes two commands:
+ * 1. `ffmpeg -i input.mp4 -vn -acodec copy -y temp.aac` to extract the raw audio stream
+ * 2. `ffmpeg -i temp.aac -vn --acodec copy -y -movflags +faststart output.m4a`
+ * to package the audio stream into m4a container with iTunes style faststart flag
  *
  * @date 2022-07-16
  * @author CX无敌

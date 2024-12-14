@@ -10,12 +10,13 @@ import java.util.concurrent.ThreadPoolExecutor
 import kotlin.io.path.exists
 
 /**
- * The lossless audio extractor for any video with opus audio track (or any ogg/opus related audio codec).
+ * The lossless audio extractor for video with opus audio track (or any ogg/opus related audio codec).
  * Extracted audio will be in ogg format.
- * Although it is preferred to extracted as opus, but since NetEase Cloud Music does not support opus, it will be extracted as ogg.
+ * Although it is preferred to be extracted as opus,
+ * but since NetEase Cloud Music does not support opus, it will be extracted as ogg.
  *
  * It will run this command:
- * ffmpeg -i input.mkv -vn -acodec copy output.ogg
+ * `ffmpeg -i input.mkv -vn -acodec copy output.ogg`
  *
  * @date 2022-07-16
  * @author CX无敌
