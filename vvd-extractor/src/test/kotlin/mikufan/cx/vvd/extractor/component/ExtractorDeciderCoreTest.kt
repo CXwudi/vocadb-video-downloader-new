@@ -31,8 +31,12 @@ class ExtractorDeciderCoreTest : ShouldSpec({
     val baseInputFileName = "fake input file"
 
     val mockCtx = mockk<ApplicationContext> {
-      every { getBean<AacToM4aAudioExtractor>() } returns mockk()
-      every { getBean<OpusToOggAudioExtractor>() } returns mockk()
+      every { getBean<AacToM4aAudioExtractor>() } returns mockk {
+        every { name } returns "Mock AAC to M4A Audio Extractor"
+      }
+      every { getBean<OpusToOggAudioExtractor>() } returns mockk {
+        every { name } returns "Mock Opus to Ogg Audio Extractor"
+      }
     }
 
     should("not set audio extractor if using audio file") {
