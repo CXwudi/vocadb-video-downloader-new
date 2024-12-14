@@ -1,6 +1,4 @@
 # this compose file should be run together with .base.yml file
-version: '3.7'
-
 services:
   base:
     container_name: vvd-debug-test-all
