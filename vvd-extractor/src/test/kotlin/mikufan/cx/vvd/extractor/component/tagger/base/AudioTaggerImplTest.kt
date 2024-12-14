@@ -26,7 +26,7 @@ import kotlin.io.path.copyTo
     "config.environment.python-launch-cmd=python"
   ]
 )
-class BaseInternalPythonMutagenAudioTaggerTest(
+class AudioTaggerImplTest(
   ioConfig: IOConfig,
   private val m4aAudioTagger: M4aAudioTagger,
   private val oggOpusAudioTagger: OggOpusAudioTagger,
