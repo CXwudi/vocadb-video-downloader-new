@@ -54,8 +54,8 @@ class AudioExtractorImplTest(
     }
     should("handle eac-3 to mka") {
       testExtract(
-        "2021年V家新曲-download-test/【初音ミク】こころのキラリ【shishy】[661223]-songInfo.json",
-        "2021年V家新曲-download-test/【初音ミク】こころのキラリ【shishy】[661223]-pv.mkv",
+        "2024年V家新曲-download-test/【初音ミク】こころのキラリ【shishy】[661223]-songInfo.json",
+        "2024年V家新曲-download-test/【初音ミク】こころのキラリ【shishy】[661223]-pv.mkv",
         anyToMkaAudioExtractor
       )
     }
