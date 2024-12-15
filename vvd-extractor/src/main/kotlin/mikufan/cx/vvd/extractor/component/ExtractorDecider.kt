@@ -4,6 +4,7 @@ import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.extractor.component.extractor.base.BaseAudioExtractor
 import mikufan.cx.vvd.extractor.component.extractor.impl.AacToM4aAudioExtractor
+import mikufan.cx.vvd.extractor.component.extractor.impl.AnyToMkaAudioExtractor
 import mikufan.cx.vvd.extractor.component.extractor.impl.OpusToOggAudioExtractor
 import mikufan.cx.vvd.extractor.config.IOConfig
 import mikufan.cx.vvd.extractor.model.VSongTask
@@ -76,7 +77,10 @@ class ExtractorDeciderCore(
     return when (val audioFormat = audioMediaFormatChecker.checkAudioFormat(pvFile)) {
       "aac" -> ctx.getBean<AacToM4aAudioExtractor>()
       "opus" -> ctx.getBean<OpusToOggAudioExtractor>()
-      else -> throw RuntimeVocaloidException("Unsupported audio format $audioFormat for song $baseFileName")
+      else -> {
+        log.warn { "Unsupported audio format $audioFormat for $baseFileName, fallback to use mka extractor" }
+        ctx.getBean<AnyToMkaAudioExtractor>()
+      }
     }.also {
       log.info { "Decided to use ${it.name} to extract audio from $baseFileName" }
     }

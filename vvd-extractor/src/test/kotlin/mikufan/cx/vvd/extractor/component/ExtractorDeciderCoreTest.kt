@@ -12,6 +12,7 @@ import io.mockk.mockk
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.extractor.component.extractor.base.BaseAudioExtractor
 import mikufan.cx.vvd.extractor.component.extractor.impl.AacToM4aAudioExtractor
+import mikufan.cx.vvd.extractor.component.extractor.impl.AnyToMkaAudioExtractor
 import mikufan.cx.vvd.extractor.component.extractor.impl.OpusToOggAudioExtractor
 import mikufan.cx.vvd.extractor.config.IOConfig
 import org.springframework.beans.factory.getBean
@@ -37,6 +38,9 @@ class ExtractorDeciderCoreTest : ShouldSpec({
       every { getBean<OpusToOggAudioExtractor>() } returns mockk {
         every { name } returns "Mock Opus to Ogg Audio Extractor"
       }
+      every { getBean<AnyToMkaAudioExtractor>() } returns mockk {
+        every { name } returns "Mock Any to Mka Audio Extractor"
+      }
     }
 
     should("not set audio extractor if using audio file") {
@@ -52,7 +56,7 @@ class ExtractorDeciderCoreTest : ShouldSpec({
       audioFile.deleteExisting()
     }
 
-    context("on pv files") {
+    context("on pv files with known audio format") {
       listOf("aac", "opus").forEach { format ->
         val mockChecker = mockk<MediaFormatChecker> {
           every { checkAudioFormat(any()) } returns format
@@ -76,7 +80,7 @@ class ExtractorDeciderCoreTest : ShouldSpec({
       }
     }
 
-    should("fails if encounter an unknown pv file format") {
+    should("fallback to mka extractor if encounter an unknown audio format in a PV") {
       val mockChecker = mockk<MediaFormatChecker> {
         every { checkAudioFormat(any()) } returns "wired format"
       }
@@ -86,10 +90,9 @@ class ExtractorDeciderCoreTest : ShouldSpec({
       pvFile.createFile()
 
       val extractorDeciderCore = ExtractorDeciderCore(ioConfig, mockChecker, mockCtx)
-      val exception = shouldThrow<RuntimeVocaloidException> {
-        extractorDeciderCore.decideExtractor("", pvFileName, baseInputFileName)
-      }
-      exception.message shouldContain "Unsupported audio format"
+      val decidedExtractor: BaseAudioExtractor? = extractorDeciderCore.decideExtractor("", pvFileName, baseInputFileName)
+      decidedExtractor.shouldNotBeNull()
+      decidedExtractor.shouldBeInstanceOf<AnyToMkaAudioExtractor>()
 
       pvFile.deleteExisting()
     }
