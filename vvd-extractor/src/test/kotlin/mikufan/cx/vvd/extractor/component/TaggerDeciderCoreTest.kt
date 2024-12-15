@@ -14,6 +14,7 @@ import mikufan.cx.vvd.extractor.component.extractor.impl.OpusToOggAudioExtractor
 import mikufan.cx.vvd.extractor.component.tagger.impl.M4aAudioTagger
 import mikufan.cx.vvd.extractor.component.tagger.impl.Mp3AudioTagger
 import mikufan.cx.vvd.extractor.component.tagger.impl.OggOpusAudioTagger
+import mikufan.cx.vvd.extractor.component.util.MediaFormatChecker
 import mikufan.cx.vvd.extractor.util.AudioMediaFormat
 import org.springframework.beans.factory.getBean
 import org.springframework.context.ApplicationContext

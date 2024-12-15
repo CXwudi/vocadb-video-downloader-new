@@ -6,6 +6,7 @@ import mikufan.cx.vvd.extractor.component.extractor.base.BaseAudioExtractor
 import mikufan.cx.vvd.extractor.component.extractor.impl.AacToM4aAudioExtractor
 import mikufan.cx.vvd.extractor.component.extractor.impl.AnyToMkaAudioExtractor
 import mikufan.cx.vvd.extractor.component.extractor.impl.OpusToOggAudioExtractor
+import mikufan.cx.vvd.extractor.component.util.MediaFormatChecker
 import mikufan.cx.vvd.extractor.config.IOConfig
 import mikufan.cx.vvd.extractor.model.VSongTask
 import mikufan.cx.vvd.extractor.util.OrderConstants

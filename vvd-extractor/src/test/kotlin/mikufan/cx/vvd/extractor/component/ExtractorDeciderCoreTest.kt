@@ -14,6 +14,7 @@ import mikufan.cx.vvd.extractor.component.extractor.base.BaseAudioExtractor
 import mikufan.cx.vvd.extractor.component.extractor.impl.AacToM4aAudioExtractor
 import mikufan.cx.vvd.extractor.component.extractor.impl.AnyToMkaAudioExtractor
 import mikufan.cx.vvd.extractor.component.extractor.impl.OpusToOggAudioExtractor
+import mikufan.cx.vvd.extractor.component.util.MediaFormatChecker
 import mikufan.cx.vvd.extractor.config.IOConfig
 import org.springframework.beans.factory.getBean
 import org.springframework.context.ApplicationContext

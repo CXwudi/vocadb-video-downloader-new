@@ -1,4 +1,4 @@
-package mikufan.cx.vvd.extractor.component
+package mikufan.cx.vvd.extractor.component.util
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper

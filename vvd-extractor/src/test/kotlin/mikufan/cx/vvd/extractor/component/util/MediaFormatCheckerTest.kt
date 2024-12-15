@@ -1,4 +1,4 @@
-package mikufan.cx.vvd.extractor.component
+package mikufan.cx.vvd.extractor.component.util
 
 import io.kotest.matchers.shouldBe
 import mikufan.cx.vvd.extractor.util.AudioMediaFormat
