@@ -137,6 +137,9 @@ class MkaAudioTagger(
       null
     }
 
+    // See specification:
+    // https://www.matroska.org/technical/elements.html (see Tagging section)
+    // https://www.matroska.org/technical/tagging.html
     return """
         <?xml version="1.0" encoding="UTF-8"?>
         <Tags>
