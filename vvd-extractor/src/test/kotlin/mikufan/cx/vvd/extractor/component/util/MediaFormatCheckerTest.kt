@@ -77,11 +77,11 @@ class MediaFormatCheckerTest(
 
     listOf(
       ImageTestCase(
-        "2021年V家新曲-download-test/【初音ミク】WANCO!!【Twinfield】[336290]-thumbnail.jpg",
+        "20xx年V家新曲-download-test/【初音ミク】WANCO!!【Twinfield】[336290]-thumbnail.jpg",
         "jpeg"
       ),
       ImageTestCase(
-        "2021年V家新曲-download-test/【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-thumbnail.webp",
+        "20xx年V家新曲-download-test/【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-thumbnail.webp",
         "webp"
       )
     ).forEach { (fileName, expectedType, fileType) ->

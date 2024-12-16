@@ -40,15 +40,15 @@ class AudioExtractorImplTest(
   context("test extraction") {
     should("handle aac to m4a") {
       testExtract(
-        "2021年V家新曲-download-test/【初音ミク】ヤー・チャイカ【yamada】[350950]-songInfo.json",
-        "2021年V家新曲-download-test/【初音ミク】ヤー・チャイカ【yamada】[350950]-pv.mp4",
+        "20xx年V家新曲-download-test/【初音ミク】ヤー・チャイカ【yamada】[350950]-songInfo.json",
+        "20xx年V家新曲-download-test/【初音ミク】ヤー・チャイカ【yamada】[350950]-pv.mp4",
         aacToM4aAudioExtractor
       )
     }
     should("handle opus to ogg") {
       testExtract(
-        "2021年V家新曲-download-test/【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-songInfo.json",
-        "2021年V家新曲-download-test/【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-pv.webm",
+        "20xx年V家新曲-download-test/【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-songInfo.json",
+        "20xx年V家新曲-download-test/【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-pv.webm",
         opusToOggAudioExtractor
       )
     }

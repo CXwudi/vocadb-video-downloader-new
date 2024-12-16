@@ -8,6 +8,7 @@ import mikufan.cx.vocadbapiclient.model.SongForApiContract
 import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.extractor.component.extractor.base.BaseAudioExtractor
 import mikufan.cx.vvd.extractor.component.tagger.impl.M4aAudioTagger
+import mikufan.cx.vvd.extractor.component.tagger.impl.MkaAudioTagger
 import mikufan.cx.vvd.extractor.component.tagger.impl.Mp3AudioTagger
 import mikufan.cx.vvd.extractor.component.tagger.impl.OggOpusAudioTagger
 import mikufan.cx.vvd.extractor.config.IOConfig
@@ -31,6 +32,7 @@ class AudioTaggerImplTest(
   private val m4aAudioTagger: M4aAudioTagger,
   private val oggOpusAudioTagger: OggOpusAudioTagger,
   private val mp3AudioTagger: Mp3AudioTagger,
+  private val mkaAudioTagger: MkaAudioTagger,
   private val objectMapper: ObjectMapper,
 ) : SpringShouldSpec({
   val dummyAudioExtractor: BaseAudioExtractor = mockk()
@@ -63,8 +65,8 @@ class AudioTaggerImplTest(
     should("handle tagging for m4a audio file") {
       testTagging(
         copyTestAudioFile("test-audio-files/【初音ミク】ヤー・チャイカ【yamada】[350950]-audio.m4a"),
-        "2021年V家新曲-download-test/【初音ミク】ヤー・チャイカ【yamada】[350950]-label.json",
-        "2021年V家新曲-download-test/【初音ミク】ヤー・チャイカ【yamada】[350950]-songInfo.json",
+        "20xx年V家新曲-download-test/【初音ミク】ヤー・チャイカ【yamada】[350950]-label.json",
+        "20xx年V家新曲-download-test/【初音ミク】ヤー・チャイカ【yamada】[350950]-songInfo.json",
         m4aAudioTagger
       )
     }
@@ -72,8 +74,8 @@ class AudioTaggerImplTest(
     should("handle tagging for ogg audio file") {
       testTagging(
         copyTestAudioFile("test-audio-files/【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-audio.ogg"),
-        "2021年V家新曲-download-test/【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-label.json",
-        "2021年V家新曲-download-test/【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-songInfo.json",
+        "20xx年V家新曲-download-test/【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-label.json",
+        "20xx年V家新曲-download-test/【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-songInfo.json",
         oggOpusAudioTagger
       )
     }
@@ -81,9 +83,18 @@ class AudioTaggerImplTest(
     should("handle tagging for mp3 audio file") {
       testTagging(
         copyTestAudioFile("test-audio-files/【初音ミク】WANCO!!【Twinfield】[336290]-audio.mp3"),
-        "2021年V家新曲-download-test/【初音ミク】WANCO!!【Twinfield】[336290]-label.json",
-        "2021年V家新曲-download-test/【初音ミク】WANCO!!【Twinfield】[336290]-songInfo.json",
+        "20xx年V家新曲-download-test/【初音ミク】WANCO!!【Twinfield】[336290]-label.json",
+        "20xx年V家新曲-download-test/【初音ミク】WANCO!!【Twinfield】[336290]-songInfo.json",
         mp3AudioTagger
+      )
+    }
+
+    should("handle tagging for mka audio file") {
+      testTagging(
+        copyTestAudioFile("test-audio-files/【初音ミク】こころのキラリ【shishy】[661223]-audio.mka"),
+        "20xx年V家新曲-download-test/【初音ミク】こころのキラリ【shishy】[661223]-label.json",
+        "20xx年V家新曲-download-test/【初音ミク】こころのキラリ【shishy】[661223]-songInfo.json",
+        mkaAudioTagger
       )
     }
   }
