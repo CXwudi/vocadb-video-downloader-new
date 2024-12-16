@@ -13,7 +13,7 @@ class LabelsReaderTest(
   context("reader") {
     should("read all labels") {
       val records = labelsReader.toIterator().asSequence().toList()
-      records.size shouldBe 4
+      records.size shouldBe 5
     }
   }
 })
