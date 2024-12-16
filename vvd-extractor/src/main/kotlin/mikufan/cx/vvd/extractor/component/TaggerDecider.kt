@@ -8,6 +8,7 @@ import mikufan.cx.vvd.extractor.component.tagger.base.BaseAudioTagger
 import mikufan.cx.vvd.extractor.component.tagger.impl.M4aAudioTagger
 import mikufan.cx.vvd.extractor.component.tagger.impl.Mp3AudioTagger
 import mikufan.cx.vvd.extractor.component.tagger.impl.OggOpusAudioTagger
+import mikufan.cx.vvd.extractor.component.util.MediaFormatChecker
 import mikufan.cx.vvd.extractor.model.VSongTask
 import mikufan.cx.vvd.extractor.util.AudioMediaFormat
 import mikufan.cx.vvd.extractor.util.OrderConstants

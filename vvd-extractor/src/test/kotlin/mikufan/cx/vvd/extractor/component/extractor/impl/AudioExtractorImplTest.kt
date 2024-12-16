@@ -8,7 +8,6 @@ import mikufan.cx.vvd.extractor.component.extractor.base.BaseAudioExtractor
 import mikufan.cx.vvd.extractor.config.IOConfig
 import mikufan.cx.vvd.extractor.model.Parameters
 import mikufan.cx.vvd.extractor.model.VSongTask
-import mikufan.cx.vvd.extractor.util.SpringBootDirtyTestWithTestProfile
 import mikufan.cx.vvd.extractor.util.SpringBootTestWithTestProfile
 import mikufan.cx.vvd.extractor.util.SpringShouldSpec
 import mikufan.cx.vvd.extractor.util.loadResourceAsString
@@ -23,6 +22,7 @@ import java.nio.file.Paths
 class AudioExtractorImplTest(
   private val aacToM4aAudioExtractor: AacToM4aAudioExtractor,
   private val opusToOggAudioExtractor: OpusToOggAudioExtractor,
+  private val anyToMkaAudioExtractor: AnyToMkaAudioExtractor,
   private val objectMapper: ObjectMapper,
   ioConfig: IOConfig,
 ) : SpringShouldSpec({
@@ -40,16 +40,23 @@ class AudioExtractorImplTest(
   context("test extraction") {
     should("handle aac to m4a") {
       testExtract(
-        "2021年V家新曲-download-test/【初音ミク】ヤー・チャイカ【yamada】[350950]-songInfo.json",
-        "2021年V家新曲-download-test/【初音ミク】ヤー・チャイカ【yamada】[350950]-pv.mp4",
+        "20xx年V家新曲-download-test/【初音ミク】ヤー・チャイカ【yamada】[350950]-songInfo.json",
+        "20xx年V家新曲-download-test/【初音ミク】ヤー・チャイカ【yamada】[350950]-pv.mp4",
         aacToM4aAudioExtractor
       )
     }
     should("handle opus to ogg") {
       testExtract(
-        "2021年V家新曲-download-test/【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-songInfo.json",
-        "2021年V家新曲-download-test/【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-pv.webm",
+        "20xx年V家新曲-download-test/【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-songInfo.json",
+        "20xx年V家新曲-download-test/【初音ミク】シル・ヴ・プレジデント【ナナホシ管弦楽団】[328036]-pv.webm",
         opusToOggAudioExtractor
+      )
+    }
+    should("handle eac-3 to mka") {
+      testExtract(
+        "20xx年V家新曲-download-test/【初音ミク】こころのキラリ【shishy】[661223]-songInfo.json",
+        "20xx年V家新曲-download-test/【初音ミク】こころのキラリ【shishy】[661223]-pv.mkv",
+        anyToMkaAudioExtractor
       )
     }
   }

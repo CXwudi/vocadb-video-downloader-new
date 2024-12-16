@@ -15,6 +15,7 @@ config: # configuration
     python-launch-cmd:
     ffmpeg-launch-cmd:
     mediainfo-launch-cmd:
+    mkvpropedit-launch-cmd:
 
   # all fields are required
   batch:

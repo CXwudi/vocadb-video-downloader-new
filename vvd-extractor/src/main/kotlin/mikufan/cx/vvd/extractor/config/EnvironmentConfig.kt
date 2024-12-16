@@ -15,4 +15,5 @@ data class EnvironmentConfig(
   @field:NotEmpty val pythonLaunchCmd: List<@NotBlank String>,
   @field:NotEmpty val ffmpegLaunchCmd: List<@NotBlank String>,
   @field:NotEmpty val mediainfoLaunchCmd: List<@NotBlank String>,
+  @field:NotEmpty val mkvpropeditLaunchCmd: List<@NotBlank String>,
 )
