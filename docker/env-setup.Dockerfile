@@ -40,6 +40,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     #    software-properties-common \
     locales \
     mediainfo \
+    mkvtoolnix \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen # set UTF-8 to support Chinese and Japanese
