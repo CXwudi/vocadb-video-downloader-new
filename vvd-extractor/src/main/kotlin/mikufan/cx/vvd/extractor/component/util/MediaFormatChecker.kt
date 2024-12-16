@@ -63,6 +63,29 @@ class MediaFormatChecker(
     log.debug { "mediainfo shows $mediaFile has audio track with format $audioFormat" }
     return audioFormat
   }
+
+  fun checkImageType(imageFile: Path): String {
+    log.debug { "checking the mimetype of the thumbnail file through mediainfo for $imageFile" }
+    val cmd = buildList {
+      addAll(mediainfoLaunchCmd)
+      add("--output=JSON")
+      add(imageFile.toString())
+    }
+    val jsonHolder = MutableObject<JsonNode>()
+    runCmd(cmd).sync(processConfig.timeout, processConfig.unit, threadPool) {
+      onStdOut { jsonHolder.value = objectMapper.readTree(this) }
+    }
+    val mediainfoJson = jsonHolder.value
+    val tracks = mediainfoJson["media"]["track"]
+    if (tracks.size() <= 1) {
+      throw RuntimeVocaloidException("mediainfo shows $imageFile has no tracks: $mediainfoJson")
+    }
+    val imageTrack = tracks.firstOrNull { it["@type"].asText().lowercase() == "image" }
+      ?: throw RuntimeVocaloidException("mediainfo shows $imageFile has no image: $mediainfoJson")
+    val imageMimeType = imageTrack["Format"].asText().lowercase()
+    log.debug { "mediainfo shows $imageFile has image with mimetype $imageMimeType" }
+    return imageMimeType
+  }
 }
 
 private val log = KInlineLogging.logger()
