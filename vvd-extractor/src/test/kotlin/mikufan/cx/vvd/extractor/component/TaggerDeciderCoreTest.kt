@@ -10,8 +10,10 @@ import io.mockk.mockk
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.extractor.component.extractor.base.BaseAudioExtractor
 import mikufan.cx.vvd.extractor.component.extractor.impl.AacToM4aAudioExtractor
+import mikufan.cx.vvd.extractor.component.extractor.impl.AnyToMkaAudioExtractor
 import mikufan.cx.vvd.extractor.component.extractor.impl.OpusToOggAudioExtractor
 import mikufan.cx.vvd.extractor.component.tagger.impl.M4aAudioTagger
+import mikufan.cx.vvd.extractor.component.tagger.impl.MkaAudioTagger
 import mikufan.cx.vvd.extractor.component.tagger.impl.Mp3AudioTagger
 import mikufan.cx.vvd.extractor.component.tagger.impl.OggOpusAudioTagger
 import mikufan.cx.vvd.extractor.component.util.MediaFormatChecker
@@ -41,6 +43,7 @@ class TaggerDeciderCoreTest : ShouldSpec({
       every { getBean<M4aAudioTagger>() } returns mockk<M4aAudioTagger>(relaxed = true)
       every { getBean<OggOpusAudioTagger>() } returns mockk<OggOpusAudioTagger>(relaxed = true)
       every { getBean<Mp3AudioTagger>() } returns mockk<Mp3AudioTagger>(relaxed = true)
+      every { getBean<MkaAudioTagger>() } returns mockk<MkaAudioTagger>(relaxed = true)
     }
   }
 
@@ -62,6 +65,15 @@ class TaggerDeciderCoreTest : ShouldSpec({
 
       val tagger = taggerDecider.decideTagger(Optional.of(mockk<OpusToOggAudioExtractor>(relaxed = true)), null)
       tagger.shouldBeInstanceOf<OggOpusAudioTagger>()
+      coVerify(exactly = 0) { mockAudioFormatChecker.checkAudioFormat(any()) }
+    }
+    should("decide mka tagger for mka file produced by any->mka extractor") {
+      val mockAudioFormatChecker = createMockChecker()
+      val mockBeanFactory = createMockFactory()
+      val taggerDecider = TaggerDeciderCore(mockAudioFormatChecker, mockBeanFactory)
+
+      val tagger = taggerDecider.decideTagger(Optional.of(mockk<AnyToMkaAudioExtractor>(relaxed = true)), null)
+      tagger.shouldBeInstanceOf<MkaAudioTagger>()
       coVerify(exactly = 0) { mockAudioFormatChecker.checkAudioFormat(any()) }
     }
     should("throw exception for unknown extractor") {

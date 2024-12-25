@@ -3,9 +3,11 @@ package mikufan.cx.vvd.extractor.component
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.extractor.component.extractor.base.BaseAudioExtractor
 import mikufan.cx.vvd.extractor.component.extractor.impl.AacToM4aAudioExtractor
+import mikufan.cx.vvd.extractor.component.extractor.impl.AnyToMkaAudioExtractor
 import mikufan.cx.vvd.extractor.component.extractor.impl.OpusToOggAudioExtractor
 import mikufan.cx.vvd.extractor.component.tagger.base.BaseAudioTagger
 import mikufan.cx.vvd.extractor.component.tagger.impl.M4aAudioTagger
+import mikufan.cx.vvd.extractor.component.tagger.impl.MkaAudioTagger
 import mikufan.cx.vvd.extractor.component.tagger.impl.Mp3AudioTagger
 import mikufan.cx.vvd.extractor.component.tagger.impl.OggOpusAudioTagger
 import mikufan.cx.vvd.extractor.component.util.MediaFormatChecker
@@ -53,6 +55,7 @@ class TaggerDeciderCore(
     when (val decidedExtractor = decidedExtractorOpt.get()) {
       is AacToM4aAudioExtractor -> beanFactory.getBean<M4aAudioTagger>()
       is OpusToOggAudioExtractor -> beanFactory.getBean<OggOpusAudioTagger>()
+      is AnyToMkaAudioExtractor -> beanFactory.getBean<MkaAudioTagger>()
       else -> error("This should not happened, unknown audio extractor: ${decidedExtractor.name}")
     }
   } else {
