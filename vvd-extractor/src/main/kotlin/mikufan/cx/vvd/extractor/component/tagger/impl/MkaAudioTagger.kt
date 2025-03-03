@@ -117,7 +117,7 @@ class MkaAudioTagger(
     val artistsString = requireNotNull(songInfo.artistString) { "artist string is null" }
     val producers = artistsString.split("feat.")[0].trim()
     val pvId = label.vocaDbPvId
-    val dateString = songInfo.publishDate.format(DateTimeFormatter.ISO_DATE)
+    val dateString = songInfo.publishDate.format(DateTimeFormatter.ISO_DATE_TIME)
 
     val vocaDbId = songInfo.id
     val downloaderName = label.downloaderName
