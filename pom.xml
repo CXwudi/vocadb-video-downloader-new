@@ -109,7 +109,7 @@
       <dependency> <!-- used for detecting file types, https://stackoverflow.com/questions/51438/how-to-get-a-files-media-type-mime-type/13889946#13889946 -->
         <groupId>org.apache.tika</groupId>
         <artifactId>tika-core</artifactId>
-        <version>3.2.0</version>
+        <version>3.2.1</version>
       </dependency>
 
       <dependency>
