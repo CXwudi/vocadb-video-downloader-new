@@ -54,9 +54,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-pip \
     && apt-get clean && rm -rf /var/lib/apt/lists/* \
     && update-alternatives --install /usr/bin/python python /usr/bin/python3 2 \
-    && pip install --upgrade --no-cache-dir --break-system-packages \
-    pip \
-    mutagen  \
+    && pip install --no-cache-dir --break-system-packages \
+    mutagen \
     yt-dlp
 #RUN add-apt-repository ppa:deadsnakes/ppa -y \
 #    && apt-get update \
