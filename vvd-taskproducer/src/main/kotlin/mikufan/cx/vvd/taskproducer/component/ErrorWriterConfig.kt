@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.taskproducer.config
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.databind.ObjectMapper
 import mikufan.cx.vvd.commonkt.batch.RecordErrorWriter
 import mikufan.cx.vvd.commonkt.naming.toErrorFileName
 import mikufan.cx.vvd.taskproducer.model.VSongTask

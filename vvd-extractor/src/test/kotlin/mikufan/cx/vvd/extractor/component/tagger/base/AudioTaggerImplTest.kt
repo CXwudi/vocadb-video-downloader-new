@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.extractor.component.tagger.base
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.databind.ObjectMapper
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk

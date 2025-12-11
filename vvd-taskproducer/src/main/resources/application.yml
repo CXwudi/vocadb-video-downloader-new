@@ -23,10 +23,11 @@ config: # all fields are optional except the user-agent field
 # spring setting, don't touch it unless u know Spring very well
 spring:
   jackson:
-    deserialization:
-      fail-on-unknown-properties: true
-    serialization:
-      indent-output: true
+    json:
+      read:
+        fail-on-unknown-properties: true
+      write:
+        indent-output: true
     # default-property-inclusion: non_null # disabling for now, we want 3rd app read our json easily
   config:
     import: optional:file:./my-producer-config.yml,optional:file:./my-producer-config.yaml,optional:file:./my-producer-config.properties

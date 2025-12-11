@@ -1,7 +1,7 @@
 package mikufan.cx.vvd.extractor.component
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
+import tools.jackson.databind.ObjectMapper
+import tools.jackson.module.kotlin.readValue
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.common.naming.FileNamePostFix

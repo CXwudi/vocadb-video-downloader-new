@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.downloader.component
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.databind.ObjectMapper
 import kotlinx.coroutines.Dispatchers
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.commonkt.batch.AbstractParallelWriter
