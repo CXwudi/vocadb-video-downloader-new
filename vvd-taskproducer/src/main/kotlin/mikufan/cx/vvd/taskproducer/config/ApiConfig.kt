@@ -36,7 +36,7 @@ class ApiConfig {
   fun restTemplate(restTemplateBuilder: RestTemplateBuilder): RestTemplate =
     restTemplateBuilder.requestFactory(Supplier {
       // simulate how ApiClient build restTemplate
-      BufferingClientHttpRequestFactory(restTemplateBuilder.buildRequestFactory()!!)
+      BufferingClientHttpRequestFactory(restTemplateBuilder.buildRequestFactory() ?: error("Failed to build ClientHttpRequestFactory from RestTemplateBuilder"))
     }).build()
 }
 
