@@ -1,4 +1,4 @@
-FROM debian:12-slim AS base
+FROM debian:13-slim AS base
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ## everyone is using this, so I add it in
 ENV DEBIAN_FRONTEND noninteractive
