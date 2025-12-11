@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.downloader.component.downloader.base
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.databind.ObjectMapper
 import io.kotest.assertions.fail
 import io.kotest.matchers.string.shouldContain
 import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum

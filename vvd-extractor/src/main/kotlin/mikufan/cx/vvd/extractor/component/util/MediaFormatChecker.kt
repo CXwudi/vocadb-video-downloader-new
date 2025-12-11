@@ -1,7 +1,7 @@
 package mikufan.cx.vvd.extractor.component.util
 
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.databind.JsonNode
+import tools.jackson.databind.ObjectMapper
 import mikufan.cx.executil.runCmd
 import mikufan.cx.executil.sync
 import mikufan.cx.inlinelogging.KInlineLogging

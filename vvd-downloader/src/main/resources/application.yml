@@ -115,10 +115,11 @@ config: # configuration
 
 spring:
   jackson:
-    deserialization:
-      fail-on-unknown-properties: true
-    serialization:
-      indent-output: true
+    json:
+      read:
+        fail-on-unknown-properties: true
+      write:
+        indent-output: true
     # default-property-inclusion: non_null # disabling for now, we want 3rd app read our json easily
   config:
     import: optional:file:./my-downloader-config.yml,optional:file:./my-downloader-config.yaml,optional:file:./my-downloader-config.properties

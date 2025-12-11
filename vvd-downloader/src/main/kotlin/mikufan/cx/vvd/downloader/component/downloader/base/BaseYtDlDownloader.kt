@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.downloader.component.downloader.base
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.databind.ObjectMapper
 import mikufan.cx.vvd.downloader.config.DownloadConfig
 import mikufan.cx.vvd.downloader.config.EnvironmentConfig
 import org.apache.tika.Tika

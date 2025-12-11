@@ -4,7 +4,7 @@ import jakarta.validation.Valid
 import mikufan.cx.vocadbapiclient.api.SongApi
 import mikufan.cx.vocadbapiclient.api.SongListApi
 import mikufan.cx.vocadbapiclient.client.ApiClient
-import org.springframework.boot.web.client.RestTemplateBuilder
+import org.springframework.boot.restclient.RestTemplateBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.client.BufferingClientHttpRequestFactory
@@ -36,7 +36,7 @@ class ApiConfig {
   fun restTemplate(restTemplateBuilder: RestTemplateBuilder): RestTemplate =
     restTemplateBuilder.requestFactory(Supplier {
       // simulate how ApiClient build restTemplate
-      BufferingClientHttpRequestFactory(restTemplateBuilder.buildRequestFactory())
+      BufferingClientHttpRequestFactory(restTemplateBuilder.buildRequestFactory()!!)
     }).build()
 }
 

@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.downloader.component.downloader.base
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.databind.ObjectMapper
 import jakarta.annotation.PreDestroy
 import mikufan.cx.executil.runCmd
 import mikufan.cx.executil.sync
