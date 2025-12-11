@@ -18,7 +18,7 @@ config: # all fields are optional except the user-agent field
   api-page-size: 50
   # maximum amount of song can be processed at the same time
   # if set to < 1, it will be the number of logical CPU cores
-  batch-size: 10
+  batch-size: 0
 
 # spring setting, don't touch it unless u know Spring very well
 spring:
