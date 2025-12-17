@@ -80,34 +80,11 @@ class MediaFormatChecker(
     if (tracks.size() <= 1) {
       throw RuntimeVocaloidException("mediainfo shows $imageFile has no tracks: $mediainfoJson")
     }
-    val generalTrack = tracks.firstOrNull { it["@type"].asText().lowercase() == "general" }
     val imageTrack = tracks.firstOrNull { it["@type"].asText().lowercase() == "image" }
       ?: throw RuntimeVocaloidException("mediainfo shows $imageFile has no image: $mediainfoJson")
-    val internetMediaType = generalTrack?.get("InternetMediaType")?.asText()?.lowercase()
-    val imageTypeFromInternetMediaType = internetMediaType
-      ?.takeIf { it.startsWith("image/") }
-      ?.substringAfter("image/")
-
-    val rawImageType = sequenceOf(
-      imageTypeFromInternetMediaType,
-      generalTrack?.get("Format")?.asText(),
-      generalTrack?.get("FileExtension")?.asText(),
-      imageTrack.get("Format")?.asText(),
-    ).firstOrNull { !it.isNullOrBlank() }
-      ?: throw RuntimeVocaloidException("mediainfo shows $imageFile has no image format: $mediainfoJson")
-
-    val imageMimeType = normalizeImageType(rawImageType)
+    val imageMimeType = imageTrack["Format"].asText().lowercase()
     log.debug { "mediainfo shows $imageFile has image with mimetype $imageMimeType" }
     return imageMimeType
-  }
-}
-
-private fun normalizeImageType(rawImageType: String): String {
-  return when (rawImageType.lowercase()) {
-    // MediaInfo 25.04+ has WebP support and may report the internal codec instead of the container.
-    "vp8", "vp8l", "vp8x" -> "webp"
-    "jpg", "jpe" -> "jpeg"
-    else -> rawImageType.lowercase()
   }
 }
 
