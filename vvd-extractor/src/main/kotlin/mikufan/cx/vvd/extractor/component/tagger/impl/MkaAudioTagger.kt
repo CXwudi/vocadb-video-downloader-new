@@ -35,7 +35,7 @@ class MkaAudioTagger(
   private val mkvpropeditLaunchCmd = environmentConfig.mkvpropeditLaunchCmd
   private val inputDirectory = ioConfig.inputDirectory
 
-  override val name: String = "Mka Audio Tagger"
+  override val name: String = "Mka Audio Tagger by mkvpropedit"
 
   override fun tryTag(audioFile: Path, allInfo: VSongTask) {
     // 1. build the xml file
