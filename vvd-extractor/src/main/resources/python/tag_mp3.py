@@ -1,22 +1,27 @@
-import imghdr
 import os
+import filetype
 
 
 def get_image_type(f, file_path):
   """
-  Get image type with fallback to file extension.
+  Get image type using filetype library with fallback to file extension.
 
-  Python's imghdr.what() may return None for WebP files in newer Python versions.
+  Uses filetype library instead of deprecated imghdr (removed in Python 3.13).
   """
-  image_type = imghdr.what(f)
-  if image_type is None:
-    # Fallback to file extension
-    ext = os.path.splitext(file_path)[1].lower().lstrip('.')
-    if ext in ('jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'):
-      image_type = ext
-      if image_type == 'jpg':
-        image_type = 'jpeg'
-  return image_type
+  kind = filetype.guess(f)
+  if kind is not None and kind.mime.startswith('image/'):
+    image_type = kind.extension
+    # Normalize jpeg
+    if image_type == 'jpg':
+      image_type = 'jpeg'
+    return image_type
+  # Fallback to file extension
+  ext = os.path.splitext(file_path)[1].lower().lstrip('.')
+  if ext in ('jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'):
+    if ext == 'jpg':
+      ext = 'jpeg'
+    return ext
+  return None
 
 
 def add_tag(input_file, thumbnail_file, label_dict, info_dict, audio_extractor_name, audio_tagger_name):

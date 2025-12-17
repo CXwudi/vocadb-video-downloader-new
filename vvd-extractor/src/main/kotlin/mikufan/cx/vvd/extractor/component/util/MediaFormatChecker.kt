@@ -95,10 +95,11 @@ class MediaFormatChecker(
  * instead of the container format (webp).
  */
 private fun normalizeImageType(rawFormat: String): String {
-  return when (rawFormat.lowercase()) {
+  val lowerFormat = rawFormat.lowercase()
+  return when (lowerFormat) {
     "vp8", "vp8l", "vp8x" -> "webp"  // WebP codecs
     "jpg", "jpe" -> "jpeg"           // JPEG variants
-    else -> rawFormat.lowercase()
+    else -> lowerFormat
   }
 }
 
