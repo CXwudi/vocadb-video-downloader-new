@@ -2,26 +2,25 @@ import os
 import filetype
 
 
-def get_image_type(f, file_path):
+def get_image_type(data, file_path):
   """
   Get image type using filetype library with fallback to file extension.
 
   Uses filetype library instead of deprecated imghdr (removed in Python 3.13).
   """
-  kind = filetype.guess(f)
+  image_type = None
+  kind = filetype.guess(data)
   if kind is not None and kind.mime.startswith('image/'):
     image_type = kind.extension
-    # Normalize jpeg
-    if image_type == 'jpg':
-      image_type = 'jpeg'
-    return image_type
-  # Fallback to file extension
-  ext = os.path.splitext(file_path)[1].lower().lstrip('.')
-  if ext in ('jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'):
-    if ext == 'jpg':
-      ext = 'jpeg'
-    return ext
-  return None
+  else:
+    # Fallback to file extension
+    ext = os.path.splitext(file_path)[1].lower().lstrip('.')
+    if ext in ('jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'):
+      image_type = ext
+
+  if image_type == 'jpg':
+    return 'jpeg'
+  return image_type
 
 
 def add_tag(input_file, thumbnail_file, label_dict, info_dict, audio_extractor_name, audio_tagger_name):
