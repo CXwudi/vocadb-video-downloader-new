@@ -43,8 +43,8 @@ def add_tag(input_file, thumbnail_file, label_dict, info_dict, audio_extractor_n
   tags = ID3(input_file)
 
   with open(thumbnail_file, "rb") as f:
-    image_type = get_image_type(f, thumbnail_file)
     thumbnail_data = f.read()
+    image_type = get_image_type(thumbnail_data, thumbnail_file)
 
   # Add APIC frame for album art
   tags.add(APIC(encoding = 3, mime = 'image/' + image_type, type = 3, desc = 'Front cover', data = thumbnail_data))
