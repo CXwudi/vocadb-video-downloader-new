@@ -1,7 +1,25 @@
 import base64
 import imghdr
+import os
 from mutagen.flac import Picture
 from mutagen.oggopus import OggOpus
+
+
+def get_image_type(f, file_path):
+  """
+  Get image type with fallback to file extension.
+
+  Python's imghdr.what() may return None for WebP files in newer Python versions.
+  """
+  image_type = imghdr.what(f)
+  if image_type is None:
+    # Fallback to file extension
+    ext = os.path.splitext(file_path)[1].lower().lstrip('.')
+    if ext in ('jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'):
+      image_type = ext
+      if image_type == 'jpg':
+        image_type = 'jpeg'
+  return image_type
 
 
 def write_thumbnail(file, thumbnail_file):
@@ -12,7 +30,7 @@ def write_thumbnail(file, thumbnail_file):
   https://mutagen.readthedocs.io/en/latest/user/vcomment.html
   """
   with open(thumbnail_file, "rb") as f:
-    image_type = imghdr.what(f)
+    image_type = get_image_type(f, thumbnail_file)
     thumbnail_data = f.read()
 
   p = Picture()

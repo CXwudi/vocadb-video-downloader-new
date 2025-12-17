@@ -1,10 +1,30 @@
+import imghdr
+import os
+
+
+def get_image_type(f, file_path):
+  """
+  Get image type with fallback to file extension.
+
+  Python's imghdr.what() may return None for WebP files in newer Python versions.
+  """
+  image_type = imghdr.what(f)
+  if image_type is None:
+    # Fallback to file extension
+    ext = os.path.splitext(file_path)[1].lower().lstrip('.')
+    if ext in ('jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'):
+      image_type = ext
+      if image_type == 'jpg':
+        image_type = 'jpeg'
+  return image_type
+
+
 def add_tag(input_file, thumbnail_file, label_dict, info_dict, audio_extractor_name, audio_tagger_name):
   """
   real add tags
   """
   from mutagen.mp3 import MP3, EasyMP3
   from mutagen.id3 import ID3, APIC, TXXX, COMM, ID3NoHeaderError
-  import imghdr
 
   # Use EasyMP3 for simple id3 tags
   file = EasyMP3(input_file)
@@ -19,7 +39,7 @@ def add_tag(input_file, thumbnail_file, label_dict, info_dict, audio_extractor_n
   tags = ID3(input_file)
 
   with open(thumbnail_file, "rb") as f:
-    image_type = imghdr.what(f)
+    image_type = get_image_type(f, thumbnail_file)
     thumbnail_data = f.read()
 
   # Add APIC frame for album art
