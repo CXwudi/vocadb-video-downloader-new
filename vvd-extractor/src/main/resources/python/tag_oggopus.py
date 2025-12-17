@@ -1,7 +1,29 @@
 import base64
-import imghdr
+import os
+import filetype
 from mutagen.flac import Picture
 from mutagen.oggopus import OggOpus
+
+
+def get_image_type(data, file_path):
+  """
+  Get image type using filetype library with fallback to file extension.
+
+  Uses filetype library instead of deprecated imghdr (removed in Python 3.13).
+  """
+  image_type = None
+  kind = filetype.guess(data)
+  if kind is not None and kind.mime.startswith('image/'):
+    image_type = kind.extension
+  else:
+    # Fallback to file extension
+    ext = os.path.splitext(file_path)[1].lower().lstrip('.')
+    if ext in ('jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'):
+      image_type = ext
+
+  if image_type == 'jpg':
+    return 'jpeg'
+  return image_type
 
 
 def write_thumbnail(file, thumbnail_file):
@@ -12,8 +34,8 @@ def write_thumbnail(file, thumbnail_file):
   https://mutagen.readthedocs.io/en/latest/user/vcomment.html
   """
   with open(thumbnail_file, "rb") as f:
-    image_type = imghdr.what(f)
     thumbnail_data = f.read()
+    image_type = get_image_type(thumbnail_data, thumbnail_file)
 
   p = Picture()
   p.data = thumbnail_data

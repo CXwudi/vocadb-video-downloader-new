@@ -82,9 +82,24 @@ class MediaFormatChecker(
     }
     val imageTrack = tracks.firstOrNull { it["@type"].asText().lowercase() == "image" }
       ?: throw RuntimeVocaloidException("mediainfo shows $imageFile has no image: $mediainfoJson")
-    val imageMimeType = imageTrack["Format"].asText().lowercase()
+    val imageMimeType = normalizeImageType(imageTrack["Format"].asText())
     log.debug { "mediainfo shows $imageFile has image with mimetype $imageMimeType" }
     return imageMimeType
+  }
+}
+
+/**
+ * Normalize image type from codec name to container format.
+ *
+ * MediaInfo 25.04+ reports WebP files by their internal codec name (vp8, vp8l, vp8x)
+ * instead of the container format (webp).
+ */
+private fun normalizeImageType(rawFormat: String): String {
+  val lowerFormat = rawFormat.lowercase()
+  return when (lowerFormat) {
+    "vp8", "vp8l", "vp8x" -> "webp"  // WebP codecs
+    "jpg", "jpe" -> "jpeg"           // JPEG variants
+    else -> lowerFormat
   }
 }
 
