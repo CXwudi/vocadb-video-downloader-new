@@ -34,8 +34,8 @@ def write_thumbnail(file, thumbnail_file):
   https://mutagen.readthedocs.io/en/latest/user/vcomment.html
   """
   with open(thumbnail_file, "rb") as f:
-    image_type = get_image_type(f, thumbnail_file)
     thumbnail_data = f.read()
+    image_type = get_image_type(thumbnail_data, thumbnail_file)
 
   p = Picture()
   p.data = thumbnail_data
