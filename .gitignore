@@ -57,3 +57,6 @@ vvd-extractor/20xx年V家新曲-extracted-test/
 **/ffmpeg.exe
 **/MediaInfo.exe
 **/yt-dlp.exe
+
+### AI Stuff ###
+.claude
