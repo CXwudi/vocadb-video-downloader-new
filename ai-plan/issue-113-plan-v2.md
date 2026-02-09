@@ -1,260 +1,294 @@
-# Plan: Remove vocadb-openapi-client-java (Issue #113)
+# Plan: Remove vocadb-openapi-client-java (Issue #113) - Updated
+
+## Decisions (from user)
+
+1) Refactor call sites to immutability. New Kotlin models will be immutable and updated via `copy()`; `Parameters` classes will keep `var` to store new instances.
+2) Unify `PVServicesEnum` and `PVService` into a single enum that includes `NOTHING` (valid VocaDB value). Remove conversion helpers.
 
 ## Overview
 
-Replace the auto-generated `vocadb-openapi-client-java` dependency with:
-1. Spring's native `RestClient`
-2. Custom Kotlin data classes with only necessary fields
-3. `@JsonAnyGetter`/`@JsonAnySetter` with `Map<String, JsonNode>` for unknown fields
+Replace the generated `vocadb-openapi-client-java` dependency with:
+1) Spring `RestClient`
+2) Minimal custom Kotlin models with only required fields
+3) `@JsonAnyGetter` / `@param:JsonAnySetter` to capture unknown fields (because `fail-on-unknown-properties: true`)
 
-## Phase 1: Create Custom Data Classes in vvd-commonkt
+## Phase 1: New Models (vvd-commonkt)
 
-### 1.1 Create Enums
+### 1.1 Enums (unified)
 
 **File:** `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/Enums.kt`
 
-```kotlin
-// PVService enum - replaces both PVService and PVServices.Constant
-enum class PVService(@get:JsonValue val value: String) {
-  NICONICODOUGA("NicoNicoDouga"),
-  YOUTUBE("Youtube"),
-  SOUNDCLOUD("SoundCloud"),
-  VIMEO("Vimeo"),
-  PIAPRO("Piapro"),
-  BILIBILI("Bilibili"),
-  FILE("File"),
-  LOCALFILE("LocalFile"),
-  CREOFUGA("Creofuga"),
-  BANDCAMP("Bandcamp");
+- `PVService` with `NOTHING`, plus all values used by VocaDB.
+- `PVType` (Original/Reprint/Other).
+- `ArtistCategories` wrapper (parses comma-separated string into `Set<Constant>`).
+- `SongOptionalFields` helper with `of(vararg)` for query params.
 
-  companion object {
-    @JvmStatic @JsonCreator
-    fun fromValue(value: String): PVService = entries.first { it.value.equals(value, ignoreCase = true) }
-  }
-}
+Notes:
+- Use `@JsonCreator` and `@JsonValue` for proper serialization.
+- `NOTHING` must be accepted and serialized as `"Nothing"`.
 
-// PVType enum
-enum class PVType(@get:JsonValue val value: String) {
-  ORIGINAL("Original"),
-  REPRINT("Reprint"),
-  OTHER("Other");
+### 1.2 Immutable Data Classes
 
-  companion object {
-    @JvmStatic @JsonCreator
-    fun fromValue(value: String): PVType = entries.first { it.value.equals(value, ignoreCase = true) }
-  }
-}
+**Files (new):**
+- `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/PVContract.kt`
+- `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/SongForApiContract.kt`
+- `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/ArtistForSongContract.kt`
+- `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/AlbumForApiContract.kt`
+- `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/ApiResponses.kt`
 
-// ArtistCategories - wrapper for Set<Constant> with comma-separated parsing
-class ArtistCategories(val enums: Set<Constant>) {
-  enum class Constant(@get:JsonValue val value: String) {
-    NOTHING("Nothing"), VOCALIST("Vocalist"), PRODUCER("Producer"),
-    ANIMATOR("Animator"), LABEL("Label"), CIRCLE("Circle"),
-    OTHER("Other"), BAND("Band"), ILLUSTRATOR("Illustrator"), SUBJECT("Subject");
-  }
+Design:
+- `data class` with `val` fields, default values, and `copy()` for updates.
+- Prefer nullable fields with defaults to preserve old behavior (existing tests create empty instances).
+- Capture unknown fields:
+  ```kotlin
+  data class SongForApiContract(
+    val id: Int? = null,
+    val name: String? = null,
+    val defaultName: String? = null,
+    val artistString: String? = null,
+    val pvs: List<PVContract> = emptyList(),
+    val albums: List<AlbumForApiContract> = emptyList(),
+    val artists: List<ArtistForSongContract> = emptyList(),
+    val publishDate: LocalDateTime? = null,
+    val songType: String? = null,
+    val status: String? = null,
+    @param:JsonAnySetter
+    @get:JsonAnyGetter
+    val additionalProperties: Map<String, JsonNode> = emptyMap()
+  )
+  ```
 
-  companion object {
-    @JvmStatic @JsonCreator
-    fun fromValue(value: String): ArtistCategories = TODO()// parse comma-separated
-  }
+### 1.3 Compatibility Notes for Immutability
 
-  @JsonValue
-  override fun toString(): String = enums.joinToString(",") { it.value }
-}
+- Replace all property mutations like `song.artists = ...` with `song.copy(...)`.
+- `Parameters` classes will store the updated instance in `var songForApiContract`.
 
-// SongOptionalFields - for API query parameters
-enum class SongOptionalFields(val value: String) {
-  ALBUMS("Albums"), ARTISTS("Artists"), PVS("PVs"), TAGS("Tags"), WEBLINKS("WebLinks");
+## Phase 2: VocaDB RestClient (vvd-commonkt)
 
-  companion object {
-    fun of(vararg fields: SongOptionalFields): String = fields.joinToString(",") { it.value }
-  }
-}
-```
+**Files (new):**
+- `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/VocaDbClient.kt`
+- `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/VocaDbClientConfig.kt`
 
-### 1.2 Create Model Classes
+Endpoints needed:
+- `GET /api/songLists/{listId}/songs`
+- `GET /api/songs/{id}`
 
-**File:** `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/PVContract.kt`
+Notes:
+- Configure base URL and user agent from `SystemConfig`.
+- Use `RestClient` from `spring-web`.
 
-Key fields: `id`, `service`, `pvId`, `pvType`, `url`, `name`, `author`, `thumbUrl`, `length`, `publishDate`, `disabled`
-
-**File:** `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/SongForApiContract.kt`
-
-Key fields: `id`, `name`, `defaultName`, `artistString`, `pvs`, `albums`, `artists`, `publishDate`, `songType`, `status`
-
-**File:** `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/ArtistForSongContract.kt`
-
-Key fields: `name`, `categories`
-
-**File:** `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/AlbumForApiContract.kt`
-
-Key fields: `id`, `name` (minimal, only used in Albums optional field)
-
-**File:** `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/ApiResponses.kt`
-
-- `PartialFindResult<T>` - wrapper with `items` and `totalCount`
-- `SongInListForApiContract` - wrapper with `order` and `song`
-
-All model classes will use `@param:JsonAnySetter` in the constructor for effective immutability (supported in Jackson 2.18.1+, Spring Boot 3.5 uses Jackson 2.19.x):
-
-```kotlin
-data class SongForApiContract(
-  val id: Int,
-  val name: String? = null,
-  val defaultName: String? = null,
-  val artistString: String? = null,
-  val pvs: List<PVContract>? = null,
-  val albums: List<AlbumForApiContract>? = null,
-  val artists: List<ArtistForSongContract>? = null,
-  val publishDate: LocalDateTime? = null,
-  val songType: String? = null,
-  val status: String? = null,
-  // Unknown fields captured here
-  @param:JsonAnySetter
-  @get:JsonAnyGetter
-  val additionalProperties: Map<String, JsonNode> = emptyMap()
-)
-```
-
-**Pattern explanation:**
-- Use `@param:JsonAnySetter` (not `@JsonAnySetter`) to explicitly target the constructor parameter in Kotlin
-- Default is `emptyMap()` - Jackson-kotlin-module creates a **new** `LinkedHashMap` during deserialization regardless of the default value
-- `@get:JsonAnyGetter` ensures unknown fields are serialized back to JSON
-- When constructing manually (not via Jackson), `emptyMap()` is used as expected
-- This pattern is verified working in Jackson 2.18.1+ (see [jackson-module-kotlin#832](https://github.com/FasterXML/jackson-module-kotlin/issues/832))
-- **Verified locally** in `JsonAnySetterOnConstructorTest.kt` - both `emptyMap()` and `mutableMapOf()` work, but `emptyMap()` is cleaner
-
-## Phase 2: Create VocaDB RestClient
-
-**File:** `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/VocaDbClient.kt`
-
-```kotlin
-interface VocaDbClient {
-  fun getSongListSongs(listId: Int, start: Int, maxResults: Int, getTotalCount: Boolean, fields: String?): PartialFindResult<SongInListForApiContract>
-  fun getSongById(id: Int, fields: String?): SongForApiContract
-}
-
-class VocaDbRestClient(private val restClient: RestClient) : VocaDbClient {
-  // Implementation using Spring RestClient
-}
-```
-
-**File:** `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/VocaDbClientConfig.kt`
-
-Spring configuration to create `VocaDbClient` bean with configurable `baseUrl` and `userAgent`.
-
-## Phase 3: Update vvd-commonkt
-
-### 3.1 Replace PVServicesAndPVServiceConvertion.kt
+## Phase 3: Replace PVServices Conversion
 
 **File:** `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/PVServicesAndPVServiceConvertion.kt`
 
-Replace with type alias for backward compatibility:
-```kotlin
-typealias PVServicesEnum = PVService  // Now unified
-```
-
-### 3.2 Update FileNameUtil.kt
-
-Change import from `mikufan.cx.vocadbapiclient.model.SongForApiContract` to new package.
+- Replace with:
+  ```kotlin
+  typealias PVServicesEnum = PVService
+  ```
+- Remove `toPVService()` / `toPVServicesEnum()` and update call sites to use `PVService` directly.
 
 ## Phase 4: Update vvd-taskproducer
 
-### 4.1 Replace ApiConfig.kt
+### 4.1 ApiConfig
 
-Remove `SongApi`, `SongListApi`, `ApiClient` beans. Import `VocaDbClientConfig`.
+**File:** `vvd-taskproducer/src/main/kotlin/mikufan/cx/vvd/taskproducer/config/ApiConfig.kt`
 
-### 4.2 Update ListReader.kt
+- Remove `ApiClient`, `SongApi`, `SongListApi` beans.
+- Import `VocaDbClientConfig` (or define a `VocaDbClient` bean that uses it).
 
-- Change from `SongListApi.apiSongListsListIdSongsGet()` to `VocaDbClient.getSongListSongs()`
-- Update model imports
+### 4.2 ListReader
 
-### 4.3 Update ArtistFieldFixer.kt
+**File:** `vvd-taskproducer/src/main/kotlin/mikufan/cx/vvd/taskproducer/component/ListReader.kt`
 
-- Change from `SongApi.apiSongsIdGet()` to `VocaDbClient.getSongById()`
-- Update model imports
+- Replace `SongListApi.apiSongListsListIdSongsGet()` with `VocaDbClient.getSongListSongs()`.
+- Build optional fields via `SongOptionalFields.of(...)`.
 
-### 4.4 Update Models.kt
+### 4.3 ArtistFieldFixer
 
-Update `SongForApiContract` import.
+**File:** `vvd-taskproducer/src/main/kotlin/mikufan/cx/vvd/taskproducer/component/ArtistFieldFixer.kt`
+
+- Replace `SongApi.apiSongsIdGet()` with `VocaDbClient.getSongById()`.
+- Update to immutable updates:
+  - `song = song.copy(artists = artists, artistString = newArtistStr)`
+  - Assign back to `record.payload.parameters.songForApiContract`.
+
+### 4.4 Models
+
+**File:** `vvd-taskproducer/src/main/kotlin/mikufan/cx/vvd/taskproducer/model/Models.kt`
+
+- Update import to new `SongForApiContract`.
 
 ## Phase 5: Update vvd-downloader
 
-Update imports in these files:
-- `Models.kt` - SongForApiContract
-- `SongInfoLoader.kt` - SongForApiContract
-- `PvTasksDecider.kt` - PVContract, PVService, PVType
-- `BaseDownloader.kt` - PVContract
-- `SupportedPvServiceValidation.kt` - PVService (was PVServices.Constant)
-- `Preference.kt`, `Enablement.kt` - PVServicesEnum
+### 5.1 Models and Components
+
+**Files:**
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/model/Models.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/component/SongInfoLoader.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/component/PvTasksDecider.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/component/DownloadManager.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/component/downloader/base/BaseDownloader.kt`
+
+Adjust for new model package and immutable types (no property mutation).
+
+### 5.2 Config and Validation
+
+**Files:**
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/config/preference/SupportedPvServiceValidation.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/config/preference/Preference.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/config/enablement/Enablement.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/component/downloader/EnabledDownloaders.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/config/downloader/DownloaderBaseCondition.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/config/downloader/NicoNicoConditions.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/config/downloader/YoutubeConditions.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/config/downloader/BilibiliConditions.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/config/downloader/SoundCloudConditions.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/component/downloader/implementation/NicoNicoYtDlDownloader.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/component/downloader/implementation/YoutubeYtDlDownloader.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/component/downloader/implementation/BilibiliYtDlDownloader.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/component/downloader/implementation/SoundCloudYtDlDownloader.kt`
+
+Use unified `PVService` (with `NOTHING`) everywhere.
 
 ## Phase 6: Update vvd-extractor
 
-Update imports in:
-- `Models.kt`
-- `SongInfoLoader.kt`
-- `FinalRenamer.kt`
+**Files:**
+- `vvd-extractor/src/main/kotlin/mikufan/cx/vvd/extractor/model/Models.kt`
+- `vvd-extractor/src/main/kotlin/mikufan/cx/vvd/extractor/component/SongInfoLoader.kt`
+- `vvd-extractor/src/main/kotlin/mikufan/cx/vvd/extractor/component/FinalRenamer.kt`
+- `vvd-extractor/src/main/kotlin/mikufan/cx/vvd/extractor/component/tagger/impl/MkaAudioTagger.kt`
 
-## Phase 7: Update pom.xml Files
+Adjust for new model package, and ensure null safety on fields used by Mka tagger.
 
-### 7.1 Parent pom.xml
+## Phase 7: Dependencies
 
-Remove from `<dependencyManagement>`:
-```xml
-<dependency>
-  <groupId>com.github.VocaDB</groupId>
-  <artifactId>vocadb-openapi-client-java</artifactId>
-  <version>1.2.2</version>
-</dependency>
-```
+### 7.1 Parent
 
-### 7.2 vvd-common/pom.xml
+**File:** `pom.xml`
 
-Remove dependency declaration.
+- Remove `com.github.VocaDB:vocadb-openapi-client-java` from dependencyManagement.
 
-### 7.3 vvd-commonkt/pom.xml
+### 7.2 vvd-common
 
-Add if not present:
-```xml
-<dependency>
-  <groupId>com.fasterxml.jackson.core</groupId>
-  <artifactId>jackson-databind</artifactId>
-</dependency>
-```
+**File:** `vvd-common/pom.xml`
 
-## Phase 8: Update Tests
+- Remove `vocadb-openapi-client-java` dependency.
 
-Update imports in 30+ test files across all modules. JSON test fixtures should remain compatible due to `@JsonIgnoreProperties(ignoreUnknown = true)` and `additionalProperties`.
+### 7.3 vvd-commonkt
 
-## Critical Files to Modify
+**File:** `vvd-commonkt/pom.xml`
 
-| Module | File | Change |
-|--------|------|--------|
-| vvd-commonkt | `vocadb/api/model/*.kt` | **NEW** - Create data classes |
-| vvd-commonkt | `vocadb/api/VocaDbClient.kt` | **NEW** - Create REST client |
-| vvd-commonkt | `vocadb/PVServicesAndPVServiceConvertion.kt` | Simplify to type alias |
-| vvd-commonkt | `naming/FileNameUtil.kt` | Update imports |
-| vvd-taskproducer | `config/ApiConfig.kt` | Replace with VocaDbClient |
-| vvd-taskproducer | `component/ListReader.kt` | Use new client |
-| vvd-taskproducer | `component/ArtistFieldFixer.kt` | Use new client |
-| vvd-downloader | `component/PvTasksDecider.kt` | Update model imports |
-| vvd-downloader | `config/preference/*.kt` | Update enum imports |
-| Parent | `pom.xml` | Remove dependency |
-| vvd-common | `pom.xml` | Remove dependency |
+- Add:
+  - `com.fasterxml.jackson.core:jackson-databind`
+  - `com.fasterxml.jackson.core:jackson-annotations` (if not already transitively present)
+  - `org.springframework:spring-web` (for `RestClient`)
+
+### 7.4 vvd-taskproducer
+
+**File:** `vvd-taskproducer/pom.xml`
+
+- Only add `spring-web` if not provided transitively by `vvd-commonkt`.
+
+## Phase 8: Tests
+
+Update imports and immutable construction in all tests that use the old models:
+
+**vvd-taskproducer tests**
+- `vvd-taskproducer/src/test/kotlin/mikufan/cx/vvd/taskproducer/config/ApiConfigTest.kt`
+- `vvd-taskproducer/src/test/kotlin/mikufan/cx/vvd/taskproducer/component/BeforeWriteValidatorTest.kt`
+- `vvd-taskproducer/src/test/kotlin/mikufan/cx/vvd/taskproducer/component/LabelSaverTest.kt`
+- `vvd-taskproducer/src/test/kotlin/mikufan/cx/vvd/taskproducer/component/ArtistFieldFixerTest.kt`
+- `vvd-taskproducer/src/test/kotlin/mikufan/cx/vvd/taskproducer/component/ErrorRecordTest.kt`
+
+**vvd-downloader tests**
+- `vvd-downloader/src/test/kotlin/mikufan/cx/vvd/downloader/component/PvTasksDeciderTest.kt`
+- `vvd-downloader/src/test/kotlin/mikufan/cx/vvd/downloader/component/downloader/base/BaseDownloaderTest.kt`
+- `vvd-downloader/src/test/kotlin/mikufan/cx/vvd/downloader/component/downloader/base/BaseYtDlDownloaderTest.kt`
+- `vvd-downloader/src/test/kotlin/mikufan/cx/vvd/downloader/component/downloader/base/BaseCliDownloaderTest.kt`
+- `vvd-downloader/src/test/kotlin/mikufan/cx/vvd/downloader/config/enablement/EnablementConfigTest.kt`
+
+**vvd-extractor tests**
+- `vvd-extractor/src/test/kotlin/mikufan/cx/vvd/extractor/component/FinalRenamerTest.kt`
+- `vvd-extractor/src/test/kotlin/mikufan/cx/vvd/extractor/component/extractor/impl/AudioExtractorImplTest.kt`
+- `vvd-extractor/src/test/kotlin/mikufan/cx/vvd/extractor/component/tagger/base/AudioTaggerImplTest.kt`
+- `vvd-extractor/src/test/kotlin/mikufan/cx/vvd/extractor/component/extractor/base/BaseAudioExtractorTest.kt`
+
+Use constructors + `copy()` instead of mutable setters.
+
+## Phase 9: Cleanup
+
+- Remove `api-client-to-remove/` after migration succeeds.
+
+## Complete File List (every file requiring modification)
+
+**New files**
+- `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/Enums.kt`
+- `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/PVContract.kt`
+- `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/SongForApiContract.kt`
+- `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/ArtistForSongContract.kt`
+- `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/AlbumForApiContract.kt`
+- `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/ApiResponses.kt`
+- `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/VocaDbClient.kt`
+- `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/VocaDbClientConfig.kt`
+
+**Modified files**
+- `pom.xml`
+- `vvd-common/pom.xml`
+- `vvd-commonkt/pom.xml`
+- `vvd-taskproducer/pom.xml` (if needed for `spring-web`)
+
+- `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/PVServicesAndPVServiceConvertion.kt`
+- `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/naming/FileNameUtil.kt`
+
+- `vvd-taskproducer/src/main/kotlin/mikufan/cx/vvd/taskproducer/config/ApiConfig.kt`
+- `vvd-taskproducer/src/main/kotlin/mikufan/cx/vvd/taskproducer/component/ListReader.kt`
+- `vvd-taskproducer/src/main/kotlin/mikufan/cx/vvd/taskproducer/component/ArtistFieldFixer.kt`
+- `vvd-taskproducer/src/main/kotlin/mikufan/cx/vvd/taskproducer/model/Models.kt`
+
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/model/Models.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/component/SongInfoLoader.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/component/PvTasksDecider.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/component/DownloadManager.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/component/downloader/base/BaseDownloader.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/config/preference/SupportedPvServiceValidation.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/config/preference/Preference.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/config/enablement/Enablement.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/component/downloader/EnabledDownloaders.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/config/downloader/DownloaderBaseCondition.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/config/downloader/NicoNicoConditions.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/config/downloader/YoutubeConditions.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/config/downloader/BilibiliConditions.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/config/downloader/SoundCloudConditions.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/component/downloader/implementation/NicoNicoYtDlDownloader.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/component/downloader/implementation/YoutubeYtDlDownloader.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/component/downloader/implementation/BilibiliYtDlDownloader.kt`
+- `vvd-downloader/src/main/kotlin/mikufan/cx/vvd/downloader/component/downloader/implementation/SoundCloudYtDlDownloader.kt`
+
+- `vvd-extractor/src/main/kotlin/mikufan/cx/vvd/extractor/model/Models.kt`
+- `vvd-extractor/src/main/kotlin/mikufan/cx/vvd/extractor/component/SongInfoLoader.kt`
+- `vvd-extractor/src/main/kotlin/mikufan/cx/vvd/extractor/component/FinalRenamer.kt`
+- `vvd-extractor/src/main/kotlin/mikufan/cx/vvd/extractor/component/tagger/impl/MkaAudioTagger.kt`
+
+- `vvd-taskproducer/src/test/kotlin/mikufan/cx/vvd/taskproducer/config/ApiConfigTest.kt`
+- `vvd-taskproducer/src/test/kotlin/mikufan/cx/vvd/taskproducer/component/BeforeWriteValidatorTest.kt`
+- `vvd-taskproducer/src/test/kotlin/mikufan/cx/vvd/taskproducer/component/LabelSaverTest.kt`
+- `vvd-taskproducer/src/test/kotlin/mikufan/cx/vvd/taskproducer/component/ArtistFieldFixerTest.kt`
+- `vvd-taskproducer/src/test/kotlin/mikufan/cx/vvd/taskproducer/component/ErrorRecordTest.kt`
+
+- `vvd-downloader/src/test/kotlin/mikufan/cx/vvd/downloader/component/PvTasksDeciderTest.kt`
+- `vvd-downloader/src/test/kotlin/mikufan/cx/vvd/downloader/component/downloader/base/BaseDownloaderTest.kt`
+- `vvd-downloader/src/test/kotlin/mikufan/cx/vvd/downloader/component/downloader/base/BaseYtDlDownloaderTest.kt`
+- `vvd-downloader/src/test/kotlin/mikufan/cx/vvd/downloader/component/downloader/base/BaseCliDownloaderTest.kt`
+- `vvd-downloader/src/test/kotlin/mikufan/cx/vvd/downloader/config/enablement/EnablementConfigTest.kt`
+
+- `vvd-extractor/src/test/kotlin/mikufan/cx/vvd/extractor/component/FinalRenamerTest.kt`
+- `vvd-extractor/src/test/kotlin/mikufan/cx/vvd/extractor/component/extractor/impl/AudioExtractorImplTest.kt`
+- `vvd-extractor/src/test/kotlin/mikufan/cx/vvd/extractor/component/tagger/base/AudioTaggerImplTest.kt`
+- `vvd-extractor/src/test/kotlin/mikufan/cx/vvd/extractor/component/extractor/base/BaseAudioExtractorTest.kt`
 
 ## Verification
 
-1. **Build:** `mvn clean compile` - Ensure all modules compile
-2. **Tests:** `mvn test` - Run all unit tests
-3. **Integration:** Run vvd-taskproducer against a real VocaDB list to verify API calls work
-4. **JSON Compatibility:** Verify existing JSON test fixtures deserialize correctly into new models
-
-## Migration Order
-
-1. Create new classes in vvd-commonkt (non-breaking)
-2. Update vvd-taskproducer (the only API caller)
-3. Update vvd-downloader model usages
-4. Update vvd-extractor model usages
-5. Remove old dependency from pom.xml files
-6. Delete api-client-to-remove directory
-7. Run full test suite
+1) `mvn clean compile`
+2) `mvn test`
+3) Run vvd-taskproducer against a real VocaDB list to verify API calls
+4) Ensure JSON fixtures still deserialize without `UnrecognizedPropertyException`
