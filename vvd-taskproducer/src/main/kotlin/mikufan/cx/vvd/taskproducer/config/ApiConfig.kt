@@ -1,16 +1,12 @@
 package mikufan.cx.vvd.taskproducer.config
 
 import jakarta.validation.Valid
-import mikufan.cx.vocadbapiclient.api.SongApi
-import mikufan.cx.vocadbapiclient.api.SongListApi
-import mikufan.cx.vocadbapiclient.client.ApiClient
-import org.springframework.boot.web.client.RestTemplateBuilder
+import mikufan.cx.vvd.commonkt.vocadb.api.VocaDbClient
+import mikufan.cx.vvd.commonkt.vocadb.api.VocaDbClientConfig
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.client.BufferingClientHttpRequestFactory
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.client.RestTemplate
-import java.util.function.Supplier
+import org.springframework.web.client.RestClient
 
 /**
  * @date 2021-05-29
@@ -21,22 +17,12 @@ import java.util.function.Supplier
 class ApiConfig {
 
   @Bean
-  fun songListApi(apiClient: ApiClient) = SongListApi(apiClient)
-
-  @Bean
-  fun songApi(apiClient: ApiClient) = SongApi(apiClient)
-
-  @Bean
-  fun apiClient(restTemplate: RestTemplate, @Valid systemConfig: SystemConfig): ApiClient =
-    ApiClient(restTemplate)
-      .setBasePath(systemConfig.baseUrl)
-      .setUserAgent(systemConfig.userAgent)
-
-  @Bean
-  fun restTemplate(restTemplateBuilder: RestTemplateBuilder): RestTemplate =
-    restTemplateBuilder.requestFactory(Supplier {
-      // simulate how ApiClient build restTemplate
-      BufferingClientHttpRequestFactory(restTemplateBuilder.buildRequestFactory())
-    }).build()
+  fun vocaDbClient(
+    restClientBuilder: RestClient.Builder,
+    @Valid systemConfig: SystemConfig
+  ): VocaDbClient {
+    val config = VocaDbClientConfig(systemConfig.baseUrl, systemConfig.userAgent)
+    return config.vocaDbClient(restClientBuilder)
+  }
 }
 

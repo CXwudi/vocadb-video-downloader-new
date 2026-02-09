@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.taskproducer.model
 
-import mikufan.cx.vocadbapiclient.model.SongForApiContract
+import mikufan.cx.vvd.commonkt.vocadb.api.model.SongForApiContract
 import mikufan.cx.vvd.common.label.VSongLabel
 
 /**

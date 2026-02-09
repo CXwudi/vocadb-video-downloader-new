@@ -1,10 +1,10 @@
 package mikufan.cx.vvd.taskproducer.component
 
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vocadbapiclient.api.SongApi
-import mikufan.cx.vocadbapiclient.model.ArtistCategories
-import mikufan.cx.vocadbapiclient.model.ArtistForSongContract
-import mikufan.cx.vocadbapiclient.model.SongOptionalFields
+import mikufan.cx.vvd.commonkt.vocadb.api.VocaDbClient
+import mikufan.cx.vvd.commonkt.vocadb.api.model.ArtistCategories
+import mikufan.cx.vvd.commonkt.vocadb.api.model.ArtistForSongContract
+import mikufan.cx.vvd.commonkt.vocadb.api.model.SongOptionalFields
 import mikufan.cx.vvd.taskproducer.model.VSongTask
 import mikufan.cx.vvd.taskproducer.util.OrderConstants
 import org.apache.commons.lang3.StringUtils
@@ -22,7 +22,7 @@ import java.util.*
 @Component
 @Order(OrderConstants.ARTIST_FIELD_FIXER_ORDER)
 class ArtistFieldFixer(
-  private val songApi: SongApi
+  private val vocaDbClient: VocaDbClient
 ) : RecordProcessor<VSongTask, VSongTask> {
 
   companion object {
@@ -34,15 +34,17 @@ class ArtistFieldFixer(
 
   override fun processRecord(record: Record<VSongTask>): Record<VSongTask> {
     val song = requireNotNull(record.payload.parameters.songForApiContract) { "VSong is null" }
-    var artistStr = song.artistString!!
+    var artistStr = requireNotNull(song.artistString) { "artistString is null" }
     val artists = mutableListOf<ArtistForSongContract>()
     log.info { "Check, fix and cleanup song info for ${song.defaultName}" }
     // fix various
     if (artistStr.contains(VARIOUS, true)) {
-      val songWithArtists = songApi.apiSongsIdGet(
-        song.id, SongOptionalFields(SongOptionalFields.Constant.ARTISTS), null
+      val songId = requireNotNull(song.id) { "song id is null" }
+      val songWithArtists = vocaDbClient.getSongById(
+        songId,
+        SongOptionalFields.of(SongOptionalFields.Constant.ARTISTS)
       )
-      artists.addAll(requireNotNull(songWithArtists.artists) { "newly called ${songWithArtists.name} has a null artists list" })
+      artists.addAll(songWithArtists.artists)
       val newArtistStr = formProperArtistField(artists)
       log.debug { "replacing artist str '${song.artistString}' with '$newArtistStr'" }
       artistStr = newArtistStr
@@ -54,10 +56,12 @@ class ArtistFieldFixer(
     }
 
     // replacing back some artist related fields
-    if (artists.isNotEmpty()) {
-      song.artists = artists
+    val songWithArtists = if (artists.isNotEmpty()) {
+      song.copy(artists = artists)
+    } else {
+      song
     }
-    song.artistString = artistStr
+    record.payload.parameters.songForApiContract = songWithArtists.copy(artistString = artistStr)
 
     return record
   }
