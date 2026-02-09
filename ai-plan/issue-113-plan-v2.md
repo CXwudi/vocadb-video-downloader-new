@@ -8,9 +8,10 @@
 ## Overview
 
 Replace the generated `vocadb-openapi-client-java` dependency with:
-1) Spring `RestClient`
-2) Minimal custom Kotlin models with only required fields
+1) Spring `RestClient` in `vvd-taskproducer`
+2) Minimal custom Kotlin models with only required fields in `vvd-commonkt`
 3) `@JsonAnyGetter` / `@param:JsonAnySetter` to capture unknown fields (because `fail-on-unknown-properties: true`)
+4) `@JsonSetter(nulls = Nulls.AS_EMPTY)` for list fields that may be `null` in fixtures (e.g., `pvs`, `albums`, `artists`, and list results)
 
 ## Phase 1: New Models (vvd-commonkt)
 
@@ -39,6 +40,7 @@ Notes:
 Design:
 - `data class` with `val` fields, default values, and `copy()` for updates.
 - Prefer nullable fields with defaults to preserve old behavior (existing tests create empty instances).
+- Add `@JsonSetter(nulls = Nulls.AS_EMPTY)` for list fields where stored JSON may use explicit `null`.
 - Capture unknown fields:
   ```kotlin
   data class SongForApiContract(
@@ -63,11 +65,11 @@ Design:
 - Replace all property mutations like `song.artists = ...` with `song.copy(...)`.
 - `Parameters` classes will store the updated instance in `var songForApiContract`.
 
-## Phase 2: VocaDB RestClient (vvd-commonkt)
+## Phase 2: VocaDB RestClient (vvd-taskproducer)
 
 **Files (new):**
-- `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/VocaDbClient.kt`
-- `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/VocaDbClientConfig.kt`
+- `vvd-taskproducer/src/main/kotlin/mikufan/cx/vvd/taskproducer/config/VocaDbClient.kt`
+- `vvd-taskproducer/src/main/kotlin/mikufan/cx/vvd/taskproducer/config/VocaDbClientConfig.kt`
 
 Endpoints needed:
 - `GET /api/songLists/{listId}/songs`
@@ -77,7 +79,7 @@ Notes:
 - Configure base URL and user agent from `SystemConfig`.
 - Use `RestClient` from `spring-web`.
 
-## Phase 3: Replace PVServices Conversion
+## Phase 3: Replace PVServices Conversion (do with module call-site updates)
 
 **File:** `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/PVServicesAndPVServiceConvertion.kt`
 
@@ -86,6 +88,7 @@ Notes:
   typealias PVServicesEnum = PVService
   ```
 - Remove `toPVService()` / `toPVServicesEnum()` and update call sites to use `PVService` directly.
+- Do this together with each module’s call-site updates to keep compilation green.
 
 ## Phase 4: Update vvd-taskproducer
 
@@ -179,15 +182,15 @@ Adjust for new model package, and ensure null safety on fields used by Mka tagge
 **File:** `vvd-commonkt/pom.xml`
 
 - Add:
-  - `com.fasterxml.jackson.core:jackson-databind`
-  - `com.fasterxml.jackson.core:jackson-annotations` (if not already transitively present)
-  - `org.springframework:spring-web` (for `RestClient`)
+  - `org.springframework.boot:spring-boot-starter-json`
+- Remove:
+  - `org.springframework:spring-web`
 
 ### 7.4 vvd-taskproducer
 
 **File:** `vvd-taskproducer/pom.xml`
 
-- Only add `spring-web` if not provided transitively by `vvd-commonkt`.
+- Add `org.springframework:spring-web` for `RestClient`.
 
 ## Phase 8: Tests
 
@@ -228,14 +231,14 @@ Use constructors + `copy()` instead of mutable setters.
 - `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/ArtistForSongContract.kt`
 - `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/AlbumForApiContract.kt`
 - `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/ApiResponses.kt`
-- `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/VocaDbClient.kt`
-- `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/VocaDbClientConfig.kt`
+- `vvd-taskproducer/src/main/kotlin/mikufan/cx/vvd/taskproducer/config/VocaDbClient.kt`
+- `vvd-taskproducer/src/main/kotlin/mikufan/cx/vvd/taskproducer/config/VocaDbClientConfig.kt`
 
 **Modified files**
 - `pom.xml`
 - `vvd-common/pom.xml`
 - `vvd-commonkt/pom.xml`
-- `vvd-taskproducer/pom.xml` (if needed for `spring-web`)
+- `vvd-taskproducer/pom.xml`
 
 - `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/PVServicesAndPVServiceConvertion.kt`
 - `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/naming/FileNameUtil.kt`
