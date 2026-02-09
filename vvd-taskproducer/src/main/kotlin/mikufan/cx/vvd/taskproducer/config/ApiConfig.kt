@@ -1,8 +1,6 @@
 package mikufan.cx.vvd.taskproducer.config
 
 import jakarta.validation.Valid
-import mikufan.cx.vvd.commonkt.vocadb.api.VocaDbClient
-import mikufan.cx.vvd.commonkt.vocadb.api.VocaDbClientConfig
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.validation.annotation.Validated

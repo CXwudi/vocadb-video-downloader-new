@@ -1,4 +1,4 @@
-package mikufan.cx.vvd.commonkt.vocadb.api
+package mikufan.cx.vvd.taskproducer.config
 
 import org.springframework.http.HttpHeaders
 import org.springframework.web.client.RestClient
