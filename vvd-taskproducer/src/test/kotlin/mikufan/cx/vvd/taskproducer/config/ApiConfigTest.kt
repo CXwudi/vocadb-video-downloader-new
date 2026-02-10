@@ -1,7 +1,7 @@
 package mikufan.cx.vvd.taskproducer.config
 
-import mikufan.cx.vocadbapiclient.client.ApiClient
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -12,12 +12,14 @@ import org.springframework.boot.test.context.SpringBootTest
  */
 @SpringBootTest
 internal class ApiConfigTest(
-  @Autowired val apiClient: ApiClient
+  @Autowired val vocaDbClient: VocaDbClient,
+  @Autowired val systemConfig: SystemConfig
 ){
 
   @Test
-  fun `should correctly configure api client`(){
-    assertEquals("https://vocadb.net", apiClient.basePath)
-    //assertEquals("vocadb-video-downloader-new test agent (created by CXwudi)")
+  fun `should correctly configure vocadb client`(){
+    assertNotNull(vocaDbClient)
+    assertEquals("https://vocadb.net", systemConfig.baseUrl)
+    assertEquals("vocadb-video-downloader-new test agent (created by CXwudi)", systemConfig.userAgent)
   }
 }
