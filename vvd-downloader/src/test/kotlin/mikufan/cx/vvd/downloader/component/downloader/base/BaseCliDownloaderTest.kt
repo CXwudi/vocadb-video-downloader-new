@@ -3,7 +3,7 @@ package mikufan.cx.vvd.downloader.component.downloader.base
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.kotest.assertions.fail
 import io.kotest.matchers.string.shouldContain
-import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum
+import mikufan.cx.vvd.commonkt.vocadb.api.model.PVService
 import mikufan.cx.vvd.downloader.config.DownloadConfig
 import mikufan.cx.vvd.downloader.config.EnvironmentConfig
 import mikufan.cx.vvd.downloader.config.IOConfig
@@ -116,5 +116,5 @@ class DummyCliDownloader(
     listOf("java", "--version")
 
   override val downloaderName: String = "dummy-success-dl"
-  override val targetPvService: PVServicesEnum = PVServicesEnum.NICONICODOUGA
+  override val targetPvService: PVService = PVService.NICONICODOUGA
 }

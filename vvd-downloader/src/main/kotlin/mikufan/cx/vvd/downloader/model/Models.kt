@@ -1,10 +1,10 @@
 package mikufan.cx.vvd.downloader.model
 
-import mikufan.cx.vocadbapiclient.model.PVContract
-import mikufan.cx.vocadbapiclient.model.SongForApiContract
 import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.commonkt.naming.SongProperFileName
 import mikufan.cx.vvd.commonkt.naming.toProperFileName
+import mikufan.cx.vvd.commonkt.vocadb.api.model.PVContract
+import mikufan.cx.vvd.commonkt.vocadb.api.model.SongForApiContract
 import mikufan.cx.vvd.downloader.component.downloader.base.DownloadFiles
 
 /**

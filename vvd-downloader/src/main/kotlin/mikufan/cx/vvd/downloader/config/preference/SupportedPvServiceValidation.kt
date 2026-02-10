@@ -5,8 +5,7 @@ import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext
 import jakarta.validation.Payload
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vocadbapiclient.model.PVServices.Constant.*
-import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum
+import mikufan.cx.vvd.commonkt.vocadb.api.model.PVService
 import org.springframework.util.CollectionUtils
 import kotlin.reflect.KClass
 
@@ -16,15 +15,15 @@ import kotlin.reflect.KClass
  * @author CX无敌
  */
 
-val SUPPORTED_SERVICES: Set<PVServicesEnum> = setOf(
-  NICONICODOUGA,
-  YOUTUBE,
-  BILIBILI,
-  SOUNDCLOUD,
+val SUPPORTED_SERVICES: Set<PVService> = setOf(
+  PVService.NICONICODOUGA,
+  PVService.YOUTUBE,
+  PVService.BILIBILI,
+  PVService.SOUNDCLOUD,
 )
 
 /**
- * Only use it on a List of <PVServices.Constant> to check
+ * Only use it on a List of <PVService> to check
  * if this list contains only elements in [SUPPORTED_SERVICES]
  * @author CX无敌
  * @date 2020-12-21
@@ -46,9 +45,9 @@ annotation class AreSupportedPvServices(
  * @author CX无敌
  * @date 2020-12-21
  */
-class SupportPvServicesValidator : ConstraintValidator<AreSupportedPvServices, List<PVServicesEnum>> {
+class SupportPvServicesValidator : ConstraintValidator<AreSupportedPvServices, List<PVService>> {
 
-  override fun isValid(value: List<PVServicesEnum>?, context: ConstraintValidatorContext): Boolean {
+  override fun isValid(value: List<PVService>?, context: ConstraintValidatorContext): Boolean {
     context.disableDefaultConstraintViolation()
     return when {
       CollectionUtils.isEmpty(value) -> {

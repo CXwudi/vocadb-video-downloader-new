@@ -1,11 +1,11 @@
 package mikufan.cx.vvd.downloader.component.downloader.base
 
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vocadbapiclient.model.PVContract
 import mikufan.cx.vvd.common.naming.FileNamePostFix
 import mikufan.cx.vvd.commonkt.naming.SongProperFileName
 import mikufan.cx.vvd.commonkt.naming.renameWithSameExtension
-import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum
+import mikufan.cx.vvd.commonkt.vocadb.api.model.PVContract
+import mikufan.cx.vvd.commonkt.vocadb.api.model.PVService
 import mikufan.cx.vvd.downloader.component.DownloadManager
 import mikufan.cx.vvd.downloader.model.VSongTask
 import java.nio.file.Path
@@ -32,7 +32,7 @@ abstract class BaseDownloader {
   /**
    * targeted PV service
    */
-  abstract val targetPvService: PVServicesEnum
+  abstract val targetPvService: PVService
 
   /**
    * Download the pv (or/and audio) and the thumbnail from specific [PVContract] instance to specific directory,

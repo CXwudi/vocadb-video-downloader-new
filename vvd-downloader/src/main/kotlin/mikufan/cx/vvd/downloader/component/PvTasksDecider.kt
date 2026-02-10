@@ -1,11 +1,10 @@
 package mikufan.cx.vvd.downloader.component
 
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vocadbapiclient.model.PVContract
-import mikufan.cx.vocadbapiclient.model.PVService
-import mikufan.cx.vocadbapiclient.model.PVType
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
-import mikufan.cx.vvd.commonkt.vocadb.toPVServicesEnum
+import mikufan.cx.vvd.commonkt.vocadb.api.model.PVContract
+import mikufan.cx.vvd.commonkt.vocadb.api.model.PVService
+import mikufan.cx.vvd.commonkt.vocadb.api.model.PVType
 import mikufan.cx.vvd.downloader.config.preference.Preference
 import mikufan.cx.vvd.downloader.config.validation.SUPPORTED_SERVICES
 import mikufan.cx.vvd.downloader.model.VSongTask
@@ -33,7 +32,7 @@ class PvTasksDecider(
 
   private val pvServiceKeyExtractor = ToIntFunction<PVContract> {
     val order = requireNotNull(
-      serviceToIntMap[requireNotNull(it.service?.toPVServicesEnum()) { "the pv service enum is null for ${it.name}?" }]
+      serviceToIntMap[requireNotNull(it.service) { "the pv service enum is null for ${it.name}?" }]
     ) { "Did we failed to filter out un-supported PV services?" } * 10
     if (preference.preferSmIdOverSoId) {
       order + if (it.service == PVService.NICONICODOUGA && it.pvId?.startsWith("sm") == true) -1 else 0
@@ -63,14 +62,16 @@ class PvTasksDecider(
   override fun processRecord(record: Record<VSongTask>): Record<VSongTask> {
     val (_, parameters) = record.payload
     val songInfo = requireNotNull(parameters.songForApiContract) { "null song info?" }
-    val pvs = requireNotNull(songInfo.pvs) { "null pvs in song info?" }
+    val pvs = songInfo.pvs
 
     log.info { "Deciding pv orders for ${songInfo.defaultName}" }
     // check if empty
     throwAndLogIfNoPvsLeft(pvs) { "${songInfo.defaultName} doesn't have any available PVs, skip downloading" }
 
     // filter out pv services that users are not interested
-    val supportedPvs = pvs.filter { it.service?.toPVServicesEnum() in preference.pvPreference }
+    val supportedPvs = pvs.filter { pv ->
+      pv.service?.let { service -> service in preference.pvPreference } == true
+    }
     // after filter check empty
     throwAndLogIfNoPvsLeft(supportedPvs) {
       "${songInfo.defaultName} doesn't have any PVs that are in our supported PV services $SUPPORTED_SERVICES, " +
@@ -107,8 +108,10 @@ class PvTasksDecider(
     // decided should we move on next pv service if failed
     val serviceDecidedPvs = if (!preference.tryNextPvServiceOnFail) {
       // remember that the first available pv can be in any service, so always use pvList[0], not pvPreference[0]
-      val firstServ = reprintDecidedPvs.first().service
-      reprintDecidedPvs.takeWhile { it.service?.equals(firstServ) ?: false }
+      val firstServ = requireNotNull(reprintDecidedPvs.first().service) {
+        "the pv service enum is null for ${reprintDecidedPvs.first().name}?"
+      }
+      reprintDecidedPvs.takeWhile { it.service == firstServ }
     } else reprintDecidedPvs
     log.debug { "after deciding try next pv services" }
 

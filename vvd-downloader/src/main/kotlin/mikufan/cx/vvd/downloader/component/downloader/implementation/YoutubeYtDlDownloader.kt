@@ -1,7 +1,7 @@
 package mikufan.cx.vvd.downloader.component.downloader.implementation
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum
+import mikufan.cx.vvd.commonkt.vocadb.api.model.PVService
 import mikufan.cx.vvd.downloader.component.downloader.base.BaseYtDlDownloader
 import mikufan.cx.vvd.downloader.config.DownloadConfig
 import mikufan.cx.vvd.downloader.config.EnvironmentConfig
@@ -28,7 +28,7 @@ class YoutubeYtDlDownloader(
   downloadConfig, tika, environmentConfig, objectMapper
 ) {
   override val downloaderName: String = "$YT_YTDL or its forks"
-  override val targetPvService: PVServicesEnum = PVServicesEnum.YOUTUBE
+  override val targetPvService: PVService = PVService.YOUTUBE
   override val launchCmd: List<String> = config.launchCmd
   override val externalArgs: List<String> = config.externalArgs
 }

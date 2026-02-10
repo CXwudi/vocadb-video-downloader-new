@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.downloader.config.downloader
 
-import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum
+import mikufan.cx.vvd.commonkt.vocadb.api.model.PVService
 
 /**
  * conditions for youtube downloader configs
@@ -9,7 +9,7 @@ import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum
  */
 
 sealed class YoutubeDownloaderBaseCondition : DownloaderBaseCondition {
-  override val pvServices = PVServicesEnum.YOUTUBE
+  override val pvServices = PVService.YOUTUBE
 }
 
 class YoutubeYtDlCondition : YoutubeDownloaderBaseCondition() {

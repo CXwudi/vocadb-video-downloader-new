@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.downloader.config.downloader
 
-import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum
+import mikufan.cx.vvd.commonkt.vocadb.api.model.PVService
 import org.springframework.context.annotation.Condition
 import org.springframework.context.annotation.ConditionContext
 import org.springframework.core.type.AnnotatedTypeMetadata
@@ -35,6 +35,6 @@ sealed interface DownloaderBaseCondition : Condition {
           .contains(downloaderName)
   }
 
-  val pvServices: PVServicesEnum
+  val pvServices: PVService
   val downloaderName: String
 }

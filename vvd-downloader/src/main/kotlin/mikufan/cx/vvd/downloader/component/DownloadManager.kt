@@ -2,7 +2,6 @@ package mikufan.cx.vvd.downloader.component
 
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
-import mikufan.cx.vvd.commonkt.vocadb.toPVServicesEnum
 import mikufan.cx.vvd.downloader.component.downloader.EnabledDownloaders
 import mikufan.cx.vvd.downloader.config.IOConfig
 import mikufan.cx.vvd.downloader.config.preference.Preference
@@ -37,7 +36,9 @@ class DownloadManager(
 
     log.info { "Start downloading attempts on $songProperFileName" }
     for (pv in pvs) {
-      val downloaders = enabledDownloaders.getDownloaderForPvService(requireNotNull(pv.service?.toPVServicesEnum()))
+      val downloaders = enabledDownloaders.getDownloaderForPvService(
+        requireNotNull(pv.service) { "the pv service enum is null for ${pv.name}?" }
+      )
       for (downloader in downloaders) {
         for (attempt in 1..(1 + attempt)) {
           log.debug { "    on attempt $attempt on pv ${pv.url} with downloader ${downloader.downloaderName}" }
