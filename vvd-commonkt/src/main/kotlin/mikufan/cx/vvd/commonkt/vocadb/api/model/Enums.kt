@@ -28,7 +28,7 @@ enum class PVService(@get:JsonValue val value: String) {
     @JvmStatic
     @JsonCreator
     fun fromValue(value: String): PVService {
-      return values().firstOrNull { it.value == value }
+      return entries.firstOrNull { it.value == value }
         ?: throw IllegalArgumentException("Unexpected value '$value'")
     }
   }
@@ -51,7 +51,7 @@ enum class PVType(@get:JsonValue val value: String) {
     @JvmStatic
     @JsonCreator
     fun fromValue(value: String): PVType {
-      return values().firstOrNull { it.value == value }
+      return entries.firstOrNull { it.value == value }
         ?: throw IllegalArgumentException("Unexpected value '$value'")
     }
   }
@@ -126,7 +126,7 @@ data class ArtistCategories(
       } else {
         constantNames.toList()
       }
-      val mapper = Constant.values().associateBy { it.value }
+      val mapper = Constant.entries.associateBy { it.value }
       val parsed = mutableSetOf<Constant>()
       for (name in rawNames) {
         val trimmed = name?.trim()
@@ -220,7 +220,7 @@ data class SongOptionalFields(
       } else {
         constantNames.toList()
       }
-      val mapper = Constant.values().associateBy { it.value }
+      val mapper = Constant.entries.associateBy { it.value }
       val parsed = mutableSetOf<Constant>()
       for (name in rawNames) {
         val trimmed = name?.trim()

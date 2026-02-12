@@ -15,11 +15,11 @@ data class SongForApiContract(
   val name: String? = null,
   val defaultName: String? = null,
   val artistString: String? = null,
-  @JsonSetter(nulls = Nulls.AS_EMPTY)
+  @param:JsonSetter(nulls = Nulls.AS_EMPTY)
   val pvs: List<PVContract> = emptyList(),
-  @JsonSetter(nulls = Nulls.AS_EMPTY)
+  @param:JsonSetter(nulls = Nulls.AS_EMPTY)
   val albums: List<AlbumForApiContract> = emptyList(),
-  @JsonSetter(nulls = Nulls.AS_EMPTY)
+  @param:JsonSetter(nulls = Nulls.AS_EMPTY)
   val artists: List<ArtistForSongContract> = emptyList(),
   val publishDate: LocalDateTime? = null,
   val songType: String? = null,
