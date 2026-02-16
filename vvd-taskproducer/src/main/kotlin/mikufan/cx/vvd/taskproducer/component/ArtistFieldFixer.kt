@@ -7,7 +7,6 @@ import mikufan.cx.vvd.commonkt.vocadb.api.model.ArtistForSongContract
 import mikufan.cx.vvd.commonkt.vocadb.api.model.SongOptionalFields
 import mikufan.cx.vvd.taskproducer.model.VSongTask
 import mikufan.cx.vvd.taskproducer.util.OrderConstants
-import org.apache.commons.lang3.StringUtils
 import org.jeasy.batch.core.processor.RecordProcessor
 import org.jeasy.batch.core.record.Record
 import org.springframework.core.annotation.Order
@@ -80,7 +79,11 @@ class ArtistFieldFixer(
       val categories = requireNotNull(artist.categories) {
         "artist categories are null for producer candidate ${artist.name ?: "UNKNOWN"}"
       }
-      if (!StringUtils.containsAny(categories.toString(), "Producer", "Circle")) {
+      val isProducerOrCircle = setOf(
+        ArtistCategories.Constant.PRODUCER,
+        ArtistCategories.Constant.CIRCLE
+      ).any { it in categories.enums }
+      if (!isProducerOrCircle) {
         return@mapNotNull null
       }
       requireNotNull(artist.name) { "artist name is null for producer category" }
