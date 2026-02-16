@@ -2,6 +2,7 @@ package mikufan.cx.vvd.taskproducer.jackson
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import tools.jackson.databind.DeserializationFeature
 import tools.jackson.databind.JsonNode
 import tools.jackson.databind.ObjectMapper
 import tools.jackson.databind.exc.UnrecognizedPropertyException
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.Test
 class JsonAnySetterOnConstructorTest {
 
   private val objectMapper: ObjectMapper = jacksonObjectMapper()
+    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true)
 
   /**
    * Data class with @JsonAnySetter on constructor parameter with mutableMapOf() default.
