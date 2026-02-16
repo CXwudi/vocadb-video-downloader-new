@@ -2,7 +2,7 @@ package mikufan.cx.vvd.extractor.component.extractor.impl
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.kotest.matchers.shouldBe
-import mikufan.cx.vocadbapiclient.model.SongForApiContract
+import mikufan.cx.vvd.commonkt.vocadb.api.model.SongForApiContract
 import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.extractor.component.extractor.base.BaseAudioExtractor
 import mikufan.cx.vvd.extractor.config.IOConfig

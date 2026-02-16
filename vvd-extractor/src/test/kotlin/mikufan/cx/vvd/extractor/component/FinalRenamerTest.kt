@@ -2,26 +2,26 @@ package mikufan.cx.vvd.extractor.component
 
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
-import mikufan.cx.vocadbapiclient.model.PVContract
-import mikufan.cx.vocadbapiclient.model.PVService
-import mikufan.cx.vocadbapiclient.model.SongForApiContract
+import mikufan.cx.vvd.commonkt.vocadb.api.model.PVContract
+import mikufan.cx.vvd.commonkt.vocadb.api.model.PVService
+import mikufan.cx.vvd.commonkt.vocadb.api.model.SongForApiContract
 import kotlin.io.path.deleteIfExists
 
 class FinalRenamerTest : ShouldSpec({
 
   val fileRenamer = FinalRenamerCore()
   val vocadbPvId = 39
-  val testSong = SongForApiContract().apply {
-    defaultName = "Test Song with /"
-    artistString = "Producer feat. Vocalist"
+  val testSong = SongForApiContract(
+    defaultName = "Test Song with /",
+    artistString = "Producer feat. Vocalist",
     pvs = listOf(
-      PVContract().apply {
-        id = vocadbPvId
-        pvId = "sm123456"
+      PVContract(
+        id = vocadbPvId,
+        pvId = "sm123456",
         service = PVService.NICONICODOUGA
-      }
+      )
     )
-  }
+  )
   context("proper file name") {
     fileRenamer.generateProperName(testSong, vocadbPvId)
       .toString() shouldBe "【Vocalist】Test Song with -【Producer】[NicoNicoDouga sm123456]"

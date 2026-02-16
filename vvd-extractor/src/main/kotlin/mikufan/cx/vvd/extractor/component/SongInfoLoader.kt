@@ -3,7 +3,7 @@ package mikufan.cx.vvd.extractor.component
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vocadbapiclient.model.SongForApiContract
+import mikufan.cx.vvd.commonkt.vocadb.api.model.SongForApiContract
 import mikufan.cx.vvd.commonkt.naming.toProperFileName
 import mikufan.cx.vvd.extractor.config.IOConfig
 import mikufan.cx.vvd.extractor.model.VSongTask

@@ -1,7 +1,7 @@
 package mikufan.cx.vvd.extractor.component
 
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vocadbapiclient.model.SongForApiContract
+import mikufan.cx.vvd.commonkt.vocadb.api.model.SongForApiContract
 import mikufan.cx.vvd.commonkt.naming.SongProperFileName
 import mikufan.cx.vvd.commonkt.naming.removeIllegalChars
 import mikufan.cx.vvd.commonkt.naming.renameWithSameExtension
@@ -58,7 +58,7 @@ class FinalRenamerCore {
     val vocals = artists[1].trim()
     val producers = artists[0].trim()
     val songName = requireNotNull(songInfo.defaultName) { "song name is null" }
-    val pvInfo = requireNotNull(songInfo.pvs?.find { it.id == vocaDbPvId }) { "pv info is null" }
+    val pvInfo = requireNotNull(songInfo.pvs.find { it.id == vocaDbPvId }) { "pv info is null" }
     val pvService = requireNotNull(pvInfo.service) { "pv service is null" }
     val pvId = requireNotNull(pvInfo.pvId) { "pv id is null" }
     val fileName = "【%s】%s【%s】[%s %s]".format(vocals, songName, producers, pvService, pvId)
