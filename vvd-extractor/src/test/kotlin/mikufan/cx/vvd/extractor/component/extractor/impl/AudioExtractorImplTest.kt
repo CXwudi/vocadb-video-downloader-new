@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.extractor.component.extractor.impl
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.databind.ObjectMapper
 import io.kotest.matchers.shouldBe
 import mikufan.cx.vvd.commonkt.vocadb.api.model.SongForApiContract
 import mikufan.cx.vvd.common.label.VSongLabel
@@ -61,3 +61,4 @@ class AudioExtractorImplTest(
     }
   }
 })
+

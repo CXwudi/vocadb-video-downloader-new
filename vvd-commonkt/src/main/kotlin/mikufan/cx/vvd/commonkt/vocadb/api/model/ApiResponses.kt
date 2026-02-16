@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonSetter
 import com.fasterxml.jackson.annotation.Nulls
-import com.fasterxml.jackson.databind.JsonNode
+import tools.jackson.databind.JsonNode
 
 /**
  * Song entry with ordering information inside a list response.
@@ -30,3 +30,4 @@ data class SongInListForApiContractPartialFindResult(
   @get:JsonAnyGetter
   val additionalProperties: Map<String, JsonNode> = emptyMap()
 )
+

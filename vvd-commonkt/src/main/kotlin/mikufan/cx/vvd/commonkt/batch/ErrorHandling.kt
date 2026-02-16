@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.commonkt.batch
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.databind.ObjectMapper
 import mikufan.cx.vvd.commonkt.label.FailedObject
 import mikufan.cx.vvd.commonkt.naming.removeIllegalChars
 import org.jeasy.batch.core.listener.PipelineListener
@@ -53,3 +53,4 @@ class RecordErrorWriter(
     objectMapper.writeValue(failureFile.toFile(), FailedObject(record, e))
   }
 }
+

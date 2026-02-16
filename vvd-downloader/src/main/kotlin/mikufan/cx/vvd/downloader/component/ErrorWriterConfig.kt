@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.downloader.component
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.databind.ObjectMapper
 import mikufan.cx.vvd.commonkt.batch.RecordErrorWriter
 import mikufan.cx.vvd.commonkt.naming.toErrorFileName
 import mikufan.cx.vvd.downloader.config.IOConfig
@@ -26,3 +26,4 @@ class ErrorWriterConfig {
       }
     }
 }
+

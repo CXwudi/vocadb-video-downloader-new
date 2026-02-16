@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.taskproducer.component
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.databind.ObjectMapper
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.commonkt.batch.RecordErrorWriter
@@ -65,3 +65,4 @@ class ErrorRecordTest(
     assertTrue(list.any { it.name.contains("failure record") })
   }
 }
+
