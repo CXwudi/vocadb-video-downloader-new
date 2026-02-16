@@ -13,6 +13,11 @@ Replace the generated `vocadb-openapi-client-java` dependency with:
 3) `@JsonAnyGetter` / `@param:JsonAnySetter` to capture unknown fields (because `fail-on-unknown-properties: true`)
 4) `@JsonSetter(nulls = Nulls.AS_EMPTY)` for list fields that may be `null` in fixtures (e.g., `pvs`, `albums`, `artists`, and list results)
 
+## Status (2026-02-16)
+
+- Completed: Phases 1-6 (per branch state), Phase 7.1-7.2 dependency removals, Phase 9 cleanup (`api-client-to-remove/`).
+- Remaining: Phase 8 test updates/verification steps.
+
 ## Phase 1: New Models (vvd-commonkt)
 
 ### 1.1 Enums (unified)
