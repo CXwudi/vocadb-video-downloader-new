@@ -36,7 +36,8 @@ private fun buildSongProperFileName(
   defaultName: String?,
   id: Int?
 ): SongProperFileName {
-  val artists: List<String> = requireNotNull(artistString) { "artist string is null" }.split("feat.")
+  val artists = requireNotNull(artistString) { "artist string is null" }.split("feat.")
+  require(artists.size >= 2) { "artist string missing 'feat.': $artistString" }
   val vocals = artists[1].trim()
   val producers = artists[0].trim()
   val songName: String = requireNotNull(defaultName) { "song name is null" }
