@@ -10,7 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.jackson.Jacksonized;
+import tools.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonPOJOBuilder;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.annotation.Documented;
@@ -29,7 +30,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Data
 @AllArgsConstructor
 @Builder(toBuilder = true)
-@Jacksonized
+@JsonDeserialize(builder = VSongLabel.VSongLabelBuilder.class)
 @FieldDefaults(level = AccessLevel.PROTECTED)
 @HasRequiredResource(groups = ValidationPhase.Two.class)
 public class VSongLabel {
@@ -65,6 +66,9 @@ public class VSongLabel {
    * the name of the final output audio file that has thumbnail and tags properly added
    */
   @NotBlank(groups = ValidationPhase.Three.class) String processedAudioFileName;
+
+  @JsonPOJOBuilder(withPrefix = "")
+  public static class VSongLabelBuilder {}
 
 }
 
