@@ -73,8 +73,7 @@ Design:
 ## Phase 2: VocaDB RestClient (vvd-taskproducer)
 
 **Files (new):**
-- `vvd-taskproducer/src/main/kotlin/mikufan/cx/vvd/taskproducer/config/VocaDbClient.kt`
-- `vvd-taskproducer/src/main/kotlin/mikufan/cx/vvd/taskproducer/config/VocaDbClientConfig.kt`
+- `vvd-taskproducer/src/main/kotlin/mikufan/cx/vvd/taskproducer/component/api/VocaDbClient.kt`
 
 Endpoints needed:
 - `GET /api/songLists/{listId}/songs`
@@ -83,6 +82,7 @@ Endpoints needed:
 Notes:
 - Configure base URL and user agent from `SystemConfig`.
 - Use `RestClient` from `spring-web`.
+- Expose a `RestClient` bean in `ApiConfig`, then build `VocaDbClient` from it.
 
 ## Phase 3: Replace PVServices Conversion (do with module call-site updates)
 
@@ -96,7 +96,7 @@ Notes:
 **File:** `vvd-taskproducer/src/main/kotlin/mikufan/cx/vvd/taskproducer/config/ApiConfig.kt`
 
 - Remove `ApiClient`, `SongApi`, `SongListApi` beans.
-- Import `VocaDbClientConfig` (or define a `VocaDbClient` bean that uses it).
+- Expose a `RestClient` bean and a `VocaDbClient` bean that depends on it.
 
 ### 4.2 ListReader
 
@@ -230,8 +230,7 @@ Use constructors + `copy()` instead of mutable setters.
 - `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/ArtistForSongContract.kt`
 - `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/AlbumForApiContract.kt`
 - `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/api/model/ApiResponses.kt`
-- `vvd-taskproducer/src/main/kotlin/mikufan/cx/vvd/taskproducer/config/VocaDbClient.kt`
-- `vvd-taskproducer/src/main/kotlin/mikufan/cx/vvd/taskproducer/config/VocaDbClientConfig.kt`
+- `vvd-taskproducer/src/main/kotlin/mikufan/cx/vvd/taskproducer/component/api/VocaDbClient.kt`
 
 **Modified files**
 - `pom.xml`

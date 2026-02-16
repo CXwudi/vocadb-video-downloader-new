@@ -1,4 +1,4 @@
-package mikufan.cx.vvd.taskproducer.config
+package mikufan.cx.vvd.taskproducer.component.api
 
 import mikufan.cx.vvd.commonkt.vocadb.api.model.SongForApiContract
 import mikufan.cx.vvd.commonkt.vocadb.api.model.SongInListForApiContractPartialFindResult

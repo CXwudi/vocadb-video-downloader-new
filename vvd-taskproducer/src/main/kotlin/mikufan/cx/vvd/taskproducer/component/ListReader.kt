@@ -1,7 +1,7 @@
 package mikufan.cx.vvd.taskproducer.component
 
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vvd.taskproducer.config.VocaDbClient
+import mikufan.cx.vvd.taskproducer.component.api.VocaDbClient
 import mikufan.cx.vvd.commonkt.vocadb.api.model.SongOptionalFields
 import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.taskproducer.config.IOConfig

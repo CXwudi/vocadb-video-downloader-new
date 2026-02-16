@@ -190,6 +190,9 @@ data class SongOptionalFields(
   }
 }
 
+// NOTE: We intentionally keep simple helpers here instead of a shared abstract base class.
+// Jackson + Kotlin generics/inheritance make @JsonValue/@JsonCreator wiring and parsing maps more complex.
+
 /**
  * Serialize a set of enum-like values to a comma-separated string.
  * Returns null when the set is empty to omit optional fields in query parameters.
@@ -198,6 +201,10 @@ private fun <T> toCommaSeparated(enums: Set<T>, valueOf: (T) -> String): String?
   return enums.takeIf { it.isNotEmpty() }?.joinToString(",") { valueOf(it) }
 }
 
+/**
+ * Parse a comma-separated string or array of strings into a set of enum-like values.
+ * Throws IllegalArgumentException if any value is unexpected.
+ */
 private fun <T> parseCommaSeparated(
   constantNames: Array<out String?>,
   mapper: Map<String, T>,
