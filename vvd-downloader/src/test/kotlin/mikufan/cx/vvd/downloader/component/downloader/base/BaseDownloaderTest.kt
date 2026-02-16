@@ -3,11 +3,11 @@ package mikufan.cx.vvd.downloader.component.downloader.base
 import io.kotest.assertions.fail
 import io.kotest.matchers.string.shouldContain
 import io.kotest.matchers.string.shouldEndWith
-import mikufan.cx.vocadbapiclient.model.PVContract
-import mikufan.cx.vocadbapiclient.model.SongForApiContract
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.common.label.VSongLabel
-import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum
+import mikufan.cx.vvd.commonkt.vocadb.api.model.PVContract
+import mikufan.cx.vvd.commonkt.vocadb.api.model.PVService
+import mikufan.cx.vvd.commonkt.vocadb.api.model.SongForApiContract
 import mikufan.cx.vvd.downloader.config.IOConfig
 import mikufan.cx.vvd.downloader.model.Parameters
 import mikufan.cx.vvd.downloader.model.VSongTask
@@ -31,17 +31,15 @@ class BaseDownloaderTest(
   val outputDir = ioConfig.outputDirectory
 
   val buildFakeTask = fun(soneName: String): VSongTask {
-    val fakeSong = SongForApiContract().apply {
-      this.defaultName = soneName
+    val fakeSong = SongForApiContract(
+      id = 39393,
+      defaultName = soneName,
       artistString = "producer feat. vocalist"
-      id = 39393
-    }
+    )
     val fakeTask = VSongTask(VSongLabel.builder().build(), Parameters(fakeSong))
     return fakeTask
   }
-  val fakePv = PVContract().apply {
-    url = "https://fake.url"
-  }
+  val fakePv = PVContract(url = "https://fake.url")
 
   val copyTestSource = fun(originFileNameWithExtension: String, targetFileNameWithoutExtension: String) {
     val source = Path("../test-files/$originFileNameWithExtension")
@@ -51,9 +49,9 @@ class BaseDownloaderTest(
   }
 
   context("assume download success") {
-    val fakeDownloader = object : BaseDownloader() {
+      val fakeDownloader = object : BaseDownloader() {
       override val downloaderName: String = "FakeDownloader"
-      override val targetPvService: PVServicesEnum = PVServicesEnum.NOTHING
+      override val targetPvService: PVService = PVService.NOTHING
       override fun tryDownload(url: String, baseFileName: String, outputDirectory: Path): DownloadFiles {
         return DownloadFiles(
           outputDirectory.resolve("$baseFileName.mp4"),
@@ -97,7 +95,7 @@ class BaseDownloaderTest(
   context("assume download fail") {
     val fakeDownloader = object : BaseDownloader() {
       override val downloaderName: String = "FakeDownloader"
-      override val targetPvService: PVServicesEnum = PVServicesEnum.NOTHING
+      override val targetPvService: PVService = PVService.NOTHING
       override fun tryDownload(url: String, baseFileName: String, outputDirectory: Path): DownloadFiles {
         throw RuntimeVocaloidException("a fake exception")
       }

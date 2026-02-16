@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.extractor.model
 
-import mikufan.cx.vocadbapiclient.model.SongForApiContract
+import mikufan.cx.vvd.commonkt.vocadb.api.model.SongForApiContract
 import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.commonkt.naming.SongProperFileName
 import mikufan.cx.vvd.commonkt.naming.toProperFileName

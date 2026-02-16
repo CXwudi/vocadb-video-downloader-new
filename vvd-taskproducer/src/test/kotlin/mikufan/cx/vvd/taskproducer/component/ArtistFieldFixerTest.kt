@@ -1,8 +1,8 @@
 package mikufan.cx.vvd.taskproducer.component
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import mikufan.cx.vocadbapiclient.model.SongForApiContract
 import mikufan.cx.vvd.common.label.VSongLabel
+import mikufan.cx.vvd.commonkt.vocadb.api.model.SongForApiContract
 import mikufan.cx.vvd.taskproducer.model.Parameters
 import mikufan.cx.vvd.taskproducer.model.VSongTask
 import org.jeasy.batch.core.record.GenericRecord

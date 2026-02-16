@@ -2,7 +2,7 @@ package mikufan.cx.vvd.downloader.component.downloader.base
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.kotest.matchers.shouldBe
-import mikufan.cx.vocadbapiclient.model.SongForApiContract
+import mikufan.cx.vvd.commonkt.vocadb.api.model.SongForApiContract
 import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.downloader.component.downloader.implementation.BilibiliYtDlDownloader
 import mikufan.cx.vvd.downloader.component.downloader.implementation.NicoNicoYtDlDownloader
@@ -41,7 +41,7 @@ class BaseYtDlDownloaderTest(
         loadResourceAsString(resourceName),
         SongForApiContract::class.java
       )
-      val nicoPv = song.pvs?.get(pvNum)!!
+      val nicoPv = song.pvs[pvNum]
       val task = VSongTask(VSongLabel.builder().build(), Parameters(song))
       val result = downloader.download(nicoPv, task, outputDir)
       result.isSuccess shouldBe true

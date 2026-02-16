@@ -1,13 +1,12 @@
 package mikufan.cx.vvd.taskproducer.component
 
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vocadbapiclient.api.SongApi
-import mikufan.cx.vocadbapiclient.model.ArtistCategories
-import mikufan.cx.vocadbapiclient.model.ArtistForSongContract
-import mikufan.cx.vocadbapiclient.model.SongOptionalFields
+import mikufan.cx.vvd.taskproducer.component.api.VocaDbClient
+import mikufan.cx.vvd.commonkt.vocadb.api.model.ArtistCategories
+import mikufan.cx.vvd.commonkt.vocadb.api.model.ArtistForSongContract
+import mikufan.cx.vvd.commonkt.vocadb.api.model.SongOptionalFields
 import mikufan.cx.vvd.taskproducer.model.VSongTask
 import mikufan.cx.vvd.taskproducer.util.OrderConstants
-import org.apache.commons.lang3.StringUtils
 import org.jeasy.batch.core.processor.RecordProcessor
 import org.jeasy.batch.core.record.Record
 import org.springframework.core.annotation.Order
@@ -22,7 +21,7 @@ import java.util.*
 @Component
 @Order(OrderConstants.ARTIST_FIELD_FIXER_ORDER)
 class ArtistFieldFixer(
-  private val songApi: SongApi
+  private val vocaDbClient: VocaDbClient
 ) : RecordProcessor<VSongTask, VSongTask> {
 
   companion object {
@@ -34,15 +33,17 @@ class ArtistFieldFixer(
 
   override fun processRecord(record: Record<VSongTask>): Record<VSongTask> {
     val song = requireNotNull(record.payload.parameters.songForApiContract) { "VSong is null" }
-    var artistStr = song.artistString!!
+    var artistStr = requireNotNull(song.artistString) { "artistString is null" }
     val artists = mutableListOf<ArtistForSongContract>()
     log.info { "Check, fix and cleanup song info for ${song.defaultName}" }
     // fix various
     if (artistStr.contains(VARIOUS, true)) {
-      val songWithArtists = songApi.apiSongsIdGet(
-        song.id, SongOptionalFields(SongOptionalFields.Constant.ARTISTS), null
+      val songId = requireNotNull(song.id) { "song id is null" }
+      val songWithArtists = vocaDbClient.getSongById(
+        songId,
+        SongOptionalFields.of(SongOptionalFields.Constant.ARTISTS)
       )
-      artists.addAll(requireNotNull(songWithArtists.artists) { "newly called ${songWithArtists.name} has a null artists list" })
+      artists.addAll(songWithArtists.artists)
       val newArtistStr = formProperArtistField(artists)
       log.debug { "replacing artist str '${song.artistString}' with '$newArtistStr'" }
       artistStr = newArtistStr
@@ -54,26 +55,42 @@ class ArtistFieldFixer(
     }
 
     // replacing back some artist related fields
-    if (artists.isNotEmpty()) {
-      song.artists = artists
+    val songWithArtists = if (artists.isNotEmpty()) {
+      song.copy(artists = artists)
+    } else {
+      song
     }
-    song.artistString = artistStr
+    record.payload.parameters.songForApiContract = songWithArtists.copy(artistString = artistStr)
 
     return record
   }
 
   internal fun formProperArtistField(artists: List<ArtistForSongContract>): String {
-    val vocalist = artists
-      .filter {
-        it.categories!!.enums
-          .contains(ArtistCategories.Constant.VOCALIST)
+    val vocalist = artists.mapNotNull { artist ->
+      val categories = requireNotNull(artist.categories) {
+        "artist categories are null for vocalist candidate ${artist.name ?: "UNKNOWN"}"
       }
-      .map { it.name!! }
-      .toList()
-    val producers = artists
-      .filter { StringUtils.containsAny(it.categories!!.toString(), "Producer", "Circle") }
-      .map { it.name!! }
-      .toList()
+      if (!categories.enums.contains(ArtistCategories.Constant.VOCALIST)) {
+        return@mapNotNull null
+      }
+      requireNotNull(artist.name) { "artist name is null for vocalist category" }
+    }
+    val producers = artists.mapNotNull { artist ->
+      val categories = requireNotNull(artist.categories) {
+        "artist categories are null for producer candidate ${artist.name ?: "UNKNOWN"}"
+      }
+      val isProducerOrCircle = setOf(
+        ArtistCategories.Constant.PRODUCER,
+        ArtistCategories.Constant.CIRCLE
+      ).any { it in categories.enums }
+      if (!isProducerOrCircle) {
+        return@mapNotNull null
+      }
+      requireNotNull(artist.name) { "artist name is null for producer category" }
+    }
+    require(producers.isNotEmpty() && vocalist.isNotEmpty()) {
+      "invalid artist split: producers=${producers.size}, vocalist=${vocalist.size}"
+    }
     // joinToString default use ", " as separator
     return "${producers.joinToString()} feat. ${vocalist.joinToString()}"
   }

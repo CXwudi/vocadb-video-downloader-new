@@ -1,9 +1,9 @@
 package mikufan.cx.vvd.downloader.config.downloader
 
-import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum
+import mikufan.cx.vvd.commonkt.vocadb.api.model.PVService
 
 abstract class SoundCloudBaseDownloaderCondition : DownloaderBaseCondition {
-  override val pvServices = PVServicesEnum.SOUNDCLOUD
+  override val pvServices = PVService.SOUNDCLOUD
 }
 
 class SoundCloudYtDlCondition : SoundCloudBaseDownloaderCondition() {

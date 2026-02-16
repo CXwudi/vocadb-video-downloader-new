@@ -3,8 +3,8 @@ package mikufan.cx.vvd.downloader.component
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vocadbapiclient.model.PVService
-import mikufan.cx.vocadbapiclient.model.PVType
+import mikufan.cx.vvd.commonkt.vocadb.api.model.PVService
+import mikufan.cx.vvd.commonkt.vocadb.api.model.PVType
 import mikufan.cx.vvd.downloader.model.VSongTask
 import mikufan.cx.vvd.downloader.util.SpringBootDirtyTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringShouldSpec

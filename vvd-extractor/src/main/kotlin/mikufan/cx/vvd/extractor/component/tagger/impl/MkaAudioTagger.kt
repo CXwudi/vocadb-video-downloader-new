@@ -117,7 +117,7 @@ class MkaAudioTagger(
     val artistsString = requireNotNull(songInfo.artistString) { "artist string is null" }
     val producers = artistsString.split("feat.")[0].trim()
     val pvId = label.vocaDbPvId
-    val dateString = songInfo.publishDate.format(DateTimeFormatter.ISO_DATE_TIME)
+    val dateString = songInfo.publishDate?.format(DateTimeFormatter.ISO_DATE_TIME) ?: "Unknown"
 
     val vocaDbId = songInfo.id
     val downloaderName = label.downloaderName
@@ -131,7 +131,7 @@ class MkaAudioTagger(
 
     // Build album info if present
     val albumInfo = if (songInfo.albums.isNotEmpty()) {
-      val albumNames = songInfo.albums.joinToString(", ") { it.name }
+      val albumNames = songInfo.albums.joinToString(", ") { it.name ?: "Unknown Album" }
       "Albums [$albumNames]"
     } else {
       null

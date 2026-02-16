@@ -1,8 +1,8 @@
 package mikufan.cx.vvd.taskproducer.component
 
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vocadbapiclient.api.SongListApi
-import mikufan.cx.vocadbapiclient.model.SongOptionalFields
+import mikufan.cx.vvd.taskproducer.component.api.VocaDbClient
+import mikufan.cx.vvd.commonkt.vocadb.api.model.SongOptionalFields
 import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.taskproducer.config.IOConfig
 import mikufan.cx.vvd.taskproducer.config.SystemConfig
@@ -17,7 +17,7 @@ import org.springframework.validation.annotation.Validated
 import java.time.LocalDateTime
 import java.util.*
 import kotlin.math.max
-import mikufan.cx.vocadbapiclient.model.SongForApiContract as VSong
+import mikufan.cx.vvd.commonkt.vocadb.api.model.SongForApiContract as VSong
 
 /**
  * @date 2021-05-29
@@ -26,7 +26,7 @@ import mikufan.cx.vocadbapiclient.model.SongForApiContract as VSong
 @Component
 @Validated
 class ListReader(
-  songListApi: SongListApi,
+  private val vocaDbClient: VocaDbClient,
   ioConfig: IOConfig,
   systemConfig: SystemConfig
 ) : RecordReader<VSongTask> {
@@ -54,17 +54,17 @@ class ListReader(
             listId,
             startIdx,
             pageSize,
-            SongOptionalFields(
+            SongOptionalFields.of(
               SongOptionalFields.Constant.ALBUMS,
               SongOptionalFields.Constant.PVS
             )
           )
-          val partialList = partialFindResult.items!!
+          val partialList = partialFindResult.items
           log.debug { "read ${partialList.size} new songs" }
           var lastCount = 0
           // if api call returns empty result, then return null
           partialList.forEach {
-            queue.add(it.song!!)
+            queue.add(requireNotNull(it.song) { "song is null in list entry" })
             lastCount = max(requireNotNull(it.order) { "order is null" }, lastCount) // order should always have
             // number in it
           }
@@ -84,9 +84,12 @@ class ListReader(
       }
 
       private fun readSongList(listId: Int, start: Int, maximum: Int, optionalFields: SongOptionalFields) =
-        songListApi.apiSongListsListIdSongsGet(
-          listId, null, null, null, null, null, null, null,
-          start, maximum, true, null, null, optionalFields, null
+        vocaDbClient.getSongListSongs(
+          listId = listId,
+          start = start,
+          maxResults = maximum,
+          getTotalCount = true,
+          fields = optionalFields
         )
     }
   }

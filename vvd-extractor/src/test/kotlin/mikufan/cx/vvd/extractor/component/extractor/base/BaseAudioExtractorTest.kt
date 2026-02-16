@@ -5,7 +5,7 @@ import io.kotest.matchers.should
 import io.kotest.matchers.string.shouldContain
 import io.kotest.matchers.string.shouldEndWith
 import io.kotest.matchers.types.beInstanceOf
-import mikufan.cx.vocadbapiclient.model.SongForApiContract
+import mikufan.cx.vvd.commonkt.vocadb.api.model.SongForApiContract
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.extractor.config.IOConfig
@@ -27,11 +27,11 @@ class BaseAudioExtractorTest(
   val outputDir = ioConfig.outputDirectory
 
   val buildFakeTask = fun(soneName: String): VSongTask {
-    val fakeSong = SongForApiContract().apply {
-      this.defaultName = soneName
-      artistString = "producer feat. vocalist"
+    val fakeSong = SongForApiContract(
+      defaultName = soneName,
+      artistString = "producer feat. vocalist",
       id = 39393
-    }
+    )
     val fakeTask = VSongTask(VSongLabel.builder().build(), Parameters(fakeSong))
     return fakeTask
   }

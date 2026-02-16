@@ -1,42 +1,45 @@
 package mikufan.cx.vvd.taskproducer.config
 
-import jakarta.validation.Valid
-import mikufan.cx.vocadbapiclient.api.SongApi
-import mikufan.cx.vocadbapiclient.api.SongListApi
-import mikufan.cx.vocadbapiclient.client.ApiClient
-import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.client.BufferingClientHttpRequestFactory
-import org.springframework.validation.annotation.Validated
-import org.springframework.web.client.RestTemplate
-import java.util.function.Supplier
+import org.springframework.http.HttpHeaders
+import org.springframework.http.client.SimpleClientHttpRequestFactory
+import org.springframework.web.client.RestClient
+import mikufan.cx.vvd.taskproducer.component.api.VocaDbClient
 
 /**
  * @date 2021-05-29
  * @author CX无敌
  */
 @Configuration
-@Validated
 class ApiConfig {
 
-  @Bean
-  fun songListApi(apiClient: ApiClient) = SongListApi(apiClient)
+  companion object {
+    private const val CONNECT_TIMEOUT_MS = 10_000
+    private const val READ_TIMEOUT_MS = 30_000
+  }
 
   @Bean
-  fun songApi(apiClient: ApiClient) = SongApi(apiClient)
+  fun restClient(
+    restClientBuilder: RestClient.Builder,
+    systemConfig: SystemConfig
+  ): RestClient {
+    val requestFactory = SimpleClientHttpRequestFactory().apply {
+      setConnectTimeout(CONNECT_TIMEOUT_MS)
+      setReadTimeout(READ_TIMEOUT_MS)
+    }
+    return restClientBuilder
+      .requestFactory(requestFactory)
+      .baseUrl(systemConfig.baseUrl)
+      .defaultHeader(HttpHeaders.USER_AGENT, systemConfig.userAgent)
+      .build()
+  }
 
   @Bean
-  fun apiClient(restTemplate: RestTemplate, @Valid systemConfig: SystemConfig): ApiClient =
-    ApiClient(restTemplate)
-      .setBasePath(systemConfig.baseUrl)
-      .setUserAgent(systemConfig.userAgent)
-
-  @Bean
-  fun restTemplate(restTemplateBuilder: RestTemplateBuilder): RestTemplate =
-    restTemplateBuilder.requestFactory(Supplier {
-      // simulate how ApiClient build restTemplate
-      BufferingClientHttpRequestFactory(restTemplateBuilder.buildRequestFactory())
-    }).build()
+  fun vocaDbClient(
+    restClient: RestClient
+  ): VocaDbClient {
+    return VocaDbClient(restClient)
+  }
 }
 

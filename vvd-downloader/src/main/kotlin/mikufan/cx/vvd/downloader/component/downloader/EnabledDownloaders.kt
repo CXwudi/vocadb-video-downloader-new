@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.downloader.component.downloader
 
-import mikufan.cx.vvd.commonkt.vocadb.PVServicesEnum
+import mikufan.cx.vvd.commonkt.vocadb.api.model.PVService
 import mikufan.cx.vvd.downloader.component.downloader.base.BaseDownloader
 import mikufan.cx.vvd.downloader.config.enablement.Enablement
 import org.springframework.stereotype.Component
@@ -15,7 +15,7 @@ class EnabledDownloaders(
   enablement: Enablement
 ) {
 
-  private val pvServiceToDownloadersMap: Map<PVServicesEnum, List<BaseDownloader>>
+  private val pvServiceToDownloadersMap: Map<PVService, List<BaseDownloader>>
 
   init {
     pvServiceToDownloadersMap = allEnabledDownloaders
@@ -26,6 +26,6 @@ class EnabledDownloaders(
       }
   }
 
-  fun getDownloaderForPvService(pvService: PVServicesEnum): List<BaseDownloader> =
+  fun getDownloaderForPvService(pvService: PVService): List<BaseDownloader> =
     pvServiceToDownloadersMap[pvService] ?: emptyList()
 }
