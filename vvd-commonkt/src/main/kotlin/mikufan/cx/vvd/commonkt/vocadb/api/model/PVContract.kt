@@ -2,7 +2,7 @@ package mikufan.cx.vvd.commonkt.vocadb.api.model
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.databind.JsonNode
+import tools.jackson.databind.JsonNode
 
 /**
  * Minimal PV contract used by downloader and extractor.
@@ -18,3 +18,4 @@ data class PVContract(
   @get:JsonAnyGetter
   val additionalProperties: Map<String, JsonNode> = emptyMap()
 )
+

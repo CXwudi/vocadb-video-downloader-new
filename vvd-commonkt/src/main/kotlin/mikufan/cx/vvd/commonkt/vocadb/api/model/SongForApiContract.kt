@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonSetter
 import com.fasterxml.jackson.annotation.Nulls
-import com.fasterxml.jackson.databind.JsonNode
+import tools.jackson.databind.JsonNode
 import java.time.LocalDateTime
 
 /**
@@ -28,3 +28,4 @@ data class SongForApiContract(
   @get:JsonAnyGetter
   val additionalProperties: Map<String, JsonNode> = emptyMap()
 )
+

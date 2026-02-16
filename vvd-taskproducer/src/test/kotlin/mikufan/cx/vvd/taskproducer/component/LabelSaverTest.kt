@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.taskproducer.component
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.databind.ObjectMapper
 import kotlinx.coroutines.runBlocking
 import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.commonkt.naming.toProperFileName
@@ -55,3 +55,4 @@ internal class LabelSaverTest(
     assertTrue(outputDirectory.resolve("【various】PaⅢ.REVOLUTION【雄之助, 攻】[299406]-songInfo.json").isRegularFile())
   }
 }
+

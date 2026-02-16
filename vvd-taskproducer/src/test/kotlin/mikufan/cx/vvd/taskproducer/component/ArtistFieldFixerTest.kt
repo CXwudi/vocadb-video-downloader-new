@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.taskproducer.component
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.databind.ObjectMapper
 import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.commonkt.vocadb.api.model.SongForApiContract
 import mikufan.cx.vvd.taskproducer.model.Parameters
@@ -62,3 +62,4 @@ internal class ArtistFieldFixerTest(
 
   //TODO: more complex test
 }
+

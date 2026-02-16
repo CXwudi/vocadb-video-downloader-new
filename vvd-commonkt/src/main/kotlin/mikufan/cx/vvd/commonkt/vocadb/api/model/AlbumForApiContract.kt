@@ -2,7 +2,7 @@ package mikufan.cx.vvd.commonkt.vocadb.api.model
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.databind.JsonNode
+import tools.jackson.databind.JsonNode
 
 /**
  * Minimal album contract used for tags.
@@ -13,3 +13,4 @@ data class AlbumForApiContract(
   @get:JsonAnyGetter
   val additionalProperties: Map<String, JsonNode> = emptyMap()
 )
+

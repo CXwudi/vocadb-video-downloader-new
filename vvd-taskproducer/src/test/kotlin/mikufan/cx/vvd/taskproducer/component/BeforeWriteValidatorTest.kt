@@ -1,6 +1,6 @@
 package mikufan.cx.vvd.taskproducer.component
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.databind.ObjectMapper
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.common.label.VSongLabel
@@ -56,3 +56,4 @@ internal class BeforeWriteValidatorTest(
 }
 
 private val log = KInlineLogging.logger()
+
