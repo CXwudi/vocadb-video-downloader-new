@@ -88,6 +88,9 @@ class ArtistFieldFixer(
       }
       requireNotNull(artist.name) { "artist name is null for producer category" }
     }
+    require(producers.isNotEmpty() && vocalist.isNotEmpty()) {
+      "invalid artist split: producers=${producers.size}, vocalist=${vocalist.size}"
+    }
     // joinToString default use ", " as separator
     return "${producers.joinToString()} feat. ${vocalist.joinToString()}"
   }
