@@ -5,8 +5,8 @@ import mikufan.cx.vvd.commonkt.vocadb.api.model.PVService
 import mikufan.cx.vvd.downloader.component.downloader.base.BaseYtDlDownloader
 import mikufan.cx.vvd.downloader.config.DownloadConfig
 import mikufan.cx.vvd.downloader.config.EnvironmentConfig
-import mikufan.cx.vvd.downloader.config.downloader.NicoNicoYtDlCondition
 import mikufan.cx.vvd.downloader.config.downloader.YT_YTDL
+import mikufan.cx.vvd.downloader.config.downloader.YoutubeYtDlCondition
 import mikufan.cx.vvd.downloader.config.downloader.YoutubeYtDlConfigs
 import org.apache.tika.Tika
 import org.springframework.context.annotation.Conditional
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component
  * @author CX无敌
  */
 @Component
-@Conditional(NicoNicoYtDlCondition::class)
+@Conditional(YoutubeYtDlCondition::class)
 class YoutubeYtDlDownloader(
   config: YoutubeYtDlConfigs,
   downloadConfig: DownloadConfig,

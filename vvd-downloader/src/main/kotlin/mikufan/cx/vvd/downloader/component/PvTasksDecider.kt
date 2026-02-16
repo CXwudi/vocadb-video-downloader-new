@@ -70,7 +70,7 @@ class PvTasksDecider(
 
     // filter out pv services that users are not interested
     val supportedPvs = pvs.filter { pv ->
-      pv.service?.let { service -> service in preference.pvPreference } == true
+      pv.service != null && pv.service in preference.pvPreference
     }
     // after filter check empty
     throwAndLogIfNoPvsLeft(supportedPvs) {

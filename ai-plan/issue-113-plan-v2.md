@@ -3,7 +3,7 @@
 ## Decisions (from user)
 
 1) Refactor call sites to immutability. New Kotlin models will be immutable and updated via `copy()`; `Parameters` classes will keep `var` to store new instances.
-2) Unify `PVServicesEnum` and `PVService` into a single enum that includes `NOTHING` (valid VocaDB value). Remove conversion helpers.
+2) Unify `PVServicesEnum` and `PVService` into a single enum that includes `NOTHING` (valid VocaDB value). Remove conversion helpers and the alias file.
 
 ## Overview
 
@@ -86,14 +86,8 @@ Notes:
 
 ## Phase 3: Replace PVServices Conversion (do with module call-site updates)
 
-**File:** `vvd-commonkt/src/main/kotlin/mikufan/cx/vvd/commonkt/vocadb/PVServicesAndPVServiceConvertion.kt`
-
-- Replace with:
-  ```kotlin
-  typealias PVServicesEnum = PVService
-  ```
 - Remove `toPVService()` / `toPVServicesEnum()` and update call sites to use `PVService` directly.
-- Do this together with each module’s call-site updates to keep compilation green.
+- Delete the `PVServicesAndPVServiceConvertion.kt` alias file once usages are migrated.
 
 ## Phase 4: Update vvd-taskproducer
 
@@ -188,8 +182,8 @@ Adjust for new model package, and ensure null safety on fields used by Mka tagge
 
 - Add:
   - `org.springframework.boot:spring-boot-starter-json`
-- Remove:
-  - `org.springframework:spring-web`
+- Note:
+  - `spring-web` is not a direct dependency in `vvd-commonkt`; keep it only in `vvd-taskproducer` for `RestClient`.
 
 ### 7.4 vvd-taskproducer
 

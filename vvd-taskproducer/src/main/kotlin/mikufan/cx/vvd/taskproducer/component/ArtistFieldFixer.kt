@@ -67,17 +67,24 @@ class ArtistFieldFixer(
   }
 
   internal fun formProperArtistField(artists: List<ArtistForSongContract>): String {
-    val vocalist = artists
-      .filter {
-        it.categories!!.enums
-          .contains(ArtistCategories.Constant.VOCALIST)
+    val vocalist = artists.mapNotNull { artist ->
+      val categories = requireNotNull(artist.categories) {
+        "artist categories are null for vocalist candidate ${artist.name ?: "UNKNOWN"}"
       }
-      .map { it.name!! }
-      .toList()
-    val producers = artists
-      .filter { StringUtils.containsAny(it.categories!!.toString(), "Producer", "Circle") }
-      .map { it.name!! }
-      .toList()
+      if (!categories.enums.contains(ArtistCategories.Constant.VOCALIST)) {
+        return@mapNotNull null
+      }
+      requireNotNull(artist.name) { "artist name is null for vocalist category" }
+    }
+    val producers = artists.mapNotNull { artist ->
+      val categories = requireNotNull(artist.categories) {
+        "artist categories are null for producer candidate ${artist.name ?: "UNKNOWN"}"
+      }
+      if (!StringUtils.containsAny(categories.toString(), "Producer", "Circle")) {
+        return@mapNotNull null
+      }
+      requireNotNull(artist.name) { "artist name is null for producer category" }
+    }
     // joinToString default use ", " as separator
     return "${producers.joinToString()} feat. ${vocalist.joinToString()}"
   }

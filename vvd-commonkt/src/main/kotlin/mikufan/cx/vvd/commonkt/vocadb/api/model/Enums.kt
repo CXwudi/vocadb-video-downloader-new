@@ -91,15 +91,11 @@ data class ArtistCategories(
   constructor(vararg constants: Constant?) : this(constants.filterNotNull().toSet())
 
   /**
-   * Serialize to VocaDB value string.
+   * Serialize to VocaDB value string (null when empty to omit optional fields).
    */
   @JsonValue
   fun toJson(): String? {
-    return if (enums.isEmpty()) {
-      null
-    } else {
-      enums.joinToString(",") { it.value }
-    }
+    return toCommaSeparated(enums) { it.value }
   }
 
   override fun toString(): String = toJson().orEmpty()
@@ -118,26 +114,7 @@ data class ArtistCategories(
     }
 
     private fun parseConstants(constantNames: Array<out String?>): Set<Constant> {
-      if (constantNames.isEmpty()) {
-        return emptySet()
-      }
-      val rawNames = if (constantNames.size == 1) {
-        constantNames[0]?.split(",") ?: emptyList()
-      } else {
-        constantNames.toList()
-      }
-      val mapper = Constant.entries.associateBy { it.value }
-      val parsed = mutableSetOf<Constant>()
-      for (name in rawNames) {
-        val trimmed = name?.trim()
-        if (trimmed.isNullOrEmpty()) {
-          continue
-        }
-        val constant = mapper[trimmed]
-          ?: throw IllegalArgumentException("Unexpected value $trimmed")
-        parsed.add(constant)
-      }
-      return parsed
+      return parseCommaSeparated(constantNames, Constant.entries.associateBy { it.value }, "ArtistCategories")
     }
   }
 }
@@ -180,15 +157,11 @@ data class SongOptionalFields(
   constructor(vararg constants: Constant?) : this(constants.filterNotNull().toSet())
 
   /**
-   * Serialize to VocaDB value string.
+   * Serialize to VocaDB value string (null when empty to omit optional fields).
    */
   @JsonValue
   fun toJson(): String? {
-    return if (enums.isEmpty()) {
-      null
-    } else {
-      enums.joinToString(",") { it.value }
-    }
+    return toCommaSeparated(enums) { it.value }
   }
 
   override fun toString(): String = toJson().orEmpty()
@@ -212,26 +185,41 @@ data class SongOptionalFields(
     fun of(vararg constants: Constant): SongOptionalFields = SongOptionalFields(*constants)
 
     private fun parseConstants(constantNames: Array<out String?>): Set<Constant> {
-      if (constantNames.isEmpty()) {
-        return emptySet()
-      }
-      val rawNames = if (constantNames.size == 1) {
-        constantNames[0]?.split(",") ?: emptyList()
-      } else {
-        constantNames.toList()
-      }
-      val mapper = Constant.entries.associateBy { it.value }
-      val parsed = mutableSetOf<Constant>()
-      for (name in rawNames) {
-        val trimmed = name?.trim()
-        if (trimmed.isNullOrEmpty()) {
-          continue
-        }
-        val constant = mapper[trimmed]
-          ?: throw IllegalArgumentException("Unexpected value $trimmed")
-        parsed.add(constant)
-      }
-      return parsed
+      return parseCommaSeparated(constantNames, Constant.entries.associateBy { it.value }, "SongOptionalFields")
     }
   }
+}
+
+/**
+ * Serialize a set of enum-like values to a comma-separated string.
+ * Returns null when the set is empty to omit optional fields in query parameters.
+ */
+private fun <T> toCommaSeparated(enums: Set<T>, valueOf: (T) -> String): String? {
+  return enums.takeIf { it.isNotEmpty() }?.joinToString(",") { valueOf(it) }
+}
+
+private fun <T> parseCommaSeparated(
+  constantNames: Array<out String?>,
+  mapper: Map<String, T>,
+  typeName: String
+): Set<T> {
+  if (constantNames.isEmpty()) {
+    return emptySet()
+  }
+  val rawNames = if (constantNames.size == 1) {
+    constantNames[0]?.split(",") ?: emptyList()
+  } else {
+    constantNames.toList()
+  }
+  val parsed = mutableSetOf<T>()
+  for (name in rawNames) {
+    val trimmed = name?.trim()
+    if (trimmed.isNullOrEmpty()) {
+      continue
+    }
+    val constant = mapper[trimmed]
+      ?: throw IllegalArgumentException("Unexpected $typeName value $trimmed")
+    parsed.add(constant)
+  }
+  return parsed
 }
