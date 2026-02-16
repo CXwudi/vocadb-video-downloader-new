@@ -6,7 +6,7 @@ import tools.jackson.databind.DeserializationFeature
 import tools.jackson.databind.JsonNode
 import tools.jackson.databind.ObjectMapper
 import tools.jackson.databind.exc.UnrecognizedPropertyException
-import tools.jackson.module.kotlin.jacksonObjectMapper
+import tools.jackson.module.kotlin.jacksonMapperBuilder
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -16,8 +16,9 @@ import org.junit.jupiter.api.Test
  */
 class JsonAnySetterOnConstructorTest {
 
-  private val objectMapper: ObjectMapper = jacksonObjectMapper()
+  private val objectMapper: ObjectMapper = jacksonMapperBuilder()
     .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true)
+    .build()
 
   /**
    * Data class with @JsonAnySetter on constructor parameter with mutableMapOf() default.
