@@ -37,6 +37,7 @@ class TagRunnerCoreTest {
       tagRunnerCore.doTagging(mockTagger, mockk(), mockk(), 3, SongProperFileName(testSongName))
     }
       .isInstanceOf(RuntimeVocaloidException::class.java)
-      .hasMessageContainingIgnoringCase("All extraction attempt on test song 2 by Mocked M4aAudioTagger failed")
+      .message()
+      .containsIgnoringCase("All extraction attempt on test song 2 by Mocked M4aAudioTagger failed")
   }
 }

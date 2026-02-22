@@ -38,7 +38,8 @@ class BeforeProcessLabelValidatorFailureTest(
 
     assertThatThrownBy { beforeProcessLabelValidator.processRecord(oneRecord) }
       .isInstanceOf(RuntimeVocaloidException::class.java)
-      .hasMessageContainingIgnoringCase("must not be blank")
+      .message()
+      .containsIgnoringCase("must not be blank")
 
     val anotherRecord = labelsReader.readRecord()!!
     anotherRecord.payload.label.apply {
@@ -48,7 +49,8 @@ class BeforeProcessLabelValidatorFailureTest(
 
     assertThatThrownBy { beforeProcessLabelValidator.processRecord(anotherRecord) }
       .isInstanceOf(RuntimeVocaloidException::class.java)
-      .hasMessageContainingIgnoringCase("must contain at least one of a PV file or an audio file")
+      .message()
+      .containsIgnoringCase("must contain at least one of a PV file or an audio file")
 
     anotherRecord.payload.label.apply {
       this.pvFileName = "123"
@@ -58,7 +60,8 @@ class BeforeProcessLabelValidatorFailureTest(
 
     assertThatThrownBy { beforeProcessLabelValidator.processRecord(anotherRecord) }
       .isInstanceOf(RuntimeVocaloidException::class.java)
-      .hasMessageContainingIgnoringCase("must contain a thumbnail file")
+      .message()
+      .containsIgnoringCase("must contain a thumbnail file")
 
     val thirdRecord = labelsReader.readRecord()!!
     thirdRecord.payload.label.apply {
@@ -67,6 +70,7 @@ class BeforeProcessLabelValidatorFailureTest(
 
     assertThatThrownBy { beforeProcessLabelValidator.processRecord(thirdRecord) }
       .isInstanceOf(RuntimeVocaloidException::class.java)
-      .hasMessageContainingIgnoringCase("must be greater than 0")
+      .message()
+      .containsIgnoringCase("must be greater than 0")
   }
 }

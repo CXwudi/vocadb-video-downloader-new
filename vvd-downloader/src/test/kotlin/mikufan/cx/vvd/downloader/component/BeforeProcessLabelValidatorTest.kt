@@ -27,7 +27,8 @@ class BeforeProcessLabelValidatorFailureTest(
   private fun Record<VSongTask>.assertFailValidationWith(containedString: String) {
     assertThatThrownBy { beforeProcessLabelValidator.processRecord(this) }
       .isInstanceOf(RuntimeVocaloidException::class.java)
-      .hasMessageContainingIgnoringCase(containedString)
+      .message()
+      .containsIgnoringCase(containedString)
   }
 
   @Test

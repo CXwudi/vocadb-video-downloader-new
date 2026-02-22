@@ -1,6 +1,5 @@
 package mikufan.cx.vvd.extractor.component
 
-import io.mockk.coMatch
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
@@ -32,9 +31,15 @@ class TaggerDeciderCoreTest {
 
   private val createMockChecker = {
     mockk<MediaFormatChecker>(relaxed = true) {
-      every { checkAudioFormat(coMatch { it.name.endsWith("m4a") }) } returns AudioMediaFormat.AAC
-      every { checkAudioFormat(coMatch { it.name.endsWith("opus") }) } returns AudioMediaFormat.OPUS
-      every { checkAudioFormat(coMatch { it.name.endsWith("mp3") }) } returns AudioMediaFormat.MPEG_AUDIO
+      every { checkAudioFormat(any()) } answers {
+        val mediaFileName = args[0].toString()
+        when {
+          mediaFileName.endsWith("m4a") -> AudioMediaFormat.AAC
+          mediaFileName.endsWith("opus") -> AudioMediaFormat.OPUS
+          mediaFileName.endsWith("mp3") -> AudioMediaFormat.MPEG_AUDIO
+          else -> "unknown"
+        }
+      }
     }
   }
 

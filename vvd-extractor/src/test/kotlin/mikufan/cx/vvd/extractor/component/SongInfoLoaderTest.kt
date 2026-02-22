@@ -34,7 +34,7 @@ class SongInfoLoaderTest(
     val header = taskRecord.header
     val task = taskRecord.payload
 
-    assertThat(header.number).isEqualTo(index)
+    assertThat(header.number).isEqualTo(index.toLong())
     assertThat(task.label.labelFileName).isEqualTo(labelRec.payload.label.labelFileName)
     assertThat(task.label.infoFileName).isEqualTo(labelRec.payload.label.infoFileName)
     assertThat(task.label.order).isEqualTo(orderFromLabel)

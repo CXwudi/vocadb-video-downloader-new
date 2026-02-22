@@ -9,6 +9,8 @@ import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
 import org.apache.tika.Tika
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeAll
+import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
@@ -98,10 +100,12 @@ class BaseCliDownloaderTest(
 
   @Test
   fun throwExceptionAboutNotFindingFile() {
-    val exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalStateException::class.java) {
+    assertThatThrownBy {
       mockDownloader.tryDownload("fake url", "【vocalist】song doesn't exist【producer】[39393]", outputDir)
     }
-    assertThat(exception.message).contains("None of")
+      .isInstanceOf(RuntimeVocaloidException::class.java)
+      .message()
+      .contains("None of")
   }
 }
 
