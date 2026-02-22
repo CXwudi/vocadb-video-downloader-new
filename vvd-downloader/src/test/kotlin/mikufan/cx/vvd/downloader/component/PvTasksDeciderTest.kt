@@ -1,38 +1,30 @@
 package mikufan.cx.vvd.downloader.component
 
-import io.kotest.core.spec.style.ShouldSpec
-import io.kotest.matchers.shouldBe
-import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.commonkt.vocadb.api.model.PVService
 import mikufan.cx.vvd.commonkt.vocadb.api.model.PVType
 import mikufan.cx.vvd.downloader.model.VSongTask
 import mikufan.cx.vvd.downloader.util.SpringBootDirtyTestWithTestProfile
-import mikufan.cx.vvd.downloader.util.SpringShouldSpec
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.DynamicTest
+import org.junit.jupiter.api.DynamicTest.dynamicTest
+import org.junit.jupiter.api.TestFactory
+import org.junit.jupiter.api.TestInstance
 import org.jeasy.batch.core.record.Record
-
-private val log = KInlineLogging.logger()
 
 abstract class PvTasksDeciderBaseTest(
   private val labelsReader: LabelsReader,
   private val songInfoLoader: SongInfoLoader,
-  private val pvTasksDecider: PvTasksDecider,
-  body: ShouldSpec.(List<Record<VSongTask>>) -> Unit = {}
-) : SpringShouldSpec({
-  val list = buildList {
-    lateinit var label: Record<VSongTask>
-    while (labelsReader.readRecord()?.also { label = it } != null) {
-      val thisLabel = label
-      add(thisLabel)
+  private val pvTasksDecider: PvTasksDecider
+) {
+  protected fun buildTestList(): List<Record<VSongTask>> {
+    val labels = mutableListOf<Record<VSongTask>>()
+    while (true) {
+      val record = labelsReader.readRecord() ?: break
+      labels.add(record)
     }
+    return labels.map { pvTasksDecider.processRecord(songInfoLoader.processRecord(it)) }
   }
-  val testList = list.map {
-    pvTasksDecider.processRecord(songInfoLoader.processRecord(it))
-  }
-
-  // log.debug { "List = ${testList.joinToString("\n===START OF LIST===\n", "\n", "\n===END OF LIST===")}" }
-
-  body(testList)
-})
+}
 
 @SpringBootDirtyTestWithTestProfile(
   customProperties = [
@@ -42,37 +34,44 @@ abstract class PvTasksDeciderBaseTest(
     "config.preference.try-all-original-pvs-before-reprinted-pvs=false"
   ]
 )
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PvTasksDeciderWithServiceAndTypeSortingOrderTest(
   labelsReader: LabelsReader,
   songInfoLoader: SongInfoLoader,
   pvTasksDecider: PvTasksDecider,
-) : PvTasksDeciderBaseTest(labelsReader, songInfoLoader, pvTasksDecider, { testList ->
+) : PvTasksDeciderBaseTest(labelsReader, songInfoLoader, pvTasksDecider) {
 
-  context("sorting in defined pv services order") {
-    for (task in testList) {
-      val pvs = task.payload.parameters.pvCandidates!!
+  @TestFactory
+  fun sortingTests(): List<DynamicTest> {
+    val testList = buildTestList()
+    return testList.flatMap { task ->
+      val pvs = task.payload.parameters.pvCandidates
       val songName = task.payload.parameters.songForApiContract?.defaultName ?: "Null name"
-      should("correctly sort pv services for $songName") {
-        pvs
-          .dropWhile { it.service == PVService.BILIBILI }
-          .dropWhile { it.service == PVService.NICONICODOUGA }
-          .dropWhile { it.service == PVService.YOUTUBE }
-          .size shouldBe 0
-      }
+      assertThat(pvs).isNotNull()
+      val pvList = pvs!!
 
-      should("correctly sort pv types for each pv services for $songName") {
-        for (pvService in listOf(PVService.BILIBILI, PVService.NICONICODOUGA, PVService.YOUTUBE)) {
-          val pvsForService = pvs.filter { it.service == pvService }
-          pvsForService
-            .dropWhile { it.pvType == PVType.ORIGINAL }
-            .dropWhile { it.pvType == PVType.OTHER }
-            .dropWhile { it.pvType == PVType.REPRINT }
-            .size shouldBe 0
+      listOf(
+        dynamicTest("correctly sort pv services for $songName") {
+          val remainder = pvList
+            .dropWhile { it.service == PVService.BILIBILI }
+            .dropWhile { it.service == PVService.NICONICODOUGA }
+            .dropWhile { it.service == PVService.YOUTUBE }
+          assertThat(remainder).isEmpty()
+        },
+        dynamicTest("correctly sort pv types for each pv services for $songName") {
+          for (pvService in listOf(PVService.BILIBILI, PVService.NICONICODOUGA, PVService.YOUTUBE)) {
+            val pvsForService = pvList.filter { it.service == pvService }
+            val remainder = pvsForService
+              .dropWhile { it.pvType == PVType.ORIGINAL }
+              .dropWhile { it.pvType == PVType.OTHER }
+              .dropWhile { it.pvType == PVType.REPRINT }
+            assertThat(remainder).isEmpty()
+          }
         }
-      }
+      )
     }
   }
-})
+}
 
 @SpringBootDirtyTestWithTestProfile(
   customProperties = [
@@ -82,34 +81,41 @@ class PvTasksDeciderWithServiceAndTypeSortingOrderTest(
     "config.preference.try-all-original-pvs-before-reprinted-pvs=true"
   ]
 )
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PvTasksDeciderWithTypeAndServiceSortingOrderTest(
   labelsReader: LabelsReader,
   songInfoLoader: SongInfoLoader,
   pvTasksDecider: PvTasksDecider,
-) : PvTasksDeciderBaseTest(labelsReader, songInfoLoader, pvTasksDecider, { testList ->
+) : PvTasksDeciderBaseTest(labelsReader, songInfoLoader, pvTasksDecider) {
 
-  context("sorting in defined pv services order") {
-    for (task in testList) {
-      val pvs = task.payload.parameters.pvCandidates!!
+  @TestFactory
+  fun sortingTests(): List<DynamicTest> {
+    val testList = buildTestList()
+    return testList.flatMap { task ->
+      val pvs = task.payload.parameters.pvCandidates
       val songName = task.payload.parameters.songForApiContract?.defaultName ?: "Null name"
-      should("correctly sort pv types for $songName") {
-        pvs
-          .dropWhile { it.pvType == PVType.ORIGINAL }
-          .dropWhile { it.pvType == PVType.OTHER }
-          .dropWhile { it.pvType == PVType.REPRINT }
-          .size shouldBe 0
-      }
+      assertThat(pvs).isNotNull()
+      val pvList = pvs!!
 
-      should("correctly sort pv services for each pv types for $songName") {
-        for (pvType in listOf(PVType.ORIGINAL, PVType.OTHER, PVType.REPRINT)) {
-          val pvsForService = pvs.filter { it.pvType == pvType }
-          pvsForService
-            .dropWhile { it.service == PVService.BILIBILI }
-            .dropWhile { it.service == PVService.NICONICODOUGA }
-            .dropWhile { it.service == PVService.YOUTUBE }
-            .size shouldBe 0
+      listOf(
+        dynamicTest("correctly sort pv types for $songName") {
+          val remainder = pvList
+            .dropWhile { it.pvType == PVType.ORIGINAL }
+            .dropWhile { it.pvType == PVType.OTHER }
+            .dropWhile { it.pvType == PVType.REPRINT }
+          assertThat(remainder).isEmpty()
+        },
+        dynamicTest("correctly sort pv services for each pv types for $songName") {
+          for (pvType in listOf(PVType.ORIGINAL, PVType.OTHER, PVType.REPRINT)) {
+            val pvsForType = pvList.filter { it.pvType == pvType }
+            val remainder = pvsForType
+              .dropWhile { it.service == PVService.BILIBILI }
+              .dropWhile { it.service == PVService.NICONICODOUGA }
+              .dropWhile { it.service == PVService.YOUTUBE }
+            assertThat(remainder).isEmpty()
+          }
         }
-      }
+      )
     }
   }
-})
+}

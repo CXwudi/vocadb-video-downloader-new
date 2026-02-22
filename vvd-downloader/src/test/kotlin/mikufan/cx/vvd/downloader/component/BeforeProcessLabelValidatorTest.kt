@@ -1,13 +1,16 @@
 package mikufan.cx.vvd.downloader.component
 
-import io.kotest.assertions.fail
-import io.kotest.assertions.throwables.shouldNotThrowAnyUnit
-import io.kotest.matchers.shouldBe
-import io.kotest.matchers.string.shouldContainIgnoringCase
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.downloader.model.VSongTask
 import mikufan.cx.vvd.downloader.util.SpringBootDirtyTestWithTestProfile
-import mikufan.cx.vvd.downloader.util.SpringShouldSpec
+import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
+import org.junit.jupiter.api.Assertions.assertDoesNotThrow
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
 import org.jeasy.batch.core.record.Record
 
 @SpringBootDirtyTestWithTestProfile(
@@ -15,62 +18,62 @@ import org.jeasy.batch.core.record.Record
     "io.input-directory=src/test/resources/2020年V家新曲 with failing labels"
   ]
 )
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class BeforeProcessLabelValidatorFailureTest(
-  val labelsReader: LabelsReader,
-  val beforeProcessLabelValidator: BeforeProcessLabelValidator
-) : SpringShouldSpec({
+  private val labelsReader: LabelsReader,
+  private val beforeProcessLabelValidator: BeforeProcessLabelValidator
+) {
 
-  val shouldFailValidationWith: Record<VSongTask>.(String) -> Unit = { containedString ->
-    try {
-      beforeProcessLabelValidator.processRecord(this)
-      fail("fail to catch the no order validation error")
-    } catch (e: RuntimeVocaloidException) {
-      e.message shouldContainIgnoringCase containedString
-    }
+  private fun Record<VSongTask>.assertFailValidationWith(containedString: String) {
+    assertThatThrownBy { beforeProcessLabelValidator.processRecord(this) }
+      .isInstanceOf(RuntimeVocaloidException::class.java)
+      .hasMessageContainingIgnoringCase(containedString)
   }
-  context("validating the read label") {
-    should("not pass if missing an order") {
-      val record1 = labelsReader.readRecord()!!
-      record1.payload.label.order shouldBe 0
-      record1.shouldFailValidationWith("must be greater than 0")
-    }
 
-    should("not pass if has blank info file name") {
-      val record2 = labelsReader.readRecord()!!
-      record2.payload.label.order shouldBe 37
-      record2.payload.label.infoFileName shouldBe " "
-      record2.shouldFailValidationWith("must not be blank")
-    }
+  @Test
+  fun failValidation() {
+    val record1 = labelsReader.readRecord()!!
+    assertThat(record1.payload.label.order).isEqualTo(0)
+    record1.assertFailValidationWith("must be greater than 0")
 
-    should("not pass if has null info file name") {
-      val record3 = labelsReader.readRecord()!!
-      record3.payload.label.order shouldBe 139
-      record3.payload.label.infoFileName shouldBe null
-      record3.shouldFailValidationWith("must not be blank")
-    }
+    val record2 = labelsReader.readRecord()!!
+    assertThat(record2.payload.label.order).isEqualTo(37)
+    assertThat(record2.payload.label.infoFileName).isEqualTo(" ")
+    record2.assertFailValidationWith("must not be blank")
 
-    should("not pass if has blank label file name") {
-      val record2 = labelsReader.readRecord()!!
-      record2.payload.label.order shouldBe 164
-      record2.payload.label.labelFileName shouldBe " "
-      record2.shouldFailValidationWith("must not be blank")
-    }
+    val record3 = labelsReader.readRecord()!!
+    assertThat(record3.payload.label.order).isEqualTo(139)
+    assertThat(record3.payload.label.infoFileName).isNull()
+    record3.assertFailValidationWith("must not be blank")
+
+    val record4 = labelsReader.readRecord()!!
+    assertThat(record4.payload.label.order).isEqualTo(164)
+    assertThat(record4.payload.label.labelFileName).isEqualTo(" ")
+    record4.assertFailValidationWith("must not be blank")
   }
-})
+}
 
 @SpringBootDirtyTestWithTestProfile
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class BeforeProcessLabelValidatorSuccessTest(
-  val labelsReader: LabelsReader,
-  val beforeProcessLabelValidator: BeforeProcessLabelValidator
-) : SpringShouldSpec({
+  private val labelsReader: LabelsReader,
+  private val beforeProcessLabelValidator: BeforeProcessLabelValidator
+) {
 
-  // our own sample input directory is the output the task producer, should be all working
-  context("read and validate first 10 labels in sample input directory") {
-    for (i in 0 until 10) {
-      val record = labelsReader.readRecord()!!
-      should("success on $record") {
-        shouldNotThrowAnyUnit { beforeProcessLabelValidator.processRecord(record) }
-      }
+  private val records = mutableListOf<Record<VSongTask>>()
+
+  @BeforeAll
+  fun loadRecords() {
+    repeat(10) {
+      records.add(labelsReader.readRecord()!!)
     }
   }
-})
+
+  @ParameterizedTest(name = "success on {0}")
+  @MethodSource("recordSource")
+  fun successOn(record: Record<VSongTask>) {
+    assertDoesNotThrow { beforeProcessLabelValidator.processRecord(record) }
+  }
+
+  fun recordSource(): List<Record<VSongTask>> = records
+}

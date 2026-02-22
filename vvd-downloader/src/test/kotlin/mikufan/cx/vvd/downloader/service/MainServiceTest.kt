@@ -1,9 +1,9 @@
 package mikufan.cx.vvd.downloader.service
 
-import io.kotest.assertions.throwables.shouldNotThrow
-import mikufan.cx.vvd.downloader.util.SpringBootDirtyTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
-import mikufan.cx.vvd.downloader.util.SpringShouldSpec
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 
 @SpringBootTestWithTestProfile(
   customProperties = [
@@ -17,8 +17,10 @@ import mikufan.cx.vvd.downloader.util.SpringShouldSpec
 )
 class MainServiceTest(
   private val mainService: MainService
-) : SpringShouldSpec({
-  xshould("run in the proper env") {
-    shouldNotThrow<java.lang.Exception> { mainService.run() }
+) {
+  @Disabled("requires proper env")
+  @Test
+  fun runInProperEnv() {
+    assertDoesNotThrow { mainService.run() }
   }
-})
+}

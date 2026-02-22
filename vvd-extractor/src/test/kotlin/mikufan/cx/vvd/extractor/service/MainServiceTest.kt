@@ -1,9 +1,9 @@
 package mikufan.cx.vvd.extractor.service
 
-import io.kotest.assertions.throwables.shouldNotThrow
-import mikufan.cx.vvd.extractor.util.SpringBootDirtyTestWithTestProfile
 import mikufan.cx.vvd.extractor.util.SpringBootTestWithTestProfile
-import mikufan.cx.vvd.extractor.util.SpringShouldSpec
+import org.junit.jupiter.api.Assertions.assertDoesNotThrow
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
 
 /**
  * only this vvd-extractor module can have this integration test running in CI without fare
@@ -16,10 +16,10 @@ import mikufan.cx.vvd.extractor.util.SpringShouldSpec
 )
 class MainServiceTest(
   private val mainService: MainService
-) : SpringShouldSpec({
-  xshould("run on this test env") {
-    shouldNotThrow<Exception> {
-      mainService.run()
-    }
+) {
+  @Disabled("run in proper env only")
+  @Test
+  fun runOnTestEnv() {
+    assertDoesNotThrow { mainService.run() }
   }
-})
+}

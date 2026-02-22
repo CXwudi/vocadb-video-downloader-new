@@ -1,45 +1,51 @@
 package mikufan.cx.vvd.downloader.component.downloader.base
 
 import tools.jackson.databind.ObjectMapper
-import io.kotest.assertions.fail
-import io.kotest.matchers.string.shouldContain
 import mikufan.cx.vvd.commonkt.vocadb.api.model.PVService
 import mikufan.cx.vvd.downloader.config.DownloadConfig
 import mikufan.cx.vvd.downloader.config.EnvironmentConfig
 import mikufan.cx.vvd.downloader.config.IOConfig
-import mikufan.cx.vvd.downloader.util.SpringBootDirtyTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
-import mikufan.cx.vvd.downloader.util.SpringShouldSpec
 import org.apache.tika.Tika
-import org.hibernate.validator.internal.util.Contracts.assertTrue
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 import java.nio.file.Path
-import kotlin.io.path.*
+import kotlin.io.path.Path
+import kotlin.io.path.copyTo
+import kotlin.io.path.div
+import kotlin.io.path.extension
+import kotlin.io.path.exists
 
 /**
  * This test requires the docker env
  */
 @SpringBootTestWithTestProfile
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class BaseCliDownloaderTest(
   ioConfig: IOConfig,
   private val downloadConfig: DownloadConfig,
   private val tika: Tika,
   private val environmentConfig: EnvironmentConfig,
   private val objectMapper: ObjectMapper,
-) : SpringShouldSpec({
+) {
 
-  val outputDir = ioConfig.outputDirectory
+  private val outputDir = ioConfig.outputDirectory
 
-  val copyTestSource = fun(originFileNameWithExtension: String, targetFileNameWithoutExtension: String) {
+  private fun copyTestSource(originFileNameWithExtension: String, targetFileNameWithoutExtension: String) {
     val source = Path("../test-files/$originFileNameWithExtension")
     val extension = source.extension
     val targetPath = source.copyTo(outputDir / "$targetFileNameWithoutExtension.$extension")
     targetPath.toFile().deleteOnExit() // this is having problem
   }
 
-  val mockDownloader = DummyCliDownloader(downloadConfig, tika, environmentConfig, objectMapper)
+  private val mockDownloader = DummyCliDownloader(downloadConfig, tika, environmentConfig, objectMapper)
 
-  context("assume download success") {
-
+  @BeforeAll
+  fun prepareFiles() {
     copyTestSource("「クリーデンス」／霧島feat.初音ミク [sm39825313].jpg", "【vocalist】song1【producer】[39393]")
     copyTestSource("「クリーデンス」／霧島feat.初音ミク-sm39825313-trim.ts", "【vocalist】song1【producer】[39393]")
     copyTestSource(
@@ -64,39 +70,40 @@ class BaseCliDownloaderTest(
     )
     copyTestSource("Kikuo - 幽体離脱 [UHH2KKN0xoc].webp", "【vocalist】song4【producer】[39393]")
     copyTestSource("Kikuo - 幽体離脱 [UHH2KKN0xoc]-trim.webm", "【vocalist】song4【producer】[39393]")
-
-    for (number in 1..4) {
-      should("recognized downloaded files for song$number") {
-        runCatching {
-          mockDownloader.tryDownload("fake url", "【vocalist】song$number【producer】[39393]", outputDir)
-        }.onFailure {
-          fail("should not fail for song$number")
-        }.onSuccess { (pvFile, audioFile, thumbnailFile) ->
-          if (number == 2) {
-            assertTrue(pvFile?.exists() == true && audioFile?.exists() == true, "pvFile and audioFile should exist")
-          } else {
-            assertTrue(pvFile?.exists() == true || audioFile?.exists() == true, "pvFile or audioFile should exist")
-          }
-          assertTrue(thumbnailFile.exists(), "thumbnailFile should exist")
-        }
-      }
-    }
   }
 
-  context("assume failed download") {
+  @ParameterizedTest(name = "recognized downloaded files for song{0}")
+  @ValueSource(ints = [1, 2, 3, 4])
+  fun recognizedDownloadedFilesForSong(number: Int) {
+    val (pvFile, audioFile, thumbnailFile) =
+      mockDownloader.tryDownload("fake url", "【vocalist】song$number【producer】[39393]", outputDir)
 
-    should("throw exception about not finding the file") {
-      runCatching {
-        mockDownloader.tryDownload("fake url", "【vocalist】song doesn't exist【producer】[39393]", outputDir)
-      }.onSuccess {
-        fail("should not success")
-      }.onFailure { e ->
-        e.message shouldContain "None of"
-        e is IllegalStateException
-      }
+    val pvExists = pvFile?.exists() == true
+    val audioExists = audioFile?.exists() == true
+
+    if (number == 2) {
+      assertThat(pvExists && audioExists)
+        .describedAs("pvFile and audioFile should exist")
+        .isTrue()
+    } else {
+      assertThat(pvExists || audioExists)
+        .describedAs("pvFile or audioFile should exist")
+        .isTrue()
     }
+
+    assertThat(thumbnailFile.exists())
+      .describedAs("thumbnailFile should exist")
+      .isTrue()
   }
-})
+
+  @Test
+  fun throwExceptionAboutNotFindingFile() {
+    val exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalStateException::class.java) {
+      mockDownloader.tryDownload("fake url", "【vocalist】song doesn't exist【producer】[39393]", outputDir)
+    }
+    assertThat(exception.message).contains("None of")
+  }
+}
 
 /**
  * can't use mockk because of https://github.com/mockk/mockk/issues/321
@@ -118,4 +125,3 @@ class DummyCliDownloader(
   override val downloaderName: String = "dummy-success-dl"
   override val targetPvService: PVService = PVService.NICONICODOUGA
 }
-

@@ -1,19 +1,18 @@
 package mikufan.cx.vvd.extractor.component
 
-import io.kotest.matchers.shouldBe
 import mikufan.cx.vvd.commonkt.batch.toIterator
 import mikufan.cx.vvd.extractor.util.SpringBootDirtyTestWithTestProfile
-import mikufan.cx.vvd.extractor.util.SpringShouldSpec
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 
 @SpringBootDirtyTestWithTestProfile
 class LabelsReaderTest(
   private val labelsReader: LabelsReader
-) : SpringShouldSpec({
+) {
 
-  context("reader") {
-    should("read all labels") {
-      val records = labelsReader.toIterator().asSequence().toList()
-      records.size shouldBe 5
-    }
+  @Test
+  fun readAllLabels() {
+    val records = labelsReader.toIterator().asSequence().toList()
+    assertThat(records).hasSize(5)
   }
-})
+}

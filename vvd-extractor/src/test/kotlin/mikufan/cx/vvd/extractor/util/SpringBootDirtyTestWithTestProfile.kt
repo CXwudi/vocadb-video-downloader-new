@@ -4,6 +4,8 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.core.annotation.AliasFor
 import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.ActiveProfiles
+import org.springframework.test.context.TestConstructor
+import org.springframework.test.context.TestConstructor.AutowireMode
 
 /**
  * @date 2021-06-27
@@ -13,6 +15,7 @@ import org.springframework.test.context.ActiveProfiles
 @Target(AnnotationTarget.TYPE, AnnotationTarget.CLASS)
 @SpringBootTest
 @DirtiesContext
+@TestConstructor(autowireMode = AutowireMode.ALL)
 @ActiveProfiles
 annotation class SpringBootDirtyTestWithTestProfile(
   @get:AliasFor(annotation = ActiveProfiles::class, attribute = "profiles")
