@@ -23,7 +23,7 @@ class BaseAudioExtractorTest(
 
   private val outputDir = ioConfig.outputDirectory
 
-  private val buildFakeTask = fun(songName: String): VSongTask {
+  private fun buildFakeTask(songName: String): VSongTask {
     val fakeSong = SongForApiContract(
       defaultName = songName,
       artistString = "producer feat. vocalist",

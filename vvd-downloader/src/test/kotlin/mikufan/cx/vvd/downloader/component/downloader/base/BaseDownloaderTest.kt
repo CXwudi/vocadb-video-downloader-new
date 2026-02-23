@@ -28,7 +28,7 @@ class BaseDownloaderTest(
 
   private val outputDir = ioConfig.outputDirectory
 
-  private val buildFakeTask = fun(songName: String): VSongTask {
+  private fun buildFakeTask(songName: String): VSongTask {
     val fakeSong = SongForApiContract(
       id = 39393,
       defaultName = songName,

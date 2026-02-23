@@ -17,8 +17,7 @@ build time.
 
 ## Decisions
 
-- Use JUnit Jupiter from Spring Boot 4.0.3 (assume JUnit 6 based on
-  docs).
+- Use JUnit Jupiter from Spring Boot 4.0.3 (JUnit 6 based on docs).
 - Use AssertJ for assertions when it is included via
   `spring-boot-starter-test`.
 - Use `@ParameterizedTest` and `@MethodSource` for simple loops.

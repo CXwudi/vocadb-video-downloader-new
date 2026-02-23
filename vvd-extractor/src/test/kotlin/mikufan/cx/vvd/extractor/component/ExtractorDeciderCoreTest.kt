@@ -12,6 +12,10 @@ import mikufan.cx.vvd.extractor.config.IOConfig
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
 import org.springframework.beans.factory.getBean
 import org.springframework.context.ApplicationContext
 import java.nio.file.Files
@@ -19,6 +23,7 @@ import kotlin.io.path.createFile
 import kotlin.io.path.deleteExisting
 import kotlin.io.path.div
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ExtractorDeciderCoreTest {
 
   @Test
@@ -42,8 +47,9 @@ class ExtractorDeciderCoreTest {
     audioFile.deleteExisting()
   }
 
-  @Test
-  fun setCorrectExtractorForKnownFormat() {
+  @ParameterizedTest(name = "set correct extractor for {0}")
+  @MethodSource("knownFormatCases")
+  fun setCorrectExtractorForKnownFormat(format: String, expectedClass: Class<out BaseAudioExtractor>) {
     val tempInputDir = Files.createTempDirectory("extractor-core-test-")
     val ioConfig = mockk<IOConfig> {
       every { inputDirectory } returns tempInputDir
@@ -62,27 +68,27 @@ class ExtractorDeciderCoreTest {
       }
     }
 
-    listOf("aac", "opus").forEach { format ->
-      val mockChecker = mockk<MediaFormatChecker> {
-        every { checkAudioFormat(any()) } returns format
-      }
-
-      val pvFileName = "$baseInputFileName.mp4"
-      val pvFile = tempInputDir / pvFileName
-      pvFile.createFile()
-
-      val extractorDeciderCore = ExtractorDeciderCore(ioConfig, mockChecker, mockCtx)
-      val decideExtractor: BaseAudioExtractor? =
-        extractorDeciderCore.decideExtractor("", pvFileName, baseInputFileName)
-
-      assertThat(decideExtractor).isNotNull()
-      when (format) {
-        "aac" -> assertThat(decideExtractor).isInstanceOf(AacToM4aAudioExtractor::class.java)
-        "opus" -> assertThat(decideExtractor).isInstanceOf(OpusToOggAudioExtractor::class.java)
-      }
-      pvFile.deleteExisting()
+    val mockChecker = mockk<MediaFormatChecker> {
+      every { checkAudioFormat(any()) } returns format
     }
+
+    val pvFileName = "$baseInputFileName.mp4"
+    val pvFile = tempInputDir / pvFileName
+    pvFile.createFile()
+
+    val extractorDeciderCore = ExtractorDeciderCore(ioConfig, mockChecker, mockCtx)
+    val decideExtractor: BaseAudioExtractor? =
+      extractorDeciderCore.decideExtractor("", pvFileName, baseInputFileName)
+
+    assertThat(decideExtractor).isNotNull()
+    assertThat(decideExtractor).isInstanceOf(expectedClass)
+    pvFile.deleteExisting()
   }
+
+  fun knownFormatCases(): List<Arguments> = listOf(
+    Arguments.of("aac", AacToM4aAudioExtractor::class.java),
+    Arguments.of("opus", OpusToOggAudioExtractor::class.java)
+  )
 
   @Test
   fun fallbackToMkaExtractorForUnknownFormat() {

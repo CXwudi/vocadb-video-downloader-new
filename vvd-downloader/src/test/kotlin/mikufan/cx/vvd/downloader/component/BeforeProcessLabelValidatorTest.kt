@@ -7,7 +7,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
@@ -24,6 +23,15 @@ class BeforeProcessLabelValidatorFailureTest(
   private val beforeProcessLabelValidator: BeforeProcessLabelValidator
 ) {
 
+  private data class FailureCase(
+    val name: String,
+    val record: Record<VSongTask>,
+    val expectedMessage: String,
+    val assertRecord: (Record<VSongTask>) -> Unit
+  ) {
+    override fun toString(): String = name
+  }
+
   private fun Record<VSongTask>.assertFailValidationWith(containedString: String) {
     assertThatThrownBy { beforeProcessLabelValidator.processRecord(this) }
       .isInstanceOf(RuntimeVocaloidException::class.java)
@@ -31,26 +39,56 @@ class BeforeProcessLabelValidatorFailureTest(
       .containsIgnoringCase(containedString)
   }
 
-  @Test
-  fun failValidation() {
+  @ParameterizedTest(name = "{0}")
+  @MethodSource("failureCases")
+  fun failValidation(failureCase: FailureCase) {
+    failureCase.assertRecord(failureCase.record)
+    failureCase.record.assertFailValidationWith(failureCase.expectedMessage)
+  }
+
+  fun failureCases(): List<FailureCase> {
     val record1 = labelsReader.readRecord()!!
-    assertThat(record1.payload.label.order).isEqualTo(0)
-    record1.assertFailValidationWith("must be greater than 0")
-
     val record2 = labelsReader.readRecord()!!
-    assertThat(record2.payload.label.order).isEqualTo(37)
-    assertThat(record2.payload.label.infoFileName).isEqualTo(" ")
-    record2.assertFailValidationWith("must not be blank")
-
     val record3 = labelsReader.readRecord()!!
-    assertThat(record3.payload.label.order).isEqualTo(139)
-    assertThat(record3.payload.label.infoFileName).isNull()
-    record3.assertFailValidationWith("must not be blank")
-
     val record4 = labelsReader.readRecord()!!
-    assertThat(record4.payload.label.order).isEqualTo(164)
-    assertThat(record4.payload.label.labelFileName).isEqualTo(" ")
-    record4.assertFailValidationWith("must not be blank")
+
+    return listOf(
+      FailureCase(
+        name = "missing order",
+        record = record1,
+        expectedMessage = "must be greater than 0",
+        assertRecord = { record ->
+          assertThat(record.payload.label.order).isEqualTo(0)
+        }
+      ),
+      FailureCase(
+        name = "blank info file name",
+        record = record2,
+        expectedMessage = "must not be blank",
+        assertRecord = { record ->
+          assertThat(record.payload.label.order).isEqualTo(37)
+          assertThat(record.payload.label.infoFileName).isEqualTo(" ")
+        }
+      ),
+      FailureCase(
+        name = "null info file name",
+        record = record3,
+        expectedMessage = "must not be blank",
+        assertRecord = { record ->
+          assertThat(record.payload.label.order).isEqualTo(139)
+          assertThat(record.payload.label.infoFileName).isNull()
+        }
+      ),
+      FailureCase(
+        name = "blank label file name",
+        record = record4,
+        expectedMessage = "must not be blank",
+        assertRecord = { record ->
+          assertThat(record.payload.label.order).isEqualTo(164)
+          assertThat(record.payload.label.labelFileName).isEqualTo(" ")
+        }
+      )
+    )
   }
 }
 

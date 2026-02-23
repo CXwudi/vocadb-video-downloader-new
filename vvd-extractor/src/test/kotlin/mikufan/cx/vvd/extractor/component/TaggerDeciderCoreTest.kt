@@ -1,8 +1,8 @@
 package mikufan.cx.vvd.extractor.component
 
-import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.extractor.component.extractor.base.BaseAudioExtractor
 import mikufan.cx.vvd.extractor.component.extractor.impl.AacToM4aAudioExtractor
@@ -17,17 +17,28 @@ import mikufan.cx.vvd.extractor.util.AudioMediaFormat
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
 import org.springframework.beans.factory.getBean
 import org.springframework.context.ApplicationContext
 import java.util.Optional
 import kotlin.io.path.Path
-import kotlin.io.path.name
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class TaggerDeciderCoreTest {
 
   private val fakeM4aFile = Path("fake.m4a")
   private val fakeOpusFile = Path("fake.opus")
   private val fakeMp3File = Path("fake.mp3")
+
+  private data class RawFormatCase(
+    val name: String,
+    val file: java.nio.file.Path,
+    val expectedClass: Class<*>
+  ) {
+    override fun toString(): String = name
+  }
 
   private val createMockChecker = {
     mockk<MediaFormatChecker>(relaxed = true) {
@@ -60,7 +71,7 @@ class TaggerDeciderCoreTest {
 
     val tagger = taggerDecider.decideTagger(Optional.of(mockk<AacToM4aAudioExtractor>(relaxed = true)), null)
     assertThat(tagger).isInstanceOf(M4aAudioTagger::class.java)
-    coVerify(exactly = 0) { mockAudioFormatChecker.checkAudioFormat(any()) }
+    verify(exactly = 0) { mockAudioFormatChecker.checkAudioFormat(any()) }
   }
 
   @Test
@@ -71,7 +82,7 @@ class TaggerDeciderCoreTest {
 
     val tagger = taggerDecider.decideTagger(Optional.of(mockk<OpusToOggAudioExtractor>(relaxed = true)), null)
     assertThat(tagger).isInstanceOf(OggOpusAudioTagger::class.java)
-    coVerify(exactly = 0) { mockAudioFormatChecker.checkAudioFormat(any()) }
+    verify(exactly = 0) { mockAudioFormatChecker.checkAudioFormat(any()) }
   }
 
   @Test
@@ -82,7 +93,7 @@ class TaggerDeciderCoreTest {
 
     val tagger = taggerDecider.decideTagger(Optional.of(mockk<AnyToMkaAudioExtractor>(relaxed = true)), null)
     assertThat(tagger).isInstanceOf(MkaAudioTagger::class.java)
-    coVerify(exactly = 0) { mockAudioFormatChecker.checkAudioFormat(any()) }
+    verify(exactly = 0) { mockAudioFormatChecker.checkAudioFormat(any()) }
   }
 
   @Test
@@ -99,38 +110,23 @@ class TaggerDeciderCoreTest {
       .hasMessageContaining("This should not happened, unknown audio extractor: Unknown Audio Extractor")
   }
 
-  @Test
-  fun decideM4aTaggerForRawM4aFile() {
+  @ParameterizedTest(name = "{0}")
+  @MethodSource("rawFormatCases")
+  fun decideTaggerForRawFile(case: RawFormatCase) {
     val mockAudioFormatChecker = createMockChecker()
     val mockBeanFactory = createMockFactory()
     val taggerDecider = TaggerDeciderCore(mockAudioFormatChecker, mockBeanFactory)
 
-    val tagger = taggerDecider.decideTagger(Optional.empty(), fakeM4aFile)
-    assertThat(tagger).isInstanceOf(M4aAudioTagger::class.java)
-    coVerify(exactly = 1) { mockAudioFormatChecker.checkAudioFormat(fakeM4aFile) }
+    val tagger = taggerDecider.decideTagger(Optional.empty(), case.file)
+    assertThat(tagger).isInstanceOf(case.expectedClass)
+    verify(exactly = 1) { mockAudioFormatChecker.checkAudioFormat(case.file) }
   }
 
-  @Test
-  fun decideOggTaggerForRawOpusFile() {
-    val mockAudioFormatChecker = createMockChecker()
-    val mockBeanFactory = createMockFactory()
-    val taggerDecider = TaggerDeciderCore(mockAudioFormatChecker, mockBeanFactory)
-
-    val tagger = taggerDecider.decideTagger(Optional.empty(), fakeOpusFile)
-    assertThat(tagger).isInstanceOf(OggOpusAudioTagger::class.java)
-    coVerify(exactly = 1) { mockAudioFormatChecker.checkAudioFormat(fakeOpusFile) }
-  }
-
-  @Test
-  fun decideMp3TaggerForRawMp3File() {
-    val mockAudioFormatChecker = createMockChecker()
-    val mockBeanFactory = createMockFactory()
-    val taggerDecider = TaggerDeciderCore(mockAudioFormatChecker, mockBeanFactory)
-
-    val tagger = taggerDecider.decideTagger(Optional.empty(), fakeMp3File)
-    assertThat(tagger).isInstanceOf(Mp3AudioTagger::class.java)
-    coVerify(exactly = 1) { mockAudioFormatChecker.checkAudioFormat(fakeMp3File) }
-  }
+  fun rawFormatCases(): List<RawFormatCase> = listOf(
+    RawFormatCase("m4a", fakeM4aFile, M4aAudioTagger::class.java),
+    RawFormatCase("opus", fakeOpusFile, OggOpusAudioTagger::class.java),
+    RawFormatCase("mp3", fakeMp3File, Mp3AudioTagger::class.java)
+  )
 
   @Test
   fun throwExceptionForUnknownAudioFormat() {
