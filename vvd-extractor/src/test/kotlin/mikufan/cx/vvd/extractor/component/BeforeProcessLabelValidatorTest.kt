@@ -36,7 +36,7 @@ class BeforeProcessLabelValidatorFailureTest(
   private val beforeProcessLabelValidator: BeforeProcessLabelValidator
 ) {
 
-  private data class FailureCase(
+  data class FailureCase(
     val name: String,
     val record: Record<VSongTask>,
     val expectedMessage: String,

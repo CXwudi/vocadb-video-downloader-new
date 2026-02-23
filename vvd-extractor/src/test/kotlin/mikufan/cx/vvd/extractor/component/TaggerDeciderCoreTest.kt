@@ -32,7 +32,7 @@ class TaggerDeciderCoreTest {
   private val fakeOpusFile = Path("fake.opus")
   private val fakeMp3File = Path("fake.mp3")
 
-  private data class RawFormatCase(
+  data class RawFormatCase(
     val name: String,
     val file: java.nio.file.Path,
     val expectedClass: Class<*>

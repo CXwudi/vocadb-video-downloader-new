@@ -23,7 +23,7 @@ class BeforeProcessLabelValidatorFailureTest(
   private val beforeProcessLabelValidator: BeforeProcessLabelValidator
 ) {
 
-  private data class FailureCase(
+  data class FailureCase(
     val name: String,
     val record: Record<VSongTask>,
     val expectedMessage: String,
@@ -58,7 +58,7 @@ class BeforeProcessLabelValidatorFailureTest(
         record = record1,
         expectedMessage = "must be greater than 0",
         assertRecord = { record ->
-          assertThat(record.payload.label.order).isEqualTo(0)
+          assertThat(record.payload.label.order).isEqualTo(0L)
         }
       ),
       FailureCase(
@@ -66,7 +66,7 @@ class BeforeProcessLabelValidatorFailureTest(
         record = record2,
         expectedMessage = "must not be blank",
         assertRecord = { record ->
-          assertThat(record.payload.label.order).isEqualTo(37)
+          assertThat(record.payload.label.order).isEqualTo(37L)
           assertThat(record.payload.label.infoFileName).isEqualTo(" ")
         }
       ),
@@ -75,7 +75,7 @@ class BeforeProcessLabelValidatorFailureTest(
         record = record3,
         expectedMessage = "must not be blank",
         assertRecord = { record ->
-          assertThat(record.payload.label.order).isEqualTo(139)
+          assertThat(record.payload.label.order).isEqualTo(139L)
           assertThat(record.payload.label.infoFileName).isNull()
         }
       ),
@@ -84,7 +84,7 @@ class BeforeProcessLabelValidatorFailureTest(
         record = record4,
         expectedMessage = "must not be blank",
         assertRecord = { record ->
-          assertThat(record.payload.label.order).isEqualTo(164)
+          assertThat(record.payload.label.order).isEqualTo(164L)
           assertThat(record.payload.label.labelFileName).isEqualTo(" ")
         }
       )
