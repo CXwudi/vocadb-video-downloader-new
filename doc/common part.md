@@ -1,12 +1,14 @@
 # Common documentation for all modules
 
+This is the shared common documentation for all maven modules as mentioned in the root `README.md`.
+
 ## Prerequisite
 
 All 3 modules require the following:
 
 1. Java 21 or above
 
-Some modules have additional prerequisites. Please refer to the corresponding module's `README.md` for details.
+Some modules have additional prerequisites. Please refer to the `README.md` in each module for details.
 
 ## How to compile
 
@@ -16,6 +18,28 @@ Some modules have additional prerequisites. Please refer to the corresponding mo
     - `-am`: build all dependent modules
     - `-DskipTests=true`: skip the test cases
 3. The Uber jar for each module will be generated in the `target` folder in each `<the module folder>` folder. For example, the uber jar for `vvd-taskproducer` will be generated in `vvd-taskproducer/target` folder.
+
+## How to test
+
+A [docker image](../docker/env-setup.Dockerfile) is provided for testing, used in both local and CI environments.
+
+Make sure Docker and Docker Compose are available in your environment.
+
+To run tests:
+
+1. Build the test image:
+   `docker compose -f "docker/docker-compose.base.yml" -f "docker/docker-compose.test-all.yml" build`
+1. Run all tests:
+   `docker compose -f "docker/docker-compose.base.yml" -f "docker/docker-compose.test-all.yml" up --exit-code-from base`.
+   It by default runs `./mvnw clean verify` and mounts the repo plus your local Maven cache.
+1. Run tests for a single module:
+   `docker compose -f "docker/docker-compose.base.yml" -f "docker/docker-compose.test-all.yml" run --rm base ./mvnw clean verify -pl <module folder> -am`
+1. Optional cleanup:
+   `docker compose -f "docker/docker-compose.base.yml" -f "docker/docker-compose.test-all.yml" down`
+
+Remote debugging: run tests with `docker/docker-compose.debug-test-all.yml` or add
+`-Dmaven.surefire.debug="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:8000"`
+to your Maven command, then attach your debugger to `localhost:8000`.
 
 ## How to run
 
