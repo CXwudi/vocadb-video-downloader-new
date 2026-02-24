@@ -1,0 +1,11 @@
+// Renovate configuration (JSON5)
+{
+  '$schema': 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:base',
+    ':automergeMinor',
+    ':automergeBranch',
+  ],
+  commitMessageAction: '⬆ upgrade',
+  timezone: 'America/Toronto',
+}
