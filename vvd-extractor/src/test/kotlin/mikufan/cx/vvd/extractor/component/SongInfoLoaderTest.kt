@@ -1,32 +1,46 @@
 package mikufan.cx.vvd.extractor.component
 
-import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNotBe
+import mikufan.cx.vvd.extractor.model.VSongTask
 import mikufan.cx.vvd.extractor.util.SpringBootDirtyTestWithTestProfile
-import mikufan.cx.vvd.extractor.util.SpringShouldSpec
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
+import org.jeasy.batch.core.record.Record
 
 @SpringBootDirtyTestWithTestProfile
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class SongInfoLoaderTest(
-  val labelsReader: LabelsReader,
-  val songInfoLoader: SongInfoLoader
-) : SpringShouldSpec({
+  private val labelsReader: LabelsReader,
+  private val songInfoLoader: SongInfoLoader
+) {
 
-  context("map the 3 sample labels in sample input directory to tasks") {
-    for (i in 1..3) {
-      val labelRec = labelsReader.readRecord()!!
-      val orderFromLabel = labelRec.payload.label.order
-      should("correctly map to task on $labelRec") {
-        val taskRecord = songInfoLoader.processRecord(labelRec)
-        val header = taskRecord.header
-        val task = taskRecord.payload
+  private val labelRecords = mutableListOf<Record<VSongTask>>()
 
-        header.number shouldBe i
-        task.label.labelFileName shouldBe labelRec.payload.label.labelFileName
-        task.label.infoFileName shouldBe labelRec.payload.label.infoFileName
-        task.label.order shouldBe orderFromLabel // the order from label can be random as users may combine or deletes some tasks in their input folder
-        task.parameters.songForApiContract shouldNotBe null
-        // no need to compare song name and info file name, as the info file name might be normalized
-      }
+  @BeforeAll
+  fun loadRecords() {
+    repeat(3) {
+      labelRecords.add(labelsReader.readRecord()!!)
     }
   }
-})
+
+  @ParameterizedTest(name = "map task for label {0}")
+  @MethodSource("recordSource")
+  fun mapTask(index: Int, labelRec: Record<VSongTask>) {
+    val orderFromLabel = labelRec.payload.label.order
+    val taskRecord = songInfoLoader.processRecord(labelRec)
+    val header = taskRecord.header
+    val task = taskRecord.payload
+
+    assertThat(header.number).isEqualTo(index.toLong())
+    assertThat(task.label.labelFileName).isEqualTo(labelRec.payload.label.labelFileName)
+    assertThat(task.label.infoFileName).isEqualTo(labelRec.payload.label.infoFileName)
+    assertThat(task.label.order).isEqualTo(orderFromLabel)
+    assertThat(task.parameters.songForApiContract).isNotNull()
+  }
+
+  fun recordSource(): List<Arguments> =
+    labelRecords.mapIndexed { index, record -> Arguments.of(index + 1, record) }
+}

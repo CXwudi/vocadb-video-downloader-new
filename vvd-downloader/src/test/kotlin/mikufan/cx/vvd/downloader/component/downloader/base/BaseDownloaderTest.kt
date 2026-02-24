@@ -1,8 +1,5 @@
 package mikufan.cx.vvd.downloader.component.downloader.base
 
-import io.kotest.assertions.fail
-import io.kotest.matchers.string.shouldContain
-import io.kotest.matchers.string.shouldEndWith
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.common.label.VSongLabel
 import mikufan.cx.vvd.commonkt.vocadb.api.model.PVContract
@@ -11,9 +8,10 @@ import mikufan.cx.vvd.commonkt.vocadb.api.model.SongForApiContract
 import mikufan.cx.vvd.downloader.config.IOConfig
 import mikufan.cx.vvd.downloader.model.Parameters
 import mikufan.cx.vvd.downloader.model.VSongTask
-import mikufan.cx.vvd.downloader.util.SpringBootDirtyTestWithTestProfile
 import mikufan.cx.vvd.downloader.util.SpringBootTestWithTestProfile
-import mikufan.cx.vvd.downloader.util.SpringShouldSpec
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Assertions.fail
+import org.junit.jupiter.api.Test
 import java.nio.file.Path
 import kotlin.io.path.Path
 import kotlin.io.path.copyTo
@@ -26,30 +24,31 @@ import kotlin.io.path.extension
 @SpringBootTestWithTestProfile
 class BaseDownloaderTest(
   ioConfig: IOConfig
-) : SpringShouldSpec({
+) {
 
-  val outputDir = ioConfig.outputDirectory
+  private val outputDir = ioConfig.outputDirectory
 
-  val buildFakeTask = fun(soneName: String): VSongTask {
+  private fun buildFakeTask(songName: String): VSongTask {
     val fakeSong = SongForApiContract(
       id = 39393,
-      defaultName = soneName,
+      defaultName = songName,
       artistString = "producer feat. vocalist"
     )
-    val fakeTask = VSongTask(VSongLabel.builder().build(), Parameters(fakeSong))
-    return fakeTask
+    return VSongTask(VSongLabel.builder().build(), Parameters(fakeSong))
   }
-  val fakePv = PVContract(url = "https://fake.url")
 
-  val copyTestSource = fun(originFileNameWithExtension: String, targetFileNameWithoutExtension: String) {
+  private val fakePv = PVContract(url = "https://fake.url")
+
+  private fun copyTestSource(originFileNameWithExtension: String, targetFileNameWithoutExtension: String) {
     val source = Path("../test-files/$originFileNameWithExtension")
     val extension = source.extension
     val targetPath = source.copyTo(outputDir / "$targetFileNameWithoutExtension.$extension")
     targetPath.toFile().deleteOnExit() // this is having problem
   }
 
-  context("assume download success") {
-      val fakeDownloader = object : BaseDownloader() {
+  @Test
+  fun properlyHandleRenamingOfSong() {
+    val fakeDownloader = object : BaseDownloader() {
       override val downloaderName: String = "FakeDownloader"
       override val targetPvService: PVService = PVService.NOTHING
       override fun tryDownload(url: String, baseFileName: String, outputDirectory: Path): DownloadFiles {
@@ -74,25 +73,26 @@ class BaseDownloaderTest(
       "【vocalist】OSTER project song【producer】[39393]-downloading.thumbnail"
     )
 
-    should("properly handle renaming of song") {
-      val fakeTask = buildFakeTask("OSTER project song")
-      fakeDownloader.download(fakePv, fakeTask, outputDir)
-        .onFailure {
-          fail("should not fail")
-        }.onSuccess {
-          val (pvFile, audioFile, thumbnailFile) = it
-          pvFile?.let { pvFile ->
-            pvFile.fileName.toString() shouldEndWith "-pv.${pvFile.extension}"
-          }
-          audioFile?.let { audioFile ->
-            audioFile.fileName.toString() shouldEndWith "-audio.${audioFile.extension}"
-          }
-          thumbnailFile.fileName.toString() shouldEndWith "-thumbnail.${thumbnailFile.extension}"
+    val fakeTask = buildFakeTask("OSTER project song")
+    fakeDownloader.download(fakePv, fakeTask, outputDir)
+      .onFailure {
+        fail("should not fail")
+      }.onSuccess {
+        val (pvFile, audioFile, thumbnailFile) = it
+        assertThat(pvFile).isNotNull()
+        pvFile!!.let { file ->
+          assertThat(file.fileName.toString()).endsWith("-pv.${file.extension}")
         }
-    }
+        assertThat(audioFile).isNotNull()
+        audioFile!!.let { file ->
+          assertThat(file.fileName.toString()).endsWith("-audio.${file.extension}")
+        }
+        assertThat(thumbnailFile.fileName.toString()).endsWith("-thumbnail.${thumbnailFile.extension}")
+      }
   }
 
-  context("assume download fail") {
+  @Test
+  fun handleException() {
     val fakeDownloader = object : BaseDownloader() {
       override val downloaderName: String = "FakeDownloader"
       override val targetPvService: PVService = PVService.NOTHING
@@ -101,14 +101,12 @@ class BaseDownloaderTest(
       }
     }
 
-    should("handle exception") {
-      val fakeTask = buildFakeTask("OSTER project song")
-      fakeDownloader.download(fakePv, fakeTask, outputDir)
-        .onFailure {
-          it.message shouldContain "a fake exception"
-        }.onSuccess {
-          fail("should not succeed")
-        }
-    }
+    val fakeTask = buildFakeTask("OSTER project song")
+    fakeDownloader.download(fakePv, fakeTask, outputDir)
+      .onFailure {
+        assertThat(it.message).contains("a fake exception")
+      }.onSuccess {
+        fail("should not succeed")
+      }
   }
-})
+}

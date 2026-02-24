@@ -1,86 +1,115 @@
 package mikufan.cx.vvd.extractor.component
 
-import io.kotest.assertions.throwables.shouldNotThrow
-import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.matchers.string.shouldContainIgnoringCase
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.commonkt.batch.toIterator
+import mikufan.cx.vvd.extractor.model.VSongTask
 import mikufan.cx.vvd.extractor.util.SpringBootDirtyTestWithTestProfile
-import mikufan.cx.vvd.extractor.util.SpringShouldSpec
+import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
+import org.junit.jupiter.api.Assertions.assertDoesNotThrow
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
+import org.jeasy.batch.core.record.Record
 
 @SpringBootDirtyTestWithTestProfile
 class BeforeProcessLabelValidatorTest(
   private val labelsReader: LabelsReader,
   private val beforeProcessLabelValidator: BeforeProcessLabelValidator
-) : SpringShouldSpec({
+) {
 
-  context("pass validation") {
+  @Test
+  fun passValidation() {
     labelsReader.toIterator().forEach {
-      should("not throw exception on ${it.payload.label.labelFileName}") {
-        shouldNotThrow<RuntimeVocaloidException> {
-          beforeProcessLabelValidator.processRecord(it)
-        }
+      assertDoesNotThrow {
+        beforeProcessLabelValidator.processRecord(it)
       }
     }
   }
-})
+}
 
 @SpringBootDirtyTestWithTestProfile
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class BeforeProcessLabelValidatorFailureTest(
   private val labelsReader: LabelsReader,
   private val beforeProcessLabelValidator: BeforeProcessLabelValidator
-) : SpringShouldSpec({
+) {
 
-  context("fail validation") {
-    val oneRecord = labelsReader.readRecord()!!
-    oneRecord.payload.label.apply {
-      this.downloaderName = ""
-    }
-
-    should("throw exception on ${oneRecord.payload.label.labelFileName}") {
-      val exp = shouldThrow<RuntimeVocaloidException> {
-        beforeProcessLabelValidator.processRecord(oneRecord)
-      }
-      exp.message shouldContainIgnoringCase "must not be blank"
-    }
-
-    val anotherRecord = labelsReader.readRecord()!!
-    anotherRecord.payload.label.apply {
-      this.pvFileName = ""
-      this.audioFileName = ""
-    }
-
-    should("throw exception on ${anotherRecord.payload.label.labelFileName}") {
-      val exp = shouldThrow<RuntimeVocaloidException> {
-        beforeProcessLabelValidator.processRecord(anotherRecord)
-      }
-      exp.message shouldContainIgnoringCase "must contain at least one of a PV file or an audio file"
-    }
-
-    anotherRecord.payload.label.apply {
-      this.pvFileName = "123"
-      this.audioFileName = "123"
-      this.thumbnailFileName = ""
-    }
-
-    should("throw exception on ${anotherRecord.payload.label.labelFileName} again") {
-      val exp = shouldThrow<RuntimeVocaloidException> {
-        beforeProcessLabelValidator.processRecord(anotherRecord)
-      }
-      exp.message shouldContainIgnoringCase "must contain a thumbnail file"
-    }
-
-    val thirdRecord = labelsReader.readRecord()!!
-    thirdRecord.payload.label.apply {
-      this.vocaDbPvId = 0
-    }
-
-    should("throw exception on ${thirdRecord.payload.label.labelFileName}") {
-      val exp = shouldThrow<RuntimeVocaloidException> {
-        beforeProcessLabelValidator.processRecord(thirdRecord)
-      }
-
-      exp.message shouldContainIgnoringCase "must be greater than 0"
-    }
+  data class FailureCase(
+    val name: String,
+    val record: Record<VSongTask>,
+    val expectedMessage: String,
+    val assertRecord: (Record<VSongTask>) -> Unit
+  ) {
+    override fun toString(): String = name
   }
-})
+
+  @ParameterizedTest(name = "{0}")
+  @MethodSource("failureCases")
+  fun failValidation(failureCase: FailureCase) {
+    failureCase.assertRecord(failureCase.record)
+    assertThatThrownBy { beforeProcessLabelValidator.processRecord(failureCase.record) }
+      .isInstanceOf(RuntimeVocaloidException::class.java)
+      .message()
+      .containsIgnoringCase(failureCase.expectedMessage)
+  }
+
+  fun failureCases(): List<FailureCase> {
+    val oneRecord = checkNotNull(labelsReader.readRecord()) {
+      "Expected at least 3 records, but record[0] was null."
+    }
+    val anotherRecord = checkNotNull(labelsReader.readRecord()) {
+      "Expected at least 3 records, but record[1] was null."
+    }
+    val thirdRecord = checkNotNull(labelsReader.readRecord()) {
+      "Expected at least 3 records, but record[2] was null."
+    }
+
+    return listOf(
+      FailureCase(
+        name = "missing downloader name",
+        record = oneRecord,
+        expectedMessage = "must not be blank",
+        assertRecord = { record ->
+          record.payload.label.apply {
+            this.downloaderName = ""
+          }
+        }
+      ),
+      FailureCase(
+        name = "missing pv or audio file",
+        record = anotherRecord,
+        expectedMessage = "must contain at least one of a PV file or an audio file",
+        assertRecord = { record ->
+          record.payload.label.apply {
+            this.pvFileName = ""
+            this.audioFileName = ""
+          }
+        }
+      ),
+      FailureCase(
+        name = "missing thumbnail file",
+        record = anotherRecord,
+        expectedMessage = "must contain a thumbnail file",
+        assertRecord = { record ->
+          record.payload.label.apply {
+            this.pvFileName = "123"
+            this.audioFileName = "123"
+            this.thumbnailFileName = ""
+          }
+        }
+      ),
+      FailureCase(
+        name = "missing voca db pv id",
+        record = thirdRecord,
+        expectedMessage = "must be greater than 0",
+        assertRecord = { record ->
+          record.payload.label.apply {
+            this.vocaDbPvId = 0
+          }
+        }
+      )
+    )
+  }
+}

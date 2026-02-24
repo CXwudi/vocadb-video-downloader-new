@@ -1,15 +1,13 @@
 package mikufan.cx.vvd.extractor
 
-import mikufan.cx.vvd.extractor.util.SpringShouldSpec
-import mikufan.cx.vvd.extractor.util.SpringBootDirtyTestWithTestProfile
-import io.kotest.matchers.shouldBe
 import mikufan.cx.vvd.extractor.util.SpringBootTestWithTestProfile
+import org.junit.jupiter.api.Test
 
 @SpringBootTestWithTestProfile
-class ExtractorApplicationTest : SpringShouldSpec({
-  context("extractor applition") {
-    should("boot") {
+class ExtractorApplicationTest {
 
-    }
+  @Test
+  fun boot() {
+    // context load smoke test
   }
-})
+}

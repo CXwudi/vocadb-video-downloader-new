@@ -3,6 +3,8 @@ package mikufan.cx.vvd.extractor.util
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.core.annotation.AliasFor
 import org.springframework.test.context.ActiveProfiles
+import org.springframework.test.context.TestConstructor
+import org.springframework.test.context.TestConstructor.AutowireMode
 
 
 /**
@@ -12,6 +14,7 @@ import org.springframework.test.context.ActiveProfiles
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.TYPE, AnnotationTarget.CLASS)
 @SpringBootTest
+@TestConstructor(autowireMode = AutowireMode.ALL)
 @ActiveProfiles
 annotation class SpringBootTestWithTestProfile(
   @get:AliasFor(annotation = ActiveProfiles::class, attribute = "profiles")

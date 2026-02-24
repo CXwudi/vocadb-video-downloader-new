@@ -1,10 +1,5 @@
 package mikufan.cx.vvd.extractor.component.extractor.base
 
-import io.kotest.assertions.fail
-import io.kotest.matchers.should
-import io.kotest.matchers.string.shouldContain
-import io.kotest.matchers.string.shouldEndWith
-import io.kotest.matchers.types.beInstanceOf
 import mikufan.cx.vvd.commonkt.vocadb.api.model.SongForApiContract
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.common.label.VSongLabel
@@ -12,7 +7,9 @@ import mikufan.cx.vvd.extractor.config.IOConfig
 import mikufan.cx.vvd.extractor.model.Parameters
 import mikufan.cx.vvd.extractor.model.VSongTask
 import mikufan.cx.vvd.extractor.util.SpringBootTestWithTestProfile
-import mikufan.cx.vvd.extractor.util.SpringShouldSpec
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Assertions.fail
+import org.junit.jupiter.api.Test
 import java.nio.file.Path
 import kotlin.io.path.Path
 import kotlin.io.path.copyTo
@@ -22,38 +19,28 @@ import kotlin.io.path.extension
 @SpringBootTestWithTestProfile
 class BaseAudioExtractorTest(
   ioConfig: IOConfig,
-) : SpringShouldSpec({
+) {
 
-  val outputDir = ioConfig.outputDirectory
+  private val outputDir = ioConfig.outputDirectory
 
-  val buildFakeTask = fun(soneName: String): VSongTask {
+  private fun buildFakeTask(songName: String): VSongTask {
     val fakeSong = SongForApiContract(
-      defaultName = soneName,
+      defaultName = songName,
       artistString = "producer feat. vocalist",
       id = 39393
     )
-    val fakeTask = VSongTask(VSongLabel.builder().build(), Parameters(fakeSong))
-    return fakeTask
+    return VSongTask(VSongLabel.builder().build(), Parameters(fakeSong))
   }
 
-  val copyTestSource = fun(originFileNameWithExtension: String, targetFileNameWithoutExtension: String) {
+  private fun copyTestSource(originFileNameWithExtension: String, targetFileNameWithoutExtension: String) {
     val source = Path("../test-files/$originFileNameWithExtension")
     val extension = source.extension
     val targetPath = source.copyTo(outputDir / "$targetFileNameWithoutExtension.$extension")
     targetPath.toFile().deleteOnExit() // this is having problem
   }
 
-  context("assume success extraction") {
-    // java.lang.ClassCastException: class sun.nio.fs.WindowsPath cannot be cast to class kotlin.Result
-//    val fakeExtractor = mockk<BaseAudioExtractor> {
-//      every { extract(any(), any(), any()) } answers { callOriginal() }
-//      every { name } returns "Fake Audio Extractor"
-//      val baseOutputFileNameSlot = slot<String>()
-//      val outputDirectorySlot = slot<Path>()
-//      every { tryExtract(any(), capture(baseOutputFileNameSlot), capture(outputDirectorySlot)) } answers {
-//        outputDirectorySlot.captured / "${baseOutputFileNameSlot.captured}.m4a"
-//      }
-//    }
+  @Test
+  fun properlyHandleRenamingOfExtractedAudio() {
     val fakeExtractor = object : BaseAudioExtractor() {
       override val name = "fake audio extractor"
       override fun tryExtract(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): Path {
@@ -66,31 +53,29 @@ class BaseAudioExtractorTest(
       "【vocalist】OSTER project song【producer】[39393]-extracting"
     )
 
-    should("properly handle renaming of the extracted audio") {
-      val fakeTask = buildFakeTask("OSTER project song")
-      fakeExtractor.extract(Path("whatever"), fakeTask, outputDir).onFailure {
-        fail("should not fail")
-      }.onSuccess {
-        it.fileName.toString() shouldEndWith "-audio.${it.extension}"
-      }
+    val fakeTask = buildFakeTask("OSTER project song")
+    fakeExtractor.extract(Path("whatever"), fakeTask, outputDir).onFailure {
+      fail("should not fail")
+    }.onSuccess {
+      assertThat(it.fileName.toString()).endsWith("-audio.${it.extension}")
     }
   }
 
-  context("exception handling") {
-    should("works") {
-      val fakeExtractor = object : BaseAudioExtractor() {
-        override val name = "fake audio extractor"
-        override fun tryExtract(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): Path {
-          throw RuntimeVocaloidException("fake exception")
-        }
+  @Test
+  fun exceptionHandlingWorks() {
+    val fakeExtractor = object : BaseAudioExtractor() {
+      override val name = "fake audio extractor"
+      override fun tryExtract(inputPvFile: Path, baseOutputFileName: String, outputDirectory: Path): Path {
+        throw RuntimeVocaloidException("fake exception")
       }
-      fakeExtractor.extract(Path("fake file"), buildFakeTask("fake song"), outputDir)
-        .onSuccess {
-          fail("should not be here")
-        }.onFailure {
-          it should beInstanceOf<RuntimeVocaloidException>()
-          it.message shouldContain "fake exception"
-        }
     }
+
+    fakeExtractor.extract(Path("fake file"), buildFakeTask("fake song"), outputDir)
+      .onSuccess {
+        fail("should not be here")
+      }.onFailure {
+        assertThat(it).isInstanceOf(RuntimeVocaloidException::class.java)
+        assertThat(it.message).contains("fake exception")
+      }
   }
-})
+}
