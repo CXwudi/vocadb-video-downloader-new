@@ -3,6 +3,7 @@ package mikufan.cx.vvd.common.validation.validator;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import mikufan.cx.vvd.common.validation.annotation.IsDirectory;
+import org.hibernate.validator.constraintvalidation.HibernateConstraintValidatorContext;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,11 +34,12 @@ public class ValidDirectoryPathValidator implements ConstraintValidator<IsDirect
   @Override
   public boolean isValid(Path path, ConstraintValidatorContext context) {
     context.disableDefaultConstraintViolation();
+    var hibernateContext = context.unwrap(HibernateConstraintValidatorContext.class);
     if (Objects.isNull(path)){
       if (optionalCheck){
         return true;
       } else {
-        context.buildConstraintViolationWithTemplate("The path can not be null")
+        hibernateContext.buildConstraintViolationWithTemplate("The path can not be null")
             .addConstraintViolation();
         return false;
       }
@@ -47,33 +49,38 @@ public class ValidDirectoryPathValidator implements ConstraintValidator<IsDirect
       if (optionalCheck){
         return true;
       } else {
-        context.buildConstraintViolationWithTemplate(
-            String.format("The path '%s' doesn't exist", fullPath))
+        hibernateContext
+            .addMessageParameter("path", fullPath)
+            .buildConstraintViolationWithTemplate("The path '{path}' doesn't exist")
             .addConstraintViolation();
         return false;
       }
     } else if (!Files.isDirectory(path)){
-      context.buildConstraintViolationWithTemplate(
-          String.format("The path '%s' is not a directory", fullPath))
+      hibernateContext
+          .addMessageParameter("path", fullPath)
+          .buildConstraintViolationWithTemplate("The path '{path}' is not a directory")
           .addConstraintViolation();
       return false;
     } else {
       // check privilege
       if (checkReadable && !Files.isReadable(path)){
-        context.buildConstraintViolationWithTemplate(
-            String.format("The directory '%s' is not readable", fullPath))
+        hibernateContext
+            .addMessageParameter("path", fullPath)
+            .buildConstraintViolationWithTemplate("The directory '{path}' is not readable")
             .addConstraintViolation();
         return false;
       }
       if (checkWritable && !Files.isWritable(path)){
-        context.buildConstraintViolationWithTemplate(
-            String.format("The directory '%s' is not writable", fullPath))
+        hibernateContext
+            .addMessageParameter("path", fullPath)
+            .buildConstraintViolationWithTemplate("The directory '{path}' is not writable")
             .addConstraintViolation();
         return false;
       }
       if (checkExecutable && !Files.isExecutable(path)){
-        context.buildConstraintViolationWithTemplate(
-            String.format("The directory '%s' is not executable", fullPath))
+        hibernateContext
+            .addMessageParameter("path", fullPath)
+            .buildConstraintViolationWithTemplate("The directory '{path}' is not executable")
             .addConstraintViolation();
         return false;
       }

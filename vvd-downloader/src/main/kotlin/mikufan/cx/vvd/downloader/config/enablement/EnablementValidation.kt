@@ -6,6 +6,7 @@ import jakarta.validation.ConstraintValidatorContext
 import jakarta.validation.Payload
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.downloader.config.preference.Preference
+import org.hibernate.validator.constraintvalidation.HibernateConstraintValidatorContext
 import org.springframework.core.env.Environment
 import org.springframework.stereotype.Component
 import kotlin.reflect.KClass
@@ -37,6 +38,7 @@ class EnablementValidator(
    */
   override fun isValid(enablement: Enablement, context: ConstraintValidatorContext): Boolean {
     var defaultConstraintDisabled = false
+    val hibernateContext = context.unwrap(HibernateConstraintValidatorContext::class.java)
     fun disableDefaultConstraintViolation() {
       if (!defaultConstraintDisabled) {
         context.disableDefaultConstraintViolation()
@@ -49,7 +51,9 @@ class EnablementValidator(
       // first check if no downloader configured
       if (declaredDownloaderNames.isEmpty()) {
         disableDefaultConstraintViolation()
-        context.buildConstraintViolationWithTemplate("Need at least one downloader for $pvService")
+        hibernateContext
+          .addMessageParameter("pvService", pvService)
+          .buildConstraintViolationWithTemplate("Need at least one downloader for {pvService}")
           .addPropertyNode("enablement")
           .addContainerElementNode("<pvService>", Map::class.java, 0)
             .inIterable().atKey(pvService)
@@ -63,7 +67,10 @@ class EnablementValidator(
         }
         unknownDownloaderNames.forEach { downloaderName ->
           disableDefaultConstraintViolation()
-          context.buildConstraintViolationWithTemplate("We don't have a downloader called $downloaderName for $pvService")
+          hibernateContext
+            .addMessageParameter("downloaderName", downloaderName)
+            .addMessageParameter("pvService", pvService)
+            .buildConstraintViolationWithTemplate("We don't have a downloader called {downloaderName} for {pvService}")
             .addPropertyNode("enablement")
             .addContainerElementNode("<pvService>", Map::class.java, 0)
             .inIterable().atKey(pvService)

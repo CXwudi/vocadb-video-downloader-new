@@ -5,19 +5,15 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.Payload;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.experimental.FieldDefaults;
 import tools.jackson.databind.annotation.JsonDeserialize;
 import tools.jackson.databind.annotation.JsonPOJOBuilder;
 import org.apache.commons.lang3.StringUtils;
-
+import org.hibernate.validator.constraintvalidation.HibernateConstraintValidatorContext;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-
+import java.util.Objects;
+import java.util.StringJoiner;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
@@ -27,49 +23,340 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @author CX无敌
  * 2021-05-29
  */
-@Data
-@AllArgsConstructor
-@Builder(toBuilder = true)
 @JsonDeserialize(builder = VSongLabel.VSongLabelBuilder.class)
-@FieldDefaults(level = AccessLevel.PROTECTED)
 @HasRequiredResource(groups = ValidationPhase.Two.class)
 public class VSongLabel {
+  /**
+   * the file name of this label itself <br/>
+   * we need the label name recorded in the label itself
+   * as various VSong naming methods are not globally available anymore
+   */
+  @NotBlank(groups = ValidationPhase.One.class)
+  protected String labelFileName;
+  @NotBlank(groups = ValidationPhase.One.class)
+  protected String infoFileName;
+  /**
+   * order value always start at 1, not the programmer's 0-based index
+   */
+  @Positive(groups = ValidationPhase.One.class)
+  protected long order;
+  // these three will be validated by @HasRequiredResource
+  // mediainfo will be used in vvd-extractor to accurately determine the audio format
+  protected String pvFileName;
+  protected String audioFileName;
+  protected String thumbnailFileName;
+  /**
+   * need the VocaDB ID of the pv so that we know which PV is successfully downloaded
+   * <p>
+   * the VocaDB PV ID should always be positive.
+   */
+  @Positive(groups = ValidationPhase.Two.class)
+  protected int vocaDbPvId;
+  // this is recorded for reference
+  @NotBlank(groups = ValidationPhase.Two.class)
+  protected String downloaderName;
+  /**
+   * the name of the final output audio file that has thumbnail and tags properly added
+   */
+  @NotBlank(groups = ValidationPhase.Three.class)
+  protected String processedAudioFileName;
+
+
+  @JsonPOJOBuilder(withPrefix = "")
+  public static class VSongLabelBuilder {
+    private String labelFileName;
+    private String infoFileName;
+    private long order;
+    private String pvFileName;
+    private String audioFileName;
+    private String thumbnailFileName;
+    private int vocaDbPvId;
+    private String downloaderName;
+    private String processedAudioFileName;
+
+    VSongLabelBuilder() {
+    }
+
+    /**
+     * the file name of this label itself <br/>
+     * we need the label name recorded in the label itself
+     * as various VSong naming methods are not globally available anymore
+     * @return {@code this}.
+     */
+    public VSongLabel.VSongLabelBuilder labelFileName(final String labelFileName) {
+      this.labelFileName = labelFileName;
+      return this;
+    }
+
+    /**
+     * @return {@code this}.
+     */
+    public VSongLabel.VSongLabelBuilder infoFileName(final String infoFileName) {
+      this.infoFileName = infoFileName;
+      return this;
+    }
+
+    /**
+     * order value always start at 1, not the programmer's 0-based index
+     * @return {@code this}.
+     */
+    public VSongLabel.VSongLabelBuilder order(final long order) {
+      this.order = order;
+      return this;
+    }
+
+    /**
+     * @return {@code this}.
+     */
+    public VSongLabel.VSongLabelBuilder pvFileName(final String pvFileName) {
+      this.pvFileName = pvFileName;
+      return this;
+    }
+
+    /**
+     * @return {@code this}.
+     */
+    public VSongLabel.VSongLabelBuilder audioFileName(final String audioFileName) {
+      this.audioFileName = audioFileName;
+      return this;
+    }
+
+    /**
+     * @return {@code this}.
+     */
+    public VSongLabel.VSongLabelBuilder thumbnailFileName(final String thumbnailFileName) {
+      this.thumbnailFileName = thumbnailFileName;
+      return this;
+    }
+
+    /**
+     * need the VocaDB ID of the pv so that we know which PV is successfully downloaded
+     * <p>
+     * the VocaDB PV ID should always be positive.
+     * @return {@code this}.
+     */
+    public VSongLabel.VSongLabelBuilder vocaDbPvId(final int vocaDbPvId) {
+      this.vocaDbPvId = vocaDbPvId;
+      return this;
+    }
+
+    /**
+     * @return {@code this}.
+     */
+    public VSongLabel.VSongLabelBuilder downloaderName(final String downloaderName) {
+      this.downloaderName = downloaderName;
+      return this;
+    }
+
+    /**
+     * the name of the final output audio file that has thumbnail and tags properly added
+     * @return {@code this}.
+     */
+    public VSongLabel.VSongLabelBuilder processedAudioFileName(final String processedAudioFileName) {
+      this.processedAudioFileName = processedAudioFileName;
+      return this;
+    }
+
+    public VSongLabel build() {
+      return new VSongLabel(this.labelFileName, this.infoFileName, this.order, this.pvFileName, this.audioFileName, this.thumbnailFileName, this.vocaDbPvId, this.downloaderName, this.processedAudioFileName);
+    }
+
+    @Override
+    public String toString() {
+      return "VSongLabel.VSongLabelBuilder(labelFileName=" + this.labelFileName + ", infoFileName=" + this.infoFileName + ", order=" + this.order + ", pvFileName=" + this.pvFileName + ", audioFileName=" + this.audioFileName + ", thumbnailFileName=" + this.thumbnailFileName + ", vocaDbPvId=" + this.vocaDbPvId + ", downloaderName=" + this.downloaderName + ", processedAudioFileName=" + this.processedAudioFileName + ")";
+    }
+  }
+
+  public static VSongLabel.VSongLabelBuilder builder() {
+    return new VSongLabel.VSongLabelBuilder();
+  }
+
+  public VSongLabel.VSongLabelBuilder toBuilder() {
+    return new VSongLabel.VSongLabelBuilder().labelFileName(this.labelFileName).infoFileName(this.infoFileName).order(this.order).pvFileName(this.pvFileName).audioFileName(this.audioFileName).thumbnailFileName(this.thumbnailFileName).vocaDbPvId(this.vocaDbPvId).downloaderName(this.downloaderName).processedAudioFileName(this.processedAudioFileName);
+  }
 
   /**
    * the file name of this label itself <br/>
    * we need the label name recorded in the label itself
    * as various VSong naming methods are not globally available anymore
    */
-  @NotBlank(groups = ValidationPhase.One.class) String labelFileName;
-  @NotBlank(groups = ValidationPhase.One.class) String infoFileName;
+  public String getLabelFileName() {
+    return this.labelFileName;
+  }
+
+  public String getInfoFileName() {
+    return this.infoFileName;
+  }
+
   /**
    * order value always start at 1, not the programmer's 0-based index
    */
-  @Positive(groups = ValidationPhase.One.class) long order;
+  public long getOrder() {
+    return this.order;
+  }
 
-  // these three will be validated by @HasRequiredResource
-  // mediainfo will be used in vvd-extractor to accurately determine the audio format
-  String pvFileName;
-  String audioFileName;
-  String thumbnailFileName;
+  public String getPvFileName() {
+    return this.pvFileName;
+  }
+
+  public String getAudioFileName() {
+    return this.audioFileName;
+  }
+
+  public String getThumbnailFileName() {
+    return this.thumbnailFileName;
+  }
 
   /**
    * need the VocaDB ID of the pv so that we know which PV is successfully downloaded
    * <p>
    * the VocaDB PV ID should always be positive.
    */
-  @Positive(groups = ValidationPhase.Two.class) int vocaDbPvId;
-  // this is recorded for reference
-  @NotBlank(groups = ValidationPhase.Two.class) String downloaderName;
+  public int getVocaDbPvId() {
+    return this.vocaDbPvId;
+  }
+
+  public String getDownloaderName() {
+    return this.downloaderName;
+  }
 
   /**
    * the name of the final output audio file that has thumbnail and tags properly added
    */
-  @NotBlank(groups = ValidationPhase.Three.class) String processedAudioFileName;
+  public String getProcessedAudioFileName() {
+    return this.processedAudioFileName;
+  }
 
-  @JsonPOJOBuilder(withPrefix = "")
-  public static class VSongLabelBuilder {}
+  /**
+   * the file name of this label itself <br/>
+   * we need the label name recorded in the label itself
+   * as various VSong naming methods are not globally available anymore
+   */
+  public void setLabelFileName(final String labelFileName) {
+    this.labelFileName = labelFileName;
+  }
 
+  public void setInfoFileName(final String infoFileName) {
+    this.infoFileName = infoFileName;
+  }
+
+  /**
+   * order value always start at 1, not the programmer's 0-based index
+   */
+  public void setOrder(final long order) {
+    this.order = order;
+  }
+
+  public void setPvFileName(final String pvFileName) {
+    this.pvFileName = pvFileName;
+  }
+
+  public void setAudioFileName(final String audioFileName) {
+    this.audioFileName = audioFileName;
+  }
+
+  public void setThumbnailFileName(final String thumbnailFileName) {
+    this.thumbnailFileName = thumbnailFileName;
+  }
+
+  /**
+   * need the VocaDB ID of the pv so that we know which PV is successfully downloaded
+   * <p>
+   * the VocaDB PV ID should always be positive.
+   */
+  public void setVocaDbPvId(final int vocaDbPvId) {
+    this.vocaDbPvId = vocaDbPvId;
+  }
+
+  public void setDownloaderName(final String downloaderName) {
+    this.downloaderName = downloaderName;
+  }
+
+  /**
+   * the name of the final output audio file that has thumbnail and tags properly added
+   */
+  public void setProcessedAudioFileName(final String processedAudioFileName) {
+    this.processedAudioFileName = processedAudioFileName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    VSongLabel that = (VSongLabel) o;
+    return order == that.order
+        && vocaDbPvId == that.vocaDbPvId
+        && Objects.equals(labelFileName, that.labelFileName)
+        && Objects.equals(infoFileName, that.infoFileName)
+        && Objects.equals(pvFileName, that.pvFileName)
+        && Objects.equals(audioFileName, that.audioFileName)
+        && Objects.equals(thumbnailFileName, that.thumbnailFileName)
+        && Objects.equals(downloaderName, that.downloaderName)
+        && Objects.equals(processedAudioFileName, that.processedAudioFileName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        labelFileName,
+        infoFileName,
+        order,
+        pvFileName,
+        audioFileName,
+        thumbnailFileName,
+        vocaDbPvId,
+        downloaderName,
+        processedAudioFileName
+    );
+  }
+
+  @Override
+  public String toString() {
+    return new StringJoiner(", ", VSongLabel.class.getSimpleName() + "(", ")")
+        .add("labelFileName=" + labelFileName)
+        .add("infoFileName=" + infoFileName)
+        .add("order=" + order)
+        .add("pvFileName=" + pvFileName)
+        .add("audioFileName=" + audioFileName)
+        .add("thumbnailFileName=" + thumbnailFileName)
+        .add("vocaDbPvId=" + vocaDbPvId)
+        .add("downloaderName=" + downloaderName)
+        .add("processedAudioFileName=" + processedAudioFileName)
+        .toString();
+  }
+
+  /**
+   * Creates a new {@code VSongLabel} instance.
+   *
+   * @param labelFileName the file name of this label itself <br/>
+   * we need the label name recorded in the label itself
+   * as various VSong naming methods are not globally available anymore
+   * @param infoFileName
+   * @param order order value always start at 1, not the programmer's 0-based index
+   * @param pvFileName
+   * @param audioFileName
+   * @param thumbnailFileName
+   * @param vocaDbPvId need the VocaDB ID of the pv so that we know which PV is successfully downloaded
+   * <p>
+   * the VocaDB PV ID should always be positive.
+   * @param downloaderName
+   * @param processedAudioFileName the name of the final output audio file that has thumbnail and tags properly added
+   */
+  public VSongLabel(final String labelFileName, final String infoFileName, final long order, final String pvFileName, final String audioFileName, final String thumbnailFileName, final int vocaDbPvId, final String downloaderName, final String processedAudioFileName) {
+    this.labelFileName = labelFileName;
+    this.infoFileName = infoFileName;
+    this.order = order;
+    this.pvFileName = pvFileName;
+    this.audioFileName = audioFileName;
+    this.thumbnailFileName = thumbnailFileName;
+    this.vocaDbPvId = vocaDbPvId;
+    this.downloaderName = downloaderName;
+    this.processedAudioFileName = processedAudioFileName;
+  }
 }
 
 /**
@@ -86,8 +373,7 @@ public class VSongLabel {
 @Retention(RUNTIME)
 @Documented
 @interface HasRequiredResource {
-
-  String message() default "Doesn't contain required resources";
+  String message() default "Doesn\'t contain required resources";
 
   Class<?>[] groups() default {};
 
@@ -95,7 +381,6 @@ public class VSongLabel {
 }
 
 class HasRequiredResourceValidator implements ConstraintValidator<HasRequiredResource, VSongLabel> {
-
   @Override
   public boolean isValid(VSongLabel value, jakarta.validation.ConstraintValidatorContext context) {
     var hasMedia = StringUtils.isNotBlank(value.getPvFileName()) || StringUtils.isNotBlank(value.getAudioFileName());
@@ -103,15 +388,19 @@ class HasRequiredResourceValidator implements ConstraintValidator<HasRequiredRes
     var result = hasMedia && hasThumbnail;
     if (!result) {
       context.disableDefaultConstraintViolation();
+      var hibernateContext = context.unwrap(HibernateConstraintValidatorContext.class);
       if (!hasMedia) {
-        context.buildConstraintViolationWithTemplate("%s must contain at least one of a PV file or an audio file".formatted(value.infoFileName))
+        hibernateContext
+            .addMessageParameter("infoFileName", value.getInfoFileName())
+            .buildConstraintViolationWithTemplate("{infoFileName} must contain at least one of a PV file or an audio file")
             .addPropertyNode("pvFileName")
             .addPropertyNode("audioFileName")
             .addConstraintViolation();
       }
-
       if (!hasThumbnail) {
-        context.buildConstraintViolationWithTemplate("%s must contain a thumbnail file".formatted(value.infoFileName))
+        hibernateContext
+            .addMessageParameter("infoFileName", value.getInfoFileName())
+            .buildConstraintViolationWithTemplate("{infoFileName} must contain a thumbnail file")
             .addPropertyNode("thumbnailFileName")
             .addConstraintViolation();
       }
