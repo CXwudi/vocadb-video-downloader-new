@@ -180,15 +180,14 @@
           <artifactId>kotlin-maven-plugin</artifactId>
           <version>${kotlin.version}</version>
           <configuration>
-            <args>
-              <arg>-Xjsr305=strict</arg>
-              <arg>-Xemit-jvm-type-annotations</arg>
-            </args>
-            <compilerPlugins>
-              <plugin>spring</plugin>
-            </compilerPlugins>
-            <!-- annotation processing just let lombok work in kotlin -->
-          </configuration>
+          <args>
+            <arg>-Xjsr305=strict</arg>
+            <arg>-Xemit-jvm-type-annotations</arg>
+          </args>
+          <compilerPlugins>
+            <plugin>spring</plugin>
+          </compilerPlugins>
+        </configuration>
           <dependencies>
             <dependency>
               <groupId>org.jetbrains.kotlin</groupId>

@@ -389,10 +389,10 @@ class HasRequiredResourceValidator implements ConstraintValidator<HasRequiredRes
     if (!result) {
       context.disableDefaultConstraintViolation();
       if (!hasMedia) {
-        context.buildConstraintViolationWithTemplate("%s must contain at least one of a PV file or an audio file".formatted(value.infoFileName)).addPropertyNode("pvFileName").addPropertyNode("audioFileName").addConstraintViolation();
+        context.buildConstraintViolationWithTemplate("%s must contain at least one of a PV file or an audio file".formatted(value.getInfoFileName())).addPropertyNode("pvFileName").addPropertyNode("audioFileName").addConstraintViolation();
       }
       if (!hasThumbnail) {
-        context.buildConstraintViolationWithTemplate("%s must contain a thumbnail file".formatted(value.infoFileName)).addPropertyNode("thumbnailFileName").addConstraintViolation();
+        context.buildConstraintViolationWithTemplate("%s must contain a thumbnail file".formatted(value.getInfoFileName())).addPropertyNode("thumbnailFileName").addConstraintViolation();
       }
     }
     return result;
