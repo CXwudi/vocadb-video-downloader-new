@@ -17,10 +17,6 @@ These 3 steps are implemented respectively as:
 2. [`vvd-downloader`](./vvd-downloader)
 3. [`vvd-extractor`](./vvd-extractor)
 
-## Prerequisites
-
-1. Java 25 or above.
-
 All 3 modules share a common document. Please read it first:
 [Common document](./doc/common%20part.md)
 
