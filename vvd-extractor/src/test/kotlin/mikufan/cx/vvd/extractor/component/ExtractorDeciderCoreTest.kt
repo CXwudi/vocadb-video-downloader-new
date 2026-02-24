@@ -111,7 +111,7 @@ class ExtractorDeciderCoreTest {
     }
 
     val mockChecker = mockk<MediaFormatChecker> {
-      every { checkAudioFormat(any()) } returns "wired format"
+      every { checkAudioFormat(any()) } returns "weird format"
     }
 
     val pvFileName = "$baseInputFileName.mp4"

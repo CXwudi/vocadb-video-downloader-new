@@ -56,9 +56,15 @@ class BeforeProcessLabelValidatorFailureTest(
   }
 
   fun failureCases(): List<FailureCase> {
-    val oneRecord = labelsReader.readRecord()!!
-    val anotherRecord = labelsReader.readRecord()!!
-    val thirdRecord = labelsReader.readRecord()!!
+    val oneRecord = checkNotNull(labelsReader.readRecord()) {
+      "Expected at least 3 records, but record[0] was null."
+    }
+    val anotherRecord = checkNotNull(labelsReader.readRecord()) {
+      "Expected at least 3 records, but record[1] was null."
+    }
+    val thirdRecord = checkNotNull(labelsReader.readRecord()) {
+      "Expected at least 3 records, but record[2] was null."
+    }
 
     return listOf(
       FailureCase(

@@ -104,7 +104,10 @@ class BeforeProcessLabelValidatorSuccessTest(
   @BeforeAll
   fun loadRecords() {
     repeat(10) {
-      records.add(labelsReader.readRecord()!!)
+      val record = checkNotNull(labelsReader.readRecord()) {
+        "Expected at least 10 records in the input directory, but ran out at index $it"
+      }
+      records.add(record)
     }
   }
 

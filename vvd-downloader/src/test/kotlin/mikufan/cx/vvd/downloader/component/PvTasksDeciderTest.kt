@@ -47,11 +47,13 @@ class PvTasksDeciderWithServiceAndTypeSortingOrderTest(
     return testList.flatMap { task ->
       val pvs = task.payload.parameters.pvCandidates
       val songName = task.payload.parameters.songForApiContract?.defaultName ?: "Null name"
-      assertThat(pvs).isNotNull()
-      val pvList = pvs!!
 
       listOf(
+        dynamicTest("pvCandidates is not null for $songName") {
+          assertThat(pvs).isNotNull()
+        },
         dynamicTest("correctly sort pv services for $songName") {
+          val pvList = requireNotNull(pvs) { "pvCandidates is null for $songName" }
           val remainder = pvList
             .dropWhile { it.service == PVService.BILIBILI }
             .dropWhile { it.service == PVService.NICONICODOUGA }
@@ -59,6 +61,7 @@ class PvTasksDeciderWithServiceAndTypeSortingOrderTest(
           assertThat(remainder).isEmpty()
         },
         dynamicTest("correctly sort pv types for each pv services for $songName") {
+          val pvList = requireNotNull(pvs) { "pvCandidates is null for $songName" }
           for (pvService in listOf(PVService.BILIBILI, PVService.NICONICODOUGA, PVService.YOUTUBE)) {
             val pvsForService = pvList.filter { it.service == pvService }
             val remainder = pvsForService
@@ -94,11 +97,13 @@ class PvTasksDeciderWithTypeAndServiceSortingOrderTest(
     return testList.flatMap { task ->
       val pvs = task.payload.parameters.pvCandidates
       val songName = task.payload.parameters.songForApiContract?.defaultName ?: "Null name"
-      assertThat(pvs).isNotNull()
-      val pvList = pvs!!
 
       listOf(
+        dynamicTest("pvCandidates is not null for $songName") {
+          assertThat(pvs).isNotNull()
+        },
         dynamicTest("correctly sort pv types for $songName") {
+          val pvList = requireNotNull(pvs) { "pvCandidates is null for $songName" }
           val remainder = pvList
             .dropWhile { it.pvType == PVType.ORIGINAL }
             .dropWhile { it.pvType == PVType.OTHER }
@@ -106,6 +111,7 @@ class PvTasksDeciderWithTypeAndServiceSortingOrderTest(
           assertThat(remainder).isEmpty()
         },
         dynamicTest("correctly sort pv services for each pv types for $songName") {
+          val pvList = requireNotNull(pvs) { "pvCandidates is null for $songName" }
           for (pvType in listOf(PVType.ORIGINAL, PVType.OTHER, PVType.REPRINT)) {
             val pvsForType = pvList.filter { it.pvType == pvType }
             val remainder = pvsForType

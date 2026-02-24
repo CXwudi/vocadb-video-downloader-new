@@ -18,7 +18,7 @@ class LabelsReaderTest(
         assertThat(count).isEqualTo(record.payload.label.order)
       }
     } while (record != null)
-    // our own sample input directory have 170 labels
+    // our own sample input directory have 154 labels
     assertThat(count).isEqualTo(154) // WARNING: update the count when changed to new list
   }
 }

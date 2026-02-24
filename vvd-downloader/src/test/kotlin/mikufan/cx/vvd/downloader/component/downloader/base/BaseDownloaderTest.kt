@@ -79,10 +79,12 @@ class BaseDownloaderTest(
         fail("should not fail")
       }.onSuccess {
         val (pvFile, audioFile, thumbnailFile) = it
-        pvFile?.let { file ->
+        assertThat(pvFile).isNotNull()
+        pvFile!!.let { file ->
           assertThat(file.fileName.toString()).endsWith("-pv.${file.extension}")
         }
-        audioFile?.let { file ->
+        assertThat(audioFile).isNotNull()
+        audioFile!!.let { file ->
           assertThat(file.fileName.toString()).endsWith("-audio.${file.extension}")
         }
         assertThat(thumbnailFile.fileName.toString()).endsWith("-thumbnail.${thumbnailFile.extension}")
