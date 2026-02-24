@@ -4,6 +4,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException;
 import mikufan.cx.vvd.common.validation.annotation.PathsNotSame;
+import org.hibernate.validator.constraintvalidation.HibernateConstraintValidatorContext;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -34,6 +35,7 @@ public class ValidatePathsNotSameValidator implements ConstraintValidator<PathsN
 
   private boolean realValidate(Object object, ConstraintValidatorContext context) {
     context.disableDefaultConstraintViolation();
+    var hibernateContext = context.unwrap(HibernateConstraintValidatorContext.class);
     var paths = new ArrayList<Path>(fields.length);
 
     for (var field : fields){
@@ -48,13 +50,20 @@ public class ValidatePathsNotSameValidator implements ConstraintValidator<PathsN
         var path2 = paths.get(j);
         var field2 = fields[j];
         if (path1 == null && path2 == null){
-          context.buildConstraintViolationWithTemplate(String.format("fields \"%s\" and \"%s\" can not be same path as null path", field1, field2))
+          hibernateContext
+              .addMessageParameter("field1", field1)
+              .addMessageParameter("field2", field2)
+              .buildConstraintViolationWithTemplate("fields \"{field1}\" and \"{field2}\" can not be same path as null path")
               .addPropertyNode(field1)
               .addPropertyNode(field2)
               .addConstraintViolation();
           return false;
         } else if (path1 != null && path1.equals(path2)){
-          context.buildConstraintViolationWithTemplate(String.format("fields \"%s\" and \"%s\" can not be same path of %s", field1, field2, path1))
+          hibernateContext
+              .addMessageParameter("field1", field1)
+              .addMessageParameter("field2", field2)
+              .addMessageParameter("path", String.valueOf(path1))
+              .buildConstraintViolationWithTemplate("fields \"{field1}\" and \"{field2}\" can not be same path of {path}")
               .addPropertyNode(field1)
               .addPropertyNode(field2)
               .addConstraintViolation();
@@ -68,6 +77,7 @@ public class ValidatePathsNotSameValidator implements ConstraintValidator<PathsN
 
 
   private Path getPath(Object object, String fieldName, ConstraintValidatorContext context){
+    var hibernateContext = context.unwrap(HibernateConstraintValidatorContext.class);
     Path path = null;
     try {
       var field = object.getClass().getDeclaredField(fieldName);
@@ -78,17 +88,24 @@ public class ValidatePathsNotSameValidator implements ConstraintValidator<PathsN
       } else if (rawObjectPath instanceof File fieldFile){
         path = fieldFile.toPath();
       } else {
-        context.buildConstraintViolationWithTemplate(String.format("The field is not a path: %s", fieldName))
+        hibernateContext
+            .addMessageParameter("fieldName", fieldName)
+            .buildConstraintViolationWithTemplate("The field is not a path: {fieldName}")
             .addPropertyNode(fieldName)
             .addConstraintViolation();
       }
     } catch (IllegalAccessException e) {
-      context.buildConstraintViolationWithTemplate(String.format("Can not access field: %s, %s", fieldName, e.getMessage()))
+      hibernateContext
+          .addMessageParameter("fieldName", fieldName)
+          .addMessageParameter("error", e.getMessage())
+          .buildConstraintViolationWithTemplate("Can not access field: {fieldName}, {error}")
           .addPropertyNode(fieldName)
           .addConstraintViolation();
       return null;
     } catch (NoSuchFieldException e) {
-      context.buildConstraintViolationWithTemplate(String.format("Can not find field: %s", fieldName))
+      hibernateContext
+          .addMessageParameter("fieldName", fieldName)
+          .buildConstraintViolationWithTemplate("Can not find field: {fieldName}")
           .addPropertyNode(fieldName)
           .addConstraintViolation();
       return null;

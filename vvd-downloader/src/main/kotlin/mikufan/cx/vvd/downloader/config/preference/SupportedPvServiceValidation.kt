@@ -6,6 +6,7 @@ import jakarta.validation.ConstraintValidatorContext
 import jakarta.validation.Payload
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.commonkt.vocadb.api.model.PVService
+import org.hibernate.validator.constraintvalidation.HibernateConstraintValidatorContext
 import org.springframework.util.CollectionUtils
 import kotlin.reflect.KClass
 
@@ -49,6 +50,7 @@ class SupportPvServicesValidator : ConstraintValidator<AreSupportedPvServices, L
 
   override fun isValid(value: List<PVService>?, context: ConstraintValidatorContext): Boolean {
     context.disableDefaultConstraintViolation()
+    val hibernateContext = context.unwrap(HibernateConstraintValidatorContext::class.java)
     return when {
       CollectionUtils.isEmpty(value) -> {
         true
@@ -59,16 +61,16 @@ class SupportPvServicesValidator : ConstraintValidator<AreSupportedPvServices, L
           log.debug { "Enabled PV Services: $value" }
           true
         } else {
-          context
-            .buildConstraintViolationWithTemplate(
-              "${unsupportedServices.joinToString()} " +
-                  "${
-                    when (unsupportedServices.size) {
-                      1 -> "is"
-                      else -> "are"
-                    }
-                  } not supported yet"
-            )
+          val isSingleService = unsupportedServices.size == 1
+          val template = if (isSingleService) {
+            "{unsupportedService} is not supported yet"
+          } else {
+            "{unsupportedServices} are not supported yet"
+          }
+          hibernateContext
+            .addMessageParameter("unsupportedService", unsupportedServices.first())
+            .addMessageParameter("unsupportedServices", unsupportedServices.joinToString())
+            .buildConstraintViolationWithTemplate(template)
             .addConstraintViolation()
           false
         }
