@@ -13,8 +13,8 @@ import mikufan.cx.vvd.taskproducer.component.api.VocaDbClient
  */
 @SpringBootTest
 internal class ApiConfigTest(
-  @Autowired val vocaDbClient: VocaDbClient,
-  @Autowired val systemConfig: SystemConfig
+  @param:Autowired val vocaDbClient: VocaDbClient,
+  @param:Autowired val systemConfig: SystemConfig
 ){
 
   @Test

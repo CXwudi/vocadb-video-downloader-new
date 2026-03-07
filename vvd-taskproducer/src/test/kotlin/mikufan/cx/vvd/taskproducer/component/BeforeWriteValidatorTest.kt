@@ -22,8 +22,8 @@ import java.time.LocalDateTime
  */
 @SpringBootTest
 internal class BeforeWriteValidatorTest(
-  @Autowired val beforeWriteValidator: BeforeWriteValidator,
-  @Autowired val objectMapper: ObjectMapper
+  @param:Autowired val beforeWriteValidator: BeforeWriteValidator,
+  @param:Autowired val objectMapper: ObjectMapper
 ) {
 
   lateinit var dummyRecord: GenericRecord<VSongTask>
@@ -56,4 +56,3 @@ internal class BeforeWriteValidatorTest(
 }
 
 private val log = KInlineLogging.logger()
-

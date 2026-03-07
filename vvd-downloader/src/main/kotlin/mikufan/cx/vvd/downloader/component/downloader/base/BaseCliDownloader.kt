@@ -167,7 +167,7 @@ abstract class BaseCliDownloader(
           log.warn { "Find out the file ${file.fileName} is not a video or audio or image type" }
           DownloadFileType.OTHERS
         } else {
-          when (val typeName = tracks[1]["@type"].asText().lowercase()) {
+          when (val typeName = tracks[1]["@type"].asString().lowercase()) {
             "video" -> DownloadFileType.PV
             "audio" -> DownloadFileType.AUDIO
             "image" -> DownloadFileType.THUMBNAIL
@@ -189,4 +189,3 @@ abstract class BaseCliDownloader(
 }
 
 private val log = KInlineLogging.logger()
-

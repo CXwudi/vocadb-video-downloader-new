@@ -8,7 +8,6 @@ import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vvd.common.exception.RuntimeVocaloidException
 import mikufan.cx.vvd.extractor.config.EnvironmentConfig
 import mikufan.cx.vvd.extractor.config.ProcessConfig
-import org.apache.commons.lang3.mutable.MutableObject
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Component
 import java.nio.file.Path
@@ -25,7 +24,7 @@ class MediaFormatChecker(
   environmentConfig: EnvironmentConfig,
   private val objectMapper: ObjectMapper,
   private val processConfig: ProcessConfig,
-  @Qualifier("mediainfoThreadPool")
+  @param:Qualifier("mediainfoThreadPool")
   private val threadPool: ThreadPoolExecutor,
 ) {
 
@@ -48,18 +47,18 @@ class MediaFormatChecker(
       add("--output=JSON")
       add(mediaFile.toString())
     }
-    val jsonHolder = MutableObject<JsonNode>()
+    val sb = StringBuilder()
     runCmd(cmd).sync(processConfig.timeout, processConfig.unit, threadPool) {
-      onStdOut { jsonHolder.value = objectMapper.readTree(this) }
+      onStdOut { sb.append(this.readText()) }
     }
-    val mediainfoJson = jsonHolder.value
+    val mediainfoJson = objectMapper.readTree(sb.toString())
     val tracks = mediainfoJson["media"]["track"]
     if (tracks.size() <= 1) {
       throw RuntimeVocaloidException("mediainfo shows $mediaFile has no tracks: $mediainfoJson")
     }
-    val audioTrack = tracks.firstOrNull { it["@type"].asText().lowercase() == "audio" }
+    val audioTrack = tracks.firstOrNull { it["@type"].asString("").lowercase() == "audio" }
       ?: throw RuntimeVocaloidException("mediainfo shows $mediaFile has no audio track: $mediainfoJson")
-    val audioFormat = audioTrack["Format"].asText().lowercase()
+    val audioFormat = audioTrack["Format"].asString("").lowercase()
     log.debug { "mediainfo shows $mediaFile has audio track with format $audioFormat" }
     return audioFormat
   }
@@ -71,18 +70,18 @@ class MediaFormatChecker(
       add("--output=JSON")
       add(imageFile.toString())
     }
-    val jsonHolder = MutableObject<JsonNode>()
+    val sb = StringBuilder()
     runCmd(cmd).sync(processConfig.timeout, processConfig.unit, threadPool) {
-      onStdOut { jsonHolder.value = objectMapper.readTree(this) }
+      onStdOut { sb.append(this.readText()) }
     }
-    val mediainfoJson = jsonHolder.value
+    val mediainfoJson = objectMapper.readTree(sb.toString())
     val tracks = mediainfoJson["media"]["track"]
     if (tracks.size() <= 1) {
       throw RuntimeVocaloidException("mediainfo shows $imageFile has no tracks: $mediainfoJson")
     }
-    val imageTrack = tracks.firstOrNull { it["@type"].asText().lowercase() == "image" }
+    val imageTrack = tracks.firstOrNull { it["@type"].asString("").lowercase() == "image" }
       ?: throw RuntimeVocaloidException("mediainfo shows $imageFile has no image: $mediainfoJson")
-    val imageMimeType = normalizeImageType(imageTrack["Format"].asText())
+    val imageMimeType = normalizeImageType(imageTrack["Format"].asString(""))
     log.debug { "mediainfo shows $imageFile has image with mimetype $imageMimeType" }
     return imageMimeType
   }

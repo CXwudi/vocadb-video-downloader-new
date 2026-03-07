@@ -27,9 +27,9 @@ import kotlin.io.path.name
  */
 @SpringBootTest
 class ErrorRecordTest(
-  @Autowired val recordErrorWriter: RecordErrorWriter,
-  @Autowired val objectMapper: ObjectMapper,
-  @Autowired ioConfig: IOConfig
+  @param:Autowired val recordErrorWriter: RecordErrorWriter,
+  @param:Autowired val objectMapper: ObjectMapper,
+  @param:Autowired ioConfig: IOConfig
 ) {
   val errorDirectory = ioConfig.errorDirectory
   lateinit var dummyRecord: GenericRecord<VSongTask>
@@ -65,4 +65,3 @@ class ErrorRecordTest(
     assertTrue(list.any { it.name.contains("failure record") })
   }
 }
-

@@ -26,7 +26,9 @@ import kotlin.io.path.isRegularFile
  */
 @SpringBootTest
 internal class LabelSaverTest(
-  @Autowired val labelSaver: LabelSaver, @Autowired val objectMapper: ObjectMapper, @Autowired ioConfig: IOConfig
+  @param:Autowired val labelSaver: LabelSaver,
+  @param:Autowired val objectMapper: ObjectMapper,
+  @param:Autowired ioConfig: IOConfig
 ) {
   val outputDirectory = ioConfig.outputDirectory
 
@@ -55,4 +57,3 @@ internal class LabelSaverTest(
     assertTrue(outputDirectory.resolve("【various】PaⅢ.REVOLUTION【雄之助, 攻】[299406]-songInfo.json").isRegularFile())
   }
 }
-

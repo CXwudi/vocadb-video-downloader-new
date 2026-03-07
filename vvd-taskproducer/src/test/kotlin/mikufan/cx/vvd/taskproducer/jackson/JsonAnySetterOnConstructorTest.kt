@@ -66,7 +66,7 @@ class JsonAnySetterOnConstructorTest {
     assertEquals(2, result.additionalProperties.size)
     assertNotNull(result.additionalProperties["unknownField"])
     assertNotNull(result.additionalProperties["anotherField"])
-    assertEquals("unknownValue", result.additionalProperties["unknownField"]?.asText())
+    assertEquals("unknownValue", result.additionalProperties["unknownField"]?.asString(""))
     assertEquals(42, result.additionalProperties["anotherField"]?.asInt())
   }
 
@@ -79,8 +79,8 @@ class JsonAnySetterOnConstructorTest {
     val reparsed = objectMapper.readTree(serialized)
 
     assertEquals(1, reparsed["id"].asInt())
-    assertEquals("test", reparsed["name"].asText())
-    assertEquals("unknownValue", reparsed["unknownField"].asText())
+    assertEquals("test", reparsed["name"]?.asString(""))
+    assertEquals("unknownValue", reparsed["unknownField"]?.asString(""))
   }
 
   @Test
@@ -97,7 +97,7 @@ class JsonAnySetterOnConstructorTest {
     assertEquals(2, result.additionalProperties.size)
     assertNotNull(result.additionalProperties["unknownField"])
     assertNotNull(result.additionalProperties["anotherField"])
-    assertEquals("unknownValue", result.additionalProperties["unknownField"]?.asText())
+    assertEquals("unknownValue", result.additionalProperties["unknownField"]?.asString(""))
     assertEquals(42, result.additionalProperties["anotherField"]?.asInt())
   }
 

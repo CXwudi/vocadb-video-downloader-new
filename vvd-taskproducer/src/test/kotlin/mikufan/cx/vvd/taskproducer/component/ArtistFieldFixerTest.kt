@@ -19,8 +19,8 @@ import java.time.LocalDateTime
  */
 @SpringBootTest
 internal class ArtistFieldFixerTest(
-  @Autowired val artistFieldFixer: ArtistFieldFixer,
-  @Autowired val objectMapper: ObjectMapper
+  @param:Autowired val artistFieldFixer: ArtistFieldFixer,
+  @param:Autowired val objectMapper: ObjectMapper
 ){
 
   lateinit var dummyRecord: GenericRecord<VSongTask>
@@ -62,4 +62,3 @@ internal class ArtistFieldFixerTest(
 
   //TODO: more complex test
 }
-

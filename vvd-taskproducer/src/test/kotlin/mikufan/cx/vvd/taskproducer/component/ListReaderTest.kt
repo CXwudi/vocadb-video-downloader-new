@@ -19,7 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest
 ])
 @Disabled
 internal class ListReaderTest(
-  @Autowired val listReader: ListReader
+  @param:Autowired val listReader: ListReader
 ){
 
   @Test

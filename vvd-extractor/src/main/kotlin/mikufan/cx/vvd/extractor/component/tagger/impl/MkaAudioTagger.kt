@@ -29,7 +29,7 @@ class MkaAudioTagger(
   ioConfig: IOConfig,
   environmentConfig: EnvironmentConfig,
   private val processConfig: ProcessConfig,
-  @Qualifier("taggerThreadPool") private val threadPool: ThreadPoolExecutor,
+  @param:Qualifier("taggerThreadPool") private val threadPool: ThreadPoolExecutor,
   private val mediainfoChecker: MediaFormatChecker,
 ) : BaseAudioTagger() {
   private val mkvpropeditLaunchCmd = environmentConfig.mkvpropeditLaunchCmd

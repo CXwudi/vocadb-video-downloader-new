@@ -22,7 +22,7 @@ data class SongInListForApiContract(
  * Partial list response wrapper for song list queries.
  */
 data class SongInListForApiContractPartialFindResult(
-  @JsonSetter(nulls = Nulls.AS_EMPTY)
+  @param:JsonSetter(nulls = Nulls.AS_EMPTY)
   val items: List<SongInListForApiContract> = emptyList(),
   val term: String? = null,
   val totalCount: Int? = null,
@@ -30,4 +30,3 @@ data class SongInListForApiContractPartialFindResult(
   @get:JsonAnyGetter
   val additionalProperties: Map<String, JsonNode> = emptyMap()
 )
-

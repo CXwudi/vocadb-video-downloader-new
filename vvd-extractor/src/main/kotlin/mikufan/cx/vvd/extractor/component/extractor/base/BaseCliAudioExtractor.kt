@@ -15,7 +15,7 @@ import kotlin.io.path.listDirectoryEntries
  */
 abstract class BaseCliAudioExtractor(
   protected val processConfig: ProcessConfig,
-  @Qualifier("extractorThreadPool") protected val threadPool: ThreadPoolExecutor
+  @param:Qualifier("extractorThreadPool") protected val threadPool: ThreadPoolExecutor
 ) : BaseAudioExtractor() {
 
   /**

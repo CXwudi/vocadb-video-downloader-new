@@ -18,7 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest
 )
 @Disabled // just to make sure main service runs on real production
 internal class MainServiceTest(
-  @Autowired private val mainService: MainService
+  @param:Autowired private val mainService: MainService
 ) {
 
   @Test

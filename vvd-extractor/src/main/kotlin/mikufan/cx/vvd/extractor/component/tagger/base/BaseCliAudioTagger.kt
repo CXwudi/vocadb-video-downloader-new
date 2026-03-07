@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadPoolExecutor
  */
 abstract class BaseCliAudioTagger(
   protected val processConfig: ProcessConfig,
-  @Qualifier("taggerThreadPool") protected val threadPool: ThreadPoolExecutor
+  @param:Qualifier("taggerThreadPool") protected val threadPool: ThreadPoolExecutor
 ) : BaseAudioTagger() {
 
   override fun tryTag(audioFile: Path, allInfo: VSongTask) {

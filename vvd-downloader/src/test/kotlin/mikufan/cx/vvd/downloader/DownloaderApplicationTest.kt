@@ -13,7 +13,7 @@ import org.springframework.context.ApplicationContext
  */
 @SpringBootTestWithTestProfile
 internal class DownloaderApplicationTest(
-  @Autowired val ctx: ApplicationContext
+  @param:Autowired val ctx: ApplicationContext
  ) {
 
   @Test

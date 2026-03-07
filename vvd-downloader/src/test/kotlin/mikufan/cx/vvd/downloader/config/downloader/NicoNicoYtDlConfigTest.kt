@@ -16,7 +16,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory
 @SpringBootTestWithTestProfile
 internal class NicoNicoYtDlConfigTest(
   // the niconico config bean should exist
-  @Autowired val nicoNicoYtDlConfig: NicoNicoYtDlConfig
+  @param:Autowired val nicoNicoYtDlConfig: NicoNicoYtDlConfig
 ) {
   @Test
   fun exist() {
@@ -33,7 +33,7 @@ private val log = KInlineLogging.logger()
   ]
 )
 internal class NicoNicoYtDlConfigConditionalSkippedTest(
-  @Autowired val beanFactory: ConfigurableBeanFactory
+  @param:Autowired val beanFactory: ConfigurableBeanFactory
 ) {
   @Test
   fun notExist() {

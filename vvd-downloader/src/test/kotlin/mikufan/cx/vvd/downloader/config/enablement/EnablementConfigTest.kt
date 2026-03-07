@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired
   ]
 )
 internal class EnablementConfig2Test(
-  @Autowired val enablement: Enablement
+  @param:Autowired val enablement: Enablement
 ) {
   @Test
   fun correctlyEnable() {
